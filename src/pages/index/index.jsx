@@ -22,7 +22,7 @@ export default class Index extends Component {
   componentDidShow () { }
 
   componentDidHide () { }
-
+  //a
   render () {
     return (
       <View className='index'>
