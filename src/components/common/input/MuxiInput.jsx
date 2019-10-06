@@ -1,6 +1,6 @@
 import Taro, {Component} from '@tarojs/taro'
 import {Input, View, Image} from '@tarojs/components'
-import './MuxiInput.less'
+import './MuxiInput.scss'
 
 function getInputProps(props){
     const actualProps = {
@@ -52,7 +52,9 @@ class MuxiInput extends Component{
             imgWidth,
             border,
             inputWidth,
-            inputHeight
+            inputHeight,
+            presrc,
+            postsrc,
         } = this.props
 
         const {
@@ -82,7 +84,7 @@ class MuxiInput extends Component{
 
         return(
             <View style={boxStyle}>
-                <Image style={preImgStyle} src='a.jpg' onClick={this.onClick}></Image>
+                <Image style={preImgStyle} src={presrc} onClick={this.onClick}></Image>
                 <Input
                     style={inputStyle}
                     type={type}
@@ -92,7 +94,7 @@ class MuxiInput extends Component{
                     onBlur={this.onBlur}
                     onConfirm={this.onConfirm}
                 />
-                <Image style={postImgStyle} src='a.jpg' onClick={this.onClick}></Image>
+                <Image style={postImgStyle} src={postsrc} onClick={this.onClick}></Image>
             </View>
         )
     }
@@ -110,7 +112,11 @@ MuxiInput.defaultProps = {
     postsrc: '',
     className: '',
     placeholder: '',
-    type: 'text'
+    type: 'text',
+    onChange: () => {},
+    onFocus: () => {},
+    onBlur: () => {},
+    onConfirm: () => {}
 }
 
 export default MuxiInput;

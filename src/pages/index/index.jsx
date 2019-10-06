@@ -1,7 +1,8 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import './index.less'
+import './index.scss'
 import MuxiInput from '../../components/common/input/MuxiInput'
+import MxRate from '../../components/common/MxRate/MxRate'
 
 export default class Index extends Component {
 
@@ -9,13 +10,16 @@ export default class Index extends Component {
     navigationBarTitleText: '首页'
   }
 
+  constructor () {
+    super(...arguments)
+    this.state = {
+      value: 2
+    }
+  }
+
   componentWillMount () { }
 
-  componentDidMount () { 
-    this.setState({
-      name:"hello"
-    })
-  }
+  componentDidMount () { }
 
   componentWillUnmount () { }
 
@@ -23,18 +27,30 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
+  handleChange (value) {
+    this.setState({
+      value
+    })
+  }
+
   render () {
     return (
       <View className='index'>
         <Text>{this.state.name}</Text>
         <MuxiInput
-          type='text'
+          type='password'
           placeholder='this is placeholder'
           pre='true'
           post='true'
           imgWidth='30px'
           imgHeight='30px'
           inputWidth='280px'
+        />
+        <MxRate 
+          commont={true} 
+          size='28'
+          value={this.state.value}
+          onChange={this.handleChange.bind(this)}
         />
       </View>
     )
