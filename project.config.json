@@ -1,13 +1,43 @@
 {
-  "miniprogramRoot": "./dist",
-  "projectname": "muxi_KeStack_fe",
-  "description": "",
-  "appid": "touristappid",
-  "setting": {
-    "urlCheck": true,
-    "es6": false,
-    "postcss": false,
-    "minified": false
-  },
-  "compileType": "miniprogram"
+	"miniprogramRoot": "dist/",
+	"projectname": "%E6%9C%A8%E7%8A%80%E8%AF%BE%E6%A0%88",
+	"description": "",
+	"appid": "touristappid",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true
+	},
+	"compileType": "miniprogram",
+	"qqappid": "1108100302",
+	"condition": {
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "input",
+					"pathName": "components/common/input/MuxiInput",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": 1,
+					"name": "MxRate",
+					"pathName": "components/common/MxRate/MxRate",
+					"query": "show={true}&value='4'",
+					"scene": ""
+				}
+			]
+		}
+	}
 }
