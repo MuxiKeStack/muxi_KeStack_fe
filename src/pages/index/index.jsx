@@ -3,6 +3,7 @@ import { View, Text } from '@tarojs/components'
 import './index.scss'
 import MuxiInput from '../../components/common/input/MuxiInput'
 import MxRate from '../../components/common/MxRate/MxRate'
+import MxTag from '../../components/common/tag/MuxiTag'
 
 export default class Index extends Component {
 
@@ -10,9 +11,9 @@ export default class Index extends Component {
     navigationBarTitleText: '首页'
   }
 
-  constructor (){
+  constructor() {
     super(...arguments)
-    this.state ={
+    this.state = {
       tagList: [
         { name: '简单易学', active: false },
         { name: '老师温柔', active: false },
@@ -23,34 +24,34 @@ export default class Index extends Component {
       ],
       value: 2
     }
-}
-onClick (data) {
-  const { tagList } = this.state
-  const findIndex = tagList.findIndex(item => item.name === data.name)
-  const active = !tagList[findIndex].active
- 
-  tagList[findIndex].active = active
-  this.setState({ tagList })
+  }
+  onClick(data) {
+    const { tagList } = this.state
+    const findIndex = tagList.findIndex(item => item.name === data.name)
+    const active = !tagList[findIndex].active
 
-}
+    tagList[findIndex].active = active
+    this.setState({ tagList })
 
-  componentWillMount () { }
+  }
 
-  componentDidMount () { }
+  componentWillMount() { }
 
-  componentWillUnmount () { }
+  componentDidMount() { }
 
-  componentDidShow () { }
+  componentWillUnmount() { }
 
-  componentDidHide () { }
+  componentDidShow() { }
 
-  handleChange (value) {
+  componentDidHide() { }
+
+  handleChange(value) {
     this.setState({
       value
     })
   }
 
-  render () {
+  render() {
     return (
       <View className='index'>
         <Text>{this.state.name}</Text>
@@ -63,25 +64,25 @@ onClick (data) {
           imgHeight='30px'
           inputWidth='280px'
         />
-        <MxRate 
-          commont={true} 
+        <MxRate
+          commont={true}
           size='28'
           value={this.state.value}
           onChange={this.handleChange.bind(this)}
         />
         <View className='tag'>
-          {this.state.tagList.map((item, index) => 
-          <View className='subitem' key={index}>
-            <MuxiTag name={item.name} type='primary' active={item.active} circle onClick={this.onClick.bind(this)}>
-               {item.name}
-            </MuxiTag>
-          </View>
+          {this.state.tagList.map((item, index) =>
+            <View className='subitem' key={index}>
+              <MxTag name={item.name} type='primary' active={item.active} circle onClick={this.onClick.bind(this)}>
+                {item.name}
+              </MxTag>
+            </View>
           )}
         </View>
         <MuxiFab
           size='normal'
           onClick={this.onClick.bind(this)}>
-            评课
+          评课
         </MuxiFab>
       </View>
     )
