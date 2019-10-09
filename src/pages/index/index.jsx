@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text , Image} from '@tarojs/components'
 import './index.scss'
-import MuxiInput from '../../components/common/input/MuxiInput'
+import MxInput from '../../components/common/MxInput/MxInput'
 import MxRate from '../../components/common/MxRate/MxRate'
 
 export default class Index extends Component {
@@ -37,20 +37,21 @@ export default class Index extends Component {
     return (
       <View className='index'>
         <Text>{this.state.name}</Text>
-        <MuxiInput
-          type='password'
+        <MxInput
           placeholder='this is placeholder'
-          pre='true'
-          post='true'
-          imgWidth='30px'
-          imgHeight='30px'
-          inputWidth='280px'
+          background='#F1F0F5'
+          border={true}
+          radius='52px'
         />
         <MxRate 
           commont={true} 
           size='28'
           value={this.state.value}
           onChange={this.handleChange.bind(this)}
+        />
+        <Image 
+          style='width: 30px; height: 30px'
+          src='../../assets/png/starFill.png'
         />
       </View>
     )

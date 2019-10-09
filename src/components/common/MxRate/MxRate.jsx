@@ -29,22 +29,16 @@ class MxRate extends Component{
                 classNameArr.push('off')
             }
         }
-
+        // ☆☆☆☆☆
+        // ★★★★★
         return(
             <View style={starIconStyle}>
                 {!commont && <View>
-                    <View className='empty'>☆☆☆☆☆
-                        <View className='full'>★★★★★</View>
+                    <View className='empty'>
+                        <View className='full'></View>
                     </View>
                     {show && <View>{score}分</View>}
                 </View>}
-                {/* {commont && <View>
-                        <View>☆</View>
-                        <View>☆</View>
-                        <View>☆</View>
-                        <View>☆</View>
-                        <View>☆</View>
-                </View>} */}
                 {commont && <View>
                     {
                         classNameArr.map((cls, i) => <View
@@ -52,7 +46,6 @@ class MxRate extends Component{
                         key={i}
                         onClick={this.handleClick.bind(this, i + 1)}
                     >
-                    ☆
                     </View>)
                     }
                 </View>
@@ -64,7 +57,7 @@ class MxRate extends Component{
 }
 
 MxRate.defaultProps = {
-    value: '0',
+    value: '2',
     size: '',
     show: false,
     commont: false,

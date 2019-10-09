@@ -1,18 +1,48 @@
 View{
     display: inline-block;
 }
+// .empty{
+//     position: relative;
+//     color: #9256BA;
+// }
+// .full{
+//     color:#9256BA;
+//     position: absolute;
+//     width: 75px;
+//     top: 0;
+//     left: 0;
+//     overflow: hidden;
+// }
 .empty{
+    width: 215px;
+    height: 43px;
     position: relative;
-    color: yellow;
+    background-image: url(../../../assets/png/starblack.png);
+    background-size: 43px 43px;
+    background-repeat: repeat-x;
 }
 .full{
-    color:yellow;
     position: absolute;
-    width: 75px;
     top: 0;
     left: 0;
     overflow: hidden;
+    background-image: url(../../../assets/png/starFill.png);
+    background-size: 43px 43px;
+    background-repeat: repeat-x;
+    width: 150px;
+    height: 43px;
 }
 .on{
-    color: yellow;
+    display: inline-block;
+    background-image: url(../../../assets/png/starFill.png);
+    background-size: 43px 43px;
+    width: 43px;
+    height: 43px;
+}
+.off{
+    display: inline-block;
+    background-image: url(../../../assets/png/starblack.png);
+    background-size: 43px 43px;
+    width: 43px;
+    height: 43px;
 }
