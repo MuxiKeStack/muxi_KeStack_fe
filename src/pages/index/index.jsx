@@ -10,12 +10,29 @@ export default class Index extends Component {
     navigationBarTitleText: '首页'
   }
 
-  constructor () {
+  constructor (){
     super(...arguments)
-    this.state = {
+    this.state ={
+      tagList: [
+        { name: '简单易学', active: false },
+        { name: '老师温柔', active: false },
+        { name: '干货满满', active: true },
+        { name: '作业量少', active: true },
+        { name: '生动有趣', active: true },
+        { name: '云课堂资料全', active: true }
+      ],
       value: 2
     }
-  }
+}
+onClick (data) {
+  const { tagList } = this.state
+  const findIndex = tagList.findIndex(item => item.name === data.name)
+  const active = !tagList[findIndex].active
+ 
+  tagList[findIndex].active = active
+  this.setState({ tagList })
+
+}
 
   componentWillMount () { }
 
@@ -52,6 +69,20 @@ export default class Index extends Component {
           value={this.state.value}
           onChange={this.handleChange.bind(this)}
         />
+        <View className='tag'>
+          {this.state.tagList.map((item, index) => 
+          <View className='subitem' key={index}>
+            <MuxiTag name={item.name} type='primary' active={item.active} circle onClick={this.onClick.bind(this)}>
+               {item.name}
+            </MuxiTag>
+          </View>
+          )}
+        </View>
+        <MuxiFab
+          size='normal'
+          onClick={this.onClick.bind(this)}>
+            评课
+        </MuxiFab>
       </View>
     )
   }
