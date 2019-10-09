@@ -3,7 +3,8 @@ import { View, Text } from '@tarojs/components'
 import './index.scss'
 import MuxiInput from '../../components/common/input/MuxiInput'
 import MxRate from '../../components/common/MxRate/MxRate'
-import MxTag from '../../components/common/tag/MuxiTag'
+import MuxiTag from '../../components/common/MuxiTag/index'
+import MuxiFab from '../../components/common/MuxiFab/index'
 
 export default class Index extends Component {
 
@@ -14,6 +15,7 @@ export default class Index extends Component {
   constructor() {
     super(...arguments)
     this.state = {
+      fabtext:'评课',
       tagList: [
         { name: '简单易学', active: false },
         { name: '老师温柔', active: false },
@@ -71,18 +73,18 @@ export default class Index extends Component {
           onChange={this.handleChange.bind(this)}
         />
         <View className='tag'>
-          {this.state.tagList.map((item, index) =>
-            <View className='subitem' key={index}>
-              <MxTag name={item.name} type='primary' active={item.active} circle onClick={this.onClick.bind(this)}>
-                {item.name}
-              </MxTag>
-            </View>
+          {this.state.tagList.map((item, index) => 
+          <View className='subitem' >
+            <MuxiTag name={item.name} type='primary' active={item.active} circle onClick={this.onClick.bind(this)}>
+               {item.name}
+            </MuxiTag>
+          </View>
           )}
         </View>
         <MuxiFab
           size='normal'
           onClick={this.onClick.bind(this)}>
-          评课
+            {fabtext}
         </MuxiFab>
       </View>
     )
