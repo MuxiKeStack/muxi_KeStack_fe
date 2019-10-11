@@ -1,10 +1,13 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import './index.scss'
 import MuxiInput from '../../components/common/input/MuxiInput'
 import MxRate from '../../components/common/MxRate/MxRate'
 import MuxiTag from '../../components/common/MuxiTag/index'
 import MuxiFab from '../../components/common/MuxiFab/index'
+import MuxibuttonN from '../../components/common/nomalButton/index'
+import MuxibuttonI from '../../components/common/imgButton/index'
+import Dogood from '../../picture/good.png'
+import './index.scss'
 
 export default class Index extends Component {
 
@@ -24,7 +27,8 @@ export default class Index extends Component {
         { name: '生动有趣', active: true },
         { name: '云课堂资料全', active: true }
       ],
-      value: 2
+      value: 2,
+      fabtext:'',
     }
   }
   onClick(data) {
@@ -45,21 +49,9 @@ export default class Index extends Component {
 
   componentDidShow() { }
 
-<<<<<<< HEAD
   componentDidHide () { }
   //a
   render () {
-=======
-  componentDidHide() { }
-
-  handleChange(value) {
-    this.setState({
-      value
-    })
-  }
-
-  render() {
->>>>>>> 3dbd9fa34ffe060432c6e273ec42084ba8231db4
     return (
       <View className='index'>
         <Text>{this.state.name}</Text>
@@ -73,7 +65,7 @@ export default class Index extends Component {
           inputWidth='280px'
         />
         <MxRate
-          commont={true}
+          commont
           size='28'
           value={this.state.value}
           onChange={this.handleChange.bind(this)}
@@ -89,9 +81,12 @@ export default class Index extends Component {
         </View>
         <MuxiFab
           size='normal'
-          onClick={this.onClick.bind(this)}>
-            {fabtext}
+          onClick={this.onClick.bind(this)}
+        > 
+            {this.state.fabtext}
         </MuxiFab>
+        <MuxibuttonI onClick={this.test.bind(this)}  src={Dogood} />
+        <MuxibuttonN content='学号登录' onClick={this.test.bind(this)} ></MuxibuttonN>
       </View>
     )
   }
