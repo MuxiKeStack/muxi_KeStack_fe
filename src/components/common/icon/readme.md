@@ -10,6 +10,6 @@ color|图标的颜色|-|可被css支持的颜色单位|string
 
 ```js
 // pages/index/index.jsx
-import { MxIcon } from "../../components/icon";
+import { MxIcon } from "../../components/common/icon";
 <MxIcon  value='clock' size='30' color='#F00'></MxIcon>
 ```

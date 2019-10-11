@@ -11,7 +11,7 @@ onChange|选择改变时触发的事件|-|fn
 
 ```js
 // pages/index/index.jsx
-import { MxPicker } from "../../components/picker";
+import { MxPicker } from "../../components/common/picker";
 export default class Index extends Component {
   constructor() {
     super(...arguments);

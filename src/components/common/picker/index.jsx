@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 // import classNames from 'classnames'
 import {  Picker, View } from '@tarojs/components'
 import { MxIcon } from '../icon'
-import MxComponent from '../../common/component'
+import MxComponent from '../../../common/component'
 import './index.scss'
 
 export default class MxPicker extends MxComponent {

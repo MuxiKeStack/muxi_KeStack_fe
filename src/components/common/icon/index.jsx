@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { Text } from '@tarojs/components'
 
-import MxComponent from '../../common/component'
+import MxComponent from '../../../common/component'
 import './index.scss'
 
 export default class MxIcon extends MxComponent {
