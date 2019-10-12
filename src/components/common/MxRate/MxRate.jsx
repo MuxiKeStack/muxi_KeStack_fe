@@ -48,10 +48,10 @@ class MxRate extends Component{
                 {commont && <View>
                     {
                         classNameArr.map((cls, i) => <View
-                        className={cls}
-                        key={i}
-                        onClick={this.handleClick.bind(this, i + 1)}
-                    >
+                          className={cls}
+                          key={i}
+                          onClick={this.handleClick.bind(this, i + 1)}
+                        >
                     ☆
                     </View>)
                     }

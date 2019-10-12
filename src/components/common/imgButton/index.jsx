@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text ,Button ,Image} from '@tarojs/components'
+import { View, Button ,Image} from '@tarojs/components'
 import './index.scss'
 
 export default class Muxi1buttonI extends Component {

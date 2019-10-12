@@ -1,6 +1,6 @@
 {
 	"miniprogramRoot": "dist/",
-	"projectname": "%E6%9C%A8%E7%8A%80%E8%AF%BE%E6%A0%88",
+	"projectname": "muxi_stack_fe",
 	"description": "",
 	"appid": "touristappid",
 	"setting": {

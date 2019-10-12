@@ -1,5 +1,5 @@
-import Taro, {Component} from '../imgButton/node_modules/@tarojs/taro'
-import {Button, View, Text} from '../imgButton/node_modules/@tarojs/components'
+import Taro, {Component} from '@tarojs/taro'
+import {Button, View, Text} from '@tarojs/components'
 import './index.scss'
 
 class MuxibuttonN extends Component{
@@ -48,4 +48,4 @@ MuxibuttonN.defaultProps = {
     onClick:()=>{},
 }
 
-export default Muxibutton3;
+export default MuxibuttonN;
