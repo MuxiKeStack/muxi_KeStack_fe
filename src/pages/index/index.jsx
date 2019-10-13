@@ -13,19 +13,24 @@ export default class Index extends Component {
       value: 2.5,
     }
   }
+  onClick(data) {
+    const { tagList } = this.state
+    const findIndex = tagList.findIndex(item => item.name === data.name)
+    const active = !tagList[findIndex].active
 
-  componentWillMount () { }
+    tagList[findIndex].active = active
+    this.setState({ tagList })
 
-  componentDidMount () { }
+  }
 
   componentWillUnmount () { }
   config = {
     navigationBarTitleText: '首页'
   }
 
-  componentDidShow () { }
+  componentDidMount() { }
 
-  componentDidHide () { }
+  componentWillUnmount() { }
 
   handleChange (value) {
     this.setState({
@@ -33,6 +38,8 @@ export default class Index extends Component {
     })
   }
 
+  componentDidHide () { }
+  //a
   render () {
     return (
       <View className='index'>
