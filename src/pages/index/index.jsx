@@ -1,19 +1,16 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Text , Image} from '@tarojs/components'
+import { View, Text } from '@tarojs/components'
 import './index.scss'
 import MxInput from '../../components/common/MxInput/MxInput'
 import MxRate from '../../components/common/MxRate/MxRate'
+import Ring from '../../components/page/Ring/Ring'
 
 export default class Index extends Component {
-
-  config = {
-    navigationBarTitleText: '首页'
-  }
 
   constructor () {
     super(...arguments)
     this.state = {
-      value: 2
+      value: 2.5,
     }
   }
 
@@ -22,6 +19,9 @@ export default class Index extends Component {
   componentDidMount () { }
 
   componentWillUnmount () { }
+  config = {
+    navigationBarTitleText: '首页'
+  }
 
   componentDidShow () { }
 
@@ -29,7 +29,7 @@ export default class Index extends Component {
 
   handleChange (value) {
     this.setState({
-      value
+      value,
     })
   }
 
@@ -40,19 +40,21 @@ export default class Index extends Component {
         <MxInput
           placeholder='this is placeholder'
           background='#F1F0F5'
-          border={true}
           radius='52px'
         />
-        <MxRate 
-          commont={true} 
-          size='28'
+        {/* <MxRate 
+          commont={true}
           value={this.state.value}
           onChange={this.handleChange.bind(this)}
+        /> */}
+        {/* <MxRate 
+          show={true}
+          value={this.state.value2}
+        /> */}
+        <MxRate
+          value={this.state.value}
         />
-        <Image 
-          style='width: 30px; height: 30px'
-          src='../../assets/png/starFill.png'
-        />
+        <Ring />
       </View>
     )
   }

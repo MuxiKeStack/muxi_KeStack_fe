@@ -25,56 +25,47 @@ class MxInput extends Component{
             placeholder,
             border,
             background,
-            radius
+            radius,
         } = this.props
 
-        // 左右图标
         var left = leftSrc ? true : false;
         var right = rightSrc ? true : false;
+        const borderBottom = border ? '1px solid #707070' : ''
 
-        const leftStyle={
-            width: `${leftSize}`,
-            height: `${leftSize}`
+        const css={
+            left:{
+                width: `${leftSize}`,
+                height: `${leftSize}`
+            },
+            right:{
+                width: `${rightSize}`,
+                height: `${rightSize}`,
+                float: 'right'
+            },
+            input:{
+                height: `${height}`
+            },
+            box:{
+                width: `${width}`,
+                height: `${height}`,
+                background: `${background}`,
+                borderBottom: `${borderBottom}`,
+                borderRadius: `${radius}`
+            }
         }
-        const rightStyle={
-            width: `${rightSize}`,
-            height: `${rightSize}`,
-            float: 'right'
-        }
-
-        const inputStyle={
-            height: `${height}`,
-        }
-        const boxStyle={
-            width: `${width}`,
-            height: `${height}`,
-            background: `${background}`
-        }
-        // 关于border-radius和border-bottom的问题没有解决
-        var inputName = ''
-        if(radius){
-            inputName = 'haveRadius'
-        }
-        
-        var boxName = ''
-        if(border){
-            boxName = 'haveBorder'
-        }
-
         return(
-            <View style={boxStyle} className={boxName}>
-                {left && <Image style={leftStyle} src={leftSrc} onClick={this.onClick}></Image>}
+            <View style={css.box}>
+                {left && <Image style={css.left} src={leftSrc} onClick={this.onClick}></Image>}
                 <Input
-                    className={inputName}
-                    style={inputStyle}
-                    type={type}
-                    placeholder={placeholder}
-                    onInput={this.onInput}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
-                    onConfirm={this.onConfirm}
+                  style={css.input}
+                  type={type}
+                  placeholder={placeholder}
+                  onInput={this.onInput}
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}
+                  onConfirm={this.onConfirm}
                 />
-                {right && <Image style={rightStyle} src={rightSrc} onClick={this.onClick}></Image>}
+                {right && <Image style={css.right} src={rightSrc} onClick={this.onClick}></Image>}
             </View>
         )
     }
@@ -89,8 +80,8 @@ MxInput.defaultProps = {
     width: '250px',
     height: '30px',
     placeholder: '',
-    background: '#FFFFFF',
-    radius: '0px',
+    background: '#ffffff',
+    radius: '52px',
     
     onChange: () => {},
     onFocus: () => {},

@@ -11,15 +11,9 @@ class MxRate extends Component{
     render(){
         const{
             value,
-            score,
-            size,
             show,
             commont
         } = this.props
-
-        const starIconStyle = {
-            fontSize: size ? `${size}px` : '',
-        }
 
         const classNameArr = []
         for (let i = 0; i < 5; i++) {
@@ -29,24 +23,27 @@ class MxRate extends Component{
                 classNameArr.push('off')
             }
         }
+        const width = (parseFloat(value) * 43).toString() + 'rpx'
+        const starStyle={
+             width: `${width}`,
+        }
         // ☆☆☆☆☆
         // ★★★★★
         return(
-            <View style={starIconStyle}>
+            <View>
                 {!commont && <View>
                     <View className='empty'>
-                        <View className='full'></View>
+                        <View className='full' style={starStyle}></View>
                     </View>
-                    {show && <View>{score}分</View>}
+                    {show && <View>{value}分</View>}
                 </View>}
                 {commont && <View>
                     {
-                        classNameArr.map((cls, i) => <View
+                      classNameArr.map((cls, i) => <View
                         className={cls}
                         key={i}
-                        onClick={this.handleClick.bind(this, i + 1)}
-                    >
-                    </View>)
+                        onClick={this.handleClick.bind(this, i + 1)} 
+                      />)
                     }
                 </View>
                 }
@@ -57,8 +54,7 @@ class MxRate extends Component{
 }
 
 MxRate.defaultProps = {
-    value: '2',
-    size: '',
+    value: '0',
     show: false,
     commont: false,
     onChange: () => {}

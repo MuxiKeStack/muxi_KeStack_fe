@@ -21,12 +21,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 2,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "input",
-					"pathName": "components/common/input/MuxiInput",
+					"pathName": "components/common/MxInput/MxInput",
 					"query": "",
 					"scene": ""
 				},
@@ -35,6 +35,13 @@
 					"name": "MxRate",
 					"pathName": "components/common/MxRate/MxRate",
 					"query": "show={true}&value='4'",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "Ring",
+					"pathName": "components/page/Ring/Ring",
+					"query": "",
 					"scene": ""
 				}
 			]

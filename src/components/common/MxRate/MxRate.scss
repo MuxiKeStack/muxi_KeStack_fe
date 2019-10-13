@@ -1,48 +1,33 @@
+$star: url(../../../assets/png/starblack.png);
+$starFill: url(../../../assets/png/starFill.png);
+$starsize: 43px;
+@mixin star($url) {
+    display: inline-block;
+    height: $starsize;
+    background-image: $url;
+    background-size: $starsize $starsize;
+    background-repeat: repeat-x;
+}
 View{
     display: inline-block;
 }
-// .empty{
-//     position: relative;
-//     color: #9256BA;
-// }
-// .full{
-//     color:#9256BA;
-//     position: absolute;
-//     width: 75px;
-//     top: 0;
-//     left: 0;
-//     overflow: hidden;
-// }
 .empty{
-    width: 215px;
-    height: 43px;
+    @include star($star);
+    width: $starsize * 5;
     position: relative;
-    background-image: url(../../../assets/png/starblack.png);
-    background-size: 43px 43px;
-    background-repeat: repeat-x;
 }
 .full{
+    @include star($starFill);
     position: absolute;
     top: 0;
     left: 0;
     overflow: hidden;
-    background-image: url(../../../assets/png/starFill.png);
-    background-size: 43px 43px;
-    background-repeat: repeat-x;
-    width: 150px;
-    height: 43px;
 }
 .on{
-    display: inline-block;
-    background-image: url(../../../assets/png/starFill.png);
-    background-size: 43px 43px;
-    width: 43px;
-    height: 43px;
+    @include star($starFill);
+    width: $starsize;
 }
 .off{
-    display: inline-block;
-    background-image: url(../../../assets/png/starblack.png);
-    background-size: 43px 43px;
-    width: 43px;
-    height: 43px;
+    @include star($star);
+    width: $starsize;
 }
