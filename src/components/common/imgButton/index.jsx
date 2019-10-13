@@ -2,7 +2,7 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Button ,Image} from '@tarojs/components'
 import './index.scss'
 
-export default class Muxi1buttonI extends Component {
+export default class MuxibuttonI extends Component {
     constructor(props) {
         super(props);
         this.state={
@@ -16,6 +16,7 @@ export default class Muxi1buttonI extends Component {
             imageHeight,
             buttonWidth,
             buttonHeight,
+            padding,
             src
         } = this.props
 
@@ -28,7 +29,8 @@ export default class Muxi1buttonI extends Component {
         const buttonStyle={
           display: 'inline-block',
           width: `${buttonWidth}`,
-          height: `${buttonHeight}`
+          height: `${buttonHeight}`,
+          padding: `${padding}`
       }
         return (
           <View>
@@ -39,11 +41,12 @@ export default class Muxi1buttonI extends Component {
         )
       }
 }
-Muxi1buttonI.defaultProps = {
-  imageWidth: '45rpx',
-  imageHeight: '45rpx',
-  buttonWidth:'80rpx',
-  buttonHeight:'65rpx',
+MuxibuttonI.defaultProps = {
+  imageWidth: '30px',
+  imageHeight: '30px',
+  buttonWidth:'',
+  buttonHeight:'',
+  padding:'0',
   className: '',
   onClick:()=>{},
 }

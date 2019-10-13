@@ -4,6 +4,9 @@ import './index.scss'
 import MxInput from '../../components/common/MxInput/MxInput'
 import MxRate from '../../components/common/MxRate/MxRate'
 import Ring from '../../components/page/Ring/Ring'
+import MuxibuttonN from '../../components/common/nomalButton'
+import MuxibuttonI from '../../components/common/imgButton'
+import pic from '../../assets/png/good.png'
 
 export default class Index extends Component {
 
@@ -62,6 +65,8 @@ export default class Index extends Component {
           value={this.state.value}
         />
         <Ring />
+        <MuxibuttonN />
+        <MuxibuttonI src={pic}></MuxibuttonI>
       </View>
     )
   }
