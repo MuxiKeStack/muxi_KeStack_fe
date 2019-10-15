@@ -18,17 +18,33 @@ export default class MuxiFab extends Component {
   
     render () {
       const { 
-        size
+        fabWidth,
+        fabHeight,
+        fabBorder,
+        fabRadius
        } = this.props
-    
+      const fabStyle={
+        width:`${fabWidth}`,
+        height:`${fabHeight}`,
+        border:`${fabBorder}`,
+        'border-radius':`${fabRadius}`,
+      }
       return (
-        <View className='muxi-fab'
+        <View 
+          style={fabStyle}
+          className='muxi-fab'
           onClick={this.onClick.bind(this)}
-        >{this.props.children}</View>
+        >
+          {this.props.children}
+        </View>
       )
     }
 }
 MuxiFab.defaultProps = {
-    size: 'normal',
+
+    fabWidth:'100px',
+    fabHeight:'100px',
+    fabBorder:'2px solid black',
+    fabRadius:'100px',
     onClick: () => {},
 }

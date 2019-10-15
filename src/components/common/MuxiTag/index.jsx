@@ -40,38 +40,44 @@ export default class MuxiTag extends Component{
     }
     render (){
         const {
-            size='normal',
-            type='',
-            circle=false,
-            disabled=false,
-            active=false,
             tagWidth,
             tagHeight,
             tagRadius,
             tagBorder,     
             timeGet,
+            timeSize,
+            textAglin,
+            textSize,
         }=this.props
-        const tagStyle={
-            display:'inline-block',
-            width:'${tagWidth}',
-            height:'${tagHeight}',
-            'border-radius':'${tagRadius}',
-            border:'${tagBorder}',
+        const css={
+        tagStyle:{
+            display:`inline-block`,
+            width:`${tagWidth}`,
+            height:`${tagHeight}`,
+            'border-radius':`${tagRadius}`,
+            border:`${tagBorder}`,
+            },
+         right:{
+            'font-size':`${timeSize}`,
+            float: 'right',
+            display:`${timesrc}`,
+            },
+         textStyle:{
+             'font-size':`${textSize}`,
+             'text-aglin':`${textAglin}`,
+         },
         }
         const {
             timesrc
         }=getTagProps(this.props)
         var right = timeGet ? true : false;
-        const timeStyle={
-            display:'${timesrc}'
-        }
         return (
             <View 
-             style={tagStyle}
+             style={css.tagStyle}
               onClick={this.onClick.bind(this)}   
             >
-               <Text className='tagText'>{this.props.children}</Text> 
-               {right&&<time style={timeStyle}>{timeGet}</time>}
+               <Text style={css.textStyle} >{this.props.children}</Text> 
+               {right&&<Time style={css.right}>{timeGet}</Time>}
             </View>
         )
     }
@@ -81,13 +87,10 @@ MuxiTag.defaultProps = {
     tagRadius: '34px',
     tagWidth: '120pt',
     tagHeight: '30pt',
+    timeSize:'15pt',
     timeGet:'',
-    size:'normal',
-    type:'',
-    name:'',
-    circle:false,
-    active:false,
-    disabled:false,
+    textSize:'15pt',
+    textAglin:'center',
     onClick: () =>{},
 }
 

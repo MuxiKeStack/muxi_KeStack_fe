@@ -1,9 +1,16 @@
 View{
     margin: 0 auto;
     display: block;
+    padding: 20px;
 }
-.tagText{
-    font-size: 15pt;
-    text-align:center;
-    margin: 20px;
+Time{
+    vertical-align: middle;
+    display: inline-block;
+}
+Text{
+    display: inline-block;
+    border: 0;
+    margin-left: 50px;
+    margin-top: 15px;
+    
 }
