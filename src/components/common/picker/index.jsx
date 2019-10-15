@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
 import PropTypes from 'prop-types'
-// import classNames from 'classnames'
+import classNames from 'classnames'
 import {  Picker, View } from '@tarojs/components'
 import { MxIcon } from '../icon'
 import MxComponent from '../../../common/component'
@@ -20,13 +20,14 @@ render () {
       selector,
       width,
       customStyle,
+      className,
     } = this.props
     const rootStyle = {
-      width: width,
+      width: `${Taro.pxTransform(parseInt(width)-25)}`,
     }
 
     return (
-      <View className='container'>
+      <View className={classNames('container',className)} >
         <View className='page-body'>
           <View className='page-section'>
             <View>
@@ -34,7 +35,7 @@ render () {
                 <View className='picker' style={this.mergeStyle(rootStyle, customStyle)}>
                   { selectorChecked }
                 </View>
-                <MxIcon value='arrow-up' className='icon'></MxIcon>
+                <MxIcon type='triangle' width='25' height='28'></MxIcon>
               </Picker>
             </View>
           </View>
@@ -46,8 +47,9 @@ render () {
 MxPicker.defaultProps = {
   selector: [],
   selectorChecked: '',
-  width: '100px',
+  width: '232',
   customStyle: '',
+  className: '',
   onChange () {},
 }
 
@@ -56,5 +58,6 @@ MxPicker.propTypes = {
   selectorChecked: PropTypes.string,
   width: PropTypes.string,
   customStyle: PropTypes.string,
+  className: PropTypes.string,
   onChange: PropTypes.func,
 }

@@ -1,0 +1,25 @@
+<svg id="searchicon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .cls-1, .cls-2, .cls-3 {
+        fill: none;
+      }
+
+      .cls-2, .cls-3 {
+        stroke: #b0b3bf;
+        stroke-miterlimit: 10;
+        stroke-width: 3px;
+      }
+
+      .cls-3 {
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+    </style>
+  </defs>
+  <rect id="search" class="cls-1" width="32" height="32"/>
+  <g id="search-2" data-name="search" transform="translate(4 4)">
+    <circle id="Oval" class="cls-2" cx="9.5" cy="9.5" r="9.5"/>
+    <path id="Path_3" data-name="Path 3" class="cls-3" d="M0,0,4.188,4.141" transform="translate(19.236 20.185)"/>
+  </g>
+</svg>

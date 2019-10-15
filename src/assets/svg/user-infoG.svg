@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="76" viewBox="0 0 80 76">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #cacaca;
+      }
+
+      .cls-2 {
+        font-size: 20px;
+        font-family: YuGothicUI-Bold, Yu Gothic UI;
+        font-weight: 700;
+      }
+
+      .cls-3 {
+        font-family: AdobeGothicStd-Bold, Adobe Gothic Std;
+      }
+
+      .cls-4 {
+        font-family: MicrosoftJhengHeiUIBold, Microsoft JhengHei UI;
+        font-weight: 400;
+      }
+    </style>
+  </defs>
+  <g id="Group_27" data-name="Group 27" transform="translate(-572 -1250)">
+    <path id="Path_11" data-name="Path 11" class="cls-1" d="M101.142,108.905a13.34,13.34,0,0,1-4.832-14.414,11.747,11.747,0,0,1,22.905,0,13.34,13.34,0,0,1-4.832,14.414c9.159,3.034,15.811,12.194,15.811,23.022a1.554,1.554,0,0,1-1.5,1.606H86.828a1.554,1.554,0,0,1-1.5-1.606c0-10.828,6.655-19.989,15.809-23.022Z" transform="translate(504.667 1164.642)"/>
+    <text id="个人主页" class="cls-2" transform="translate(612 1321)"><tspan x="-40" y="0">个</tspan><tspan class="cls-3" y="0">人主</tspan><tspan class="cls-4" y="0">页</tspan></text>
+  </g>
+</svg>

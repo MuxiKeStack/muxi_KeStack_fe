@@ -1,10 +1,10 @@
-#### 组件名：MxRate
+#### 组件名：MxPicker
 
 **名称** | **描述** | **默认** |**可选值** | **类型** 
 :--:|:--:|:--:|:--:|:--:
 selector|可选选项|-|-|string
 selectorChecked|选中选项|array
-width|选择框的宽度|100px|-|string
+width|选择框的宽度|232|-|string
 onChange|选择改变时触发的事件|-|fn
 
 #### 示例代码
@@ -45,7 +45,7 @@ export default class Index extends Component {
         <MxPicker
           selectorChecked={this.state.selectorChecked}
           selector={this.selector}
-          width='200px'
+          width='200'
           onChange={this.handleChange.bind(this)}
         />
       </View>
