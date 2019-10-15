@@ -48,7 +48,8 @@ export default class MuxiTag extends Component{
             tagWidth,
             tagHeight,
             tagRadius,
-            tagBorder,     
+            tagBorder,
+            time,
             timeGet,
         }=this.props
         const tagStyle={
@@ -61,8 +62,8 @@ export default class MuxiTag extends Component{
         const {
             timesrc
         }=getTagProps(this.props)
-        var right = timeGet ? true : false;
         const timeStyle={
+            time:'${timeGet}',
             display:'${timesrc}'
         }
         return (
@@ -71,7 +72,7 @@ export default class MuxiTag extends Component{
               onClick={this.onClick.bind(this)}   
             >
                <Text className='tagText'>{this.props.children}</Text> 
-               {right&&<time style={timeStyle}>{timeGet}</time>}
+               <time style={timeStyle}>{time}</time>
             </View>
         )
     }
@@ -81,7 +82,7 @@ MuxiTag.defaultProps = {
     tagRadius: '34px',
     tagWidth: '120pt',
     tagHeight: '30pt',
-    timeGet:'',
+    time:'',
     size:'normal',
     type:'',
     name:'',

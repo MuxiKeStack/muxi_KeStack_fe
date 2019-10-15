@@ -1,18 +1,33 @@
+$star: url(../../../assets/png/starblack.png);
+$starFill: url(../../../assets/png/starFill.png);
+$starsize: 43px;
+@mixin star($url) {
+    display: inline-block;
+    height: $starsize;
+    background-image: $url;
+    background-size: $starsize $starsize;
+    background-repeat: repeat-x;
+}
 View{
     display: inline-block;
 }
 .empty{
+    @include star($star);
+    width: $starsize * 5;
     position: relative;
-    color: yellow;
 }
 .full{
-    color:yellow;
+    @include star($starFill);
     position: absolute;
-    width: 75px;
     top: 0;
     left: 0;
     overflow: hidden;
 }
 .on{
-    color: yellow;
+    @include star($starFill);
+    width: $starsize;
+}
+.off{
+    @include star($star);
+    width: $starsize;
 }

@@ -1,23 +1,23 @@
 
-#### 组件名：MuxiInput
-#### 关于input中的图标
+#### 组件名：MxInput
+#### input中的图标
 
 **名称** | **描述** | **默认** |**可选值** | **类型** 
 :--:|:--:|:--:|:--:|:--:
-imgWidth | 两边图标的宽度 | 30px | |String
-imgHeight | 两边图标的高度 | 30px | | String
-pre | 左端图标是否显示| 在input框中垂直居中 |true & false | String
-presrc | 左端图标的src | | | String
-post | 右端图标是否显示|在input框中垂直居中|true & false|String
-post | 右端图标的src| | | String
-
-#### 关于input本身
+leftSize | 左边图标的宽、高度（宽 = 高） | 30px | |String
+rightSize | 右边图标的宽、高度（宽 = 高）| 30px | | String
+leftSrc | 左端图标的src |无 | | String
+rightSrc | 右端图标的src| 无| | String
+#### input本身
 **名称** | **描述** | **默认** |**可选值** | **类型** 
 :--:|:--:|:--:|:--:|:--:
 type | input类型 | text | 所有input自带的类型 | String
-inputWidth | 整个input（包含icon的宽度）| 250px | | String
-inputHeight | input高度 | 30px | | String
-placeholder | input框中提示词 |  | | String
+width | 整个input（包含icon的宽度）| 250px | | String
+height | input高度 | 30px | | String
+placeholder | input框中提示词 | 无 | | String
+border | 是否显示下划线（下划线宽度是input的宽度） |false | true && false | Bool
+background|input框（包括icon）的背景颜色 |#FFFFFF | |String |
+radius |圆角角度 |无| |String 
 
 #### input事件
 **名称** | **描述** | **返回参数** | **类型** 

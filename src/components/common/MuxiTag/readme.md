@@ -1,0 +1,57 @@
+## 组件名：MuxiTag
+tag的边框
+<table>
+  <tr>
+    <th>名称</th>
+    <th>描述</th>
+    <th>默认</th>
+    <th>可选值</th>
+    <th>类型</th>
+  </tr>
+  <tr>
+    <td>tagRadius和tagBorder</td>
+    <td>圆角的边框</td>
+    <td>34px和1px solid black</td>
+    <td></td>
+    <td>String</td>
+ </tr>
+ <tr>
+   <td>tagWidth</td>
+   <td>标签的宽度</td>
+   <td>120px</td>
+   <td></td>
+   <td>String</td>
+ </tr>
+ <tr>
+   <td>tagHeight</td>
+   <td>标签的高度</td>
+   <td>30px</td>
+   <td></td>
+   <td>String</td>
+ </tr>
+ </table>
+
+ tag从后台获取次数time
+ <table>
+  <tr>
+    <th>名称</th>
+    <th>描述</th>
+    <th>默认</th>
+    <th>可选值</th>
+    <th>类型</th>
+  </tr>
+  <tr>
+    <td>timeSrc</td>
+    <td>获取次数是否显示</td>
+    <td>否</td>
+    <td></td>
+    <td>String</td>
+ </tr>
+ <tr>
+   <td>timeGet</td>
+   <td>从后台获取的次数数据</td>
+   <td>无</td>
+   <td></td>
+   <td>String</td>
+ </tr>
+ </table>

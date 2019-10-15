@@ -1,6 +1,6 @@
 {
 	"miniprogramRoot": "dist/",
-	"projectname": "%E6%9C%A8%E7%8A%80%E8%AF%BE%E6%A0%88",
+	"projectname": "muxi_stack_fe",
 	"description": "",
 	"appid": "touristappid",
 	"setting": {
@@ -21,12 +21,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 2,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "input",
-					"pathName": "components/common/input/MuxiInput",
+					"pathName": "components/common/MxInput/MxInput",
 					"query": "",
 					"scene": ""
 				},
@@ -35,6 +35,13 @@
 					"name": "MxRate",
 					"pathName": "components/common/MxRate/MxRate",
 					"query": "show={true}&value='4'",
+					"scene": ""
+				},
+				{
+					"id": 2,
+					"name": "Ring",
+					"pathName": "components/page/Ring/Ring",
+					"query": "percent1=13&percent2=76&type=class",
 					"scene": ""
 				}
 			]

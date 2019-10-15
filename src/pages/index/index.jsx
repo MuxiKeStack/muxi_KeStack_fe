@@ -1,30 +1,19 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import './index.scss'
-import MuxiInput from '../../components/common/input/MuxiInput'
+import MxInput from '../../components/common/MxInput/MxInput'
 import MxRate from '../../components/common/MxRate/MxRate'
-import MuxiTag from '../../components/common/MuxiTag/index'
-import MuxiFab from '../../components/common/MuxiFab/index'
+import Ring from '../../components/page/Ring/Ring'
+import MuxibuttonN from '../../components/common/nomalButton'
+import MuxibuttonI from '../../components/common/imgButton'
+import pic from '../../assets/png/good.png'
 
 export default class Index extends Component {
 
-  config = {
-    navigationBarTitleText: '首页'
-  }
-
-  constructor() {
+  constructor () {
     super(...arguments)
     this.state = {
-      fabtext:'评课',
-      tagList: [
-        { name: '简单易学', active: false },
-        { name: '老师温柔', active: false },
-        { name: '干货满满', active: true },
-        { name: '作业量少', active: true },
-        { name: '生动有趣', active: true },
-        { name: '云课堂资料全', active: true }
-      ],
-      value: 2
+      value: 2.5,
     }
   }
   onClick(data) {
@@ -37,61 +26,50 @@ export default class Index extends Component {
 
   }
 
-  componentWillMount() { }
+  componentWillUnmount () { }
+  config = {
+    navigationBarTitleText: '首页'
+  }
 
   componentDidMount() { }
 
   componentWillUnmount() { }
 
-  componentDidShow() { }
-
-<<<<<<< HEAD
-  componentDidHide () { }
-  //a
-  render () {
-=======
-  componentDidHide() { }
-
-  handleChange(value) {
+  handleChange (value) {
     this.setState({
-      value
+      value,
     })
   }
 
-  render() {
->>>>>>> 3dbd9fa34ffe060432c6e273ec42084ba8231db4
+  componentDidHide () { }
+  //a
+  render () {
     return (
       <View className='index'>
+<<<<<<< HEAD
+=======
         <Text>{this.state.name}</Text>
-        <MuxiInput
-          type='password'
+        <MxInput
           placeholder='this is placeholder'
-          pre='true'
-          post='true'
-          imgWidth='30px'
-          imgHeight='30px'
-          inputWidth='280px'
+          background='#F1F0F5'
+          radius='52px'
         />
-        <MxRate
+        {/* <MxRate 
           commont={true}
-          size='28'
           value={this.state.value}
           onChange={this.handleChange.bind(this)}
+        /> */}
+        {/* <MxRate 
+          show={true}
+          value={this.state.value2}
+        /> */}
+        <MxRate
+          value={this.state.value}
         />
-        <View className='tag'>
-          {this.state.tagList.map((item, index) => 
-          <View className='subitem' >
-            <MuxiTag name={item.name} type='primary' active={item.active} circle onClick={this.onClick.bind(this)}>
-               {item.name}
-            </MuxiTag>
-          </View>
-          )}
-        </View>
-        <MuxiFab
-          size='normal'
-          onClick={this.onClick.bind(this)}>
-            {fabtext}
-        </MuxiFab>
+        <Ring />
+        <MuxibuttonN />
+        <MuxibuttonI src={pic}></MuxibuttonI>
+>>>>>>> 1389d7ac0b96040679d72faa6825e45add6e8823
       </View>
     )
   }
