@@ -43,25 +43,6 @@ export default class Index extends Component {
   render () {
     return (
       <View className='index'>
-        <Text>{this.state.name}</Text>
-        <MxInput
-          placeholder='this is placeholder'
-          background='#F1F0F5'
-          radius='52px'
-        />
-        {/* <MxRate 
-          commont={true}
-          value={this.state.value}
-          onChange={this.handleChange.bind(this)}
-        /> */}
-        {/* <MxRate 
-          show={true}
-          value={this.state.value2}
-        /> */}
-        <MxRate
-          value={this.state.value}
-        />
-        <Ring />
       </View>
     )
   }

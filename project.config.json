@@ -21,7 +21,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
@@ -38,10 +38,10 @@
 					"scene": ""
 				},
 				{
-					"id": -1,
+					"id": 2,
 					"name": "Ring",
 					"pathName": "components/page/Ring/Ring",
-					"query": "",
+					"query": "percent1=13&percent2=76&type=class",
 					"scene": ""
 				}
 			]

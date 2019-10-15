@@ -12,16 +12,20 @@ View{
 .box{
     width: 300px;
     height: 452px;
-    background-color: $darkgrey;
     border-radius: 42px;
 }
 .levels{
-    margin-left: 29px;
+    width: 300px;
     font-size: 29px;
     color: #AEAEAE;
 }
 .level{
     vertical-align: middle;
+}
+.item{
+    width: 240px;
+    display: block;
+    margin: 0 auto;
 }
 //左边小圆圈开始
 @mixin circle {

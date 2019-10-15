@@ -27,8 +27,7 @@ class MxRate extends Component{
         const starStyle={
              width: `${width}`,
         }
-        // ☆☆☆☆☆
-        // ★★★★★
+//有一个问题未解决：背景图片用空的紫星星加载不出来，只能用黑星星先替代一下
         return(
             <View>
                 {!commont && <View>
