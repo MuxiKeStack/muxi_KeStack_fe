@@ -4,6 +4,9 @@ import './index.scss'
 import MxInput from '../../components/common/MxInput/MxInput'
 import MxRate from '../../components/common/MxRate/MxRate'
 import Ring from '../../components/page/Ring/Ring'
+import MuxibuttonN from '../../components/common/nomalButton'
+import MuxibuttonI from '../../components/common/imgButton'
+import pic from '../../assets/png/good.png'
 
 export default class Index extends Component {
 
@@ -43,6 +46,30 @@ export default class Index extends Component {
   render () {
     return (
       <View className='index'>
+<<<<<<< HEAD
+=======
+        <Text>{this.state.name}</Text>
+        <MxInput
+          placeholder='this is placeholder'
+          background='#F1F0F5'
+          radius='52px'
+        />
+        {/* <MxRate 
+          commont={true}
+          value={this.state.value}
+          onChange={this.handleChange.bind(this)}
+        /> */}
+        {/* <MxRate 
+          show={true}
+          value={this.state.value2}
+        /> */}
+        <MxRate
+          value={this.state.value}
+        />
+        <Ring />
+        <MuxibuttonN />
+        <MuxibuttonI src={pic}></MuxibuttonI>
+>>>>>>> 1389d7ac0b96040679d72faa6825e45add6e8823
       </View>
     )
   }

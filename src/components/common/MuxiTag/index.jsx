@@ -2,6 +2,23 @@ import Taro,{Component} from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import './index.scss'
 
+function getTagProps(props){
+    const actualProps = {
+        time: props.timesrc,
+    }
+    switch(actualProps.timesrc){
+        case 'true':
+            actualProps.timesrc = 'inline-block'
+            break
+        case 'false':
+            actualProps.timesrc= 'none'
+            break
+        default:
+            actualProps.timesrc = 'none'
+            break
+    }
+    return actualProps
+}
 export default class MuxiTag extends Component{
     constructor (){
         super(...arguments)
@@ -28,25 +45,50 @@ export default class MuxiTag extends Component{
             circle=false,
             disabled=false,
             active=false,
+            tagWidth,
+            tagHeight,
+            tagRadius,
+            tagBorder,     
+            timeGet,
         }=this.props
+        const tagStyle={
+            display:'inline-block',
+            width:'${tagWidth}',
+            height:'${tagHeight}',
+            'border-radius':'${tagRadius}',
+            border:'${tagBorder}',
+        }
+        const {
+            timesrc
+        }=getTagProps(this.props)
+        var right = timeGet ? true : false;
+        const timeStyle={
+            display:'${timesrc}'
+        }
         return (
-            <View className='muxi-tag'
+            <View 
+             style={tagStyle}
               onClick={this.onClick.bind(this)}   
             >
-                {this.props.children}
+               <Text className='tagText'>{this.props.children}</Text> 
+               {right&&<time style={timeStyle}>{timeGet}</time>}
             </View>
         )
     }
 }
 MuxiTag.defaultProps = {
-   
-    
+    tagBorder: '1px solid black',
+    tagRadius: '34px',
+    tagWidth: '120pt',
+    tagHeight: '30pt',
+    timeGet:'',
     size:'normal',
     type:'',
     name:'',
     circle:false,
     active:false,
     disabled:false,
-    tagStyle:{},
     onClick: () =>{},
 }
+
+

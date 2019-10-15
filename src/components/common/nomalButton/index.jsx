@@ -39,11 +39,11 @@ class MuxibuttonN extends Component{
 }
 
 MuxibuttonN.defaultProps = {
-    border: '1px solid black',
     buttonWidth: '513rpx',
     buttonHeight: '92rpx',
     buttonRadius:'46rpx',
     buttonBackground:'#9255B9',
+    content:'',
     className: '',
     onClick:()=>{},
 }
