@@ -8,6 +8,7 @@ radius|边框圆角值|20|数字|string
 className|
 customStyle|内联样式（可选）
 备注：padding，margin是有预设值，但由于上下左右的padding都可能不一样，就不同过传递参数了，自己用className或customStyle重定义
+所以与预设值不同时，这个card组件也没什么用的必要
 
 #### 使用示例代码
 
