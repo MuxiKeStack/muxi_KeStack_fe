@@ -55,3 +55,28 @@ tag的边框
    <td>String</td>
  </tr>
  </table>
+
+ tag中的内容
+ <table>
+  <tr>
+    <th>名称</th>
+    <th>描述</th>
+    <th>默认</th>
+    <th>可选值</th>
+    <th>类型</th>
+  </tr>
+  <tr>
+    <td>tagSize</td>
+    <td>标签内容的字体大小</td>
+    <td>15pt</td>
+    <td></td>
+    <td>String</td>
+ </tr>
+ <tr>
+   <td>tagAglin</td>
+   <td>标签内容的位置</td>
+   <td>center</td>
+   <td></td>
+   <td>String</td>
+ </tr>
+ </table>
