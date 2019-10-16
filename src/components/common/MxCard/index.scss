@@ -1,10 +1,7 @@
-*{
-    box-sizing: border-box;
-}
-.card{
+.muxi-card{
     background:rgba(255,255,255,1);
     opacity:1;
     padding: 28px 92px 48px 35px;
-    margin: 37px 18px 0 21px;
     border-radius: 20px;
+    box-shadow:0px 0px 5px rgba(0,0,0,0.6); // 暂时看效果用
 }

@@ -1,0 +1,18 @@
+View{
+    display: inline-block;
+}
+.empty{
+    position: relative;
+    color: yellow;
+}
+.full{
+    color:yellow;
+    position: absolute;
+    width: 75px;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.on{
+    color: yellow;
+}
