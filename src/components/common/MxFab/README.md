@@ -9,21 +9,21 @@ fab的边框
     <th>类型</th>
   </tr>
   <tr>
-    <td>fabRadius和fabBorder</td>
+    <td>border-radius和border</td>
     <td>圆角的边框</td>
     <td>100px和2px solid black</td>
     <td></td>
     <td>String</td>
  </tr>
  <tr>
-   <td>fabWidth</td>
+   <td>width</td>
    <td>悬浮按钮的宽度</td>
    <td>100px</td>
    <td></td>
    <td>String</td>
  </tr>
  <tr>
-   <td>fabHeight</td>
+   <td>height</td>
    <td>悬浮按钮的高度</td>
    <td>100px</td>
    <td></td>
@@ -48,21 +48,21 @@ fab的边框
     <td>String</td>
  </tr>
  <tr>
-   <td>fabSize</td>
+   <td>font-size</td>
    <td>悬浮按钮中内容的尺寸</td>
    <td>40px</td>
    <td></td>
    <td>String</td>
  </tr>
  <tr>
-   <td>fabLine</td>
+   <td>line-height</td>
    <td>悬浮按钮中内容的行高</td>
    <td>90px</td>
    <td></td>
    <td>String</td>
  </tr>
  <tr>
-   <td>fabAglin</td>
+   <td>text-aglin</td>
    <td>悬浮按钮中字体的居中</td>
    <td>center</td>
    <td></td>
