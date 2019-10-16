@@ -46,8 +46,6 @@ export default class Index extends Component {
   render () {
     return (
       <View className='index'>
-<<<<<<< HEAD
-=======
         <Text>{this.state.name}</Text>
         <MxInput
           placeholder='this is placeholder'
@@ -69,7 +67,6 @@ export default class Index extends Component {
         <Ring />
         <MuxibuttonN />
         <MuxibuttonI src={pic}></MuxibuttonI>
->>>>>>> 1389d7ac0b96040679d72faa6825e45add6e8823
       </View>
     )
   }
