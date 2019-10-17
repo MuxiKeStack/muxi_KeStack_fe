@@ -4,9 +4,8 @@ import './index.scss'
 import MxInput from '../../components/common/MxInput/MxInput'
 import MxRate from '../../components/common/MxRate/MxRate'
 import Ring from '../../components/page/Ring/Ring'
-import MuxibuttonN from '../../components/common/nomalButton'
-import MuxibuttonI from '../../components/common/imgButton'
-import { MxCard } from "../../components/common/card";
+import MxButton from '../../components/common/MxButton'
+import  MxCard  from "../../components/common/MxCard";
 import pic from '../../assets/png/good.png'
 
 export default class Index extends Component {
@@ -43,6 +42,10 @@ export default class Index extends Component {
   }
 
   componentDidHide() { }
+
+  test(){
+    console.log("lalalla")
+  }
   //a
   render() {
     return (
@@ -76,8 +79,8 @@ export default class Index extends Component {
           name2='偶尔点名'
           name3='从不点名'
         />
-        <MuxibuttonN />
-        <MuxibuttonI src={pic}></MuxibuttonI>
+        <MxButton  onClick={this.test.bind()}>lalala</MxButton>
+        <MxButton src={pic} onClick={this.test.bind()}></MxButton>
       </View>
     )
   }
