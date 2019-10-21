@@ -39,7 +39,6 @@ export default class MxIcon extends MxComponent {
 
   render() {
     const {
-      customStyle,
       className,
       width,
       height,
@@ -76,7 +75,7 @@ export default class MxIcon extends MxComponent {
       <View className='icon'>
       <Image
         className={className}
-        style={this.mergeStyle(rootStyle, customStyle)}
+        style={rootStyle}
         src={map.get(type)}
         onClick={this.handleClick.bind(this)}
       ></Image>
@@ -85,9 +84,7 @@ export default class MxIcon extends MxComponent {
   }
 }
 MxIcon.defaultProps = {
-  customStyle: "",
   className: "",
-  color: "",
   width: 40,
   height: 40,
   type: "",
@@ -95,7 +92,6 @@ MxIcon.defaultProps = {
 };
 
 MxIcon.propTypes = {
-  customStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   className: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

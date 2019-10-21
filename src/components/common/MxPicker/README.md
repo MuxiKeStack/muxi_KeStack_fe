@@ -6,6 +6,7 @@ selector|可选选项|-|-|string
 selectorChecked|选中选项|array
 width|选择框的宽度|232|-|string
 onChange|选择改变时触发的事件|-|fn
+className|
 
 #### 示例代码
 

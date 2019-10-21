@@ -5,7 +5,6 @@
 type|图标的类型|-|参考下表|string
 width|图标的宽度|40|-|string
 height|图标的高度|40|-|string
-customStyle|支持在js使用内联样式，优先级customStyle大于className和default
 className|支持自定义样式
 
 #### type表

@@ -19,7 +19,6 @@ render () {
       selectorChecked,
       selector,
       width,
-      customStyle,
       className,
     } = this.props
     const rootStyle = {
@@ -32,7 +31,7 @@ render () {
           <View className='page-section'>
             <View>
               <Picker mode='selector' range={selector} onChange={this.handleChange.bind(this)}>
-                <View className='picker' style={this.mergeStyle(rootStyle, customStyle)}>
+                <View className='picker' style={rootStyle}>
                   { selectorChecked }
                 </View>
                 <MxIcon type='triangle' width='25' height='28'></MxIcon>
@@ -48,7 +47,6 @@ MxPicker.defaultProps = {
   selector: [],
   selectorChecked: '',
   width: '232',
-  customStyle: '',
   className: '',
   onChange () {},
 }
@@ -57,7 +55,6 @@ MxPicker.propTypes = {
   selector: PropTypes.array,
   selectorChecked: PropTypes.string,
   width: PropTypes.string,
-  customStyle: PropTypes.string,
   className: PropTypes.string,
   onChange: PropTypes.func,
 }
