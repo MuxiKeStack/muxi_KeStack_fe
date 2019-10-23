@@ -9,26 +9,48 @@ export default class MxTag extends Component{
         this.props.onClick && this.props.onClick(...arguments)
       }
     render (){
-        const{ className }=this.props;
+        const{ 
+            width,
+            height,
+            border,
+            radius,
+            font,
+            color,
+        }=this.props;
+        const tag={
+            tagStyle:{
+                width: `${width}`,
+                height: `${height}`,
+                border: `${border}`,                
+                borderRadius: `${radius}`
+            },
+            content:{
+                'font-size':`${font}`,
+                'font-color':`${color}`
+            },
+            
+        }
+    
         return (
             <View 
-            className={classNames("muxi-tag", className)}
+            style={tag.tagStyle}
             onClick={this.onClick.bind(this)}   
             >
-               <View className='tag-content'>{this.props.children}</View>
+               <View style={tag.content}>{this.props.children}</View>
             </View>
-        );
+        )
     }
 }
 
 MxTag.defaultProps = {
-    className: '',
+    width:'120px',
+    height:'30px',
+    border:'1px solid black',
+    borderRadius:'34px',
+    color:'',
+    font:'',
     onClick: () =>{},
   }
-  
-MxTag.propTypes = {
-    className: PropTypes.string,
-}
   
 
 
