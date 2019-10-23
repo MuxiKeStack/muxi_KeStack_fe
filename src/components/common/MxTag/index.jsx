@@ -1,5 +1,7 @@
 import Taro,{Component} from '@tarojs/taro'
 import { View } from '@tarojs/components'
+import classNames from "classnames";
+import PropTypes from 'prop-types';
 import './index.scss'
 
 export default class MxTag extends Component{
@@ -17,8 +19,15 @@ export default class MxTag extends Component{
         
     }
 }
-MxTag.defaultProps = {
+
+MxCard.defaultProps = {
+    className: '',
     onClick: () =>{},
+  }
+  
+MxCard.propTypes = {
+    className: PropTypes.string,
 }
+  
 
 
