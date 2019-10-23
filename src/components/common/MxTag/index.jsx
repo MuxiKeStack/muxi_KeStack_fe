@@ -10,22 +10,23 @@ export default class MxTag extends Component{
       }
     render (){
         const{ className }=this.props;
+        return (
             <View 
             className={classNames("muxi-tag", className)}
             onClick={this.onClick.bind(this)}   
             >
                <View className='tag-content'>{this.props.children}</View>
             </View>
-        
+        );
     }
 }
 
-MxCard.defaultProps = {
+MxTag.defaultProps = {
     className: '',
     onClick: () =>{},
   }
   
-MxCard.propTypes = {
+MxTag.propTypes = {
     className: PropTypes.string,
 }
   
