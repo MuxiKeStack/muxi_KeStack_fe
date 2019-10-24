@@ -78,6 +78,7 @@ export default class Index extends Component {
           name1='经常点名'
           name2='偶尔点名'
           name3='从不点名'
+
         />
         <MxButton  onClick={this.test.bind()}>lalala</MxButton>
         <MxButton src={pic} onClick={this.test.bind()}></MxButton>

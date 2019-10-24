@@ -1,0 +1,117 @@
+$violet: #9154B8;
+$white: #ffffff;
+page{
+    background-color: #F7F7F7;
+}
+@mixin informationbox {
+    display: block;
+    height: 45px;
+    margin-left: 30px;
+    View{
+        vertical-align: bottom;
+    }
+}
+View{
+    display: inline-block;
+    font-size: 32px;
+}
+.courseDetails{
+    width: 100%;
+}
+.name{
+    font-weight:normal;
+}
+.commentBox{
+    @include informationbox();
+    margin-top: 71px;
+}
+.commentNumber{
+    color: #999999;
+}
+.creditBox{
+    @include informationbox();
+    margin: 25px 0px 25px 30px;
+}
+.courseCredit{
+    color: $violet;
+}
+.lookCourseBox{
+    @include informationbox();
+}
+.chooseCourse{
+    width: 337px;
+    height: 45px;
+    border-radius: 17px;
+    background-color: $violet;
+    color: $white;
+    line-height: 45px;
+    text-align: center;
+}
+.greybody{
+    background-color: #F1F0F5;
+    height: 461px;
+    width: 100%;
+}
+@mixin ringBox {
+    width: 208px;
+    height: 314px;
+    margin: 0 15px;
+    position: relative;
+    top: 48px;
+    border-radius: 29px;
+}
+.ring{
+    width: 715px;
+    margin: 0 auto;
+    display: block;
+}
+.ring1{
+    @include ringBox();
+}
+.ring2{
+    @include ringBox();
+}
+.ring3{
+    @include ringBox();
+    top: 73px;
+}
+
+.sampleSize{
+    height: 21px;
+    font-size: 15px;
+    margin: 124px 0 19px 40px;
+}
+
+.averageBox{
+    display: block;
+    width: 100%;
+    height: 130px;
+    border-top: 1px solid #707070;
+    border-bottom: 1px solid #707070;
+}
+.averageSmallBox1{
+    width: 49%;
+    height: 130px;
+    border-right: 1px solid #707070;
+}
+.averageSmallBox2{
+    width: 49%;
+    height: 130px;
+}
+.averageName{
+    width: 100%;
+    color: #999999;
+    font-size: 24px;
+    text-align: center;
+    height: 33px;
+    margin-top: 13px;
+}
+.averageGrade{
+    width: 100%;
+    font-size: 50px;
+    text-align: center;
+}
+.feature{
+    margin: 29px 0 15px 29px;
+    font-size: 32px;
+}
