@@ -140,7 +140,14 @@ export default class Coursedetails extends Component {
           </View>
         </View>
         <View className='feature'>课堂特点：</View> 
-        <View className='tagBox'></View>
+        <View className='tagBox'>
+          <View className='tag'>生动有趣(10)</View>
+          <View className='tag'>干货满满(2)</View>
+          <View className='tag'>老师很好(1)</View>
+          <View className='tag'>作业量少(72)</View>
+          <View className='tag'>云课堂资料全(8)</View>
+          <View className='tag'>简单易学(0)</View>
+        </View>
       </View>
     )
   }
