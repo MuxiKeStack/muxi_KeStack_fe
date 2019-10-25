@@ -14,6 +14,7 @@ import { View } from '@tarojs/components'
 import { List } from '../../components/page/List'
 import { Item } from '../../components/page/List/Item'
 import { MxCard } from '../../components/common/MxCard'
+// import bgim from '../../assets/svg/bgim.svg'
 import './index.scss'
 >>>>>>> feat: add page comp list
 
@@ -201,12 +202,13 @@ export default class Index extends Component {
 =======
   componentDidHide() { }
   render() {
+    
     return (
       <View>
       <List className='main-page-list'>
         <Item title='我的课程' extraText='MY COURSE' ></Item>
         <Item title='评课历史' extraText='REVIEW HISTORY' className='cat'></Item>
-        <Item title='我的课程' extraText='MY COURSE'></Item>
+        <Item title='我的课程' extraText='MY COURSE' ></Item>
       </List>
       <MxCard className='mx-card'>test</MxCard>
       </View>
