@@ -1,31 +1,37 @@
-.add{
-   border: 1px solid red; 
+.add {
+  border: 1px solid red;
 }
-.text{
-    color: blue;
+.text {
+  color: blue;
 }
-.sb{
-    border-radius: 0;
+.sb {
+  border-radius: 0;
 }
-.ring{
-    width: 715px;
-    margin: 0 auto;
-    display: block;
+.canvas-container {
+  display: flex;
+  justify-content: center;
 }
-View{
-    display: inline-block;
+.canvas {
+}
+.ring {
+  width: 715px;
+  margin: 0 auto;
+  display: block;
+}
+View {
+  display: inline-block;
 }
 
-.item{
-    background-color: yellow; 
+.item {
+  background-color: yellow;
 }
-.image{
-    width: 30pt;
-    height: 30pt;
-    vertical-align: bottom;
+.image {
+  width: 30pt;
+  height: 30pt;
+  vertical-align: bottom;
 }
 .Mxcard {
-    display: flex;
-    flex-direction: row-reverse;
-    background-color: yellowgreen;
+  display: flex;
+  flex-direction: row-reverse;
+  background-color: yellowgreen;
 }
