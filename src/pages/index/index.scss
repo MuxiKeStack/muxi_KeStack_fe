@@ -15,3 +15,17 @@
 View{
     display: inline-block;
 }
+
+.item{
+    background-color: yellow; 
+}
+.image{
+    width: 30pt;
+    height: 30pt;
+    vertical-align: bottom;
+}
+.Mxcard {
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: yellowgreen;
+}

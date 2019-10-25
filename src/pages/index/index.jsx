@@ -47,6 +47,18 @@ export default class Index extends Component {
     console.log("lalalla")
   }
   //a
+
+  ChangeTo() {
+    Taro.navigateTo({
+      url: '/pages/list/index'
+    })
+  }
+  ChangeToo() {
+    Taro.navigateTo({
+      url: '/pages/postReview/index'
+    })
+  }
+  
   render() {
     return (
       <View className='index'>
@@ -86,6 +98,17 @@ export default class Index extends Component {
         
         <MxButton  onClick={this.test.bind()}>lalala</MxButton>
         <MxButton src={pic} onClick={this.test.bind()}></MxButton>
+        
+        <View className='index'>
+        <MxCard radius='25' className='Mxcard'>
+        <MxButton src={pic} buttonWidthl='513rpx' buttonHeightl='92rpx' onClick={this.ChangeTo}></MxButton>
+        <Text style="display:inline">选课清单</Text>
+        </MxCard>
+        <MxCard radius='25' className='Mxcard'>
+        <MxButton src={pic} buttonWidthl='513rpx' buttonHeightl='92rpx' onClick={this.ChangeToo}></MxButton>
+        <Text style="display:inline">发布评课</Text>
+        </MxCard>
+      </View>
       </View>
     )
   }

@@ -13,7 +13,7 @@ export default class MxTag extends Component{
             width,
             height,
             border,
-            radius,
+            borderRadius,
             font,
             color,
         }=this.props;
@@ -22,11 +22,13 @@ export default class MxTag extends Component{
                 width: `${width}`,
                 height: `${height}`,
                 border: `${border}`,                
-                borderRadius: `${radius}`
+                borderRadius: `${borderRadius}`,
+                'text-align': 'center',
             },
             content:{
                 'font-size':`${font}`,
-                'font-color':`${color}`
+                'font-color':`${color}`,
+                'line-height': `${height}`,
             },
             
         }

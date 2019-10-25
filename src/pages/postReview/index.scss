@@ -1,0 +1,98 @@
+View {
+    display: inline-block;
+    font-size : 40px;
+}
+.releaseBox{
+    display: block;
+    background: #B3B3B3;
+    width: 100%;
+    padding: 48px 92px 48px 35px;
+}
+.releaseTri {
+    margin-left: 50px;;
+}
+.releaseText {
+    font-size: 40px;
+    margin-left: 100px;
+}
+
+.choiceBox{
+    display: block;
+    height: 45px;
+    margin-left: 70px;
+    margin-top: 40px;
+}
+.choicePicker {
+    margin-left: 18px;
+}
+
+
+.commentBox{
+    display: block;
+    height: 45px;
+    margin-left: 70px;
+    margin-top: 40px;
+    View {
+        vertical-align: bottom;
+    }
+}
+.commentText{
+    font-weight: normal;
+}
+.commentRate{
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.filterBox {
+    display: block;
+    height: 45px;
+    margin-left: 83px;
+    margin-top: 40px; 
+}
+.filterPickerA {
+    margin-left: 18px;
+}
+.filterPickerB {
+    margin-left: 30px;
+}
+
+.featureBox{
+    display: block;
+    height: 45px;
+    margin-left: 83px;
+    margin-top: 40px;
+}
+.featureChoice{
+    vertical-align: top;
+}
+.featureTags {
+    margin-left: 18px;
+    width: 72%;
+    vertical-align: top;
+}
+.featureTagLev{
+    margin-left: 15px;
+}
+.featureTagVer{
+    margin-top: 15px;
+}
+
+.evaluateBox{
+    display: block;
+    height: 45px;
+    margin-left: 83px;
+    margin-top: 200px;
+}
+.evaluateTextarea {
+    border: 1px solid;
+    width: 575px;
+    height: 240px;
+}
+
+.submitBox {
+    display: block;
+    height: 45px;
+    margin-left: 83px;
+    margin-top: 310px;
+}
