@@ -13,7 +13,7 @@ export default class Index extends Component {
   constructor() {
     super(...arguments)
     this.state = {
-      value: 2.5,
+      value: 0,
     }
   }
   onClick(data) {
@@ -56,20 +56,12 @@ export default class Index extends Component {
           background='#F1F0F5'
           radius='52px'
         />
-        {/* <MxRate 
-          commont={true}
+        <MxRate 
+          readOnly={false}
           value={this.state.value}
           onChange={this.handleChange.bind(this)}
-        /> */}
-        {/* <MxRate 
-          show={true}
-          value={this.state.value2}
-        /> */}
-
-        <MxCard>这里装的是卡片内容</MxCard>；
-        <MxRate
-          value={this.state.value}
         />
+        <MxCard>这里装的是卡片内容</MxCard>
         <Ring
           type='成绩'
           percent1='13'
@@ -78,8 +70,20 @@ export default class Index extends Component {
           name1='经常点名'
           name2='偶尔点名'
           name3='从不点名'
-
         />
+        <View>
+          <Ring 
+            className='ring'
+            type='成绩'
+            name1='70以下'
+            name2='70~85'
+            name3='85以上'
+            percent1='11'
+            percent2='12'
+            percent3='40'
+          />
+        </View>
+        
         <MxButton  onClick={this.test.bind()}>lalala</MxButton>
         <MxButton src={pic} onClick={this.test.bind()}></MxButton>
       </View>

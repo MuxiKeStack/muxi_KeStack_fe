@@ -54,7 +54,7 @@ class MxInput extends Component{
             }
         }
         return(
-            <View style={css.box}>
+            <View style={css.box} className='box'>
                 {left && <Image style={css.left} src={leftSrc} onClick={this.onClick}></Image>}
                 <Input
                   style={css.input}

@@ -11,8 +11,7 @@ class MxRate extends Component{
     render(){
         const{
             value,
-            show,
-            commont
+            readOnly
         } = this.props
 
         const classNameArr = []
@@ -30,13 +29,12 @@ class MxRate extends Component{
 //有一个问题未解决：背景图片用空的紫星星加载不出来，只能用黑星星先替代一下
         return(
             <View>
-                {!commont && <View>
+                {readOnly && <View>
                     <View className='empty'>
                         <View className='full' style={starStyle}></View>
                     </View>
-                    {show && <View>{value}分</View>}
                 </View>}
-                {commont && <View>
+                {!readOnly && <View>
                     {
                       classNameArr.map((cls, i) => <View
                         className={cls}
@@ -54,8 +52,7 @@ class MxRate extends Component{
 
 MxRate.defaultProps = {
     value: '0',
-    show: false,
-    commont: false,
+    readOnly: false,
     onChange: () => {}
 }
 
