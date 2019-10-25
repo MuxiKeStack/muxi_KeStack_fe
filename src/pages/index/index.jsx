@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import Taro, { Component } from "@tarojs/taro";
 import { View, Text, Canvas } from "@tarojs/components";
 import "./index.scss";
@@ -8,15 +7,11 @@ import Ring from "../../components/page/Ring/Ring";
 import MxButton from "../../components/common/MxButton";
 import MxCard from "../../components/common/MxCard";
 import pic from "../../assets/png/good.png";
-=======
-import Taro, { Component } from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import { List } from '../../components/page/List'
-import { Item } from '../../components/page/List/Item'
-import { MxCard } from '../../components/common/MxCard'
+import { List } from "../../components/page/List";
+import { Item } from "../../components/page/List/Item";
+
 // import bgim from '../../assets/svg/bgim.svg'
-import './index.scss'
->>>>>>> feat: add page comp list
+
 
 // 色板
 const PALETTE = ["#9154B8", "#F9D57F", "#D8D8D8", "#FD817E"];
@@ -24,7 +19,6 @@ const PALETTE = ["#9154B8", "#F9D57F", "#D8D8D8", "#FD817E"];
 export default class Index extends Component {
   constructor() {
     super(...arguments);
-<<<<<<< HEAD
     this.state = {
       value: 2.5
     };
@@ -39,10 +33,6 @@ export default class Index extends Component {
   }
 
   componentWillUnmount() {}
-=======
-  }
-  componentWillUnmount() { }
->>>>>>> feat: add page comp list
   config = {
     navigationBarTitleText: "首页"
   };
@@ -55,7 +45,6 @@ export default class Index extends Component {
 
   componentWillUnmount() {}
 
-<<<<<<< HEAD
   handleChange(value) {
     this.setState({
       value
@@ -114,15 +103,15 @@ export default class Index extends Component {
 
   ChangeTo() {
     Taro.navigateTo({
-      url: '/pages/list/index'
-    })
+      url: "/pages/list/index"
+    });
   }
   ChangeToo() {
     Taro.navigateTo({
-      url: '/pages/postReview/index'
-    })
+      url: "/pages/postReview/index"
+    });
   }
-  
+
   render() {
     return (
       <View className="index">
@@ -132,35 +121,35 @@ export default class Index extends Component {
           background="#F1F0F5"
           radius="52px"
         />
-        <MxRate 
+        <MxRate
           readOnly={false}
           value={this.state.value}
           onChange={this.handleChange.bind(this)}
         />
         <MxCard>这里装的是卡片内容</MxCard>
         <Ring
-          type='成绩'
-          percent1='13'
-          percent2='76'
-          percent3='11'
-          name1='经常点名'
-          name2='偶尔点名'
-          name3='从不点名'
+          type="成绩"
+          percent1="13"
+          percent2="76"
+          percent3="11"
+          name1="经常点名"
+          name2="偶尔点名"
+          name3="从不点名"
         />
         <View>
-          <Ring 
-            className='ring'
-            type='成绩'
-            name1='70以下'
-            name2='70~85'
-            name3='85以上'
-            percent1='11'
-            percent2='12'
-            percent3='40'
+          <Ring
+            className="ring"
+            type="成绩"
+            name1="70以下"
+            name2="70~85"
+            name3="85以上"
+            percent1="11"
+            percent2="12"
+            percent3="40"
           />
         </View>
-        
-        <MxButton  onClick={this.test.bind()}>lalala</MxButton>
+
+        <MxButton onClick={this.test.bind()}>lalala</MxButton>
 
         {/* <MxRate 
           show={true}
@@ -186,34 +175,37 @@ export default class Index extends Component {
         </View>
         <MxButton onClick={this.test.bind()}>lalala</MxButton>
         <MxButton src={pic} onClick={this.test.bind()}></MxButton>
-        
-        <View className='index'>
-        <MxCard radius='25' className='Mxcard'>
-        <MxButton src={pic} buttonWidthl='513rpx' buttonHeightl='92rpx' onClick={this.ChangeTo}></MxButton>
-        <Text style="display:inline">选课清单</Text>
-        </MxCard>
-        <MxCard radius='25' className='Mxcard'>
-        <MxButton src={pic} buttonWidthl='513rpx' buttonHeightl='92rpx' onClick={this.ChangeToo}></MxButton>
-        <Text style="display:inline">发布评课</Text>
-        </MxCard>
-      </View>
+
+        <View className="index">
+          <MxCard radius="25" className="Mxcard">
+            <MxButton
+              src={pic}
+              buttonWidthl="513rpx"
+              buttonHeightl="92rpx"
+              onClick={this.ChangeTo}
+            ></MxButton>
+            <Text style="display:inline">选课清单</Text>
+          </MxCard>
+          <MxCard radius="25" className="Mxcard">
+            <MxButton
+              src={pic}
+              buttonWidthl="513rpx"
+              buttonHeightl="92rpx"
+              onClick={this.ChangeToo}
+            ></MxButton>
+            <Text style="display:inline">发布评课</Text>
+          </MxCard>
+        </View>
+        <List className="main-page-list">
+          <Item title="我的课程" extraText="MY COURSE"></Item>
+          <Item
+            title="评课历史"
+            extraText="REVIEW HISTORY"
+            className="cat"
+          ></Item>
+          <Item title="我的课程" extraText="MY COURSE"></Item>
+        </List>
       </View>
     );
-=======
-  componentDidHide() { }
-  render() {
-    
-    return (
-      <View>
-      <List className='main-page-list'>
-        <Item title='我的课程' extraText='MY COURSE' ></Item>
-        <Item title='评课历史' extraText='REVIEW HISTORY' className='cat'></Item>
-        <Item title='我的课程' extraText='MY COURSE' ></Item>
-      </List>
-      <MxCard className='mx-card'>test</MxCard>
-      </View>
-
-    )
->>>>>>> feat: add page comp list
   }
 }
