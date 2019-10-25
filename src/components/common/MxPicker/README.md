@@ -37,7 +37,7 @@ export default class Index extends Component {
 
   handleChange = e => {
     this.setState({
-      selectorChecked: this.selector[e.detail.value]
+      selectorChecked: this.select[e.detail.value]
     });
   };
   render() {
