@@ -100,6 +100,7 @@ MxIcon.defaultProps = {
   onClick: () => {}
 };
 
+
 MxIcon.propTypes = {
   className: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
