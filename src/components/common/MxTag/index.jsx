@@ -13,22 +13,29 @@ export default class MxTag extends Component{
             width,
             height,
             border,
-            borderRadius,
+            radius,
             font,
             color,
+            line,
+            align,
+        }=this.props;
+        const{
+            backcolor=backcolor?'#F2F1F6':'#6868F8'
         }=this.props;
         const tag={
             tagStyle:{
                 width: `${width}`,
                 height: `${height}`,
                 border: `${border}`,                
-                borderRadius: `${borderRadius}`,
-                'text-align': 'center',
+                'border-radius': `${radius}`,
+                'background-color':`${backcolor}`,
             },
             content:{
                 'font-size':`${font}`,
-                'font-color':`${color}`,
-                'line-height': `${height}`,
+                color:`${color}`,
+                'line-height':`${line}`,
+                'text-align':`${align}`,
+
             },
             
         }
@@ -45,12 +52,15 @@ export default class MxTag extends Component{
 }
 
 MxTag.defaultProps = {
-    width:'120px',
-    height:'30px',
-    border:'1px solid black',
-    borderRadius:'34px',
-    color:'',
-    font:'',
+    width:'300rpx',
+    height:'60rpx',
+    border:'1px solid #F2F1F6',
+    radius:'34rpx',
+    color:'#A2A2A2',
+    font:'32rpx',
+    line:'60rpx',
+    align:'center',
+    backcolor:'#F2F1F6',
     onClick: () =>{},
   }
   
