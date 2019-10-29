@@ -9,6 +9,7 @@ import MxCard from "../../components/common/MxCard";
 import pic from "../../assets/png/good.png";
 import { List } from "../../components/page/List";
 import { Item } from "../../components/page/List/Item";
+import MxModal from "../../components/common/MxModal";
 
 // import bgim from '../../assets/svg/bgim.svg'
 
@@ -205,6 +206,7 @@ export default class Index extends Component {
           ></Item>
           <Item title="我的课程" extraText="MY COURSE"></Item>
         </List>
+        <MxModal  isOpened={false}  title='kakaka' cancelText='hsdhash' confirmText='asdasd' height='145'>ssdasdsdasd</MxModal>
       </View>
     );
   }
