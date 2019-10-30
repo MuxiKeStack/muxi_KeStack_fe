@@ -30,11 +30,11 @@ render () {
         <View className='page-body'>
           <View className='page-section'>
             <View>
-              <Picker mode='selector' range={selector} onChange={this.handleChange.bind(this)}>
+              <Picker mode='selector' range={selector} onChange={this.handleChange.bind(this)} className='picker-mini'>
                 <View className='picker' style={rootStyle}>
                   { selectorChecked }
                 </View>
-                <MxIcon type='triangle' width='25' height='28'></MxIcon>
+                <MxIcon type='triangle' width='25' height='28' className='icon-container'></MxIcon>
               </Picker>
             </View>
           </View>

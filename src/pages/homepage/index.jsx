@@ -27,8 +27,8 @@ export default class Index extends Component {
         const nickname='shaly';
         const sid='1234567';
         const rootStyle = {
-            width: `${Taro.pxTransform(164)}`,
-            height: `${Taro.pxTransform(164)}`,
+            // width: `${Taro.pxTransform(164)}`,
+            // height: `${Taro.pxTransform(164)}`,
         }
         return (
             <View>
@@ -39,12 +39,14 @@ export default class Index extends Component {
                         <View className='sid'>{sid}</View>
                     </View>
                 </View>
+                <View className='home_page_list-title'>MY PROJECT</View>
                 <List className='main-page-list'>
                     <Item iconType='myCourse' title='我的课程' extraText='MY COURSE' ></Item>
                     <Item iconType='history' title='评课历史' extraText='REVIEW HISTORY'></Item>
                     <Item iconType='courseList' title='选课清单' extraText='COURSE LIST' ></Item>
                     <Item iconType='message' title='消息提醒' extraText='MESSAGE REMINDER' hasBgi='true'></Item>
                 </List>
+                <View className='home_page_error-click'>有问题？点此反馈给我们</View>
             </View>
 
         )

@@ -30,6 +30,9 @@ import myCourse from '../../../assets/svg/myCourse.svg';
 import "./index.scss";
 
 export default class MxIcon extends MxComponent {
+  static options = {
+    addGlobalClass: true
+  }
   constructor() {
     super(...arguments);
     if (process.env.NODE_ENV === "test") {
@@ -79,7 +82,7 @@ export default class MxIcon extends MxComponent {
       width: `${Taro.pxTransform(parseInt(width))}`,
       height: `${Taro.pxTransform(parseInt(height))}`,
     };
-    const rootClass = classNames('icon-container',this.props.className);
+    const rootClass = classNames('icon-container-gloabal',className);
     return (
       <View className={rootClass} >
       <Image

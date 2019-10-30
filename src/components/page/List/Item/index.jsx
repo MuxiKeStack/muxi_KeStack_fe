@@ -25,13 +25,11 @@ export default class Item extends Component {
                     <MxIcon type={iconType} width='44' height='45' className='item-icon'></MxIcon>
                     <Text className='item-title'>{title}</Text>
                     <Text className='item-extra'>{extraText}</Text>
-                    <Text className='clear'></Text>
                 </View>)}
                 {hasBgi &&(<View className='item-container background-img'>
                     <MxIcon type={iconType} width='44' height='45' className='item-icon'></MxIcon>
                     <Text className='item-title'>{title}</Text>
                     <Text className='item-extra'>{extraText}</Text>
-                    <Text className='clear'></Text>
                 </View>)}
             </View>
         );
