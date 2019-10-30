@@ -14,13 +14,51 @@ export default class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      courseChecked: "(只能评价自己上过的课程哦)",
-      filterAChecked: "(考勤方式)",
-      filterBChecked: "(考核方式)",
+      datas: [
+        {
+          courseName: '线性代数B',
+          name: '张俊',
+          starRate: 4,
+          numOfCommenters: 23,
+          tag1: '偶尔点名' ,
+          tag2: '期末闭卷' ,
+          tag3: '生动有趣' ,
+          tag4: '干货满满' 
+        },
+        {
+          courseName: '也许是马基',
+          name: 'xxx',
+          starRate: 3,
+          numOfCommenters: 59,
+          tag1: '经常点名' ,
+          tag2: '期末开卷' ,
+          tag3: '简单易学' ,
+          tag4: '云课堂资料全' 
+          
+        },
+        {
+          courseName: '不知是啥课',
+          name: 'xxx',
+          starRate: 2,
+          numOfCommenters: 11,
+          tag1: '偶尔点名' ,
+          tag2: '论文考核' ,
+          tag3: '生动有趣' ,
+          tag4: '干货满满' 
+        },
+        {
+          courseName: '神仙课程',
+          name: 'xxxxx',
+          starRate: 5,
+          numOfCommenters: 47,
+          tag1: '很少点名' ,
+          tag2: '没有考核' ,
+          tag3: '生动有趣' ,
+          tag4: '作业量少' 
+          
+        },
+      ]
     };
-    this.course = ["高等数学B1（张圆）", "经济学（池毛毛）"];
-    this.filterA = ["经常点名", "偶尔点名", "手机签到"];
-    this.filterB = ["闭卷考试", "开卷考试", "论文考核", "无考核"];
   }
 
   handleClick() {
@@ -54,6 +92,45 @@ export default class Index extends Component {
 
   render() {
     const rate = 3
+    const temp=<View>你好</View>
+    const content = (
+    <View className='detailsBoxes'>
+      {
+      this.state.datas.map((data) => {
+        return(
+          <View className='detailsBox'>
+        <MxCard className='detailsCard'>
+          <View className='detailsLeft'>
+            <View>{data.courseName}</View>
+            <View style='display: block'>{data.name}</View>
+          </View>
+          <View className='detailsRight'>
+            <View>
+              <MxRate
+                comment={false}
+                value={rate}>
+              </MxRate>
+              <View>评价人数：{data.numOfCommenters}</View>
+            </View>
+            <View className='detailsRightDown'>
+              <View style='display:block'>
+                <View className='detailsText'>{data.tag1}</View>
+                <View className='detailsText'>{data.tag2}</View>
+              </View>
+              <View style='display:block'>
+                <View className='detailsText'>{data.tag3}</View>
+                <View className='detailsText'>{data.tag4}</View>
+              </View>
+            </View>
+          </View>
+        </MxCard>
+      </View>
+        )
+      })
+      }
+      </View>
+    )
+      
     return (
       <View style='display:block'>
         <View className='chooseBox'>
@@ -62,179 +139,219 @@ export default class Index extends Component {
             <View className='chooseText'>选课清单</View>
           </View>
         </View>
-
+        
         <View className='detailsBoxes'>
-
-          <View className='detailsBox'>
-            <MxCard className='detailsCard'>
-              <View className='detailsLeft'>
-                <View>线性代数B</View>
-                <View style='display: block'>张俊</View>
-              </View>
-              <View className='detailsRight'>
-                <View>
-                  <MxRate
-                    comment={false}
-                    value={rate}>
-                  </MxRate>
-                  <View>评价人数：23</View>
-                </View>
-                <View className='detailsRightDown'>
-                  <View style='display:block'>
-                    <View className='detailsText'>偶尔点名</View>
-                    <View className='detailsText'>期末闭卷</View>
-                  </View>
-                  <View style='display:block'>
-                    <View className='detailsText'>生动有趣</View>
-                    <View className='detailsText'>干货满满</View>
-                  </View>
-                </View>
-              </View>
-            </MxCard>
-          </View>
-
-
-          <View className='detailsBox'>
-            <MxCard className='detailsCard'>
-              <View className='detailsLeft'>
-                <View>线性代数B</View>
-                <View style='display: block'>张俊</View>
-              </View>
-              <View className='detailsRight'>
-                <View>
-                  <MxRate
-                    comment={false}
-                    value={rate}>
-                  </MxRate>
-                  <View>评价人数：23</View>
-                </View>
-                <View className='detailsRightDown'>
-                  <View style='display:block'>
-                    <View className='detailsText'>偶尔点名</View>
-                    <View className='detailsText'>期末闭卷</View>
-                  </View>
-                  <View style='display:block'>
-                    <View className='detailsText'>生动有趣</View>
-                    <View className='detailsText'>干货满满</View>
-                  </View>
-                </View>
-              </View>
-            </MxCard>
-          </View>
-
-          <View className='detailsBox'>
-            <MxCard className='detailsCard'>
-              <View className='detailsLeft'>
-                <View>线性代数B</View>
-                <View style='display: block'>张俊</View>
-              </View>
-              <View className='detailsRight'>
-                <View>
-                  <MxRate
-                    comment={false}
-                    value={rate}>
-                  </MxRate>
-                  <View>评价人数：23</View>
-                </View>
-                <View className='detailsRightDown'>
-                  <View style='display:block'>
-                    <View className='detailsText'>偶尔点名</View>
-                    <View className='detailsText'>期末闭卷</View>
-                  </View>
-                  <View style='display:block'>
-                    <View className='detailsText'>生动有趣</View>
-                    <View className='detailsText'>干货满满</View>
-                  </View>
-                </View>
-              </View>
-            </MxCard>
-          </View>
-
-          <View className='detailsBox'>
-            <MxCard className='detailsCard'>
-              <View className='detailsLeft'>
-                <View>线性代数B</View>
-                <View style='display: block'>张俊</View>
-              </View>
-              <View className='detailsRight'>
-                <View>
-                  <MxRate
-                    comment={false}
-                    value={rate}>
-                  </MxRate>
-                  <View>评价人数：23</View>
-                </View>
-                <View className='detailsRightDown'>
-                  <View style='display:block'>
-                    <View className='detailsText'>偶尔点名</View>
-                    <View className='detailsText'>期末闭卷</View>
-                  </View>
-                  <View style='display:block'>
-                    <View className='detailsText'>生动有趣</View>
-                    <View className='detailsText'>干货满满</View>
-                  </View>
-                </View>
-              </View>
-            </MxCard>
-          </View>
-
-          <View className='detailsBox'>
-            <MxCard className='detailsCard'>
-              <View className='detailsLeft'>
-                <View>线性代数B</View>
-                <View style='display: block'>张俊</View>
-              </View>
-              <View className='detailsRight'>
-                <View>
-                  <MxRate
-                    comment={false}
-                    value={rate}>
-                  </MxRate>
-                  <View>评价人数：23</View>
-                </View>
-                <View className='detailsRightDown'>
-                  <View style='display:block'>
-                    <View className='detailsText'>偶尔点名</View>
-                    <View className='detailsText'>期末闭卷</View>
-                  </View>
-                  <View style='display:block'>
-                    <View className='detailsText'>生动有趣</View>
-                    <View className='detailsText'>干货满满</View>
-                  </View>
-                </View>
-              </View>
-            </MxCard>
-          </View>
-
-          <View className='detailsBox'>
-            <MxCard className='detailsCard'>
-              <View className='detailsLeft'>
-                <View>线性代数B</View>
-                <View style='display: block'>张俊</View>
-              </View>
-              <View className='detailsRight'>
-                <View>
-                  <MxRate
-                    comment={false}
-                    value={rate}>
-                  </MxRate>
-                  <View>评价人数：23</View>
-                </View>
-                <View className='detailsRightDown'>
-                  <View style='display:block'>
-                    <View className='detailsText'>偶尔点名</View>
-                    <View className='detailsText'>期末闭卷</View>
-                  </View>
-                  <View style='display:block'>
-                    <View className='detailsText'>生动有趣</View>
-                    <View className='detailsText'>干货满满</View>
-                  </View>
-                </View>
-              </View>
-            </MxCard>
-          </View>
+        {/* {temp} */}
+          {content}
+          {/* <View>你好</View> */}
         </View>
       </View>
     )
   }
 }
+
+{/* <View className='detailsBox'>
+            <MxCard className='detailsCard'>
+              <View className='detailsLeft'>
+                <View>线性代数B</View>
+                <View style='display: block'>张俊</View>
+              </View>
+              <View className='detailsRight'>
+                <View>
+                  <MxRate
+                    comment={false}
+                    value={rate}>
+                  </MxRate>
+                  <View>评价人数：23</View>
+                </View>
+                <View className='detailsRightDown'>
+                  <View style='display:block'>
+                    <View className='detailsText'>偶尔点名</View>
+                    <View className='detailsText'>期末闭卷</View>
+                  </View>
+                  <View style='display:block'>
+                    <View className='detailsText'>生动有趣</View>
+                    <View className='detailsText'>干货满满</View>
+                  </View>
+                </View>
+              </View>
+            </MxCard>
+          </View>
+
+
+          <View className='detailsBox'>
+            <MxCard className='detailsCard'>
+              <View className='detailsLeft'>
+                <View>线性代数B</View>
+                <View style='display: block'>张俊</View>
+              </View>
+              <View className='detailsRight'>
+                <View>
+                  <MxRate
+                    comment={false}
+                    value={rate}>
+                  </MxRate>
+                  <View>评价人数：23</View>
+                </View>
+                <View className='detailsRightDown'>
+                  <View style='display:block'>
+                    <View className='detailsText'>偶尔点名</View>
+                    <View className='detailsText'>期末闭卷</View>
+                  </View>
+                  <View style='display:block'>
+                    <View className='detailsText'>生动有趣</View>
+                    <View className='detailsText'>干货满满</View>
+                  </View>
+                </View>
+              </View>
+            </MxCard>
+          </View>
+
+          <View className='detailsBox'>
+            <MxCard className='detailsCard'>
+              <View className='detailsLeft'>
+                <View>线性代数B</View>
+                <View style='display: block'>张俊</View>
+              </View>
+              <View className='detailsRight'>
+                <View>
+                  <MxRate
+                    comment={false}
+                    value={rate}>
+                  </MxRate>
+                  <View>评价人数：23</View>
+                </View>
+                <View className='detailsRightDown'>
+                  <View style='display:block'>
+                    <View className='detailsText'>偶尔点名</View>
+                    <View className='detailsText'>期末闭卷</View>
+                  </View>
+                  <View style='display:block'>
+                    <View className='detailsText'>生动有趣</View>
+                    <View className='detailsText'>干货满满</View>
+                  </View>
+                </View>
+              </View>
+            </MxCard>
+          </View>
+
+          <View className='detailsBox'>
+            <MxCard className='detailsCard'>
+              <View className='detailsLeft'>
+                <View>线性代数B</View>
+                <View style='display: block'>张俊</View>
+              </View>
+              <View className='detailsRight'>
+                <View>
+                  <MxRate
+                    comment={false}
+                    value={rate}>
+                  </MxRate>
+                  <View>评价人数：23</View>
+                </View>
+                <View className='detailsRightDown'>
+                  <View style='display:block'>
+                    <View className='detailsText'>偶尔点名</View>
+                    <View className='detailsText'>期末闭卷</View>
+                  </View>
+                  <View style='display:block'>
+                    <View className='detailsText'>生动有趣</View>
+                    <View className='detailsText'>干货满满</View>
+                  </View>
+                </View>
+              </View>
+            </MxCard>
+          </View>
+
+          <View className='detailsBox'>
+            <MxCard className='detailsCard'>
+              <View className='detailsLeft'>
+                <View>线性代数B</View>
+                <View style='display: block'>张俊</View>
+              </View>
+              <View className='detailsRight'>
+                <View>
+                  <MxRate
+                    comment={false}
+                    value={rate}>
+                  </MxRate>
+                  <View>评价人数：23</View>
+                </View>
+                <View className='detailsRightDown'>
+                  <View style='display:block'>
+                    <View className='detailsText'>偶尔点名</View>
+                    <View className='detailsText'>期末闭卷</View>
+                  </View>
+                  <View style='display:block'>
+                    <View className='detailsText'>生动有趣</View>
+                    <View className='detailsText'>干货满满</View>
+                  </View>
+                </View>
+              </View>
+            </MxCard>
+          </View>
+
+          <View className='detailsBox'>
+            <MxCard className='detailsCard'>
+              <View className='detailsLeft'>
+                <View>线性代数B</View>
+                <View style='display: block'>张俊</View>
+              </View>
+              <View className='detailsRight'>
+                <View>
+                  <MxRate
+                    comment={false}
+                    value={rate}>
+                  </MxRate>
+                  <View>评价人数：23</View>
+                </View>
+                <View className='detailsRightDown'>
+                  <View style='display:block'>
+                    <View className='detailsText'>偶尔点名</View>
+                    <View className='detailsText'>期末闭卷</View>
+                  </View>
+                  <View style='display:block'>
+                    <View className='detailsText'>生动有趣</View>
+                    <View className='detailsText'>干货满满</View>
+                  </View>
+                </View>
+              </View>
+            </MxCard>
+          </View> */}
+
+
+
+
+
+{/* 
+this.state.datas.map((data) =>{
+      this.render(
+        <View className='detailsBox'>
+        <MxCard className='detailsCard'>
+          <View className='detailsLeft'>
+            <View>{data.courseName}</View>
+            <View style='display: block'>{data.name}</View>
+          </View>
+          <View className='detailsRight'>
+            <View>
+              <MxRate
+                comment={false}
+                value={rate}>
+              </MxRate>
+              <View>评价人数：{data.numOfCommenters}</View>
+            </View>
+            <View className='detailsRightDown'>
+              <View style='display:block'>
+                <View className='detailsText'>{data.tags.tag1}</View>
+                <View className='detailsText'>{data.tags.tag2}</View>
+              </View>
+              <View style='display:block'>
+                <View className='detailsText'>{data.tags.tag3}</View>
+                <View className='detailsText'>{data.tags.tag4}</View>
+              </View>
+            </View>
+          </View>
+        </MxCard>
+      </View>
+      )
+    } */}
