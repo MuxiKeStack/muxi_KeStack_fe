@@ -2,7 +2,7 @@ import Taro,{Component} from '@tarojs/taro';
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { View, Text } from "@tarojs/components";
-
+import { MxIcon } from '../../../common/MxIcon';
 import "./index.scss";
 
 export default class Item extends Component {
@@ -13,7 +13,7 @@ export default class Item extends Component {
         this.props.onClick(...args);
     };
     render() {
-        const { title, extraText,hasBgi  } = this.props;
+        const { title, extraText,hasBgi,iconType  } = this.props;
         const rootClass = classNames(
             "list-item",
             this.props.className
@@ -21,15 +21,15 @@ export default class Item extends Component {
         
         return (
             <View className={rootClass} onClick={this.handleClick} >
-                {hasBgi &&(<View className='item-container'>
+                {!hasBgi &&(<View className='item-container '>
+                    <MxIcon type={iconType} width='44' height='45' className='item-icon'></MxIcon>
                     <Text className='item-title'>{title}</Text>
                     <Text className='item-extra'>{extraText}</Text>
-                    <Text className='clear'></Text>
                 </View>)}
-                {!hasBgi &&(<View className='item-container' style='background-image: url(../../../../assets/svg/bgim.svg)'>
+                {hasBgi &&(<View className='item-container background-img'>
+                    <MxIcon type={iconType} width='44' height='45' className='item-icon'></MxIcon>
                     <Text className='item-title'>{title}</Text>
                     <Text className='item-extra'>{extraText}</Text>
-                    <Text className='clear'></Text>
                 </View>)}
             </View>
         );
@@ -41,6 +41,7 @@ Item.defaultProps = {
     extraText: '',
     customStyle: '',
     hasBgi:false,
+    iconType: '',
 }
 Item.propTypes = {
     className: PropTypes.array,
@@ -48,4 +49,5 @@ Item.propTypes = {
     extraText: PropTypes.array,
     customStyle: PropTypes.array,
     hasBgi: PropTypes.bool,
+    iconType: PropTypes.string,
 }

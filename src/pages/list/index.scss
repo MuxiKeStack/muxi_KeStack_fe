@@ -32,10 +32,10 @@ View {
     text-align: center;
     margin-top: 63px;
     vertical-align: top;
+    width: 200px;
 }
 .detailsRight {
     display: inline-block;
-    text-align: center;
     margin-top: 35px;
     margin-left: 45px;
     vertical-align: top;
@@ -48,6 +48,7 @@ View {
 }
 .detailsText{
     width: 165px;
+    word-break:keep-all; 
 }
 .detailsBox {
     display: block;

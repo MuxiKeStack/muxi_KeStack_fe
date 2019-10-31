@@ -1,28 +1,33 @@
-View, Text{
-  box-sizing: border-box;
+$Background: url(../../../../assets/svg/bgim.svg);
+
+.background-img{
+  background-image: $Background;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
 }
 .item-container {
   width: 707px;
   height: 104px;
+  box-sizing: border-box;
+  display:flex;
+  align-items: center;
   opacity: 0.84;
   line-height: 104px;
-  padding-left: 36px;
+  padding-left: 30px;
   padding-right: 79px;
+  color: #000000;
 }
-.progressive-color {
-  border-left: 10px solid rgba(147, 92, 183, 1);
-  background: linear-gradient(
-    270deg,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(241, 240, 245, 1) 100%
-  );
+.item-icon{
+  display: flex;
+  align-items: center;
 }
 .item-title {
   font-size: 40px;
   //   font-family: .PingFang SC;
-  font-weight: 300;
+  font-weight:300;
   color: rgba(0, 0, 0, 1);
   opacity: 1;
+  padding-left:27px;
 }
 .item-extra {
   font-size: 30px;
@@ -30,8 +35,5 @@ View, Text{
   font-weight: 400;
   color: rgba(0, 0, 0, 1);
   opacity: 0.75;
-  float: right;
-}
-.clear {
-  clear: both;
+  margin-left: auto;
 }

@@ -13,10 +13,14 @@ class App extends Component {
 
   config = {
     pages: [
+      
       'pages/index/index',
       'pages/courseDetails/courseDetails',
       'pages/list/index',
-      'pages/postReview/index'
+      'pages/postReview/index',
+      'pages/homepage/index',
+      'pages/mycourse/index',
+      
     ],
     window: {
       backgroundTextStyle: 'light',
