@@ -1,5 +1,7 @@
-$violet: #9154B8;
+$violet: #6869F7;
 $white: #ffffff;
+$yellow: #F9D57F;
+$lightgrey:#D8D8D8;
 page{
     background-color: #F7F7F7;
 }
@@ -59,22 +61,69 @@ View{
     position: relative;
     top: 48px;
     border-radius: 29px;
+    background-color: #ffffff;
 }
 .ring{
     width: 715px;
     margin: 0 auto;
     display: block;
 }
-.ring1{
+.ringBox1{
     @include ringBox();
 }
-.ring2{
+.ringBox2{
     @include ringBox();
 }
-.ring3{
+.ringBox3{
     @include ringBox();
     top: 73px;
 }
+.canvasBox{
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin: 33px auto;
+}
+.levels{
+    width: 208px;
+    color: #AEAEAE;
+}
+.level{
+    font-size: 20px;
+}
+.item{
+    margin-left: 20px;
+    height: 28px;
+    display: block;
+    margin-top: 1px;
+    margin-bottom: 1px;
+}
+
+//左边小圆圈开始
+@mixin circle {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.circle1{
+    @include circle();
+    background-color: $violet;
+}
+.circle2{
+    @include circle();
+    background-color: $yellow;
+}
+.circle3{
+    @include circle();
+    background-color: $lightgrey;
+}
+.circle4{
+    @include circle();
+    background-color: #FD817E;
+}
+//左边小圆圈结束
 
 .sampleSize{
     height: 21px;

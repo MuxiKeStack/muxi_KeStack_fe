@@ -5,37 +5,44 @@ import PropTypes from 'prop-types';
 import './index.scss'
 
 export default class MxTag extends Component{
-    onClick () {
-        this.props.onClick && this.props.onClick(...arguments)
+    constructor() {
+        super(...arguments)
+        this.state = {
+          ifChecked: this.props.checked
+        }
       }
+
+    onClick () {
+        if(this.props.checkable){
+            this.setState({
+                ifChecked: !this.state.ifChecked
+              })
+        }
+        this.props.onClick()
+      }
+
+
     render (){
         const{ 
             width,
             height,
             border,
-            radius,
+            borderRadius,
             font,
             color,
-            line,
-            align,
-        }=this.props;
-        const{
-            backcolor=backcolor?'#F2F1F6':'#6868F8'
         }=this.props;
         const tag={
             tagStyle:{
                 width: `${width}`,
                 height: `${height}`,
                 border: `${border}`,                
-                'border-radius': `${radius}`,
-                'background-color':`${backcolor}`,
+                borderRadius: `${borderRadius}`,
+                'text-align': 'center',
             },
             content:{
                 'font-size':`${font}`,
-                color:`${color}`,
-                'line-height':`${line}`,
-                'text-align':`${align}`,
-
+                'font-color':`${color}`,
+                'line-height': `${height}`,
             },
             
         }
@@ -44,6 +51,10 @@ export default class MxTag extends Component{
             <View 
             style={tag.tagStyle}
             onClick={this.onClick.bind(this)}   
+            className={classNames({
+                'tag-checked': this.state.ifChecked && this.props.checkable
+            })}
+
             >
                <View style={tag.content}>{this.props.children}</View>
             </View>
@@ -52,15 +63,14 @@ export default class MxTag extends Component{
 }
 
 MxTag.defaultProps = {
-    width:'300rpx',
-    height:'60rpx',
-    border:'1px solid #F2F1F6',
-    radius:'34rpx',
-    color:'#A2A2A2',
-    font:'32rpx',
-    line:'60rpx',
-    align:'center',
-    backcolor:'#F2F1F6',
+    width:'120px',
+    height:'30px',
+    border:'1px solid black',
+    borderRadius:'34px',
+    color:'',
+    font:'',
+    checkable: false,
+    checked: false,
     onClick: () =>{},
   }
   

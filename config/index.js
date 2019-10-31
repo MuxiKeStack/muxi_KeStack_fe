@@ -1,6 +1,6 @@
 const config = {
-  projectName: 'muxi_KeStack_fe',
-  date: '2019-9-27',
+  projectName: 'muxikezhan',
+  date: '2019-10-22',
   designWidth: 750,
   deviceRatio: {
     '640': 2.34 / 2,

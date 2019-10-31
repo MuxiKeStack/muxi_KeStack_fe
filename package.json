@@ -1,8 +1,8 @@
 {
-	"name": "myApp",
+	"name": "muxikezhan",
 	"version": "1.0.0",
 	"private": true,
-	"description": "muxistack",
+	"description": "",
 	"templateInfo": {
 		"name": "default",
 		"typescript": false,
@@ -24,7 +24,8 @@
 		"dev:h5": "npm run build:h5 -- --watch",
 		"dev:rn": "npm run build:rn -- --watch",
 		"dev:qq": "npm run build:qq -- --watch",
-		"dev:quickapp": "npm run build:quickapp -- --watch"
+		"dev:quickapp": "npm run build:quickapp -- --watch",
+		"eslint-check": "eslint --print-config path/to/main.js | eslint-config-prettier-check"
 	},
 	"author": "",
 	"license": "MIT",
@@ -39,32 +40,33 @@
 		"@tarojs/taro-swan": "1.3.21",
 		"@tarojs/taro-tt": "1.3.21",
 		"@tarojs/taro-weapp": "1.3.21",
-		"classnames": "^2.2.6",
-		"nerv-devtools": "^1.5.1",
-		"nervjs": "^1.5.1"
+		"nervjs": "^1.5.1",
+		"nerv-devtools": "^1.5.1"
 	},
 	"devDependencies": {
-		"@types/react": "^16.4.6",
-		"@types/webpack-env": "^1.13.6",
 		"@tarojs/plugin-babel": "1.3.21",
 		"@tarojs/plugin-csso": "1.3.21",
 		"@tarojs/plugin-sass": "1.3.21",
 		"@tarojs/plugin-uglifyjs": "1.3.21",
 		"@tarojs/webpack-runner": "1.3.21",
+		"@types/react": "^16.4.6",
+		"@types/webpack-env": "^1.13.6",
+		"babel-eslint": "^8.2.3",
 		"babel-plugin-transform-class-properties": "^6.24.1",
 		"babel-plugin-transform-decorators-legacy": "^1.3.4",
 		"babel-plugin-transform-jsx-stylesheet": "^0.6.5",
 		"babel-plugin-transform-object-rest-spread": "^6.26.0",
 		"babel-preset-env": "^1.6.1",
-		"babel-eslint": "^8.2.3",
 		"eslint": "^5.16.0",
+		"eslint-config-prettier": "^6.5.0",
 		"eslint-config-taro": "1.3.21",
+		"eslint-plugin-import": "^2.12.0",
+		"eslint-plugin-prettier": "^3.1.1",
 		"eslint-plugin-react": "^7.8.2",
 		"eslint-plugin-react-hooks": "^1.6.1",
-		"eslint-plugin-import": "^2.12.0",
+		"eslint-plugin-taro": "1.3.21",
 		"stylelint": "9.3.0",
 		"stylelint-config-taro-rn": "1.3.21",
-		"stylelint-taro-rn": "1.3.21",
-		"eslint-plugin-taro": "1.3.21"
+		"stylelint-taro-rn": "1.3.21"
 	}
 }

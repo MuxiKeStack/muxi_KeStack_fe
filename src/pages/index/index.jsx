@@ -39,9 +39,9 @@ export default class Index extends Component {
   };
 
   componentDidMount() {
-    this.drawCircle([70, 10, 15, 5], "grade", "成绩");
-    this.drawCircle([10, 70, 20], "attendance", "考勤");
-    this.drawCircle([60, 5, 5, 30], "exam", "考核");
+    // this.drawCircle([70, 10, 15, 5], "grade", "成绩");
+    // this.drawCircle([10, 70, 20], "attendance", "考勤");
+    // this.drawCircle([60, 5, 5, 30], "exam", "考核");
   }
 
   componentWillUnmount() {}

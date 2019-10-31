@@ -81,7 +81,7 @@ MxInput.defaultProps = {
     height: '30px',
     placeholder: '',
     background: '#ffffff',
-    radius: '52px',
+    radius: '',
     
     onChange: () => {},
     onFocus: () => {},
