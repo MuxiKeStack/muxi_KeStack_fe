@@ -13,8 +13,8 @@ export default class Index extends Component {
         super(props);
         this.state = {
             courses: [
-                { id: 1, courseName: '线性代数', teacherName: '(李书刚)', isComment: 'true' },
-                { id: 2, courseName: '线性代数aaa', teacherName: '(李书刚bbb)', isComment: 'false' },
+                { id: 1, courseName: '线性代数', teacherName: '(李书刚)', isComment: true },
+                { id: 2, courseName: '线性代数aaa', teacherName: '(李书刚bbb)', isComment: false },
             ],
             selectorCheckedY: "选择学年",
             selectorCheckedT: "选择学期",
@@ -70,13 +70,7 @@ export default class Index extends Component {
                     </View>
                 </View>
                 {courses.map(course => {
-                    // var leftIcon = course.isComment ? 'solidC' : 'hollowC';
-                    if(course.isComment){
-                        var leftIcon = 'solidc'
-                    }
-                    else{
-                        var leftIcon = 'hollowC'
-                    };
+                    var leftIcon = course.isComment ? 'solidC' : 'hollowC';
                     var rightIcon = course.isComment ? 'check' : 'square';
                     var hasComment = course.isComment ? '已评课' : '未评课';
                     return (
