@@ -26,6 +26,7 @@ export default class Index extends Component {
     }
 
     handleClick() {
+        console.log('Tag传入函数不冲突！')
     }
 
     handleChangeCourse = e => {
@@ -111,21 +112,58 @@ export default class Index extends Component {
                     </View>
                 </View>
                 <View className='featureBox' >
-                    <View>
-                        <View className='featureChoice'>选择课程:</View>
-                    </View>
+                    <View className='featureChoice'>选择课程:</View>
                     <View className='featureTags'>
                         <View>
-                            <MxTag width='80px' borderRadius='12px' height='25px' font='12px'>简单易学</MxTag>
-                            <View className='featureTagLev'><MxTag width='80px' borderRadius='12px' height='24px' font='12px'>干货满满</MxTag></View>
+                            <MxTag
+                                onClick={this.handleClick}
+                                width='80px'
+                                borderRadius='12px'
+                                height='25px'
+                                font='12px'
+                                checkable={true}
+                            >简单易学</MxTag>
+                            <View className='featureTagLev'>
+                                <MxTag
+                                    width='80px'
+                                    borderRadius='12px'
+                                    height='24px'
+                                    font='12px'
+                                    checkable={true}>干货满满</MxTag>
+                            </View>
                         </View>
                         <View className='featureTagVer'>
-                            <MxTag width='80px' borderRadius='12px' height='25px' font='12px'>生动有趣</MxTag>
-                            <View className='featureTagLev'><MxTag width='80px' borderRadius='12px' height='24px' font='12px'>作业量少</MxTag></View>
+                            <MxTag
+                                onClick={this.handleClick}
+                                width='80px'
+                                borderRadius='12px'
+                                height='25px'
+                                font='12px'
+                                checkable={true}
+                            >生动有趣</MxTag>
+                            <View className='featureTagLev'>
+                                <MxTag
+                                    width='80px'
+                                    borderRadius='12px'
+                                    height='24px'
+                                    font='12px'
+                                    checkable={true}>作业量少</MxTag>
+                            </View>
                         </View>
                         <View className='featureTagVer'>
-                            <MxTag width='80px' borderRadius='12px' height='25px' font='12px'>老师温柔</MxTag>
-                            <View className='featureTagLev'><MxTag width='80px' borderRadius='12px' height='24px' font='12px'>云课堂资料全</MxTag></View>
+                            <MxTag
+                                width='80px'
+                                borderRadius='12px'
+                                height='25px'
+                                font='12px'
+                                checkable={true}>老师温柔</MxTag>
+                            <View className='featureTagLev'>
+                                <MxTag
+                                    width='80px'
+                                    borderRadius='12px'
+                                    height='24px'
+                                    font='12px'
+                                    checkable={true}>云课堂资料全</MxTag></View>
                         </View>
                     </View>
                 </View>
