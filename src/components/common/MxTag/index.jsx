@@ -24,51 +24,44 @@ export default class MxTag extends Component{
 
     render (){
         const{ 
-            width,
-            height,
-            border,
-            borderRadius,
+            // height,
+            display,
             font,
             color,
+            padding,
         }=this.props;
         const tag={
             tagStyle:{
-                width: `${width}`,
-                height: `${height}`,
-                border: `${border}`,                
-                borderRadius: `${borderRadius}`,
-                'text-align': 'center',
-            },
-            content:{
+                // height: `${height}`,
+                display: `${display}`,                
+                // 'border-radius': `${Taro.pxTransform(parseInt(height)/2)}`,
                 'font-size':`${font}`,
-                'font-color':`${color}`,
-                'line-height': `${height}`,
-            },
-            
+                color:`${color}`,
+                padding:`${padding}`,
+            },     
         }
     
         return (
             <View 
             style={tag.tagStyle}
             onClick={this.onClick.bind(this)}   
-            className={classNames({
-                'tag-checked': this.state.ifChecked && this.props.checkable
+            className={classNames(
+            {'tag-checked': this.state.ifChecked && this.props.checkable,
+            'tag-unchecked': !this.state.ifChecked && this.props.checkable
             })}
-
             >
-               <View style={tag.content}>{this.props.children}</View>
+               {this.props.children}
             </View>
         )
     }
 }
 
 MxTag.defaultProps = {
-    width:'120px',
-    height:'30px',
-    border:'1px solid black',
-    borderRadius:'34px',
+    padding:'3px 6px 3px 6px',
+    // height:'30px',
+    display:'inline-block',
     color:'',
-    font:'',
+    font:'24px',
     checkable: false,
     checked: false,
     onClick: () =>{},
