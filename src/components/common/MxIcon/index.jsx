@@ -1,7 +1,7 @@
 import Taro from "@tarojs/taro";
 import PropTypes from "prop-types";
 import classNames from 'classnames';
-import { Image, View } from "@tarojs/components";
+import { Image,View } from "@tarojs/components";
 import MxComponent from "../../../common/component";
 import add from "../../../assets/svg/add.svg";
 import avatar from "../../../assets/svg/avatar-img.svg";
@@ -50,6 +50,7 @@ export default class MxIcon extends MxComponent {
       width,
       height,
       type,
+      outerStyle,
     } = this.props;
     const map = new Map([
         ['add', add],
@@ -82,11 +83,10 @@ export default class MxIcon extends MxComponent {
       width: `${Taro.pxTransform(parseInt(width))}`,
       height: `${Taro.pxTransform(parseInt(height))}`,
     };
-    const rootClass = classNames('icon-container-gloabal',className);
     return (
-      <View className={rootClass} >
+      <View style={outerStyle}>
       <Image
-        className='image-icon'
+        className={classNames('image-icon',className)}
         style={rootStyle}
         src={map.get(type)}
         onClick={this.handleClick.bind(this)}
@@ -100,6 +100,7 @@ MxIcon.defaultProps = {
   width: 40,
   height: 40,
   type: "",
+  outerStyle:"",
   onClick: () => {}
 };
 
@@ -109,5 +110,6 @@ MxIcon.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   type: PropTypes.string,
+  outerStyle: PropTypes.string,
   onChange: PropTypes.func,
 }

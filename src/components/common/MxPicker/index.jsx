@@ -24,7 +24,10 @@ render () {
     const rootStyle = {
       width: `${Taro.pxTransform(parseInt(width)-25)}`,
     }
-
+    const setIconCenter = {
+      display: 'inline-block',
+      'vertical-align': 'center',
+    }
     return (
       <View className={classNames('container',className)} >
         <View className='page-body'>
@@ -34,7 +37,7 @@ render () {
                 <View className='picker' style={rootStyle}>
                   { selectorChecked }
                 </View>
-                <MxIcon type='triangle' width='25' height='28' className='icon-container'></MxIcon>
+                <MxIcon type='triangle' width='25' height='28' className='icon-container' outerStyle={setIconCenter}></MxIcon>
               </Picker>
             </View>
           </View>
