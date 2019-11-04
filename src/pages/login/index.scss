@@ -1,3 +1,7 @@
+.index{
+    width: 750rpx;
+    height: 1196rpx;
+}
 .head{
     width: 190rpx;
     height: 190rpx;
@@ -5,11 +9,27 @@
     border-radius: 190rpx;
     margin-top: 140rpx;
     margin-left: 280rpx;
+    margin-bottom:85rpx;
 
 }
+
+.login{
+    margin-top:96rpx;
+    margin-left:113rpx ;
+    margin-right: 124rpx;
+}
+
 .visit{
+    margin-top: 25rpx;
+    margin-left: 292rpx;
+    margin-right: 314rpx;
+}
+.visitor{
     font-size:36rpx;
     color: #6868F8;
+}
+.privacy{
+    margin-bottom: 40rpx;
 }
 .secret{
     font-size:28rpx;
