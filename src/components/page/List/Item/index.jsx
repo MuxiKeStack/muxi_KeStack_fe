@@ -18,16 +18,16 @@ export default class Item extends Component {
             "list-item",
             this.props.className
         );
-        const setIconCenter={
+        /*const setIconCenter={
             display: 'flex',
             'align-items': 'center',
-        }
+        }*/
 
         return (
             <View className={rootClass} onClick={this.handleClick} >
                 {!hasBgi && (<View className='item-container '>
                     <View className='icon'> 
-                        <MxIcon type={iconType} width='44' height='45' className='item-icon' outerStyle={setIconCenter}></MxIcon>
+                        <MxIcon type={iconType} width='44' height='45' className='item-icon' /*outerStyle={setIconCenter}*/></MxIcon>
                     </View>
                     <Text className='item-title'>{title}</Text>
                     <Text className='item-extra'>{extraText}</Text>

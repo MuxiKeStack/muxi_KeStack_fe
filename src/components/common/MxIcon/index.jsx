@@ -84,14 +84,15 @@ export default class MxIcon extends MxComponent {
       height: `${Taro.pxTransform(parseInt(height))}`,
     };
     return (
-      <View style={outerStyle}>
+    <View style={outerStyle} className={classNames('image-container',className)}>
       <Image
-        className={classNames('image-icon',className)}
+        
+        className='image-icon'
         style={rootStyle}
         src={map.get(type)}
         onClick={this.handleClick.bind(this)}
       ></Image>
-      </View>
+    </View>
     );
   }
 }
@@ -103,7 +104,6 @@ MxIcon.defaultProps = {
   outerStyle:"",
   onClick: () => {}
 };
-
 
 MxIcon.propTypes = {
   className: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
