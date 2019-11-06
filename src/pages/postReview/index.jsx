@@ -117,17 +117,13 @@ export default class Index extends Component {
                         <View>
                             <MxTag
                                 onClick={this.handleClick}
-                                width='80px'
-                                borderRadius='12px'
-                                height='25px'
+                                // height='25px'
                                 font='12px'
                                 checkable={true}
                             >简单易学</MxTag>
                             <View className='featureTagLev'>
                                 <MxTag
-                                    width='80px'
-                                    borderRadius='12px'
-                                    height='24px'
+                                    // height='24px'
                                     font='12px'
                                     checkable={true}>干货满满</MxTag>
                             </View>
@@ -135,33 +131,25 @@ export default class Index extends Component {
                         <View className='featureTagVer'>
                             <MxTag
                                 onClick={this.handleClick}
-                                width='80px'
-                                borderRadius='12px'
-                                height='25px'
+                                // height='25px'
                                 font='12px'
                                 checkable={true}
                             >生动有趣</MxTag>
                             <View className='featureTagLev'>
                                 <MxTag
-                                    width='80px'
-                                    borderRadius='12px'
-                                    height='24px'
+                                    // height='24px'
                                     font='12px'
                                     checkable={true}>作业量少</MxTag>
                             </View>
                         </View>
                         <View className='featureTagVer'>
                             <MxTag
-                                width='80px'
-                                borderRadius='12px'
-                                height='25px'
+                                // height='25px'
                                 font='12px'
                                 checkable={true}>老师温柔</MxTag>
                             <View className='featureTagLev'>
                                 <MxTag
-                                    width='80px'
-                                    borderRadius='12px'
-                                    height='24px'
+                                    // height='24px'
                                     font='12px'
                                     checkable={true}>云课堂资料全</MxTag></View>
                         </View>

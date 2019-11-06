@@ -1,10 +1,8 @@
-.muxi-tag{
-    width:300pt ;
-    height: 60pt;
-    border:1px solid black ;
-    border-radius:34pt ;
-}
 .tag-checked {
     background-color: darkred;
     color: white;
+}
+.tag-unchecked {
+    background-color: gray;
+    color: black;
 }
