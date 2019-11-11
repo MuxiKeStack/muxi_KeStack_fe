@@ -13,8 +13,8 @@ export default class Index extends Component {
         super(props);
         this.state = {
             courses: [
-                { id: 1, courseName: '线性代数', teacherName: '(李书刚)', isComment: 'false' },
-                { id: 2, courseName: '线性代数aaa', teacherName: '(李书刚bbb)', isComment: 'true' },
+                { id: 1, courseName: '线性代数', teacherName: '(李书刚)', isComment: true },
+                { id: 2, courseName: '线性代数aaa', teacherName: '(李书刚bbb)', isComment: false },
             ],
             selectorCheckedY: "选择学年",
             selectorCheckedT: "选择学期",
@@ -29,10 +29,10 @@ export default class Index extends Component {
     };
 
     componentDidMount() {
-        /*        courseList().then(res => {
-                    console.log(res);
-                    this.setState({
-                        course: res.info,
+/*        courseList().then(res => {
+                console.log(res);
+                this.setState({
+                    course: res.info,
                     });
                 });*/
     }
@@ -53,9 +53,6 @@ export default class Index extends Component {
      
     render() {
         const { courses } = this.state;
-        const leftIcon = courses.isComment ? 'solidC' : 'hollowC'
-        const rightIcon = courses.isComment ? 'check' : 'square'
-        const hasComment = courses.isComment ? '已评课' : '未评课'
         return (
             <View className='index'>
                 <View className='mycourse_page-picker-container'>
@@ -63,7 +60,6 @@ export default class Index extends Component {
                         <MxPicker width='257' selector={this.selectoryears}
                           selectorChecked={this.state.selectorCheckedY}
                           onChange={this.handleChangeY.bind(this)}
-                          className='iamdying'
                         />
                     </View>
                     <View  className='select-term'>
@@ -74,6 +70,9 @@ export default class Index extends Component {
                     </View>
                 </View>
                 {courses.map(course => {
+                    var leftIcon = course.isComment ? 'solidC' : 'hollowC';
+                    var rightIcon = course.isComment ? 'check' : 'square';
+                    var hasComment = course.isComment ? '已评课' : '未评课';
                     return (
                         <View onClick={() =>
                             Taro.navigateTo({ url: '/pages/somename/index?id=' + course.id })
@@ -81,11 +80,13 @@ export default class Index extends Component {
                           key={course.id}
                           className='mycourse_page-courselist-item'
                         >
-                            <MxIcon className='left-icon' type={leftIcon}></MxIcon>
+                            <MxIcon className='left-icon' type={leftIcon} width='27' height='27'></MxIcon>
                             <Text className='course-name'>{course.courseName}</Text>
                             <Text className='teacher-name'>{course.teacherName}</Text>
+                            <View className='float-right'>
                             <Text className='is-comment'>{hasComment}</Text>
-                            <MxIcon className='right-icon' type={rightIcon}></MxIcon>
+                            <MxIcon className='right-icon' type={rightIcon} width='42' height='42' ></MxIcon>
+                            </View>
                          </View>
                     );
                 })}

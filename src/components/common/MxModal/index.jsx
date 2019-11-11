@@ -82,11 +82,12 @@ export default class MxModal extends Component {
                }
                <Text className='mp-icon mp-icon-closemodal' style='position:absolute;top:-11px;right:-9px;'  onClick={this.onClose}></Text>
                <View className='mp-modal__content' style={contentHeight}>
-                <ScrollView
+                {/* <ScrollView
                   scrollY
                 >
                   { this.props.children }
-                </ScrollView>
+                </ScrollView> */}
+                { this.props.children }
                </View>
                {
                   isRenderFooter && (

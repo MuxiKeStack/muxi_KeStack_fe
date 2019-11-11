@@ -1,6 +1,55 @@
-.iamdying{
-    border:2px solid black;
+.mycourse_page-picker-container {
+  display: flex;
+  border-top: 5px solid rgba(241, 240, 245, 1);
+  border-bottom: 5px solid rgba(241, 240, 245, 1);
 }
-.icon-container-gloabal{
-    display: inline-block;
-  }
+.select-year {
+  width: 363px;
+  height: 120px;
+  border-right: 5px solid rgba(241, 240, 245, 1);
+  padding-left: 47px;
+  display: flex;
+  align-items: center;
+}
+.select-term {
+  width: 382px;
+  height: 120px;
+  padding-left: 59px;
+  display: flex;
+  align-items: center;
+}
+.mycourse_page-courselist-item {
+  width: 750px;
+  height: 104px;
+  opacity: 0.84;
+  padding: 0 75px 0 47px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+.course-name,
+.teacher-name {
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 42px;
+  color: rgba(0, 0, 0, 1);
+  opacity: 1;
+  padding-right: 25px;
+  vertical-align: middle;
+}
+.left-icon {
+  padding-right: 28px;
+}
+.float-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+.is-comment {
+    font-size: 30px;
+    color:#A9A9A9FF;
+    opacity: 1;
+}
+.right-icon {
+    padding-left: 26px;
+}

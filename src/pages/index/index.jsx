@@ -1,5 +1,5 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, Text, Canvas } from "@tarojs/components";
+import { View, Text, Canvas ,} from "@tarojs/components";
 import "./index.scss";
 import MxInput from "../../components/common/MxInput/MxInput";
 import MxRate from "../../components/common/MxRate/MxRate";
@@ -112,6 +112,11 @@ export default class Index extends Component {
       url: "/pages/postReview/index"
     });
   }
+  ChangeT() {
+    Taro.navigateTo({
+      url: "/pages/freeCourse/index"
+    });
+  }
 
   render() {
     return (
@@ -206,7 +211,10 @@ export default class Index extends Component {
           ></Item>
           <Item title="我的课程" extraText="MY COURSE"></Item>
         </List>
-        <MxModal  isOpened={false}  title='kakaka' cancelText='hsdhash' confirmText='asdasd' height='145'>ssdasdsdasd</MxModal>
+        <MxModal  isOpened={false}  title='kakaka' cancelText='取消' confirmText='确认' height='100'>
+          <Text>周一 \n 周一七八节 @ 7105\n 周二三四节 @ 7023</Text>
+        </MxModal>
+        <MxButton onClick={this.ChangeT}>自由排课</MxButton>
       </View>
     );
   }
