@@ -24,19 +24,18 @@ export default class MxTag extends Component{
 
     render (){
         const{ 
-            // height,
+            //height,
             display,
             font,
-            color,
             padding,
+            borderRadius,
         }=this.props;
         const tag={
             tagStyle:{
-                // height: `${height}`,
+                //height: `${height}`,
                 display: `${display}`,                
-                // 'border-radius': `${Taro.pxTransform(parseInt(height)/2)}`,
+                'border-radius': `${borderRadius}`,
                 'font-size':`${font}`,
-                color:`${color}`,
                 padding:`${padding}`,
             },     
         }
@@ -60,8 +59,8 @@ MxTag.defaultProps = {
     padding:'3px 6px 3px 6px',
     // height:'30px',
     display:'inline-block',
-    color:'',
-    font:'24px',
+    font:'18px',
+    borderRadius:'18rpx',
     checkable: false,
     checked: false,
     onClick: () =>{},
