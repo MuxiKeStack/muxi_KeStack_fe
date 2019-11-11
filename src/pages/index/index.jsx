@@ -118,9 +118,9 @@ export default class Index extends Component {
       <View className="index">
         <Text>{this.state.name}</Text>
         <MxInput
-          placeholder="this is placeholder"
-          background="#F1F0F5"
-          radius="52px"
+          placeholder='学号/昵称'
+          border={true}
+          
         />
         <MxRate
           readOnly={false}

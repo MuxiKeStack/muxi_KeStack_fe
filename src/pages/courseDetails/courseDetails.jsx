@@ -1,43 +1,70 @@
-import Taro, { Component } from '@tarojs/taro'
-import { View, Canvas} from '@tarojs/components'
-import './courseDetails.scss'
-import MxRate from '../../components/common/MxRate/MxRate'
-import Ring from '../../components/page/Ring/Ring'
+import Taro, { Component } from '@tarojs/taro';
+import { View, Canvas } from '@tarojs/components';
+import './courseDetails.scss';
+import MxRate from '../../components/common/MxRate/MxRate';
+import Ring from '../../components/page/Ring/Ring';
 
 export default class Coursedetails extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      courseName:'线性代数',
-      teacherName:'张俊',
-      courseCategory:'专业必修课',
-      courseCredit:'2',
-      rate:'4',
-      starNumber:'23',
-      attendance1:'30',
-      attendance2:'60',
-      attendance3:'10',
-      inspection1:'40',
-      inspection2:'20',
-      inspection3:'10',
-      inspection4:'10',
-      courseTime1:'',
-      courseTime2:'',
-      courseTime3:'',
-      coursePlace1:'',
-      coursePlace2:'',
-      coursePlace3:'',
-      courseGrade70:'11',
-      courseGrade7085:'76',
-      courseGrade85:'13',
-      courseGradeNumber:'89',
-      totalGrade:'78.69',
-      ordinaryGrade:'94.04'
-    }
+      courseName: '线性代数',
+      teacherName: '张俊',
+      courseCategory: '专业必修课',
+      courseCredit: '2',
+      rate: '4',
+      starNumber: '23',
+      attendance1: '30',
+      attendance2: '60',
+      attendance3: '10',
+      inspection1: '40',
+      inspection2: '20',
+      inspection3: '10',
+      inspection4: '10',
+      courseTime1: '',
+      courseTime2: '',
+      courseTime3: '',
+      coursePlace1: '',
+      coursePlace2: '',
+      coursePlace3: '',
+      courseGrade70: '11',
+      courseGrade7085: '76',
+      courseGrade85: '13',
+      courseGradeNumber: '89',
+      totalGrade: '78.69',
+      ordinaryGrade: '94.04'
+    };
   }
 
-  componentWillMount () { 
-    const{
+  componentWillMount() {
+    var state = {
+      courseName: '线性代数',
+      teacherName: '张俊',
+      courseCategory: '专业必修课',
+      courseCredit: '2',
+      rate: '4',
+      starNumber: '23',
+      attendance1: '30',
+      attendance2: '60',
+      attendance3: '10',
+      inspection1: '40',
+      inspection2: '20',
+      inspection3: '10',
+      inspection4: '10',
+      courseTime1: '',
+      courseTime2: '',
+      courseTime3: '',
+      coursePlace1: '',
+      coursePlace2: '',
+      coursePlace3: '',
+      courseGrade70: '11',
+      courseGrade7085: '76',
+      courseGrade85: '13',
+      courseGradeNumber: '89',
+      totalGrade: '78.69',
+      ordinaryGrade: '94.04'
+    };
+    const {
       attendance1,
       attendance2,
       attendance3,
@@ -48,46 +75,78 @@ export default class Coursedetails extends Component {
       courseGrade70,
       courseGrade7085,
       courseGrade85
-    } = this.state
-    const res = Taro.getSystemInfoSync()
-        const point = res.screenWidth / 750 * 50;
-        const radiusOut = res.screenWidth / 750 * 50;
-        const radiusIn = res.screenWidth / 750 * 48;
-        const PALETTE = ["#6869F7", "#FD817E", "#D8D8D8", "#F9D57F"];
+    } = state;
+    const res = Taro.getSystemInfoSync();
+    const point = (res.screenWidth / 750) * 50;
+    const radiusOut = (res.screenWidth / 750) * 50;
+    const radiusIn = (res.screenWidth / 750) * 48;
+    const PALETTE = ['#6869F7', '#FD817E', '#D8D8D8', '#F9D57F'];
 
-        function toInt(percent){
-            return parseInt(percent)
-        }
-        const ANGLE1 = [toInt(courseGrade70), toInt(courseGrade70) + toInt(courseGrade7085), toInt(courseGrade70) + toInt(courseGrade7085) + toInt(courseGrade85)];
-        const ANGLE2 = [toInt(attendance1), toInt(attendance1) + toInt(attendance2), toInt(attendance1) + toInt(attendance2) + toInt(attendance3)];
-        const ANGLE3 = [toInt(inspection1), toInt(inspection1) + toInt(inspection2), toInt(inspection1) + toInt(inspection2) + toInt(inspection3), toInt(inspection1) + toInt(inspection2) + toInt(inspection3) + toInt(inspection4)];
+    function toInt(percent) {
+      return parseInt(percent);
+    }
+    const ANGLE1 = [
+      toInt(courseGrade70),
+      toInt(courseGrade70) + toInt(courseGrade7085),
+      toInt(courseGrade70) + toInt(courseGrade7085) + toInt(courseGrade85)
+    ];
+    const ANGLE2 = [
+      toInt(attendance1),
+      toInt(attendance1) + toInt(attendance2),
+      toInt(attendance1) + toInt(attendance2) + toInt(attendance3)
+    ];
+    const ANGLE3 = [
+      toInt(inspection1),
+      toInt(inspection1) + toInt(inspection2),
+      toInt(inspection1) + toInt(inspection2) + toInt(inspection3),
+      toInt(inspection1) +
+        toInt(inspection2) +
+        toInt(inspection3) +
+        toInt(inspection4)
+    ];
 
-        function computeAngle(percent){
-            return Math.PI/180*3.6*percent + Math.PI*3/2
-        }
-        function drawSector(beginAngle, finishAngle, color, ctx){
-            ctx.beginPath();
-            ctx.arc(point,point,radiusOut,computeAngle(beginAngle),computeAngle(finishAngle),false);
-            ctx.arc(point,point,radiusIn,computeAngle(finishAngle),computeAngle(beginAngle),true);
-            ctx.closePath();
-            ctx.fillStyle = color;
-            ctx.fill();
-        }
-        function drawRing(ctx, ANGLE, type){
-            drawSector(0, ANGLE[0], PALETTE[0], ctx);
-            drawSector(ANGLE[0], ANGLE[1], PALETTE[3], ctx);
-            drawSector(ANGLE[1], ANGLE[2], PALETTE[2], ctx);
-            if(ANGLE[3]){drawSector(ANGLE[2], ANGLE[3], PALETTE[1], ctx);}
-            ctx.fillStyle = '#6869F7';
-            ctx.font= '23rpx';
-            ctx.textAlign = 'center'; 
-            ctx.textBaseline = 'middle';
-            ctx.fillText(`${type}`, radiusOut, radiusOut);
-            ctx.draw();
-        }
-        drawRing(Taro.createCanvasContext('ring1'), ANGLE1, '成绩');
-        drawRing(Taro.createCanvasContext('ring2'), ANGLE2, '考勤');
-        drawRing(Taro.createCanvasContext('ring3'), ANGLE3, '考核');
+    function computeAngle(percent) {
+      return (Math.PI / 180) * 3.6 * percent + (Math.PI * 3) / 2;
+    }
+    function drawSector(beginAngle, finishAngle, color, ctx) {
+      ctx.beginPath();
+      ctx.arc(
+        point,
+        point,
+        radiusOut,
+        computeAngle(beginAngle),
+        computeAngle(finishAngle),
+        false
+      );
+      ctx.arc(
+        point,
+        point,
+        radiusIn,
+        computeAngle(finishAngle),
+        computeAngle(beginAngle),
+        true
+      );
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+    function drawRing(ctx, ANGLE, type) {
+      drawSector(0, ANGLE[0], PALETTE[0], ctx);
+      drawSector(ANGLE[0], ANGLE[1], PALETTE[3], ctx);
+      drawSector(ANGLE[1], ANGLE[2], PALETTE[2], ctx);
+      if (ANGLE[3]) {
+        drawSector(ANGLE[2], ANGLE[3], PALETTE[1], ctx);
+      }
+      ctx.fillStyle = '#6869F7';
+      ctx.font = '23rpx';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(`${type}`, radiusOut, radiusOut);
+      ctx.draw();
+    }
+    drawRing(Taro.createCanvasContext('ring1'), ANGLE1, '成绩');
+    drawRing(Taro.createCanvasContext('ring2'), ANGLE2, '考勤');
+    drawRing(Taro.createCanvasContext('ring3'), ANGLE3, '考核');
   }
 
   componentDidMount() {}
@@ -99,7 +158,7 @@ export default class Coursedetails extends Component {
   componentDidHide() {}
 
   render() {
-    const{
+    const {
       courseCategory,
       courseCredit,
       rate,
@@ -121,12 +180,12 @@ export default class Coursedetails extends Component {
       courseGrade7085,
       courseGrade85,
       courseGradeNumber
-    } = this.state
+    } = this.state;
     function toInt(percent) {
       return parseInt(percent);
     }
-    console.log("shi");
-    console.log("asdf");
+    console.log('shi');
+    console.log('asdf');
     const ANGLE1 = [
       toInt(courseGrade70),
       toInt(courseGrade7085),

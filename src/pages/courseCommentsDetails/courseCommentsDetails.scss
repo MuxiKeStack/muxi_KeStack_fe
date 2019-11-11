@@ -1,0 +1,163 @@
+View{
+    display: inline-block;
+}
+page{
+    background-color: #F1F0F5;
+}
+@mixin bigbox {
+    width: 688px;
+    background-color: #ffffff;
+    border-radius: 30px;
+    display: block;
+    margin: 0 auto;
+}
+@mixin avatar($size){
+    width: $size;
+    height: $size;
+    border-radius: 50%;
+}
+@mixin details {
+    color: #878787;
+    font-size: 20px;
+    margin-top: 16px;
+}
+@mixin username($size) {
+    font-size: $size;
+    font-weight: bold;
+    display: block;
+}
+.ancestorBox{
+    @include bigbox();
+    padding: 30px 44px;
+    margin: 50px auto;
+}
+.ancestorInformation{
+    margin-left: 22px;
+}
+.ancestorAvatar Image{
+    @include avatar(80px);
+}
+.ancestorUsername{
+    @include username(30px);
+}
+.ancestorTime{
+    @include details();
+}
+.courseInformationBox{
+    display: block;
+    color: #6869F7;
+    font-size: 27px;
+}
+.courseInformation{
+    width: 250px;
+    margin-right: 30px;
+    vertical-align: middle;
+}
+.toRate{
+    vertical-align: middle;
+    font-weight: bold;
+}
+.rate{
+    vertical-align: middle;
+}
+.tag{
+    display: block;
+    margin: 0 30px;
+    height: 40px;
+}
+.ancestorComment{
+    font-size: 24px;
+    width: 530px;
+    display: block;
+}
+.iconsBox{
+    color: #A2A2A8;
+    font-size: 21px;
+    margin-left: 460px;
+}
+.commentIcon{
+    margin-left: 24px;
+    margin-right: 6px;
+}
+.likeIcon{
+    margin-right: 6px;
+}
+// 下方评论列表开始
+.courseCommentsDetails{
+    width: 100%;
+}
+.commentsList{
+    @include bigbox();
+    padding: 20px 0;
+}
+.parentCommentBox{
+    margin-left: 40px;
+    margin-top: 35px;
+}
+.parentAvatar Image{
+    @include avatar(80px);
+}
+.parentComment{
+    margin-left: 30px;
+    font-size: 24px;
+    width: 490px;
+    vertical-align: top;
+}
+.parentCommentContent{
+    margin-top: 8px;
+    font-size: 24px;
+}
+.parentContainer{
+    width: 480px;
+}
+.parentContainerIn{
+    background-color: #F1F0F5;
+    padding: 14px 22px;
+    border-radius: 12px;
+}
+.parentUsername{
+    @include username(24px);
+}
+.parentDetail{
+    @include details();
+}
+// 二级评论开始
+.reply{
+    margin: 0 12px;
+}
+.subCommentListBox{
+    margin-left: 120px;
+}
+.subCommentBox{
+    margin-top: 30px;
+}
+.sonAvatar Image{
+    @include avatar(50px);
+}
+.sonComment{
+    margin-left: 30px;
+    font-size: 24px;
+    width: 380px;
+    vertical-align: top;
+}
+.sonContainer{
+    width: 370px;
+}
+.sonUsername{
+    @include username(24px);
+}
+.sonDetail{
+    @include details();
+}
+.sonCommentContent{
+    margin-top: 8px;
+}
+.replyContext{
+    font-weight: normal;
+    margin: 0 5px;
+}
+.remainComments{
+    color:#6869F7;
+    font-size: 24px;
+}
+// 下方评论列表结束

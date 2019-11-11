@@ -1,4 +1,4 @@
-$star: url(../../../assets/png/starblack.png);
+$star: url(../../../assets/png/star.png);
 $starFill: url(../../../assets/png/starFill.png);
 $starsize: 43px;
 @mixin star($url) {
@@ -30,4 +30,7 @@ View{
 .off{
     @include star($star);
     width: $starsize;
+}
+.box{
+    height: $starsize;
 }

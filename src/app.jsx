@@ -20,7 +20,7 @@ class App extends Component {
       'pages/postReview/index',
       'pages/homepage/index',
       'pages/mycourse/index',
-      
+      'pages/courseCommentsDetails/courseCommentsDetails'
     ],
     window: {
       backgroundTextStyle: 'light',
