@@ -10,6 +10,7 @@ import './app.scss';
 // }
 
 class App extends Component {
+  componentDidMount() {}
   config = {
     pages: [
       'pages/index/index',
@@ -19,17 +20,36 @@ class App extends Component {
       'pages/postReview/index',
       'pages/homepage/index',
       'pages/mycourse/index',
-      'pages/courseCommentsDetails/courseCommentsDetails'
+      'pages/courseCommentsDetails/courseCommentsDetails',
+      'pages/assessSquare/index'
     ],
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      list: [
+        {
+          pagePath: 'pages/assessSquare/index',
+          text: '评课广场'
+        },
+        {
+          pagePath: 'pages/list/index',
+          text: '选课助手'
+        },
+        {
+          pagePath: 'pages/homepage/index',
+          text: '个人主页'
+        }
+      ],
+      color: '#CACACA',
+      selectedColor: '#7273F7',
+      backgroundColor: '#ffffff',
+      borderStyle: 'white'
     }
   };
-
-  componentDidMount() {}
 
   componentDidShow() {}
 

@@ -2,7 +2,6 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Canvas } from '@tarojs/components';
 import './courseDetails.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
-import Ring from '../../components/page/Ring/Ring';
 
 export default class Coursedetails extends Component {
   constructor() {
@@ -37,45 +36,16 @@ export default class Coursedetails extends Component {
   }
 
   componentWillMount() {
-    var state = {
-      courseName: '线性代数',
-      teacherName: '张俊',
-      courseCategory: '专业必修课',
-      courseCredit: '2',
-      rate: '4',
-      starNumber: '23',
-      attendance1: '30',
-      attendance2: '60',
-      attendance3: '10',
-      inspection1: '40',
-      inspection2: '20',
-      inspection3: '10',
-      inspection4: '10',
-      courseTime1: '',
-      courseTime2: '',
-      courseTime3: '',
-      coursePlace1: '',
-      coursePlace2: '',
-      coursePlace3: '',
-      courseGrade70: '11',
-      courseGrade7085: '76',
-      courseGrade85: '13',
-      courseGradeNumber: '89',
-      totalGrade: '78.69',
-      ordinaryGrade: '94.04'
-    };
-    const {
-      attendance1,
-      attendance2,
-      attendance3,
-      inspection1,
-      inspection2,
-      inspection3,
-      inspection4,
-      courseGrade70,
-      courseGrade7085,
-      courseGrade85
-    } = state;
+    var attendance1 = '30';
+    var attendance2 = '60';
+    var attendance3 = '10';
+    var inspection1 = '40';
+    var inspection2 = '20';
+    var inspection3 = '10';
+    var inspection4 = '10';
+    var courseGrade70 = '11';
+    var courseGrade7085 = '76';
+    var courseGrade85 = '13';
     const res = Taro.getSystemInfoSync();
     const point = (res.screenWidth / 750) * 50;
     const radiusOut = (res.screenWidth / 750) * 50;
