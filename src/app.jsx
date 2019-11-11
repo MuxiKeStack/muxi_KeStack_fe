@@ -19,7 +19,8 @@ class App extends Component {
       'pages/postReview/index',
       'pages/homepage/index',
       'pages/mycourse/index',
-      'pages/courseCommentsDetails/courseCommentsDetails'
+      'pages/courseCommentsDetails/courseCommentsDetails',
+      'pages/message/index',
     ],
     window: {
       backgroundTextStyle: 'light',
