@@ -122,21 +122,78 @@ export default class Index extends Component {
                     onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
                     onScroll={this.onScroll}
                 >
+                    <View className='courseList'>
+                        <View className='ListDe'>课表一</View>
+                    </View>
+                    
                     <View className='course'>
                         <View className='left'>
                             <View className="timeS">\</View>
-                            <View className="timeS">1</View>
-                            <View className="timeS">2</View>
-                            <View className="timeS">3</View>
-                            <View className="timeS">4</View>
-                            <View className="timeS">5</View>
-                            <View className="timeS">6</View>
-                            <View className="timeS">7</View>
-                            <View className="timeS">8</View>
-                            <View className="timeS">9</View>
-                            <View className="timeS">10</View>
-                            <View className="timeS">11</View>
-                            <View className="timeS">12</View>
+                            <View className="timeS">
+                                <View>
+                                    <Text className='number'>1</Text>
+                                    <Text className='grayN'>8:00</Text>
+                                </View>
+                            </View>
+                            <View className="timeS">
+                                <View className='number'>
+                                    <Text>2</Text>
+                                </View>
+                            </View>
+                            <View className="timeS">
+                                <View>
+                                    <Text className='number'>3</Text>
+                                    <Text className='grayN'>8:00</Text>
+                                </View>
+                            </View>
+                            <View className="timeS">
+                                <View className='number'>
+                                    <Text>4</Text>
+                                </View>
+                            </View>
+                            <View className="timeS">
+                                <View>
+                                    <Text className='number'>5</Text>
+                                    <Text className='grayN'>8:00</Text>
+                                </View>
+                            </View>
+                            <View className="timeS">
+                                <View className='number'>
+                                    <Text>6</Text>
+                                </View>
+                            </View>
+                            <View className="timeS">
+                                <View>
+                                    <Text className='number'>7</Text>
+                                    <Text className='grayN'>8:00</Text>
+                                </View>
+                            </View>
+                            <View className="timeS">
+                                <View className='number'>
+                                    <Text>8</Text>
+                                </View>
+                            </View>
+                            <View className="timeS">
+                                <View>
+                                    <Text className='number'>9</Text>
+                                    <Text className='grayN'>8:00</Text>
+                                </View>
+                            </View><View className="timeS">
+                                <View className='number'>
+                                    <Text>10</Text>
+                                </View>
+                            </View>
+                            <View className="timeS">
+                                <View>
+                                    <Text className='number'>11</Text>
+                                    <Text className='grayN'>8:00</Text>
+                                </View>
+                            </View>
+                            <View className="timeS">
+                                <View className='number'>
+                                    <Text>12</Text>
+                                </View>
+                            </View>
                         </View>
                         <View className='middle'>
                                 <View className='week'>一</View>
@@ -147,8 +204,63 @@ export default class Index extends Component {
                                 <View className="courseF">6666</View>
                                 <View className="courseF">7777</View>
                         </View>
+                        <View className='middle'>
+                                <View className='week'>二</View>
+                                <View className="courseF">2121</View>
+                                <View className="courseF">1212</View>
+                                <View className="courseF">5555</View>
+                                <View className="courseF">555</View>
+                                <View className="courseF">6666</View>
+                                <View className="courseF">7777</View>
+                        </View>
+                        <View className='middle'>
+                                <View className='week'>三</View>
+                                <View className="courseF">2121</View>
+                                <View className="courseF">1212</View>
+                                <View className="courseF">5555</View>
+                                <View className="courseF">555</View>
+                                <View className="courseF">6666</View>
+                                <View className="courseF">7777</View>
+                        </View>
+                        <View className='middle'>
+                                <View className='week'>四</View>
+                                <View className="courseF">2121</View>
+                                <View className="courseF">1212</View>
+                                <View className="courseF">5555</View>
+                                <View className="courseF">555</View>
+                                <View className="courseF">6666</View>
+                                <View className="courseF">7777</View>
+                        </View>
+                        <View className='middle'>
+                                <View className='week'>五</View>
+                                <View className="courseF">2121</View>
+                                <View className="courseF">1212</View>
+                                <View className="courseF">5555</View>
+                                <View className="courseF">555</View>
+                                <View className="courseF">6666</View>
+                                <View className="courseF">7777</View>
+                        </View>
+                        <View className='middle'>
+                                <View className='week'>六</View>
+                                <View className="courseF">2121</View>
+                                <View className="courseF">1212</View>
+                                <View className="courseF">5555</View>
+                                <View className="courseF">555</View>
+                                <View className="courseF">6666</View>
+                                <View className="courseF">7777</View>
+                        </View>
+                        <View className='middle'>
+                                <View className='week'>七</View>
+                                <View className="courseF">2121</View>
+                                <View className="courseF">1212</View>
+                                <View className="courseF">5555</View>
+                                <View className="courseF">555</View>
+                                <View className="courseF">6666</View>
+                                <View className="courseF">7777</View>
+                        </View>
                     </View>
                 </ScrollView>
+               
             </View>
 
         )

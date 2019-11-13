@@ -1,5 +1,4 @@
 ## 组件名：MuxiTag
-tag的边框
 <table>
   <tr>
     <th>名称</th>
@@ -9,36 +8,26 @@ tag的边框
     <th>类型</th>
   </tr>
   <tr>
-    <td>borderRadius和border</td>
-    <td>圆角的边框</td>
-    <td>34px和1px solid black</td>
+    <td>display</td>
+    <td></td>
+    <td>inline-block</td>
     <td></td>
     <td>String</td>
  </tr>
  <tr>
-   <td>width</td>
-   <td>标签的宽度</td>
-   <td>120px</td>
+   <td>padding</td>
+   <td>内边框</td>
+   <td>3px 6px 3px 6px</td>
    <td></td>
    <td>String</td>
  </tr>
  <tr>
-   <td>height</td>
-   <td>标签的高度</td>
-   <td>30px</td>
+   <td>borderRadius</td>
+   <td>标签圆角</td>
+   <td>18rpx</td>
    <td></td>
    <td>String</td>
  </tr>
- </table>
- tag的内容：
- <table>
-  <tr>
-    <th>名称</th>
-    <th>描述</th>
-    <th>默认</th>
-    <th>可选值</th>
-    <th>类型</th>
-  </tr>
  <tr>
    <td>font</td>
    <td>标签的字体大小</td>
@@ -46,13 +35,28 @@ tag的边框
    <td></td>
    <td>String</td>
  </tr>
- <tr>
-   <td>color</td>
-   <td>标签的字体颜色</td>
+  <tr>
+   <td>checked</td>
+   <td>点击变色，当checked为true则点击时会变颜色当其为false点击不改变</td>
+   <td>false</td>
+   <td></td>
+   <td>String</td>
+ </tr>
+  <tr>
+   <td>checkable</td>
+   <td>标签的字体大小</td>
+   <td>false</td>
+   <td></td>
+   <td>String</td>
+ </tr>
+  <tr>
+   <td>onClick</td>
+   <td>点击事件</td>
    <td></td>
    <td></td>
    <td>String</td>
  </tr>
+
  </table>
 
  

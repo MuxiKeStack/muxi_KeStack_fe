@@ -2,7 +2,32 @@
     width:98px;
     height:85px;
     border:2px solid rgba(110,102,238,1);
+    text-align: center;
     opacity:1;
+}
+.number{
+    width:98px;
+    height:85px;
+    display: table-cell;
+    vertical-align: middle;
+    font-size:34px;
+    font-family:PingFang SC;
+    font-weight:400;
+    line-height:48px;
+    color:rgba(110,102,238,1);
+    opacity:1;
+}
+.grayN{
+    width:37px;
+    height:25px;
+    font-size:18px;
+    font-family:PingFang SC;
+    font-weight:400;
+    line-height:25px;
+    color:rgba(176,179,191,1);
+    opacity:1;
+    position: relative;
+    top:-48px;
 }
 .course{
     display: flex;
@@ -12,11 +37,39 @@
     width:128px;
     height: 172px;
     border:2px solid rgba(110,102,238,1);
+    font-size:34px;
+    font-family:PingFang SC;
+    font-weight:400;
+    line-height:48px;
+    color:rgba(110,102,238,1);
     opacity:1;
 }
 .week{
     width:128px;
     height:85px;
     border:2px solid rgba(110,102,238,1);
+    font-size:34px;
+    font-family:PingFang SC;
+    font-weight:400;
+    line-height:48px;
+    color:rgba(110,102,238,1);
+    text-align: center;
+    line-height: 85px;
+    opacity:1;
+}
+.courseList{}
+.ListDe{
+    width:230px;
+    height:125px;
+    background:rgba(255,255,255,1);
+    border:2px solid rgba(110,102,238,1);
+    border-radius:50px 50px 0px 0px;
+    font-size:34px;
+    font-family:PingFang SC;
+    font-weight:600;
+    line-height:48px;
+    color:rgba(110,102,238,1);
+    text-align: center;
+    line-height: 125px;
     opacity:1;
 }
