@@ -1,6 +1,6 @@
 $star: url(../../../assets/png/star.png);
 $starFill: url(../../../assets/png/starFill.png);
-$starsize: 43px;
+$starsize: 30px;
 @mixin star($url) {
     display: inline-block;
     height: $starsize;
@@ -13,7 +13,7 @@ View{
 }
 .empty{
     @include star($star);
-    width: $starsize * 5;
+    width: 142px;
     position: relative;
 }
 .full{

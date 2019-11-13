@@ -17,7 +17,7 @@ class MxRate extends Component {
         classNameArr.push('off');
       }
     }
-    const width = (parseFloat(value) * 43).toString() + 'rpx';
+    const width = (parseFloat(value) * 30).toString() + 'rpx';
     const starStyle = {
       width: `${width}`
     };

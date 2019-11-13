@@ -3,10 +3,19 @@ import { View, Image } from '@tarojs/components';
 import './courseCommentsDetails.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxIcon from '../../components/common/MxIcon/index';
+import Fetch from '../../service/fetch';
 
 export default class Coursecommentsdetails extends Component {
   constructor() {
     super(...arguments);
+    this.state = {
+      ancestor: {
+        id: '',
+        is_like: '',
+        like_num: '',
+        comment_num: ''
+      }
+    };
     var arr = [
       {
         id: 0,
@@ -434,18 +443,91 @@ export default class Coursecommentsdetails extends Component {
     console.log('toshow');
     console.log(this.state.commentsListBefore);
   }
+  toLike(id, e) {
+    var token;
+    Taro.getStorage({ key: 'token' }).then(res => {
+      token = res;
+    });
+    Fetch(
+      '/like',
+      {
+        token: token,
+        id: id,
+        data: {
+          is_like: true
+        }
+      },
+      'PUT'
+    )
+      .then(data => {
+        if (data) {
+          Taro.showToast({
+            title: '点赞成功'
+          });
+          this.setState({
+            is_like: true,
+            like_num: this.state.like_num + 1
+          });
+        }
+      })
+      .then(statusCode => {
+        if (statusCode) {
+          Taro.showToast({
+            title: '网络错误，请重新尝试',
+            icon: 'none'
+          });
+        }
+      });
+  }
+  toDislike(id, e) {
+    var token;
+    Taro.getStorage({ key: 'token' }).then(res => {
+      token = res;
+    });
+    Fetch(
+      '/like',
+      {
+        token: token,
+        id: id,
+        data: {
+          is_like: false
+        }
+      },
+      'PUT'
+    )
+      .then(data => {
+        if (data) {
+          Taro.showToast({
+            title: '取消点赞成功'
+          });
+          this.setState({
+            is_like: false,
+            like_num: this.state.like_num - 1
+          });
+        }
+      })
+      .then(statusCode => {
+        if (statusCode) {
+          Taro.showToast({
+            title: '网络错误，请重新尝试',
+            icon: 'none'
+          });
+        }
+      });
+  }
 
   render() {
+    const {ancestor} = this.state
     var response1 = {
       code: 0,
       message: 'string',
       data: {
         id: 0,
         course_id: 'string',
-        course_name: '线性代数B',
+        course_name: 'C语言程序设计教程',
         teacher: '张俊',
         rate: 4,
-        tags: [0, 1, 2],
+        tags: ['生动有趣', '干货满满', '老师温柔'],
         content:
           '老师也太有意思了吧哈哈哈哈哈哈，简直是被数学耽误的相声演员，上课一言不合就开始讲笑话，不过作业少一点就好啦',
         is_anonymous: true,
@@ -695,20 +777,22 @@ export default class Coursecommentsdetails extends Component {
           <View className="ancestorComment">{response1.data.content}</View>
           <View className="iconsBox">
             <View className="like">
-              {!response1.data.is_like && (
+              {!ancestor.is_like && (
                 <MxIcon
                   width="43"
                   height="43"
                   type="likeBtn"
                   className="likeIcon"
+                  onClick={this.toLike.bind(this, response1.data.id)}
                 />
               )}
-              {response1.data.is_like && (
+              {ancestor.is_like && (
                 <MxIcon
                   width="43"
                   height="43"
                   type="check"
                   className="likeIcon"
+                  onClick="toLike"
                 />
               )}
               {response1.data.like_num}

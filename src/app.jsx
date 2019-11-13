@@ -10,7 +10,12 @@ import './app.scss';
 // }
 
 class App extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    Taro.setStorage({
+      key: 'token',
+      data: 'Iamtoken'
+    });
+  }
   config = {
     pages: [
       'pages/index/index',
@@ -21,7 +26,8 @@ class App extends Component {
       'pages/homepage/index',
       'pages/mycourse/index',
       'pages/courseCommentsDetails/courseCommentsDetails',
-      'pages/assessSquare/index'
+      // 'pages/assessSquare/index',
+      'pages/message/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -33,15 +39,21 @@ class App extends Component {
       list: [
         {
           pagePath: 'pages/assessSquare/index',
-          text: '评课广场'
+          text: '评课广场',
+          iconPath: 'src/assets/svg/cmmt-squaG.svg',
+          selectedIconPath: 'src/assets/svg/cmmt-squa.svg'
         },
         {
           pagePath: 'pages/list/index',
-          text: '选课助手'
+          text: '选课助手',
+          iconPath: 'src/assets/svg/shelper.svg',
+          selectedIconPath: 'src/assets/svg/shelperG.svg'
         },
         {
           pagePath: 'pages/homepage/index',
-          text: '个人主页'
+          text: '个人主页',
+          iconPath: 'src/assets/svg/user-info.svg',
+          selectedIconPath: 'src/assets/svg/user-infoG.svg'
         }
       ],
       color: '#CACACA',

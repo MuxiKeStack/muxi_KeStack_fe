@@ -29,6 +29,7 @@ page{
 .ancestorBox{
     @include bigbox();
     padding: 30px 44px;
+    width: 600px;
     margin: 50px auto;
 }
 .ancestorInformation{
@@ -52,6 +53,9 @@ page{
     width: 250px;
     margin-right: 30px;
     vertical-align: middle;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .toRate{
     vertical-align: middle;
@@ -67,13 +71,13 @@ page{
 }
 .ancestorComment{
     font-size: 24px;
-    width: 530px;
+    width: 580px;
     display: block;
 }
 .iconsBox{
     color: #A2A2A8;
     font-size: 21px;
-    margin-left: 460px;
+    margin-left: 440px;
 }
 .commentIcon{
     margin-left: 24px;
