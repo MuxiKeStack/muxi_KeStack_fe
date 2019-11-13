@@ -214,7 +214,7 @@ export default class Index extends Component {
         <MxModal  isOpened={false}  title='kakaka' cancelText='取消' confirmText='确认' height='100'>
           <Text>周一 \n 周一七八节 @ 7105\n 周二三四节 @ 7023</Text>
         </MxModal>
-        <MxButton onClick={this.ChangeT}>自由排课</MxButton>
+        <MxButton onClick={this.ChangeT()}>自由排课</MxButton>
       </View>
     );
   }
