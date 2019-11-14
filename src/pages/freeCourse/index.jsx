@@ -1,5 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image ,Form ,ScrollView} from '@tarojs/components'
+import MxButton from '../../components/common/MxButton' 
 import './index.scss'
 
 export default class Index extends Component {
@@ -123,7 +124,7 @@ export default class Index extends Component {
                     onScroll={this.onScroll}
                 >
                     <View className='courseList'>
-                        <View className='ListDe'>课表一</View>
+                        <Button className='ListDe'>课表一</Button>
                     </View>
                     
                     <View className='course'>
@@ -260,7 +261,15 @@ export default class Index extends Component {
                         </View>
                     </View>
                 </ScrollView>
-               
+                <View className='collect'>
+                    <MxButton buttonRadius='50%'
+                                buttonWidth='120rpx'
+                                buttonHeight='120rpx'
+                                buttonBackground='#6E66EE'        
+                    >
+                        课
+                    </MxButton>
+                </View>
             </View>
 
         )

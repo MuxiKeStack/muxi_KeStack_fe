@@ -2,7 +2,7 @@ import Taro, {Component} from '@tarojs/taro'
 import {Button, View, Text , Image} from '@tarojs/components'
 import './index.scss'
 
-class MxButton extends Component{
+export default class MxButton extends Component{
     onClick = () => !this.props.editable && this.props.onClick()
 
 
@@ -69,5 +69,3 @@ MxButton.defaultProps = {
     padding:'0',
     onClick:()=>{},
 }
-
-export default MxButton;

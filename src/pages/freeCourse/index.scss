@@ -30,8 +30,10 @@
     top:-48px;
 }
 .course{
+    width: 1016px;
     display: flex;
     flex-direction: row;
+    border:2px solid rgba(110,102,238,1);
 }
 .courseF{
     width:128px;
@@ -57,19 +59,31 @@
     line-height: 85px;
     opacity:1;
 }
-.courseList{}
+.courseList{
+    width: 100%;
+}
 .ListDe{
-    width:230px;
+    width:236px;
     height:125px;
+    margin-left: 0;
     background:rgba(255,255,255,1);
-    border:2px solid rgba(110,102,238,1);
+    border:4px solid rgba(110,102,238,1);
+    border-bottom: 0px;
     border-radius:50px 50px 0px 0px;
     font-size:34px;
     font-family:PingFang SC;
     font-weight:600;
-    line-height:48px;
     color:rgba(110,102,238,1);
     text-align: center;
     line-height: 125px;
-    opacity:1;
+}
+.collect{
+    font-size:50px;
+    font-family:PingFang SC;
+    font-weight:400;
+    line-height:70px;
+    color:rgba(255,255,255,1);
+    position: fixed;
+    right: 48px;
+    bottom: 167px;
 }
