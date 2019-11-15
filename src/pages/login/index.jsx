@@ -25,6 +25,12 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
+  ChangeTo() {
+    Taro.switchTab({
+      url: "/pages/commentSquare/index"
+    });
+  }
+
   render () {
     const ImageUrl=image;
     return (
@@ -45,6 +51,7 @@ export default class Index extends Component {
           buttomHeight='92rpx'
           buttonBackground='#6868F8'
           border-radius='46rpx'
+          onClick={this.ChangeTo.bind(this)}
         >学号登录</MxButton>
       </View>
       <View className='visit'>

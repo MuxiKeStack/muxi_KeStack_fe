@@ -15,18 +15,41 @@ export default class Index extends Component {
             user: { avatar: image, nickname: 'amybiubiu', sid: '2018214877' }
         }
     }
-    componentWillUnmount() { }
+
     config = {
         navigationBarTitleText: "个人主页"
     };
 
+    componentWillUnmount() { }
+
     componentDidMount() {
- /*       courseList().then(res => {
-             console.log(res);
-             this.setState({
-                 course: res.info,
-             });
-         });*/
+        /*       courseList().then(res => {
+                    console.log(res);
+                    this.setState({
+                        course: res.info,
+                    });
+                });*/
+    }
+
+    ChangeTomycourse() {
+        Taro.navigateTo({
+            url: '/pages/mycourse/index'
+        });
+    }
+    ChangeTocommentHistory() {
+        Taro.navigateTo({
+            url: '/pages/commentHistory/index'
+        });
+    }
+    ChangeTocourseSelectionList() {
+        Taro.navigateTo({
+            url: '/pages/courseSelectionList/index'
+        });
+    }
+    ChangeTomessage() {
+        Taro.navigateTo({
+            url: '/pages/message/index'
+        });
     }
 
     componentWillUnmount() { }
@@ -49,10 +72,10 @@ export default class Index extends Component {
                 </View>
                 <View className='home_page_list-title'>MY PROJECT</View>
                 <List className='main-page-list'>
-                    <Item iconType='myCourse' title='我的课程' extraText='MY COURSE' ></Item>
-                    <Item iconType='history' title='评课历史' extraText='REVIEW HISTORY'></Item>
-                    <Item iconType='courseList' title='选课清单' extraText='COURSE LIST' ></Item>
-                    <Item iconType='message' title='消息提醒' extraText='MESSAGE REMINDER' hasBgi='true'></Item>
+                    <Item iconType='myCourse' title='我的课程' extraText='MY COURSE' onClick={this.ChangeTomycourse.bind(this)}></Item>
+                    <Item iconType='history' title='评课历史' extraText='REVIEW HISTORY' onClick={this.ChangeTocommentHistory.bind(this)}></Item>
+                    <Item iconType='courseList' title='选课清单' extraText='COURSE LIST' onClick={this.ChangeTocourseSelectionList.bind(this)}></Item>
+                    <Item iconType='message' title='消息提醒' extraText='MESSAGE REMINDER' hasBgi='true' onClick={this.ChangeTomessage.bind(this)}></Item>
                 </List>
                 <View className='home_page_error-click'>有问题？点此反馈给我们</View>
             </View>

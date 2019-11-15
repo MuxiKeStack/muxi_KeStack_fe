@@ -62,6 +62,6 @@ export default class Index extends Component {
   // }
 
   render() {
-    return <View className="index"></View>;
+    return <View className="index">你好</View>;
   }
 }

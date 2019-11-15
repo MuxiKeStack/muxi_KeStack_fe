@@ -18,16 +18,24 @@ class App extends Component {
   }
   config = {
     pages: [
-      'pages/index/index',
+      'pages/login/index',
+      
+      'pages/commentSquare/index',
+      // 'pages/search/index'
+      // 'pages/postReview/index',
+      // 'pages/courseCommentsDetails/courseCommentsDetails',
+
+      'pages/courseAssistant/index',
       'pages/freeCourse/index',
       'pages/courseDetails/courseDetails',
-      'pages/list/index',
-      'pages/postReview/index',
+
       'pages/homepage/index',
       'pages/mycourse/index',
-      'pages/courseCommentsDetails/courseCommentsDetails',
-      // 'pages/assessSquare/index',
-      'pages/message/index'
+      'pages/commentHistory/index',
+      'pages/message/index',
+      'pages/courseSelectionList/index',
+      
+      // 'pages/index/index'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -38,22 +46,22 @@ class App extends Component {
     tabBar: {
       list: [
         {
-          pagePath: 'pages/assessSquare/index',
-          text: '评课广场',
-          iconPath: 'src/assets/svg/cmmt-squaG.svg',
-          selectedIconPath: 'src/assets/svg/cmmt-squa.svg'
+          pagePath: 'pages/commentSquare/index',
+          // text: '评课广场',
+          iconPath: './assets/svg/cmmt-squa.svg',
+          selectedIconPath: './assets/svg/cmmt-squaG.svg'
         },
         {
-          pagePath: 'pages/list/index',
-          text: '选课助手',
-          iconPath: 'src/assets/svg/shelper.svg',
-          selectedIconPath: 'src/assets/svg/shelperG.svg'
+          pagePath: 'pages/courseAssistant/index',
+          // text: '选课助手',
+          iconPath: './assets/svg/shelper.svg',
+          selectedIconPath: './assets/svg/shelperG.svg'
         },
         {
           pagePath: 'pages/homepage/index',
-          text: '个人主页',
-          iconPath: 'src/assets/svg/user-info.svg',
-          selectedIconPath: 'src/assets/svg/user-infoG.svg'
+          // text: '个人主页',
+          iconPath: './assets/svg/user-info.svg',
+          selectedIconPath: './assets/svg/user-infoG.svg'
         }
       ],
       color: '#CACACA',

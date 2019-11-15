@@ -37,14 +37,14 @@
  </tr>
   <tr>
    <td>checked</td>
-   <td>点击变色，当checked为true则点击时会变颜色当其为false点击不改变</td>
+   <td>当前是否被点击状态</td>
    <td>false</td>
    <td></td>
    <td>String</td>
  </tr>
   <tr>
    <td>checkable</td>
-   <td>标签的字体大小</td>
+   <td>是否能点击变色，为true则点击时会变颜色为false点击不改变</td>
    <td>false</td>
    <td></td>
    <td>String</td>
