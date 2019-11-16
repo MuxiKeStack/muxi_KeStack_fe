@@ -10,10 +10,7 @@ import {MxFab} from '../../components/common/MxFab/index'
 export default class Index extends Component {
 
   config = {
-    navigationBarTitleText: '首页',
-    navigationStyle: 'custom',
-    navigationBarTextStyle: 'black',
-    disableScroll: true,
+    navigationBarTitleText: '选课助手',
   }
 
   constructor() {
@@ -85,13 +82,7 @@ export default class Index extends Component {
             return (
               <View className='detailsBox'>
                 <View className='mx-card'>
-          <View className='blue'>
-              <View className='star'>
-                 <MxRate value={this.state.value} onChange={this.handleChange.bind(this)} readOnly={true}/>
-              </View>
-              <View className='word'>评价人数：</View>
-             <View className='people'>{data.people}</View>
-          </View>
+  
         <View className='info'>
         <View className='user-info'>
             <View className='class'>{data.text}</View>
@@ -117,7 +108,6 @@ export default class Index extends Component {
 
     return (
       <View style='display: block'>
-        <View className='navigationBox'><View style='margin-top: 66rpx'>选课助手</View></View>
         <View className='chooseBox'>
           <View className='search'>
           <MxInput
