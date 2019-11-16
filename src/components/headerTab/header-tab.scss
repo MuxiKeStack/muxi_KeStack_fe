@@ -1,0 +1,100 @@
+.swiper-tab{ 
+    background:white;
+    white-space:nowrap 
+}
+.active{
+    display: inline-block;
+    width:226px;
+    height:125px;
+    margin-left: 0;
+    background:rgba(255,255,255,1);
+    border:4px solid rgba(110,102,238,1);
+    border-bottom: 0px;
+    border-radius:50px 50px 0px 0px;
+    font-size:34px;
+    font-family:PingFang SC;
+    font-weight:600;
+    color:#FFFFFF;
+    text-align: center;
+    line-height: 125px;
+    background:#6E66EE;
+}
+.active::after {
+    background:#6E66EE;
+}
+.normal{
+    display: inline-block;
+    width:226px;
+    height:125px;
+    margin-left: 0;
+    background:rgba(255,255,255,1);
+    border:4px solid rgba(110,102,238,1);
+    border-bottom: 0px;
+    border-radius:50px 50px 0px 0px;
+    font-size:34px;
+    font-family:PingFang SC;
+    font-weight:600;
+    color:rgba(110,102,238,1);
+    text-align: center;
+    line-height: 125px;
+} 
+.Factive{
+  display: inline-block;
+  width:226px;
+  height:125px;
+  margin-left: 0;
+  background:rgba(255,255,255,1);
+  border:4px solid rgba(110,102,238,1);
+  border-bottom: 0px;
+  border-radius:50px 50px 0px 0px;
+  font-size:34px;
+  font-family:PingFang SC;
+  font-weight:600;
+  color:#FFFFFF;
+  text-align: center;
+  line-height: 125px;
+  background:#6E66EE;
+}
+.Factive::after {
+  background:#6E66EE;
+}
+.Fnormal{
+  display: inline-block;
+  width:226px;
+  height:125px;
+  margin-left: 0;
+  background:rgba(255,255,255,1);
+  border:4px solid rgba(110,102,238,1);
+  border-bottom: 0px;
+  border-radius:50px 50px 0px 0px;
+  font-size:34px;
+  font-family:PingFang SC;
+  font-weight:600;
+  color:rgba(110,102,238,1);
+  text-align: center;
+  line-height: 125px;
+} 
+.menu{
+  width:228px;
+  height:216px;
+  background:rgba(255,255,255,1);
+  border:4px solid rgba(110,102,238,1);
+  border-radius:0px 0px 20px 20px;
+  position: absolute;
+  top:129px;
+  border-top: 0;
+  left: 195px;
+}
+.menuButton{
+  height:68px;
+  font-size:28px;
+  font-family:PingFang SC;
+  font-weight:400;
+  line-height:68px;
+  color:rgba(176,179,191,1);
+  border-top: 2px solid #707070;
+  border-radius: 0;
+}
+.menucard{
+  display: flex;
+}

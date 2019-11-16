@@ -1,14 +1,15 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Image ,Form ,ScrollView,Button} from '@tarojs/components'
 import MxButton from '../../components/common/MxButton' 
-import MxPicker  from '../../components/common/MxPicker' 
+import HeaderTab from '../../components/headerTab/header-tab'
 import './index.scss'
 
 export default class Index extends Component {
-    constructor() {
-        super(...arguments);
+    constructor(props) {
+        super(props)
         this.state = {
-          showMenu:true
+          showMenu:true,
+          index: 1
         };
       }
     componentWillUnmount() { }
@@ -18,13 +19,12 @@ export default class Index extends Component {
     onScrollToUpper(e){
         console.log(e.detail)
       }
-      
-      
-      onScroll(e){
+       
+    onScroll(e){
         console.log(e.detail)
       }  
     
-      CshowMenu(){
+    CshowMenu(){
           if(this.state.showMenu==true){
             this.setState({
                 showMenu:false
@@ -37,6 +37,21 @@ export default class Index extends Component {
         }
       }
     
+    getIndex(index){
+        this.setState({
+          index:index
+        })
+        if(index===2){
+          this.getOrderCarList(1);
+        }else if(index !== 1){
+          index = index - 1;
+          this.getOrderBuyList(index,1);
+      }else{
+        this.getOrderBuyList(1,1);
+      }
+    }
+
+
     componentDidMount() {}
 
     componentWillUnmount() { }
@@ -52,6 +67,7 @@ export default class Index extends Component {
           const Threshold = 20
         return (
             <View>
+                <HeaderTab navList={[{key:1,content:'课表一'},{key:2,content:'课表二'},{key:3,content:'课表三'},{key:4,content:'课表四'},{key:5,content:'课表五'}]} onGetIndex={this.getIndex.bind(this)} /> 
                 <ScrollView
                     className='scrollview'
                     scrollY
@@ -65,7 +81,8 @@ export default class Index extends Component {
                     onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
                     onScroll={this.onScroll}
                 >
-                    <View className='courseList'>
+                   
+                    {/* <View className='courseList'>
                         <Button className='List_one'>
                             <Text>课表一</Text>
                         </Button>
@@ -77,7 +94,7 @@ export default class Index extends Component {
                         <Button className='List_two' onClick={this.CshowMenu}>
                             <Text>课表二</Text>
                         </Button>
-                    </View>
+                    </View> */}
                     
                     <View className='course'>
                         <View className='left'>
