@@ -56,7 +56,11 @@ export default class Index extends Component {
     })
   }
 
-  64
+  ChangeTofree() {
+    Taro.navigateTo({
+        url: '/pages/freeCourse/index'
+    });
+}
   componentWillMount() { }
 
   componentDidMount() { }
@@ -72,7 +76,7 @@ export default class Index extends Component {
       <View className='detailsBoxes'>
       <View
         className='muxi-fab'
-        onClick={this.onClick.bind(this)}
+        onClick={this.ChangeTofree.bind(this)}
       >
         排课
       </View>
