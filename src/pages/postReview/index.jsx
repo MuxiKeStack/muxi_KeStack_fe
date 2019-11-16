@@ -45,6 +45,12 @@ export default class Index extends Component {
         });
     };
 
+    ChangeTosquare() {
+        Taro.navigateTo({
+            url: '/pages/commentSquare/index'
+        });
+      }
+
     componentWillMount() { }
 
     componentDidMount() { }
@@ -159,7 +165,7 @@ export default class Index extends Component {
                     <Textarea placeholder='输入课程评价：' className='evaluateTextarea'></Textarea>
                     <Checkbox value='选中' >匿名发布</Checkbox>
                 </View>
-                <View className='submitBox'>
+                <View className='submitBox' onClick={this.ChangeTosquare.bind(this)}>
                     <MxButton>发布</MxButton>
                 </View>
             </View>

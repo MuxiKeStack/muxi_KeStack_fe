@@ -15,6 +15,12 @@ export default class Index extends Component {
       value: 2.5,
     }
   }
+
+  ChangeTo(){
+    Taro.switchTab({
+      url:"/pages/commentSquare/index"
+    });
+  }
   componentWillMount () { }
 
   componentDidMount () { }
@@ -24,12 +30,6 @@ export default class Index extends Component {
   componentDidShow () { }
 
   componentDidHide () { }
-
-  ChangeTo() {
-    Taro.switchTab({
-      url: "/pages/commentSquare/index"
-    });
-  }
 
   render () {
     const ImageUrl=image;
@@ -54,22 +54,13 @@ export default class Index extends Component {
           onClick={this.ChangeTo.bind(this)}
         >学号登录</MxButton>
       </View>
-      <View className='visit'>
-        <MxButton
-           buttomWidth='114rpx'
-           buttomHeight='50rpx'
-           buttonBackground=''
-           border-radius=''
-        ><Text className='visitor'>游客登录</Text></MxButton>
-      </View>
-      <View className='privacy'>
-        <MxButton
-           buttomWidth='112rpx'
-           buttomHeight='40rpx'
-           buttonBackground=''
-           border-radius=''
-        ><Text className='secret'>隐私条例</Text></MxButton>
-      </View>
+      
+      <View
+         className='visit'
+      ><Text className='visitor'>游客登录</Text></View>
+        <View
+          className='privacy'
+        ><Text className='secret'>隐私条例</Text></View>
         
       </View>
     )

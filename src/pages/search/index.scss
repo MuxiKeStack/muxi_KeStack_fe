@@ -1,4 +1,106 @@
-.image {
+View {
+    display: inline-block;
+}
+.chooseBox{
+    margin-top: 7rpx;
+    height: 98rpx;
     width: 750rpx;
-    height: 1211rpx;
-  }
+    background:rgba(255,255,255,1);
+    box-shadow:0rpx 4rpx 7rpx rgba(0,0,0,0.16);
+}
+.search{
+    margin: 13rpx 0rpx 0rpx 32rpx;
+}
+
+.detailsBoxes {
+    overflow: scroll;
+    height: 989rpx;
+    margin-top: 7rpx;
+    background-color: rgba(241,240,245,1);
+}
+.detailsBox:last-child {
+    display: block;
+    width: 750rpx;
+    margin: 37rpx 0rpx;
+}
+.detailsBox {
+    margin-top: 37rpx;
+    display: block;
+    width: 750rpx;
+}
+.mx-card{
+    width:711px;
+    height:300px;
+    background:rgba(255,255,255,1);
+    opacity:1;
+    border-radius: 50px;
+    margin-top: 37px;
+    margin-left: 21px;
+    display: inline-block;
+}
+
+.user-info{
+    margin-left: 60rpx;
+    display: inline-block;
+    width: 200rpx;
+   .class{
+      font-size:40px;
+      color: #000000;
+   }
+   .teacher{
+      margin-top: 30rpx;
+      margin-left: 50rpx;
+      font-size:35px;
+      color: #000000;
+   }
+}
+.blue{
+    margin-top: 40px;
+    margin-left: 280rpx;
+    width: 410px;
+    display: inline-block;
+    .people{
+        font-size:27px;
+        color:rgba(104,105,247,1);
+        opacity:1;
+        display: inline-block;
+    }
+    .word{
+        display: inline-block;
+        font-size:27px;
+        color:rgba(104,105,247,1);
+        opacity:1;
+        margin-left: 31px;
+    }
+    .star{
+        display: inline-block;
+    }
+}
+.tag{
+    display: inline-block;
+    margin-left: 80rpx;
+    margin-top:20rpx;
+    width: 300rpx;
+    .tag1{
+        font-size:34px;
+        color:rgba(104,105,247,1);
+    }
+    .tag2{
+        margin-left: 15rpx;
+        font-size:34px;
+        color:rgba(104,105,247,1);
+    }
+    .tag3{
+        margin-top:20rpx ;
+        display: inline-block;
+        font-size:34px;
+        color:rgba(104,105,247,1);
+    }
+    .tag4{
+        margin-top: 20rpx;
+        margin-left: 15rpx;
+        font-size:34px;
+        color:rgba(104,105,247,1);
+    }
+
+}

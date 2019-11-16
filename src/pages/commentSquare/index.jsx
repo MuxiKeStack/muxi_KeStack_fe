@@ -66,6 +66,17 @@ export default class Index extends Component {
       ]
     };
   }
+  ChangeTosearch() {
+    Taro.navigateTo({
+        url: '/pages/search/index'
+    });
+}
+
+ChangeTopost() {
+  Taro.navigateTo({
+      url: '/pages/postReview/index'
+  });
+}
 
   handleClick() {
   }
@@ -146,10 +157,12 @@ export default class Index extends Component {
       <View style='display: block'>
         <View className='navigationBox'><View style='margin-top: 66rpx'>评课广场</View></View>
         <View className='chooseBox'>
-            <View className='chooseSearchBack'>
+            <View className='chooseSearchBack' onClick={this.ChangeTosearch.bind(this)}>
               <MxIcon type='search' className='chooseSearch' width='32px' height='32px'></MxIcon>
           </View>
-          <MxIcon type='add' className='chooseAdd' width='40p2' width='40p2'></MxIcon>
+          <View onClick={this.ChangeTopost.bind(this)}>
+            <MxIcon type='add' className='chooseAdd' width='40p2' width='40p2'></MxIcon>
+          </View>
         </View>
         {content}
       </View>

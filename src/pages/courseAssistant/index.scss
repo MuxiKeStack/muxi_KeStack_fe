@@ -1,16 +1,124 @@
-.image {
-  width: 750rpx;
-  height: 1100rpx;
+View {
+    display: inline-block;
 }
-.ChangeToCourseDetails {
-  position: absolute;
-  width: 750rpx;
-  height: 725rpx;
-  margin: 144rpx 0rpx 0rpx 0rpx;
+.navigationBox {
+    display: block;
+    width:750rpx;
+    height:128rpx;
+    background:rgba(255,255,255,1);
+    box-shadow:0rpx 3rpx 6rpx rgba(0,0,0,0.16);
+    text-align: center;
+    font-size: 34rpx;
+    color: #1C1C1C;
+    font-weight: 700;
+    font-family: 'PingFangSC-Regular, sans-serif';
 }
-.ChangeToFreeCourse {
-  position: absolute;
-  width: 300rpx;
-  height: 300rpx;
-  margin:865rpx 0rpx 0rpx 450rpx;
+.chooseBox{
+    margin-top: 7rpx;
+    height: 98rpx;
+    width: 750rpx;
+    background:rgba(255,255,255,1);
+    box-shadow:0rpx 4rpx 7rpx rgba(0,0,0,0.16);
+}
+.search{
+    margin: 13rpx 0rpx 0rpx 32rpx;
+}
+
+.detailsBoxes {
+    overflow: scroll;
+    height: 989rpx;
+    margin-top: 7rpx;
+    background-color: rgba(241,240,245,1);
+}
+.detailsBox:last-child {
+    display: block;
+    width: 750rpx;
+    margin: 37rpx 0rpx;
+}
+.detailsBox {
+    margin-top: 37rpx;
+    display: block;
+    width: 750rpx;
+}
+.mx-card{
+    width:711px;
+    height:300px;
+    background:rgba(255,255,255,1);
+    opacity:1;
+    border-radius: 50px;
+    margin-left: 21px;
+    display: inline-block;
+}
+.blue{
+    margin-top: 40px;
+    margin-left: 280rpx;
+    width: 410px;
+    display: inline-block;
+    .people{
+        font-size:27px;
+        color:rgba(104,105,247,1);
+        opacity:1;
+        display: inline-block;
+    }
+    .word{
+        display: inline-block;
+        font-size:27px;
+        color:rgba(104,105,247,1);
+        opacity:1;
+        margin-left: 31px;
+    }
+    .star{
+        display: inline-block;
+    }
+}
+.info{
+    display: inline-block;
+    height: 200rpx;
+.user-info{
+    margin-left: 60rpx;
+    display: inline-block;
+    width: 220rpx;
+   .class{
+      font-size:40px;
+      color: #000000;
+   }
+   .teacher{
+      margin-top: 30rpx;
+      margin-left: 50rpx;
+      font-size:35px;
+      color: #000000;
+   }
+   .num{
+       font-size: 30px;
+       color:#A1A4AE ;
+       margin-top: 20rpx;
+   }
+}
+
+.ta{
+    margin-left: 80rpx;
+    margin-top:10rpx;
+    width: 350rpx;
+    .time{
+        font-size:34px;
+        color:rgba(104,105,247,1);
+    }
+    .address{
+        margin-top:20rpx ;
+        font-size:34px;
+        color:rgba(104,105,247,1);
+    }
+}
+}
+.muxi-fab{
+    width:100px;
+    height: 100px;
+    border: 2px solid black;
+    border-radius: 100px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 90px;
+    position: fixed;
+    right: 40px;
+    bottom: 0;
 }
