@@ -1,11 +1,15 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image ,Form ,ScrollView} from '@tarojs/components'
+import { View, Image ,Form ,ScrollView,Button} from '@tarojs/components'
 import MxButton from '../../components/common/MxButton' 
+import MxPicker  from '../../components/common/MxPicker' 
 import './index.scss'
 
 export default class Index extends Component {
     constructor() {
-        super(...arguments)
+        super(...arguments);
+        this.state = {
+          showMenu:true
+        };
       }
     componentWillUnmount() { }
     config = {
@@ -15,16 +19,24 @@ export default class Index extends Component {
         console.log(e.detail)
       }
       
-      // or 使用箭头函数
-      // onScrollToUpper = (e) => {
-      //  console.log(e.detail)
-      // }
       
       onScroll(e){
         console.log(e.detail)
+      }  
+    
+      CshowMenu(){
+          if(this.state.showMenu==true){
+            this.setState({
+                showMenu:false
+            })
+        }
+        if(this.state.showMenu==false){
+            this.setState({
+                showMenu:true
+            })
+        }
       }
     
-
     componentDidMount() {}
 
     componentWillUnmount() { }
@@ -40,76 +52,6 @@ export default class Index extends Component {
           const Threshold = 20
         return (
             <View>
-                 {/* <table>
-                <Tr>
-                    <Th width="76"> </Th>
-                    <Th width="86" height="50"> </Th>
-                    <Th width="100">周一</Th>
-                    <Th width="100">周二</Th>
-                    <th width="100">周三</th>
-                    <th width="100">周四</th>
-                    <th width="100">周五</th>
-                    <th width="100">周六</th>
-                    <th width="108">周日</th>
-                </Tr>
-                <tr>
-                    <td rowspan="4">上午</td>
-                    <td>1</td>
-                    <td rowspan="2">课程1</td>
-                    <td rowspan="2">课程2</td>
-                    <td rowspan="2"> </td>
-                    <td rowspan="2">课程3</td>
-                    <td rowspan="2">课程4</td>
-                    <td rowspan="2"> </td>
-                    <td rowspan="2"> </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td rowspan="2">课程5</td>
-                    <td rowspan="2">课程6</td>
-                    <td rowspan="2">课程7</td>
-                    <td rowspan="2">课程8</td>
-                    <td rowspan="2"> </td>
-                    <td rowspan="2">课程9</td>
-                    <td rowspan="2"> </td>
-                    </tr>
-                <tr>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <td colspan="9" align="center"><b>午休</b></td>
-                </tr>
-                <tr>
-                    <td rowspan="4">下午</td>
-                    <td>5</td>
-                    <td rowspan="2">课程10</td>
-                    <td rowspan="2"> </td>
-                    <td rowspan="2">课程11</td>
-                    <td rowspan="2">课程12</td>
-                    <td rowspan="2">课程13</td>
-                    <td rowspan="2"> </td>
-                    <td rowspan="2"> </td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td rowspan="2"> </td>
-                    <td rowspan="2">课程14</td>
-                    <td rowspan="2">课程15</td>
-                    <td rowspan="2"> </td>
-                    <td rowspan="2">课程16</td>
-                    <td rowspan="2"> </td>
-                    <td rowspan="2"> </td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                </tr>
-            </table> */}
                 <ScrollView
                     className='scrollview'
                     scrollY
@@ -124,7 +66,17 @@ export default class Index extends Component {
                     onScroll={this.onScroll}
                 >
                     <View className='courseList'>
-                        <Button className='ListDe'>课表一</Button>
+                        <Button className='List_one'>
+                            <Text>课表一</Text>
+                        </Button>
+                        <View hidden={this.state.showMenu} className='menu'>
+                            <Button className='menuButton'>重命名</Button>
+                            <Button className='menuButton'>创建副本</Button>
+                            <Button className='menuButton'>删除课表</Button>
+                        </View>
+                        <Button className='List_two' onClick={this.CshowMenu}>
+                            <Text>课表二</Text>
+                        </Button>
                     </View>
                     
                     <View className='course'>
@@ -198,66 +150,66 @@ export default class Index extends Component {
                         </View>
                         <View className='middle'>
                                 <View className='week'>一</View>
-                                <View className="courseF">2121</View>
-                                <View className="courseF">1212</View>
-                                <View className="courseF">5555</View>
-                                <View className="courseF">555</View>
-                                <View className="courseF">6666</View>
-                                <View className="courseF">7777</View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
                         </View>
                         <View className='middle'>
                                 <View className='week'>二</View>
-                                <View className="courseF">2121</View>
-                                <View className="courseF">1212</View>
-                                <View className="courseF">5555</View>
-                                <View className="courseF">555</View>
-                                <View className="courseF">6666</View>
-                                <View className="courseF">7777</View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
                         </View>
                         <View className='middle'>
                                 <View className='week'>三</View>
-                                <View className="courseF">2121</View>
-                                <View className="courseF">1212</View>
-                                <View className="courseF">5555</View>
-                                <View className="courseF">555</View>
-                                <View className="courseF">6666</View>
-                                <View className="courseF">7777</View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
                         </View>
                         <View className='middle'>
                                 <View className='week'>四</View>
-                                <View className="courseF">2121</View>
-                                <View className="courseF">1212</View>
-                                <View className="courseF">5555</View>
-                                <View className="courseF">555</View>
-                                <View className="courseF">6666</View>
-                                <View className="courseF">7777</View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
                         </View>
                         <View className='middle'>
                                 <View className='week'>五</View>
-                                <View className="courseF">2121</View>
-                                <View className="courseF">1212</View>
-                                <View className="courseF">5555</View>
-                                <View className="courseF">555</View>
-                                <View className="courseF">6666</View>
-                                <View className="courseF">7777</View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
                         </View>
                         <View className='middle'>
                                 <View className='week'>六</View>
-                                <View className="courseF">2121</View>
-                                <View className="courseF">1212</View>
-                                <View className="courseF">5555</View>
-                                <View className="courseF">555</View>
-                                <View className="courseF">6666</View>
-                                <View className="courseF">7777</View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
                         </View>
                         <View className='middle'>
                                 <View className='week'>七</View>
-                                <View className="courseF">2121</View>
-                                <View className="courseF">1212</View>
-                                <View className="courseF">5555</View>
-                                <View className="courseF">555</View>
-                                <View className="courseF">6666</View>
-                                <View className="courseF">7777</View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
+                                <View className="courseF"></View>
                         </View>
                     </View>
                 </ScrollView>
