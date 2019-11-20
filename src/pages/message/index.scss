@@ -60,7 +60,7 @@
     margin-top:17px;
     padding: 11px 37px 11px 5px;
     font-size:24px;
-    .course-name,.teacher-name{
+    .course-name{
         color:rgba(35,139,254,1);
         padding-right:20px;
         display: inline-block;
@@ -68,4 +68,15 @@
     .course-comment{
         display: inline-block;
     }
+}
+.input{
+    margin-top:12px;
+    box-sizing: border-box;
+    padding-left:10px;
+    height:59px;
+    background:rgba(241,240,245,1);
+    opacity:1;
+    border-radius:20px;
+    font-size:27px;
+    line-height: 59px;
 }
