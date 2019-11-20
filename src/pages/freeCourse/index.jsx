@@ -1,7 +1,9 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image ,Form ,ScrollView,Button} from '@tarojs/components'
+import { View, Image ,Form ,ScrollView,Button,  Swiper, SwiperItem,} from '@tarojs/components'
 import MxButton from '../../components/common/MxButton' 
 import HeaderTab from '../../components/headerTab/header-tab'
+import FloatLayout from '../../components/layout'
+import MxModal from '../../components/common/MxModal'
 import './index.scss'
 
 export default class Index extends Component {
@@ -9,6 +11,7 @@ export default class Index extends Component {
         super(props)
         this.state = {
           showMenu:true,
+          showList:false,
           index: 1
         };
       }
@@ -51,6 +54,18 @@ export default class Index extends Component {
       }
     }
 
+    showList(){
+        if(this.state.showList==true){
+            this.setState({
+                showList:false
+            })
+        }
+        if(this.state.showList==false){
+            this.setState({
+                showList:true
+            })
+        }
+    }
 
     componentDidMount() {}
 
@@ -234,13 +249,15 @@ export default class Index extends Component {
                     <MxButton buttonRadius='50%'
                                 buttonWidth='120rpx'
                                 buttonHeight='120rpx'
-                                buttonBackground='#6E66EE'        
+                                buttonBackground='#6E66EE'  
+                                onClick={this.showList.bind(this)}      
                     >
                         课
                     </MxButton>
                 </View>
+                <FloatLayout isOpened={this.state.showList} title='课程清单' > sdasd</FloatLayout>
+                {/* <MxModal isOpened={this.state.showList}></MxModal> */}
             </View>
-
         )
     }
 }
