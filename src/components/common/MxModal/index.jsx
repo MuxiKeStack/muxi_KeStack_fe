@@ -81,7 +81,7 @@ export default class MxModal extends Component {
                   title && <View className='mp-modal__title'>{title}</View>
                }
                <Text className='mp-icon mp-icon-closemodal' style='position:absolute;top:-11px;right:-9px;'  onClick={this.onClose}></Text>
-               <View className='mp-modal__content' style={contentHeight}>
+               <View className='mp-modal__content' >
                 {/* <ScrollView
                   scrollY
                 >
@@ -111,7 +111,7 @@ export default class MxModal extends Component {
 
 MxModal.defaultProps = {
   closeOnClickOverlay:true,
-  height:228
+  height:82
 }
 
 MxModal.propTypes = {

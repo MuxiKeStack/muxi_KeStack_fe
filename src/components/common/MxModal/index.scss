@@ -26,10 +26,11 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 500px;
+        width:550px;
+        height:502px;
         border-radius: 35px;
         transform: translate(-50%,-50%);
-        background: #81CAE2;
+        background: #FFFFFF;
     }
 
     &__popup {
@@ -50,24 +51,21 @@
 
 
     &__title{
-        line-height: 90px;
-        height: 90px;
-        width: 100%;
-        border-bottom:1px solid #ddd;
+        width: 500px;
+        line-height: 150px;
+        height: 150px;
+        margin-left: 25px;
+        border-bottom:2px solid rgba(110,102,238,1);
         text-align: center;
-        color: #FFFFFF;
+        color: #6E66EE;
     }
 
     &__content{
-        height: 228px;
-        width: 100%;
         text-align: center;
-        // line-height: 18px;
-        margin-top: 26px;
-        // font-size:25px;
+        line-height: 82px;
         font-family: PingFang SC;
         font-weight:400;
-        color: #FFFFFF;
+        color: #707070;
     }
 
     &__footer{

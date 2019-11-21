@@ -82,12 +82,12 @@ export default class FloatLayout extends Component {
                }
                <Text className='mp-icon mp-icon-closemodal' style='position:absolute;top:-11px;right:-9px;'  onClick={this.onClose}></Text>
                <View className='mp-modal__content' style={contentHeight}>
-                {/* <ScrollView
-                  scrollY
+                <ScrollView
+                  scrollX
                 >
                   { this.props.children }
-                </ScrollView> */}
-                { this.props.children }
+                </ScrollView>
+                {/* { this.props.children } */}
                </View>
                {
                   isRenderFooter && (
@@ -109,10 +109,10 @@ export default class FloatLayout extends Component {
   }
 }
 
-FloatLayout.defaultProps = {
-  closeOnClickOverlay:true,
-  height:228
-}
+// FloatLayout.defaultProps = {
+//   closeOnClickOverlay:true,
+//   height:228
+// }
 
 FloatLayout.propTypes = {
   title:PropTypes.string,
