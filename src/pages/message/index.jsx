@@ -95,7 +95,7 @@ export default class Index extends Component {
                     var isComment = (message.reply =='')?false:true;
                     return(
                         <View >
-                            <View className='card-container'>
+                            {message.isLike &&(<View className='card-container'>
                                 <View className='user-info'>
                                     <View className='avatar-container'><Image src={message.userInfo.avatar} className='avatar-image'></Image></View>
                                     <View className='name-time'>
@@ -103,22 +103,44 @@ export default class Index extends Component {
                                         <View className='time'>{message.userInfo.time}</View>
                                     </View>
                                 </View>
-                                {message.isLike &&(<View className='message-text'>
+                                <View className='message-text'>
                                     <View ><MxIcon type='likeBtn'></MxIcon></View>
                                     <View className='detail-text'>赞了我</View>
-                                </View>)}
-                                {isComment&&(<View className='message-text'>
+                                </View>
+                                <View className='course-container'>
+                                    <View className='course-name'>{'#'+ message.commentInfo.courseName} {'('+message.commentInfo.teacherName+')'}</View> {message.commentInfo.comment}
+                                </View>
+                            </View>)}
+                            {isComment &&(<View className='card-container'>
+                                <View className='user-info'>
+                                    <View className='avatar-container'><Image src={message.userInfo.avatar} className='avatar-image'></Image></View>
+                                    <View className='name-time'>
+                                        <View className='name'>{message.userInfo.userName}</View>
+                                        <View className='time'>{message.userInfo.time}</View>
+                                    </View>
+                                </View>
+                                <View className='message-text'>
                                     <MxIcon type='cmmtBtn'></MxIcon>
                                     <View className='detail-text'>回复我</View>
                                     <View className='reply-text'>{message.reply}</View>
-                                    {/* <Input placeholder='回复：' placeholderClass='placeholder' className='reply-input'/> */}
-                                </View>)}
-                                <View className='course-container'>
-                                    <View className='course-name'>{message.commentInfo.courseName}</View>
-                                    <View className='teacher-name'>{message.commentInfo.teacherName}</View>
-                                    <View className='course-comment'>{message.commentInfo.comment}</View>
                                 </View>
-                            </View>
+                                <View className='course-container'>
+                                    <View className='course-name'>{'#'+ message.commentInfo.courseName} {'('+message.commentInfo.teacherName+')'}</View> {message.commentInfo.comment}
+                                </View>
+                                <View className='input'><Input placeholder='回复：' placeholderClass='placeholder' className='reply-input'/></View>
+                            </View>)}
+                            {!message.isLike && !isComment &&(<View className='card-container'>
+                                <View className='user-info'>
+                                    <View className='avatar-container'><Image src={message.userInfo.avatar} className='avatar-image'></Image></View>
+                                    <View className='name-time'>
+                                        <View className='name'>{message.userInfo.userName}</View>
+                                        <View className='time'>{message.userInfo.time}</View>
+                                    </View>
+                                </View>
+                                <View className='course-container'>
+                                    <View className='course-name'>{'#'+ message.commentInfo.courseName} {'('+message.commentInfo.teacherName+')'}</View> {message.commentInfo.comment}
+                                </View>
+                            </View>)}
                         </View>
                     )
                 })}

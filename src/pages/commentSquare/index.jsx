@@ -78,6 +78,12 @@ ChangeTopost() {
   });
 }
 
+ChangeTodetails() {
+  Taro.navigateTo({
+      url: '/pages/courseDetails/courseDetails'
+  });
+}
+
   handleClick() {
   }
 
@@ -129,7 +135,7 @@ ChangeTopost() {
                     </View>
                   </View>
                   <View className='detailsSecond'>
-                    <View className='detailsSecondInfo1'>#{data.courseName}({data.courseTeacher})</View>
+                    <View className='detailsSecondInfo1' onClick={this.ChangeTodetails.bind(this)}>#{data.courseName}({data.courseTeacher})</View>
                     <View style=''>
                       <View className='detailsSecondInfo2'>评价星级：</View>
                       <MxRate value={data.starRate} style='vertical-align: top'></MxRate>

@@ -46,20 +46,20 @@ class App extends Component {
         {
           pagePath: 'pages/commentSquare/index',
           // text: '评课广场',
-          iconPath: './assets/svg/cmmt-squa.svg',
-          selectedIconPath: './assets/svg/cmmt-squaG.svg'
+          iconPath: './assets/svg/cmmt-squaG.svg',
+          selectedIconPath: './assets/svg/cmmt-squa.svg'
         },
         {
           pagePath: 'pages/courseAssistant/index',
           // text: '选课助手',
-          iconPath: './assets/svg/shelper.svg',
-          selectedIconPath: './assets/svg/shelperG.svg'
+          iconPath: './assets/svg/shelperG.svg',
+          selectedIconPath: './assets/svg/shelper.svg'
         },
         {
           pagePath: 'pages/homepage/index',
           // text: '个人主页',
-          iconPath: './assets/svg/user-info.svg',
-          selectedIconPath: './assets/svg/user-infoG.svg'
+          iconPath: './assets/svg/user-infoG.svg',
+          selectedIconPath: './assets/svg/user-info.svg'
         }
       ],
       color: '#CACACA',

@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import './index.scss'
 import PropTypes from 'prop-types'
 
-export default class MxModal extends Component {
+export default class FloatLayout extends Component {
   constructor (props){
     super(props);
     this.state = {
@@ -81,13 +81,13 @@ export default class MxModal extends Component {
                   title && <View className='mp-modal__title'>{title}</View>
                }
                <Text className='mp-icon mp-icon-closemodal' style='position:absolute;top:-11px;right:-9px;'  onClick={this.onClose}></Text>
-               <View className='mp-modal__content' >
-                {/* <ScrollView
-                  scrollY
+               <View className='mp-modal__content' style={contentHeight}>
+                <ScrollView
+                  scrollX
                 >
                   { this.props.children }
-                </ScrollView> */}
-                { this.props.children }
+                </ScrollView>
+                {/* { this.props.children } */}
                </View>
                {
                   isRenderFooter && (
@@ -109,12 +109,12 @@ export default class MxModal extends Component {
   }
 }
 
-MxModal.defaultProps = {
-  closeOnClickOverlay:true,
-  height:82
-}
+// FloatLayout.defaultProps = {
+//   closeOnClickOverlay:true,
+//   height:228
+// }
 
-MxModal.propTypes = {
+FloatLayout.propTypes = {
   title:PropTypes.string,
   isOpened:PropTypes.bool,
   onClose:PropTypes.func,

@@ -1,7 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image ,Form ,ScrollView,Button} from '@tarojs/components'
+import { View, Image ,Form ,ScrollView,Button,  Swiper, SwiperItem,Checkbox,CheckboxGroup,Label} from '@tarojs/components'
 import MxButton from '../../components/common/MxButton' 
 import HeaderTab from '../../components/headerTab/header-tab'
+import FloatLayout from '../../components/layout'
+import MxModal from '../../components/common/MxModal'
+import MxCard from '../../components/common/MxCard'
 import './index.scss'
 
 export default class Index extends Component {
@@ -9,7 +12,25 @@ export default class Index extends Component {
         super(props)
         this.state = {
           showMenu:true,
-          index: 1
+          showList:false,
+          index: 1,
+          list: [
+            {
+              value: '周二9-10节@9401',
+              text: '周二9-10节@9401',
+              checked: false
+            },
+            {
+              value: '周二9-10节@9401',
+              text: '周二9-10节@9401',
+              checked: true
+            },
+            {
+              value: '周二9-10节@9401',
+              text: '周二9-10节@9401',
+              checked: false
+            }
+          ],
         };
       }
     componentWillUnmount() { }
@@ -51,6 +72,19 @@ export default class Index extends Component {
       }
     }
 
+    showList(){
+        console.log("kk");
+        if(this.state.showList==true){
+            this.setState({
+                showList:false
+            })
+        }
+        if(this.state.showList==false){
+            this.setState({
+                showList:true
+            })
+        }
+    }
 
     componentDidMount() {}
 
@@ -234,13 +268,30 @@ export default class Index extends Component {
                     <MxButton buttonRadius='50%'
                                 buttonWidth='120rpx'
                                 buttonHeight='120rpx'
-                                buttonBackground='#6E66EE'        
+                                buttonBackground='#6E66EE'  
+                                onClick={this.showList.bind(this)}      
                     >
                         课
                     </MxButton>
                 </View>
+                {/* <FloatLayout isOpened={this.state.showList} title='课程清单' >
+                    <MxCard className="mx-card">这里装的是卡片内容</MxCard>
+                </FloatLayout> */}
+                <MxModal isOpened={this.state.showList} title='创业项目的选择与执行'>
+                    {/* <Text>周二9-10节@9401</Text> */}
+                    {/* <Text>周二9-10节@9401</Text>
+                    <Text>周二9-10节@9401</Text> */}
+                    <CheckboxGroup>
+                        {this.state.list.map((item, i) => {
+                            return (
+                            <Label className='checkbox-list__label' for={i} key={i}>
+                                <Checkbox className='checkbox-list__checkbox' value={item.value} checked={item.checked}>{item.text}</Checkbox>
+                            </Label>
+                            )
+                        })}
+                    </CheckboxGroup>
+                </MxModal>
             </View>
-
         )
     }
 }
