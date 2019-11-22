@@ -33,7 +33,7 @@ View {
     height:300px;
     background:rgba(255,255,255,1);
     opacity:1;
-    border-radius: 50px;
+    border-radius: 30px;
     margin-left: 21px;
     display: inline-block;
 }
@@ -67,8 +67,12 @@ View {
     display: inline-block;
     width: 220rpx;
    .class{
-      font-size:40px;
-      color: #000000;
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size:40px;
+    color: #000000;
    }
    .teacher{
       margin-top: 30rpx;
@@ -88,6 +92,10 @@ View {
     margin-top:10rpx;
     width: 350rpx;
     .time{
+        max-width: 270px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         font-size:34px;
         color:rgba(104,105,247,1);
     }

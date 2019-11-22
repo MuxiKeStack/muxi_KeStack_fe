@@ -13,16 +13,21 @@ export default class Index extends Component {
     this.state = {
       datas:[
         { text:'线性代数B', teacher: '张俊', people: '84', tag1: '偶尔点名',tag2:'期末闭卷',tag3:'期末闭卷',tag4:'期末闭卷' },
-        { text:'线性代数B', teacher: '张俊', people: '84', tag1: '偶尔点名',tag2:'期末闭卷',tag3:'期末闭卷',tag4:'期末闭卷' },
+        { text:'线性代数B', teacher: '张俊', people: '84', tag1: '偶尔点名',tag2:'期末闭卷',tag3:'暂无课程特点评价',tag4:'' },
         { text:'线性代数B', teacher: '张俊', people: '84', tag1: '偶尔点名',tag2:'期末闭卷' ,tag3:'期末闭卷',tag4:'期末闭卷'},
       ],
-      value: 5,
-    
+      value: 4,  
     }
   }
   config = {
     navigationBarTitleText: '木犀课栈'
   };
+
+  ChangeTodetails() {
+    Taro.navigateTo({
+        url: '/pages/courseDetails/courseDetails'
+    });
+  }
 
   handleChange (value) {
     this.setState({
@@ -44,8 +49,8 @@ export default class Index extends Component {
         {
           this.state.datas.map((data) => {
             return (
-              <View className='detailsBox'>
-                <View className='mx-card'>
+          <View className='detailsBox'>
+          <View className='mx-card' onClick={this.ChangeTodetails.bind(this)}>
           <View className='blue'>
               <View className='star'>
                  <MxRate value={this.state.value} onChange={this.handleChange.bind(this)} readOnly={true}/>

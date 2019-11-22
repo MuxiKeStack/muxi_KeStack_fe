@@ -19,7 +19,7 @@ export default class Index extends Component {
       value:5,
       datas: [
         {
-          text: '线性代数B',
+          text: '马克思主义基本原理',
           teacher: '张俊',
           num: '2019347817462',
           people: '23',
@@ -53,6 +53,13 @@ export default class Index extends Component {
     })
   }
 
+  ChangeTodetails() {
+    Taro.navigateTo({
+        url: '/pages/courseDetails/courseDetails'
+    });
+  }
+
+
   ChangeTofree() {
     Taro.navigateTo({
         url: '/pages/freeCourse/index'
@@ -81,7 +88,7 @@ export default class Index extends Component {
           this.state.datas.map((data) => {
             return (
               <View className='detailsBox'>
-                <View className='mx-card'>
+                <View className='mx-card' onClick={this.ChangeTodetails.bind(this)}>
   
         <View className='info'>
         <View className='user-info'>
