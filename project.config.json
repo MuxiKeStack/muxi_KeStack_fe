@@ -21,7 +21,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 7,
 			"list": [
 				{
 					"id": -1,
@@ -70,6 +70,20 @@
 					"name": "myCourse",
 					"pathName": "pages/mycourse/index",
 					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "搜索查询",
+					"pathName": "pages/search/index",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": 8,
+					"name": "星星",
+					"pathName": "components/common/MxRate/MxRate",
+					"query": "value=‘5’",
 					"scene": ""
 				}
 			]

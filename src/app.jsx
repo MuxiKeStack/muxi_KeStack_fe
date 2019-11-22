@@ -19,11 +19,10 @@ class App extends Component {
   config = {
     pages: [
       'pages/login/index',
-      
       'pages/commentSquare/index',
-      // 'pages/search/index'
-      // 'pages/postReview/index',
-      // 'pages/courseCommentsDetails/courseCommentsDetails',
+      'pages/search/index',
+      'pages/postReview/index',
+      'pages/courseCommentsDetails/courseCommentsDetails',
 
       'pages/courseAssistant/index',
       'pages/freeCourse/index',
@@ -34,8 +33,7 @@ class App extends Component {
       'pages/commentHistory/index',
       'pages/message/index',
       'pages/courseSelectionList/index',
-      
-      // 'pages/index/index'
+      'pages/index/index'
     ],
     window: {
       backgroundTextStyle: 'light',

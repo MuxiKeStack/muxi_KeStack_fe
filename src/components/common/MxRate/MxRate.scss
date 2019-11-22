@@ -15,6 +15,7 @@ View{
     @include star($star);
     width: 142px;
     position: relative;
+    vertical-align: top;
 }
 .full{
     @include star($starFill);
@@ -22,15 +23,20 @@ View{
     top: 0;
     left: 0;
     overflow: hidden;
+    vertical-align: top;
 }
 .on{
     @include star($starFill);
     width: $starsize;
+    vertical-align: top;
 }
 .off{
     @include star($star);
     width: $starsize;
+    vertical-align: top;
 }
 .box{
+    overflow: hidden;
+    width: 142px;
     height: $starsize;
 }
