@@ -5,6 +5,7 @@ import HeaderTab from '../../components/headerTab/header-tab'
 import FloatLayout from '../../components/layout'
 import MxModal from '../../components/common/MxModal'
 import MxCard from '../../components/common/MxCard'
+import AtAccordion from '../../components/common/MxAccordion'
 import './index.scss'
 
 export default class Index extends Component {
@@ -14,6 +15,7 @@ export default class Index extends Component {
           showMenu:true,
           showList:false,
           index: 1,
+          open: false,
           list: [
             {
               value: '周二9-10节@9401',
@@ -33,7 +35,7 @@ export default class Index extends Component {
           ],
         };
       }
-    componentWillUnmount() { }
+
     config = {
         navigationBarTitleText: "自由排课"
     };
@@ -86,11 +88,12 @@ export default class Index extends Component {
         }
     }
 
-    componentDidMount() {}
+    handleClick (value) {
+        this.setState({
+          open: value
+        })
+      }
 
-    componentWillUnmount() { }
-
-    componentDidHide() { }
     render() {
         const scrollStyle = {
             height: '100%',
@@ -101,7 +104,7 @@ export default class Index extends Component {
           const Threshold = 20
         return (
             <View>
-                <HeaderTab navList={[{key:1,content:'课表一'},{key:2,content:'课表二'},{key:3,content:'课表三'},{key:4,content:'课表四'},{key:5,content:'课表五'}]} onGetIndex={this.getIndex.bind(this)} /> 
+                <HeaderTab navList={[{key:1,content:'课表一'},{key:2,content:'课表二'}]} onGetIndex={this.getIndex.bind(this)} /> 
                 <ScrollView
                     className='scrollview'
                     scrollY
@@ -274,13 +277,10 @@ export default class Index extends Component {
                         课
                     </MxButton>
                 </View>
-                {/* <FloatLayout isOpened={this.state.showList} title='课程清单' >
-                    <MxCard className="mx-card">这里装的是卡片内容</MxCard>
-                </FloatLayout> */}
-                <MxModal isOpened={this.state.showList} title='创业项目的选择与执行'>
-                    {/* <Text>周二9-10节@9401</Text> */}
-                    {/* <Text>周二9-10节@9401</Text>
-                    <Text>周二9-10节@9401</Text> */}
+                <FloatLayout isOpened={this.state.showList} title='课程清单' >
+                    <MxCard className="muxi-card">这里装的是卡片内容</MxCard>
+                </FloatLayout>
+                {/* <MxModal isOpened={this.state.showList} title='创业项目的选择与执行'>
                     <CheckboxGroup>
                         {this.state.list.map((item, i) => {
                             return (
@@ -290,8 +290,18 @@ export default class Index extends Component {
                             )
                         })}
                     </CheckboxGroup>
-                </MxModal>
+                </MxModal> */}
+                <AtAccordion
+                    open={this.state.open}
+                    onClick={this.handleClick.bind(this)}
+                    title='标题一'
+                >
+                    lalalas
+                </AtAccordion>
             </View>
         )
     }
 }
+
+// Accordion 手风琴
+// SegmentedControl 分段器
