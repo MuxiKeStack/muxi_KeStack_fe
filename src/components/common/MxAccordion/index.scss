@@ -48,10 +48,12 @@
     }
   
     &__content {
-      position: relative;
-      width: 100%;
+      position: fixed;
+      margin: 0;
       overflow: hidden;
+      visibility: visible;
       transition: height 500ms cubic-bezier(0.470, 0.000, 0.745, 0.715);
+      z-index: 9999;
     //   @include hairline-top();
   
       &--inactive {

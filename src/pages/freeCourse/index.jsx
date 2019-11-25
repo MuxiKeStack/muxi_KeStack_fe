@@ -291,13 +291,6 @@ export default class Index extends Component {
                         })}
                     </CheckboxGroup>
                 </MxModal> */}
-                <AtAccordion
-                    open={this.state.open}
-                    onClick={this.handleClick.bind(this)}
-                    title='标题一'
-                >
-                    lalalas
-                </AtAccordion>
             </View>
         )
     }

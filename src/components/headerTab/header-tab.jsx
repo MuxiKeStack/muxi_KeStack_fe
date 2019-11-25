@@ -52,7 +52,6 @@ export default class HeaderTab extends Component {
       <View>
           <ScrollView 
             className='swiper-tab'
-            scrollY
             scrollX
             scrollWithAnimation
             scrollTop={scrollTop}
@@ -64,7 +63,7 @@ export default class HeaderTab extends Component {
             onScroll={this.onScroll}
           >
             {this.props.navList.map((nav) =>
-                <View className={this.state.currentTab===nav.key?'active':'normal'} data-current={nav.key} onClick={this.switchNav.bind(this,nav.key)} key='0'>
+                <View className={this.state.currentTab===nav.key?'active':'normal'}  data-current={nav.key} onClick={this.switchNav.bind(this,nav.key)} key='0'>
                   {/* {nav.content} */}
                   <AtAccordion
                     open={this.state.open}
