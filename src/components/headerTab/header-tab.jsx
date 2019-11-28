@@ -2,6 +2,7 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View,ScrollView ,Button} from '@tarojs/components'
 import AtAccordion from '../../components/common/MxAccordion'
+import Fetch from '../../service/fetch'
 import './header-tab.scss'
 
 

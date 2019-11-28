@@ -8,11 +8,13 @@ import MxCard from '../../components/common/MxCard'
 import AtAccordion from '../../components/common/MxAccordion'
 import './index.scss'
 
+
 export default class Index extends Component {
     constructor(props) {
         super(props)
         this.state = {
           showMenu:true,
+          course:[1,2,3,4,5,6],
           showList:false,
           index: 1,
           open: false,
@@ -33,7 +35,49 @@ export default class Index extends Component {
               checked: false
             }
           ],
-        };
+          classlist:[
+              {
+                  class_id:1,
+                  class_name:'啦啦啦啦啦啦啦啦绿绿绿',
+                  times:[
+                      {
+                          day:1,
+                          duration:2,
+                          start:1,
+                          week_state:1,
+                          weeks:1
+                      }
+                  ]
+              },
+              {
+                class_id:2,
+                class_name:'啦啦啦啦啦啦啦啦绿绿绿',
+                times:[
+                    {
+                        day:1,
+                        duration:2,
+                        start:3,
+                        week_state:1,
+                        weeks:1
+                    }
+                ]
+            },
+            {
+                class_id:3,
+                class_name:'啦啦啦啦啦啦啦啦绿绿绿',
+                times:[
+                    {
+                        day:1,
+                        duration:2,
+                        start:5,
+                        week_state:1,
+                        weeks:1
+                    }
+                ]
+            }
+          ]
+
+        }
       }
 
     config = {
@@ -59,19 +103,23 @@ export default class Index extends Component {
             })
         }
       }
-    
+    divideDay(){
+        const list =this.state.classlist;
+        if(this.state.classlist){}
+    }
+
     getIndex(index){
         this.setState({
           index:index
         })
-        if(index===2){
-          this.getOrderCarList(1);
-        }else if(index !== 1){
-          index = index - 1;
-          this.getOrderBuyList(index,1);
-      }else{
-        this.getOrderBuyList(1,1);
-      }
+    //     if(index===2){
+    //       this.getOrderCarList(1);
+    //     }else if(index !== 1){
+    //       index = index - 1;
+    //       this.getOrderBuyList(index,1);
+    //   }else{
+    //     this.getOrderBuyList(1,1);
+    //   }
     }
 
     showList(){
@@ -95,6 +143,7 @@ export default class Index extends Component {
       }
 
     render() {
+        const list=this.state.classlist;
         const scrollStyle = {
             height: '100%',
             width:'100%'
@@ -118,21 +167,6 @@ export default class Index extends Component {
                     onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
                     onScroll={this.onScroll}
                 >
-                   
-                    {/* <View className='courseList'>
-                        <Button className='List_one'>
-                            <Text>课表一</Text>
-                        </Button>
-                        <View hidden={this.state.showMenu} className='menu'>
-                            <Button className='menuButton'>重命名</Button>
-                            <Button className='menuButton'>创建副本</Button>
-                            <Button className='menuButton'>删除课表</Button>
-                        </View>
-                        <Button className='List_two' onClick={this.CshowMenu}>
-                            <Text>课表二</Text>
-                        </Button>
-                    </View> */}
-                    
                     <View className='course'>
                         <View className='left'>
                             <View className="timeS">\</View>
@@ -204,66 +238,57 @@ export default class Index extends Component {
                         </View>
                         <View className='middle'>
                                 <View className='week'>一</View>
+                                {/* <View className="courseF"></View>
                                 <View className="courseF"></View>
                                 <View className="courseF"></View>
                                 <View className="courseF"></View>
                                 <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
+                                <View className="courseF"></View> */}
+                                {this.state.course.map((key)=>
+                                    <View className="courseF"  key='0'></View>
+                                )}
                         </View>
                         <View className='middle'>
                                 <View className='week'>二</View>
+                                {/* <View className="courseF"></View>
                                 <View className="courseF"></View>
                                 <View className="courseF"></View>
                                 <View className="courseF"></View>
                                 <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
+                                <View className="courseF"></View> */}
+                                {this.state.course.map(()=>
+                                    <View className="courseF"></View>
+                                )}
                         </View>
                         <View className='middle'>
                                 <View className='week'>三</View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
+                                {this.state.course.map(()=>
+                                    <View className="courseF"></View>
+                                )}
                         </View>
                         <View className='middle'>
                                 <View className='week'>四</View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
+                                {this.state.course.map(()=>
+                                    <View className="courseF"></View>
+                                )}
                         </View>
                         <View className='middle'>
                                 <View className='week'>五</View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
+                                {this.state.course.map(()=>
+                                    <View className="courseF"></View>
+                                )}
                         </View>
                         <View className='middle'>
                                 <View className='week'>六</View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
+                                {this.state.course.map(()=>
+                                    <View className="courseF"></View>
+                                )}
                         </View>
                         <View className='middle'>
                                 <View className='week'>七</View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
+                                {this.state.course.map(()=>
+                                    <View className="courseF"></View>
+                                )}
                         </View>
                     </View>
                 </ScrollView>
@@ -291,6 +316,39 @@ export default class Index extends Component {
                         })}
                     </CheckboxGroup>
                 </MxModal> */}
+                {/* {
+                    list.map(()=>{
+                        list.times.day===1? 
+                        <MxCard className="muxi-card">{list.class_name}</MxCard>    
+                        :
+                       <View></View>,
+                       list.times.day===2? 
+                       <MxCard className="muxi-card">{list.class_name}</MxCard>
+                       :
+                      <View></View>,
+                      list.times.day===3? 
+                      <MxCard className="muxi-card">{list.class_name}</MxCard>
+                      :
+                     <View></View>,
+                     list.times.day===4? 
+                     <MxCard className="muxi-card">{list.class_name}</MxCard>
+                     :
+                    <View></View>,
+                    list.times.day===5? 
+                    <MxCard className="muxi-card">{list.class_name}</MxCard>
+                    :
+                   <View></View>,
+                   list.times.day===6? 
+                    <MxCard className="muxi-card">{list.class_name}</MxCard>
+                    :
+                   <View></View>,
+                   list.times.day===7? 
+                    <MxCard className="muxi-card">{list.class_name}</MxCard>
+                    :
+                   <View></View>
+                    }
+                    )
+                } */}
             </View>
         )
     }
