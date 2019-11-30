@@ -26,7 +26,7 @@ export default class Index extends Component {
           tag4: '干货满满' 
         },
         {
-          courseName: '也许是马基',
+          courseName: '也许是马基主义基本原理',
           name: 'xxx',
           starRate: 3,
           numOfCommenters: 59,

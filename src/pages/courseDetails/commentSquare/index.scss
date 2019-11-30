@@ -1,6 +1,3 @@
-Page {
-    background-color: rgba(241,240,245,1);
-}
 View {
     display: inline-block;
 }
@@ -17,13 +14,11 @@ View {
     font-family: 'PingFangSC-Regular, sans-serif';
 }
 .chooseBox{
-    top: 0rpx;
-    position: fixed;
+    margin-top: 7rpx;
     height: 98rpx;
     width: 750rpx;
     background:rgba(255,255,255,1);
     box-shadow:0rpx 4rpx 7rpx rgba(0,0,0,0.16);
-    z-index: 2;
 }
 .chooseSearchBack{
     margin: 13rpx 0rpx 0rpx 32rpx;
@@ -40,11 +35,10 @@ View {
 }
 
 .detailsBoxes {
-    background-color: rgba(241,240,245,1);
-    height: 100%;
     overflow: scroll;
-    padding-top: 110rpx;
-    z-index: 1;
+    height: 989rpx;
+    margin-top: 7rpx;
+    background-color: rgba(241,240,245,1);
 }
 .detailsBox:last-child {
     display: block;
@@ -61,8 +55,6 @@ View {
     width: 711rpx;
     margin-left: 21rpx;
     position: relative;
-    background:rgba(255,255,255,1);
-    border-radius: 20rpx;
 }
 .detailsWrapper {
     margin: 28rpx 0rpx 0rpx 35rpx;
@@ -82,6 +74,10 @@ View {
     margin-left: 21rpx;
 }
 .detailsFirstInfo1 {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     display: block;
     font-size: 30rpx;
 }
@@ -102,6 +98,10 @@ View {
     width: inherit;
 }
 .detailsSecondInfo1 {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     vertical-align: top;
     color: #6869F7;
     font-size: 27rpx;
@@ -120,6 +120,10 @@ View {
     margin-top: 24rpx;
 }
 .detailsThirdText {
+    max-width: 500px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 24rpx;
     width: 528rpx;
     color: #070707;
@@ -128,7 +132,7 @@ View {
 .detailsFourth {
     display: block;
     position: absolute;
-    bottom: 13rpx;
+    bottom: 3rpx;
     font-size: 22rpx;
 }
 .detailsFourthIcon1{

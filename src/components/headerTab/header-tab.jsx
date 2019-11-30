@@ -1,6 +1,8 @@
 /* eslint-disable taro/duplicate-name-of-state-and-props */
 import Taro, { Component } from '@tarojs/taro'
 import { View,ScrollView ,Button} from '@tarojs/components'
+import AtAccordion from '../../components/common/MxAccordion'
+import Fetch from '../../service/fetch'
 import './header-tab.scss'
 
 
@@ -13,12 +15,17 @@ export default class HeaderTab extends Component {
     super(props)
     this.state = {
       currentTab:1,
+      open:false
       }
     }
 
     switchNav (value,e){
       var cur = e.target.dataset.current;
-      if(this.state.currentTab === cur){return false;}
+      if(this.state.currentTab === cur){
+        this.setState({
+          open: !this.state.open
+      });
+    }
       else{
         this.setState({
           currentTab:cur
@@ -46,7 +53,6 @@ export default class HeaderTab extends Component {
       <View>
           <ScrollView 
             className='swiper-tab'
-            scrollY
             scrollX
             scrollWithAnimation
             scrollTop={scrollTop}
@@ -58,8 +64,19 @@ export default class HeaderTab extends Component {
             onScroll={this.onScroll}
           >
             {this.props.navList.map((nav) =>
-                <View className={this.state.currentTab===nav.key?'active':'normal'} data-current={nav.key} onClick={this.switchNav.bind(this,nav.key)} key='0'>
-                  {nav.content}
+                <View className={this.state.currentTab===nav.key?'active':'normal'}  data-current={nav.key} onClick={this.switchNav.bind(this,nav.key)} key='0'>
+                  {/* {nav.content} */}
+                  <AtAccordion
+                    open={this.state.open}
+                    title={nav.content}
+                    data-current={nav.key} onClick={this.switchNav.bind(this,nav.key)} key='0'
+                  >
+                    <View  className='menu'>
+                            <Button className='menuButton'>重命名</Button>
+                            <Button className='menuButton'>创建副本</Button>
+                            <Button className='menuButton'>删除课表</Button>
+                        </View>
+                  </AtAccordion>
                 </View>
             )}
           </ScrollView>

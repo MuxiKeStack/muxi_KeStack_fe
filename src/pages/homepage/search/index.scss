@@ -14,17 +14,16 @@ View {
 
 .detailsBoxes {
     overflow: scroll;
-    height: 989rpx;
+    height: 1100rpx;
     margin-top: 7rpx;
     background-color: rgba(241,240,245,1);
 }
 .detailsBox:last-child {
     display: block;
     width: 750rpx;
-    margin: 37rpx 0rpx;
+
 }
 .detailsBox {
-    margin-top: 37rpx;
     display: block;
     width: 750rpx;
 }
@@ -34,8 +33,29 @@ View {
     background:rgba(255,255,255,1);
     opacity:1;
     border-radius: 30px;
+    margin-top: 37px;
     margin-left: 21px;
     display: inline-block;
+}
+
+.user-info{
+    margin-left: 60rpx;
+    display: inline-block;
+    width: 200rpx;
+   .class{
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size:40px;
+    color: #000000;
+   }
+   .teacher{
+      margin-top: 30rpx;
+      margin-left: 50rpx;
+      font-size:35px;
+      color: #000000;
+   }
 }
 .blue{
     margin-top: 40px;
@@ -59,62 +79,31 @@ View {
         display: inline-block;
     }
 }
-.info{
+.tag{
     display: inline-block;
-    height: 200rpx;
-.user-info{
-    margin-left: 60rpx;
-    display: inline-block;
-    width: 220rpx;
-   .class{
-    max-width: 220px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size:40px;
-    color: #000000;
-   }
-   .teacher{
-      margin-top: 30rpx;
-      margin-left: 50rpx;
-      font-size:35px;
-      color: #000000;
-   }
-   .num{
-       font-size: 30px;
-       color:#A1A4AE ;
-       margin-top: 20rpx;
-   }
-}
-
-.ta{
     margin-left: 80rpx;
-    margin-top:10rpx;
-    width: 350rpx;
-    .time{
-        max-width: 270px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+    margin-top:20rpx;
+    width: 300rpx;
+    .tag1{
         font-size:34px;
         color:rgba(104,105,247,1);
     }
-    .address{
+    .tag2{
+        margin-left: 15rpx;
+        font-size:34px;
+        color:rgba(104,105,247,1);
+    }
+    .tag3{
         margin-top:20rpx ;
+        display: inline-block;
         font-size:34px;
         color:rgba(104,105,247,1);
     }
-}
-}
-.muxi-fab{
-    width:100px;
-    height: 100px;
-    border: 2px solid black;
-    border-radius: 100px;
-    font-size: 40px;
-    text-align: center;
-    line-height: 90px;
-    position: fixed;
-    right: 40px;
-    bottom: 0;
+    .tag4{
+        margin-top: 20rpx;
+        margin-left: 15rpx;
+        font-size:34px;
+        color:rgba(104,105,247,1);
+    }
+
 }

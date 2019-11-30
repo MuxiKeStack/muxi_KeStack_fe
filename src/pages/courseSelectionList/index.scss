@@ -29,6 +29,10 @@ View {
     padding: 28px 92px 48px 35px;
 }
 .detailsLeft {
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     display: inline-block;
     text-align: center;
     margin-top: 63px;

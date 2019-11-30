@@ -5,15 +5,20 @@ import HeaderTab from '../../components/headerTab/header-tab'
 import FloatLayout from '../../components/layout'
 import MxModal from '../../components/common/MxModal'
 import MxCard from '../../components/common/MxCard'
+import AtAccordion from '../../components/common/MxAccordion'
 import './index.scss'
+
 
 export default class Index extends Component {
     constructor(props) {
         super(props)
         this.state = {
           showMenu:true,
+          WEEKS:[1,2,3,4,5,6,7],
+          COURSES:[1,2,3,4,5,6],
           showList:false,
           index: 1,
+          open: false,
           list: [
             {
               value: '周二9-10节@9401',
@@ -31,9 +36,51 @@ export default class Index extends Component {
               checked: false
             }
           ],
-        };
+          classlist:[
+              {
+                  class_id:1,
+                  class_name:'啦啦啦啦啦啦啦啦绿绿绿',
+                  times:[
+                      {
+                          day:1,
+                          duration:2,
+                          start:1,
+                          week_state:1,
+                          weeks:1
+                      }
+                  ]
+              },
+              {
+                class_id:2,
+                class_name:'啦啦啦啦啦啦啦啦绿绿绿',
+                times:[
+                    {
+                        day:1,
+                        duration:2,
+                        start:3,
+                        week_state:1,
+                        weeks:1
+                    }
+                ]
+            },
+            {
+                class_id:3,
+                class_name:'啦啦啦啦啦啦啦啦绿绿绿',
+                times:[
+                    {
+                        day:1,
+                        duration:2,
+                        start:5,
+                        week_state:1,
+                        weeks:1
+                    }
+                ]
+            }
+          ]
+
+        }
       }
-    componentWillUnmount() { }
+
     config = {
         navigationBarTitleText: "自由排课"
     };
@@ -57,19 +104,27 @@ export default class Index extends Component {
             })
         }
       }
-    
+    divideDay(){
+        const list =this.state.classlist;
+        if(list.times.day===1){
+            this.setState({
+               
+            })
+        }
+    }
+
     getIndex(index){
         this.setState({
           index:index
         })
-        if(index===2){
-          this.getOrderCarList(1);
-        }else if(index !== 1){
-          index = index - 1;
-          this.getOrderBuyList(index,1);
-      }else{
-        this.getOrderBuyList(1,1);
-      }
+    //     if(index===2){
+    //       this.getOrderCarList(1);
+    //     }else if(index !== 1){
+    //       index = index - 1;
+    //       this.getOrderBuyList(index,1);
+    //   }else{
+    //     this.getOrderBuyList(1,1);
+    //   }
     }
 
     showList(){
@@ -86,12 +141,14 @@ export default class Index extends Component {
         }
     }
 
-    componentDidMount() {}
+    handleClick (value) {
+        this.setState({
+          open: value
+        })
+      }
 
-    componentWillUnmount() { }
-
-    componentDidHide() { }
     render() {
+        const list=this.state.classlist;
         const scrollStyle = {
             height: '100%',
             width:'100%'
@@ -101,7 +158,7 @@ export default class Index extends Component {
           const Threshold = 20
         return (
             <View>
-                <HeaderTab navList={[{key:1,content:'课表一'},{key:2,content:'课表二'},{key:3,content:'课表三'},{key:4,content:'课表四'},{key:5,content:'课表五'}]} onGetIndex={this.getIndex.bind(this)} /> 
+                <HeaderTab navList={[{key:1,content:'课表一'},{key:2,content:'课表二'}]} onGetIndex={this.getIndex.bind(this)} /> 
                 <ScrollView
                     className='scrollview'
                     scrollY
@@ -115,21 +172,6 @@ export default class Index extends Component {
                     onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
                     onScroll={this.onScroll}
                 >
-                   
-                    {/* <View className='courseList'>
-                        <Button className='List_one'>
-                            <Text>课表一</Text>
-                        </Button>
-                        <View hidden={this.state.showMenu} className='menu'>
-                            <Button className='menuButton'>重命名</Button>
-                            <Button className='menuButton'>创建副本</Button>
-                            <Button className='menuButton'>删除课表</Button>
-                        </View>
-                        <Button className='List_two' onClick={this.CshowMenu}>
-                            <Text>课表二</Text>
-                        </Button>
-                    </View> */}
-                    
                     <View className='course'>
                         <View className='left'>
                             <View className="timeS">\</View>
@@ -147,7 +189,7 @@ export default class Index extends Component {
                             <View className="timeS">
                                 <View>
                                     <Text className='number'>3</Text>
-                                    <Text className='grayN'>8:00</Text>
+                                    <Text className='grayN'>10:10</Text>
                                 </View>
                             </View>
                             <View className="timeS">
@@ -158,7 +200,7 @@ export default class Index extends Component {
                             <View className="timeS">
                                 <View>
                                     <Text className='number'>5</Text>
-                                    <Text className='grayN'>8:00</Text>
+                                    <Text className='grayN'>14:00</Text>
                                 </View>
                             </View>
                             <View className="timeS">
@@ -169,7 +211,7 @@ export default class Index extends Component {
                             <View className="timeS">
                                 <View>
                                     <Text className='number'>7</Text>
-                                    <Text className='grayN'>8:00</Text>
+                                    <Text className='grayN'>16:10</Text>
                                 </View>
                             </View>
                             <View className="timeS">
@@ -180,7 +222,7 @@ export default class Index extends Component {
                             <View className="timeS">
                                 <View>
                                     <Text className='number'>9</Text>
-                                    <Text className='grayN'>8:00</Text>
+                                    <Text className='grayN'>18:30</Text>
                                 </View>
                             </View><View className="timeS">
                                 <View className='number'>
@@ -190,7 +232,7 @@ export default class Index extends Component {
                             <View className="timeS">
                                 <View>
                                     <Text className='number'>11</Text>
-                                    <Text className='grayN'>8:00</Text>
+                                    <Text className='grayN'>20:15</Text>
                                 </View>
                             </View>
                             <View className="timeS">
@@ -199,69 +241,18 @@ export default class Index extends Component {
                                 </View>
                             </View>
                         </View>
-                        <View className='middle'>
-                                <View className='week'>一</View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                        </View>
-                        <View className='middle'>
-                                <View className='week'>二</View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                        </View>
-                        <View className='middle'>
-                                <View className='week'>三</View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                        </View>
-                        <View className='middle'>
-                                <View className='week'>四</View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                        </View>
-                        <View className='middle'>
-                                <View className='week'>五</View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                        </View>
-                        <View className='middle'>
-                                <View className='week'>六</View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                        </View>
-                        <View className='middle'>
-                                <View className='week'>七</View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                                <View className="courseF"></View>
-                        </View>
+                        {WEEKS.map((week)=>{
+                            return   <View className='middle'>
+                                <View className='week'>{WEEKS[week-1]}</View>
+                                {COURSES.map(()=>
+                                    <View className="courseF"></View>
+                                )}
+                                {/* {this.state.COURSESData[week].map((course)=>
+                                    <MxCard className="muxi-card" course={course}></MxCard> 
+                                )
+                                } */}
+                                </View>
+                        })}
                     </View>
                 </ScrollView>
                 <View className='collect'>
@@ -274,13 +265,10 @@ export default class Index extends Component {
                         课
                     </MxButton>
                 </View>
-                {/* <FloatLayout isOpened={this.state.showList} title='课程清单' >
-                    <MxCard className="mx-card">这里装的是卡片内容</MxCard>
-                </FloatLayout> */}
-                <MxModal isOpened={this.state.showList} title='创业项目的选择与执行'>
-                    {/* <Text>周二9-10节@9401</Text> */}
-                    {/* <Text>周二9-10节@9401</Text>
-                    <Text>周二9-10节@9401</Text> */}
+                <FloatLayout isOpened={this.state.showList} title='课程清单' >
+                    <MxCard className="muxi-card">这里装的是卡片内容</MxCard>
+                </FloatLayout>
+                {/* <MxModal isOpened={this.state.showList} title='创业项目的选择与执行'>
                     <CheckboxGroup>
                         {this.state.list.map((item, i) => {
                             return (
@@ -290,8 +278,11 @@ export default class Index extends Component {
                             )
                         })}
                     </CheckboxGroup>
-                </MxModal>
+                </MxModal> */}
             </View>
         )
     }
 }
+
+// Accordion 手风琴
+// SegmentedControl 分段器

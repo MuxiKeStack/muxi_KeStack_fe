@@ -38,13 +38,17 @@ export default class Index extends Component {
         <Image className='head' src={ImageUrl}></Image>
       
         <MxInput
+          width='480rpx'
           placeholder='学号/昵称'
           border='true'
         ></MxInput>
+        <View className='input'>
         <MxInput
+          width='480rpx'
           placeholder='密码'
           border='true'
         ></MxInput>
+        </View>
       <View className='login'>
         <MxButton
           buttomWidth='513rpx'
