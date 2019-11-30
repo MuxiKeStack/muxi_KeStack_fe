@@ -4,6 +4,7 @@ import { List } from '../../components/page/List'
 import { Item } from '../../components/page/List/Item'
 import image from '../../assets/svg/avatar-img.svg'
 import './index.scss'
+import Fetch from '../../service/fetch'
 // import {isLogined} from 'utils/tools'
 // import { courseList} from 'sevices/course'
 // import { serverUrl } from  'utils/config'
@@ -29,6 +30,19 @@ export default class Index extends Component {
                         course: res.info,
                     });
                 });*/
+        Fetch('login',{password:'2yuhly0312',sid:'2018214877'},'POST').then(
+                    token=>{ Taro.setStorageSync('token',token)}
+                )
+        Taro.getStorage('token')
+        Fetch('user/info','data','GET').then(
+            data => {
+                this.setState({
+                    avatar: data.avatar,
+                    sid: data.sid,
+                    nickname: data.username,
+                })
+            }
+        );
     }
 
     ChangeTomycourse() {
@@ -51,7 +65,9 @@ export default class Index extends Component {
             url: '/pages/message/index'
         });
     }
-
+    handleLogin(){
+        
+    }
     componentWillUnmount() { }
 
     componentDidHide() { }
@@ -66,7 +82,7 @@ export default class Index extends Component {
                 <View className='home-page-user-info'>
                     <View className='user-avatar'><Image src={user.avatar} className='avatar-image' style={rootStyle}></Image></View>
                     <View className='user-info'>
-                        <View className='nickname'>{user.nickname}</View>
+                        <View className='nickname' onClick={this.handleLogin.bind(this)}>{user.nickname}</View>
                         <View className='sid'>{user.sid}</View>
                     </View>
                 </View>

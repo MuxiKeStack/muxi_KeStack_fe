@@ -4,13 +4,14 @@ import classNames from 'classnames';
 import { Image, View } from '@tarojs/components';
 import MxComponent from '../../../common/component';
 import add from '../../../assets/svg/add.svg';
+import arrowRM from '../../../assets/svg/arrow_right.svg';
 import avatar from '../../../assets/svg/avatar-img.svg';
 import check from '../../../assets/svg/check.svg';
 import cmmtBtn from '../../../assets/svg/cmmt-btn.svg';
 import cmmtSq from '../../../assets/svg/cmmt-squa.svg';
 import cmmtSqG from '../../../assets/svg/cmmt-squaG.svg';
 import cross from '../../../assets/svg/cross.svg';
-import hollowC from '../../../assets/svg/hollow-circle.svg';
+import arrowD from '../../../assets/svg/down_arrow.svg';
 import largeC from '../../../assets/svg/large-circle.svg';
 import likeBtn from '../../../assets/svg/like-btn.svg';
 import search from '../../../assets/svg/searchicon.svg';
@@ -26,6 +27,7 @@ import courseList from '../../../assets/svg/courseList.svg';
 import history from '../../../assets/svg/history.svg';
 import message from '../../../assets/svg/message.svg';
 import myCourse from '../../../assets/svg/myCourse.svg';
+import arrowR from '../../../assets/svg/right_arrow.svg';
 
 import './index.scss';
 
@@ -54,7 +56,9 @@ export default class MxIcon extends MxComponent {
       ['cmmtSq', cmmtSq],
       ['cmmtSqG', cmmtSqG],
       ['cross', cross],
-      ['hollowC', hollowC],
+      ['arrowRM',arrowRM],
+      ['arrowR',arrowR],
+      ['arrowD',arrowD],
       ['largeC', largeC],
       ['likeBtn', likeBtn],
       ['search', search],

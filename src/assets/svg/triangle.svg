@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="25.199" height="27.655" viewBox="0 0 25.199 27.655">
+<svg xmlns="http://www.w3.org/2000/svg" width="20.788" height="14.566" viewBox="0 0 20.788 14.566">
   <defs>
     <style>
       .cls-1 {
-        fill: #6868F8;
+        fill: #6869f7;
       }
     </style>
   </defs>
-  <path id="Path_64" data-name="Path 64" class="cls-1" d="M234.889,377.478l12.619,27.655,12.581-27.571Z" transform="translate(-234.889 -377.478)"/>
+  <path id="路径_64" data-name="路径 64" class="cls-1" d="M234.889,377.478l10.41,14.566,10.378-14.522Z" transform="translate(-234.889 -377.478)"/>
 </svg>

@@ -29,6 +29,8 @@ solidS | ★
 triangle | ▲ 不过是倒着的
 useInf | tabbar的个人主页 紫色
 useInfG | tabbar的个人主页 灰色
+arrowR | 〉
+arrowD | arrowR右旋转90度
 
 #### 示例代码
 

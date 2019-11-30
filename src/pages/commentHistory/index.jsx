@@ -66,7 +66,7 @@ export default class Index extends Component {
   }
   componentWillUnmount() {}
   config = {
-    navigationBarTitleText: '消息提醒'
+    navigationBarTitleText: '评课历史'
   };
 
   componentDidMount() {

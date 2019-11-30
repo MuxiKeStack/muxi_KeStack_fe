@@ -1,11 +1,12 @@
-<svg id="Group_24" data-name="Group 24" xmlns="http://www.w3.org/2000/svg" width="26.063" height="26.063" viewBox="0 0 26.063 26.063">
+<svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" viewBox="0 0 27 27">
   <defs>
     <style>
       .cls-1 {
-        fill: #6868F8;
+        fill: #6869f7;
+        stroke: #6869f7;
+        stroke-width: 5px;
       }
     </style>
   </defs>
-  <path id="Path_82" data-name="Path 82" class="cls-1" d="M13.032,0A13.115,13.115,0,0,0,0,13.032,13.115,13.115,0,0,0,13.032,26.063,13.032,13.032,0,0,0,13.032,0Zm0,23.731a10.7,10.7,0,1,1,10.7-10.7A10.541,10.541,0,0,1,13.032,23.731Z"/>
-  <path id="Path_83" data-name="Path 83" class="cls-1" d="M228.375,228.376m-7.408,0a7.408,7.408,0,1,0,7.408-7.408A7.407,7.407,0,0,0,220.968,228.376Z" transform="translate(-215.344 -215.344)"/>
+  <path id="路径_75" data-name="路径 75" class="cls-1" d="M11,11,0,11A11,11,0,1,0,11,0,11,11,0,0,0,0,11Z" transform="translate(2.5 2.5)"/>
 </svg>

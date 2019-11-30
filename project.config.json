@@ -11,6 +11,7 @@
 		"newFeature": true,
 		"remoteDebugLogEnable": false,
 		"sourcemapDisabled": true,
+		"uploadWithSourceMap": true,
 		"useAlphaLib": true,
 		"nodeModules": true,
 		"autoAudits": true,
@@ -32,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
