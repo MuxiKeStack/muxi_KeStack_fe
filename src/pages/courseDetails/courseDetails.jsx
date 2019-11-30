@@ -17,10 +17,38 @@ export default class Coursedetails extends Component {
       lastId: 0,
       limit: 5,
       sum: 10,
+      classes: [
+        [
+          { time: '周一7~8节', place: '7105', week: '2' },
+          { time: '周三5~6节', place: '7107', week: '1' },
+          { time: '周四5~6节', place: '7107', week: '1' }
+        ],
+        [
+          { time: '周一7~8节', place: '7105', week: '2' },
+          { time: '周三5~6节', place: '7107', week: '1' }
+        ],
+        [
+          { time: '周一7~8节', place: '7105', week: '2' },
+          { time: '周三5~6节', place: '7107', week: '1' },
+          { time: '周四5~6节', place: '7107', week: '1' }
+        ],
+        [
+          { time: '周一7~8节', place: '7105', week: '2' },
+          { time: '周三5~6节', place: '7107', week: '1' },
+          { time: '周四5~6节', place: '7107', week: '1' }
+        ],
+        [
+          { time: '周一7~8节', place: '7105', week: '2' },
+          { time: '周三5~6节', place: '7107', week: '1' }
+        ],
+        [
+          { time: '周一7~8节', place: '7105', week: '0' },
+          { time: '周三5~6节', place: '7107', week: '0' },
+          { time: '周四5~6节', place: '7107', week: '0' }
+        ]
+      ],
       drawerWidth: '0px',
       cover: 'none',
-      courseName: '线性代数',
-      teacherName: '张俊',
       courseCategory: '专业必修课',
       courseCredit: '2',
       rate: '4',
@@ -166,16 +194,14 @@ export default class Coursedetails extends Component {
       'api/v1/course/112d34testsvggase/evaluations/',
       {
         id: '112d34testsvggase'
-        // lastId: this.state.lastId,
-        // sort: this.state.sort
       },
       'GET'
     ).then(data => {
       if (data) {
-        console.log(data.data.list);
+        console.log(data.data);
         this.setState({
-          commentsList: data.data.list,
-          lastId: data.data.list.length - 1
+          commentsList: data.data.normal_list,
+          lastId: data.data.normal_sum - 1
         });
       }
     });
@@ -183,10 +209,7 @@ export default class Coursedetails extends Component {
       'token',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
     );
-    // Fetch(
-    //   'api/v1/course/using/112d34testsvggase/',
-    //   'GET'
-    // ).then(data => {
+    // Fetch('api/v1/course/using/112d34testsvggase/', 'GET').then(data => {
     //   if (data) {
     //     console.log(data);
     //   }
@@ -237,6 +260,7 @@ export default class Coursedetails extends Component {
       courseCategory,
       courseCredit,
       rate,
+      classes,
       starNumber,
       attendance1,
       attendance2,
@@ -286,14 +310,20 @@ export default class Coursedetails extends Component {
             <View className="info_drawer">课堂信息</View>
             <View className="info_Eng_drawer">class message</View>
           </View>
-          <View>
-            <View>1课堂</View>
-            <View>
-              <View></View>
-              <View></View>
-              <View></View>
-            </View>
-          </View>
+          {classes.map(item => {
+            return (
+              <View className="classBox" key={item.id}>
+                <View>{item.id + 1}课堂</View>
+                {item.map(index => {
+                  return (
+                    <View key={index.id}>
+                      {index.time}节 @ {index.place}
+                    </View>
+                  );
+                })}
+              </View>
+            );
+          })}
         </View>
         <View className="detailBox">
           <View className="name">课程名称：</View>
@@ -387,7 +417,6 @@ export default class Coursedetails extends Component {
             </View>
           </View>
         </View>
-
         <View className="sampleSize">(成绩样本量：{courseGradeNumber})</View>
         <View className="averageBox">
           <View className="averageSmallBox1">

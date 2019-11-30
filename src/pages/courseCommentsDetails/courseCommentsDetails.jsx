@@ -3,8 +3,10 @@ import { View, Image } from '@tarojs/components';
 import './courseCommentsDetails.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxIcon from '../../components/common/MxIcon/index';
+import MxInput from '../..//components/common/MxInput/MxInput';
 import Fetch from '../../service/fetch';
 import MxLike from '../../components/page/MxLike/MxLike';
+import anonymous from '../../assets/png/octodex.jpg';
 
 export default class Coursecommentsdetails extends Component {
   constructor() {
@@ -414,6 +416,7 @@ export default class Coursecommentsdetails extends Component {
     ];
     this.state = {
       ancestor: '',
+      reply: '',
       commentsList: arr,
       commentsListBefore: arr2
     };
@@ -431,6 +434,18 @@ export default class Coursecommentsdetails extends Component {
         }
       }
     );
+    Fetch(
+      'api/v1/evaluation/' + this.$router.params.id + '/comments/',
+      { limit: 5, page: 1 },
+      'GET'
+    ).then(data => {
+      if (data) {
+        this.setState({
+          cmtList: data.data.parent_comment_list
+        });
+        console.log(data.data);
+      }
+    });
   }
 
   componentWillUnmount() {}
@@ -461,6 +476,11 @@ export default class Coursecommentsdetails extends Component {
     let m = date.getMinutes();
     if (m % 10 == 0) return Y + M + D + h + m + 0;
     else return Y + M + D + h + m;
+  }
+  test(x) {
+    console.log(x.id);
+    console.log(x.is_like);
+    console.log(x.like_num);
   }
 
   render() {
@@ -700,7 +720,12 @@ export default class Coursecommentsdetails extends Component {
         <View className="ancestorBox">
           <View className="informationBox">
             <View className="ancestorAvatar">
-              <Image src={ancestor.user_info.avatar}></Image>
+              {ancestor.user_info.avatar && (
+                <Image src={ancestor.user_info.avatar}></Image>
+              )}
+              {!ancestor.user_info.avatar && (
+                <MxIcon type="avatar" width="80rpx" />
+              )}
             </View>
             <View className="ancestorInformation">
               <View className="ancestorUsername">
@@ -726,7 +751,7 @@ export default class Coursecommentsdetails extends Component {
                 theid={ancestor.id}
                 islike={ancestor.is_like}
                 likenum={ancestor.like_num}
-                type='comment'
+                type="comment"
               />
             </View>
             <View className="commentsNumber">
@@ -736,12 +761,15 @@ export default class Coursecommentsdetails extends Component {
           </View>
         </View>
         <View className="commentsList">
-          {this.state.commentsList.map(item => {
+          {this.state.cmtList.map(item => {
             return (
               <View key={item.id}>
                 <View className="parentCommentBox">
                   <View className="parentAvatar">
-                    <Image src={item.user_info.avatar}></Image>
+                    {item.user_info.avatar && (
+                      <Image src={item.user_info.avatar} />
+                    )}
+                    {!item.user_info.avatar && <View>匿名</View>}
                   </View>
                   <View className="parentComment">
                     <View className="parentContainer">
@@ -771,7 +799,10 @@ export default class Coursecommentsdetails extends Component {
                     return (
                       <View key={x.id} className="subCommentBox">
                         <View className="sonAvatar">
-                          <Image src={x.user_info.avatar}></Image>
+                          {x.user_info.avatar && (
+                            <Image src={x.user_info.avatar} />
+                          )}
+                          {!x.user_info.avatar && <View>匿名</View>}
                         </View>
                         <View className="sonComment">
                           <View className="sonContainer">
@@ -799,12 +830,18 @@ export default class Coursecommentsdetails extends Component {
                           </View>
                           <View className="sonDetail">
                             <View className="time">{x.time}</View>
-                            <View className="reply">回复</View>
+                            <View
+                              className="reply"
+                              onClick={this.test.bind(this, x)}
+                            >
+                              回复
+                            </View>
                             <View className="like">
-                              赞
-                              {x.like_num != 0 && (
-                                <View className="likeNum">({x.like_num})</View>
-                              )}
+                              {/* <MxLike
+                                theid={x.id}
+                                islike={x.is_like}
+                                likenum={x.like_num}
+                              /> */}
                             </View>
                           </View>
                         </View>
@@ -822,7 +859,9 @@ export default class Coursecommentsdetails extends Component {
             );
           })}
         </View>
-        <View className="inputBox"></View>
+        <View className="inputBox">
+          <MxInput placeholder="回复" background="#F1F0F5" />
+        </View>
       </View>
     );
   }

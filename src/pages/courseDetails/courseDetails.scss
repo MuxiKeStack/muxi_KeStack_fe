@@ -159,6 +159,7 @@ View{
     width: 100%;
     font-size: 50px;
     text-align: center;
+    color: $violet;
 }
 .feature{
     margin: 29px 0 15px 29px;
@@ -290,4 +291,10 @@ View{
     width: 80px;
     background-color: yellow;
     margin: 0 auto;
+}
+//drawer
+.classBox{
+    width: 500px;
+    background-color: red;
+    margin: 20px 0;
 }

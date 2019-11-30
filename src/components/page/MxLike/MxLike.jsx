@@ -5,11 +5,11 @@ import MxIcon from '../../common/MxIcon/index';
 import Fetch from '../../../service/fetch';
 
 class MxLike extends Component {
-  constructor(){
+  constructor() {
     this.state = {
       islike: this.props.islike,
       likenum: this.props.likenum
-    }
+    };
   }
   tolike() {
     console.log('已点赞');
@@ -25,11 +25,11 @@ class MxLike extends Component {
       'PUT'
     ).then(data => {
       if (data) {
-        console.log(data)
+        console.log(data);
         this.setState({
           islike: data.data.like_state,
           likenum: data.data.like_num
-        })
+        });
       }
     });
     console.log(this.state.islike);
@@ -51,31 +51,33 @@ class MxLike extends Component {
         this.setState({
           islike: data.data.like_state,
           likenum: data.data.like_num
-        })
+        });
       }
     });
     console.log(this.state.islike);
   }
   render() {
     return (
-      <View className="box">
-        {!this.state.islike && (
-          <MxIcon
-            width="43"
-            type="likeBtn"
-            className="commentIcon"
-            onClick={this.tolike.bind(this)}
-          />
-        )}
-        {this.state.islike && (
-          <MxIcon
-            width="43"
-            type="check"
-            className="commentIcon"
-            onClick={this.todislike.bind(this)}
-          />
-        )}
-        {this.state.likenum}
+      <View>
+        <View>
+          {!this.state.islike && (
+            <MxIcon
+              width="43"
+              type="likeBtn"
+              className="commentIcon"
+              onClick={this.tolike.bind(this)}
+            />
+          )}
+          {this.state.islike && (
+            <MxIcon
+              width="43"
+              type="check"
+              className="commentIcon"
+              onClick={this.todislike.bind(this)}
+            />
+          )}
+          {this.state.likenum}
+        </View>
       </View>
     );
   }
@@ -84,8 +86,7 @@ class MxLike extends Component {
 MxLike.defaultProps = {
   theid: '',
   islike: '',
-  likenum: '0',
-  type: 'comment'
+  likenum: '0'
 };
 
 export default MxLike;
