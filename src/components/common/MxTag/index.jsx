@@ -69,7 +69,7 @@ MxTag.defaultProps = {
     display:'inline-block',
     font:'28rpx',
     borderRadius:'34rpx',
-    checkable: true,
+    checkable: false,
     checked: false,
     onClick: () =>{},
   }

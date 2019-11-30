@@ -17,7 +17,28 @@
  <tr>
    <td>padding</td>
    <td>内边框</td>
+   <td>31rpx 32rpx 10rpx 32rpx</td>
    <td></td>
+   <td>String</td>
+ </tr>
+ <tr>
+   <td>width</td>
+   <td>宽度</td>
+   <td>222rpx</td>
+   <td></td>
+   <td>String</td>
+ </tr>
+ <tr>
+   <td>height</td>
+   <td>高度</td>
+   <td>60rpx</td>
+   <td></td>
+   <td>String</td>
+ </tr>
+ <tr>
+   <td>lineHeight</td>
+   <td>行高</td>
+   <td>40rpx</td>
    <td></td>
    <td>String</td>
  </tr>
@@ -56,7 +77,9 @@
    <td></td>
    <td>String</td>
  </tr>
-
  </table>
+
+ 注释 ：当checked和checkable的为false，为灰白标签
+       当checked为false和checkable的为true为点击由灰白变成蓝白
 
  
