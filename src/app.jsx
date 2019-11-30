@@ -23,7 +23,6 @@ class App extends Component {
       'pages/search/index',
       'pages/postReview/index',
       'pages/courseCommentsDetails/courseCommentsDetails',
-
       'pages/courseAssistant/index',
       'pages/freeCourse/index',
       'pages/courseDetails/courseDetails',

@@ -4,6 +4,14 @@ View{
 page{
     background-color: #F1F0F5;
 }
+@mixin mult_line_ellipsis($width_ellipsis, $line_ellipsis){//多行文本溢出
+    overflow: hidden;
+    text-overflow:ellipsis;//文本溢出显示省略号
+    display: -webkit-box;
+    -webkit-line-clamp: $line_ellipsis;
+    -webkit-box-orient: vertical;
+    width:$width_ellipsis;
+  }
 @mixin bigbox {
     width: 688px;
     background-color: #ffffff;
@@ -52,17 +60,17 @@ page{
 .courseInformation{
     width: 250px;
     margin-right: 30px;
-    vertical-align: middle;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    vertical-align: bottom;
 }
 .toRate{
-    vertical-align: middle;
     font-weight: bold;
+    vertical-align: bottom;
 }
 .rate{
-    vertical-align: middle;
+    vertical-align: bottom;
 }
 .tag{
     display: block;
@@ -77,7 +85,7 @@ page{
 .iconsBox{
     color: #A2A2A8;
     font-size: 21px;
-    margin-left: 440px;
+    margin-left: 400px;
 }
 .commentIcon{
     margin-left: 24px;

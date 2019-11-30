@@ -1,48 +1,14 @@
-.add {
-  border: 1px solid red;
+.son{
+  height: 150px;
+  background-color: red;
+  margin: 20px 0;
 }
-.text {
-  color: blue;
-}
-.sb {
-  border-radius: 0;
-}
-.canvas-container {
-  display: flex;
-  justify-content: center;
-}
-.canvas {
-}
-.ring {
-  width: 715px;
-  margin: 0 auto;
-  display: block;
-}
-View {
-  display: inline-block;
-}
-
-.item {
-  background-color: yellow;
-}
-.image {
-  width: 30pt;
-  height: 30pt;
-  vertical-align: bottom;
-}
-.Mxcard {
-  display: flex;
-  flex-direction: row-reverse;
-  background-color: yellowgreen;
-}
-.main-page-list{
-    padding-left: 33px;
-    padding-right: 10px;
-}
-.mx-card{
-    background: pink;
-    border-radius: 40px;
-}
-.cat{
-    background: pink;
+.mult_line_ellipsis{//多行文本溢出
+  overflow: hidden;
+  text-overflow:ellipsis;//文本溢出显示省略号
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  width:130px;
+  background-color:cornflowerblue;
 }

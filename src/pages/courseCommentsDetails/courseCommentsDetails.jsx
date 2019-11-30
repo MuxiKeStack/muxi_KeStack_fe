@@ -4,18 +4,11 @@ import './courseCommentsDetails.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxIcon from '../../components/common/MxIcon/index';
 import Fetch from '../../service/fetch';
+import MxLike from '../../components/page/MxLike/MxLike';
 
 export default class Coursecommentsdetails extends Component {
   constructor() {
     super(...arguments);
-    this.state = {
-      ancestor: {
-        id: '',
-        is_like: '',
-        like_num: '',
-        comment_num: ''
-      }
-    };
     var arr = [
       {
         id: 0,
@@ -420,12 +413,25 @@ export default class Coursecommentsdetails extends Component {
       }
     ];
     this.state = {
+      ancestor: '',
       commentsList: arr,
       commentsListBefore: arr2
     };
   }
   componentWillMount() {}
-  componentDidMount() {}
+  componentDidMount() {
+    console.log(this.$router.params.id);
+    Fetch('api/v1/evaluation/' + this.$router.params.id + '/', 'GET').then(
+      data => {
+        if (data) {
+          this.setState({
+            ancestor: data.data
+          });
+          console.log(data.data);
+        }
+      }
+    );
+  }
 
   componentWillUnmount() {}
   config = {
@@ -443,81 +449,22 @@ export default class Coursecommentsdetails extends Component {
     console.log('toshow');
     console.log(this.state.commentsListBefore);
   }
-  toLike(id, e) {
-    var token;
-    Taro.getStorage({ key: 'token' }).then(res => {
-      token = res;
-    });
-    Fetch(
-      '/like',
-      {
-        token: token,
-        id: id,
-        data: {
-          is_like: true
-        }
-      },
-      'PUT'
-    )
-      .then(data => {
-        if (data) {
-          Taro.showToast({
-            title: '点赞成功'
-          });
-          this.setState({
-            is_like: true,
-            like_num: this.state.like_num + 1
-          });
-        }
-      })
-      .then(statusCode => {
-        if (statusCode) {
-          Taro.showToast({
-            title: '网络错误，请重新尝试',
-            icon: 'none'
-          });
-        }
-      });
-  }
-  toDislike(id, e) {
-    var token;
-    Taro.getStorage({ key: 'token' }).then(res => {
-      token = res;
-    });
-    Fetch(
-      '/like',
-      {
-        token: token,
-        id: id,
-        data: {
-          is_like: false
-        }
-      },
-      'PUT'
-    )
-      .then(data => {
-        if (data) {
-          Taro.showToast({
-            title: '取消点赞成功'
-          });
-          this.setState({
-            is_like: false,
-            like_num: this.state.like_num - 1
-          });
-        }
-      })
-      .then(statusCode => {
-        if (statusCode) {
-          Taro.showToast({
-            title: '网络错误，请重新尝试',
-            icon: 'none'
-          });
-        }
-      });
+  normalTime(timestamp) {
+    var date = new Date(timestamp * 1000);
+    let Y = date.getFullYear() + '-';
+    let M =
+      (date.getMonth() + 1 < 10
+        ? '0' + (date.getMonth() + 1)
+        : date.getMonth() + 1) + '-';
+    let D = date.getDate() + ' ';
+    let h = date.getHours() + ':';
+    let m = date.getMinutes();
+    if (m % 10 == 0) return Y + M + D + h + m + 0;
+    else return Y + M + D + h + m;
   }
 
   render() {
-    const {ancestor} = this.state
+    const { ancestor } = this.state;
     var response1 = {
       code: 0,
       message: 'string',
@@ -753,53 +700,38 @@ export default class Coursecommentsdetails extends Component {
         <View className="ancestorBox">
           <View className="informationBox">
             <View className="ancestorAvatar">
-              <Image src={response1.data.user_info.avatar}></Image>
+              <Image src={ancestor.user_info.avatar}></Image>
             </View>
             <View className="ancestorInformation">
               <View className="ancestorUsername">
-                {response1.data.user_info.username}
+                {ancestor.user_info.username}
               </View>
-              <View className="ancestorTime">{response1.data.time}</View>
+              <View className="ancestorTime">
+                {this.normalTime(ancestor.time)}
+              </View>
             </View>
           </View>
           <View className="courseInformationBox">
             <View className="courseInformation">
-              #{response1.data.course_name} ({response1.data.teacher})
+              #{ancestor.course_name} ({ancestor.teacher})
             </View>
             <View className="toRate">评价星级：</View>
-            <MxRate
-              value={response1.data.rate}
-              readOnly="true"
-              className="rate"
-            />
+            <MxRate value={ancestor.rate} readOnly="true" className="rate" />
           </View>
           <View className="tag"></View>
-          <View className="ancestorComment">{response1.data.content}</View>
+          <View className="ancestorComment">{ancestor.content}</View>
           <View className="iconsBox">
             <View className="like">
-              {!ancestor.is_like && (
-                <MxIcon
-                  width="43"
-                  height="43"
-                  type="likeBtn"
-                  className="likeIcon"
-                  onClick={this.toLike.bind(this, response1.data.id)}
-                />
-              )}
-              {ancestor.is_like && (
-                <MxIcon
-                  width="43"
-                  height="43"
-                  type="check"
-                  className="likeIcon"
-                  onClick="toLike"
-                />
-              )}
-              {response1.data.like_num}
+              <MxLike
+                theid={ancestor.id}
+                islike={ancestor.is_like}
+                likenum={ancestor.like_num}
+                type='comment'
+              />
             </View>
             <View className="commentsNumber">
               <MxIcon width="43" type="cmmtBtn" className="commentIcon" />
-              {response1.data.comment_num}
+              {ancestor.comment_num}
             </View>
           </View>
         </View>

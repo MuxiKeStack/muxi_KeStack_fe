@@ -4,14 +4,25 @@
 	"description": "",
 	"appid": "touristappid",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": false,
 		"postcss": false,
 		"minified": false,
-		"newFeature": true
+		"newFeature": true,
+		"remoteDebugLogEnable": false,
+		"sourcemapDisabled": true,
+		"useAlphaLib": true,
+		"nodeModules": true,
+		"autoAudits": true,
+		"uglifyFileName": true
 	},
 	"compileType": "miniprogram",
 	"qqappid": "1108100302",
+	"scripts": {
+		"beforeCompile": "",
+		"beforePreview": "",
+		"beforeUpload": ""
+	},
 	"condition": {
 		"plugin": {
 			"current": -1,
@@ -21,7 +32,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 7,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,
@@ -84,6 +95,20 @@
 					"name": "星星",
 					"pathName": "components/common/MxRate/MxRate",
 					"query": "value=‘5’",
+					"scene": ""
+				},
+				{
+					"id": 9,
+					"name": "index",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "courseAssistant",
+					"pathName": "pages/courseAssistant/index",
+					"query": "",
 					"scene": ""
 				}
 			]

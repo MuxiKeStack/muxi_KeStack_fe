@@ -5,40 +5,37 @@ $lightgrey:#D8D8D8;
 page{
     background-color: #F7F7F7;
 }
-@mixin informationbox {
-    display: block;
-    height: 45px;
-    margin-left: 30px;
-    View{
-        vertical-align: bottom;
-    }
-}
 View{
     display: inline-block;
     font-size: 32px;
 }
-.courseDetails{
+@mixin one_line_ellipsis($width_ellipsis){
+    width: $width_ellipsis;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;//单行文本溢出
+}
+@mixin mult_line_ellipsis($width_ellipsis, $line_ellipsis){//多行文本溢出
+    overflow: hidden;
+    text-overflow:ellipsis;//文本溢出显示省略号
+    display: -webkit-box;
+    -webkit-line-clamp: $line_ellipsis;
+    -webkit-box-orient: vertical;
+    width: $width_ellipsis;
+  }
+.cover{
     width: 100%;
+    height: 100%;
+    background-color: #6D6D6D;
+    opacity: 0.5;
+    z-index: 25;
+    position: fixed;
+    left: 0;
+    top: 0;
 }
-.name{
-    font-weight:normal;
-}
-.commentBox{
-    @include informationbox();
-    margin-top: 71px;
-}
+//其他
 .commentNumber{
     color: #999999;
-}
-.creditBox{
-    @include informationbox();
-    margin: 25px 0px 25px 30px;
-}
-.courseCredit{
-    color: $violet;
-}
-.lookCourseBox{
-    @include informationbox();
 }
 .chooseCourse{
     width: 337px;
@@ -49,34 +46,37 @@ View{
     line-height: 45px;
     text-align: center;
 }
-.greybody{
-    background-color: #F1F0F5;
-    height: 461px;
-    width: 100%;
+//detail
+.detailBox{
+    display: block;
+    margin: 16px 0 16px 36px;
 }
-@mixin ringBox {
-    width: 208px;
-    height: 314px;
-    margin: 0 15px;
-    position: relative;
-    top: 48px;
-    border-radius: 29px;
-    background-color: #ffffff;
+.content{
+    color: $violet;
+    font-weight: bold;
+    font-size: 32px;
 }
 .ring{
     width: 715px;
     margin: 0 auto;
     display: block;
 }
-.ringBox1{
-    @include ringBox();
+.ringBox{
+    width: 208px;
+    height: 314px;
+    margin: 0 15px;
+    position: relative;
+    border-radius: 29px;
+    background-color: #ffffff;
 }
 .ringBox2{
-    @include ringBox();
-}
-.ringBox3{
-    @include ringBox();
-    top: 73px;
+    width: 208px;
+    height: 314px;
+    margin: 0 15px;
+    position: relative;
+    top: 26px;
+    border-radius: 29px;
+    background-color: #ffffff;
 }
 .canvasBox{
     display: block;
@@ -128,7 +128,7 @@ View{
 .sampleSize{
     height: 21px;
     font-size: 15px;
-    margin: 124px 0 19px 40px;
+    margin: 24px 0 24px 40px;
 }
 
 .averageBox{
@@ -173,4 +173,121 @@ View{
     text-align: center;
     line-height: 60px;
     margin: 0 43px 30px 30px;
+}
+// 评课卡片列表开始
+.peopleComments{
+    display: block;
+    text-align: center;
+}
+.orderConditions{
+    display: block;
+    text-align: center;
+    Button{
+        display: inline-block;
+        width: 50%;
+    }
+}
+// drawer
+.drawer{
+    background-color: #ffffff;
+    height: 100%;
+    transition: width 2s;
+    position: absolute;
+    right: 0;
+    z-index: 30;
+    border-top-left-radius: 70px;
+    border-bottom-left-radius: 70px;
+    font-size: 25px;
+}
+.infobox_drawer{
+    width: 448px;
+    margin: 60px 0;
+}
+.info_drawer{
+    font-size: 40px;
+    font-weight: bold;
+    display: block;
+    text-align: center;
+    width: 448px;
+}
+.info_Eng_drawer{
+    display: block;
+    text-align: center;
+    width: 448px;
+}
+//课程列表
+.cmtBigBox{
+    margin: 0 auto;
+    display: block;
+    width: 688px;
+}
+.commentCard{
+    display: block;
+    margin: 40px 0;
+    background-color: #ffffff;
+    padding: 25px 44px;
+    border-radius: 40px;
+}
+.userInfo{
+    width: 600px;
+    display: block;
+}
+.infoDetail{
+    margin-left: 22px;
+    width: 480px;
+}
+.username{
+    @include one_line_ellipsis(450px);
+}
+.time{
+    color: #A1A4AE;
+    font-size: 22px;
+}
+.courseInfo{
+    color: $violet;
+    margin: 20px 0;
+}
+.courseName{
+    margin-right: 30px;
+    @include one_line_ellipsis(250px);
+    vertical-align: bottom;
+}
+.cmtRateBox{
+    font-weight: bold;
+}
+.cmtContent{
+    @include mult_line_ellipsis(580px, 2);
+}
+.cmtIconsBox{
+    width: 200px;
+    margin-left: 400px;
+    margin-top: 30px;
+    color: #A1A4AE;
+    font-size: 22px;
+}
+.likeIconBox{
+    margin-right: 25px;
+}
+//header
+.header{
+    height: 70px;
+    background-color: red;
+    width: 100%;
+    display: fixed;
+}
+.collect{
+    float: right;
+    right: 10px;
+    width: 50px;
+    background-color: blue;
+}
+.back{
+    width: 50px;
+    margin-left: 10px;
+    background-color: green;
+}
+.headerName{
+    width: 80px;
+    background-color: yellow;
+    margin: 0 auto;
 }

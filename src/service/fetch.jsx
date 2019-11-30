@@ -2,11 +2,11 @@ import Taro from '@tarojs/taro';
 
 // Fetch(url, data).then((res) => { console.log(res)})
 
-const preHttp = 'https://rank.muxixyz.com/';
+const preHttp = 'http://kstack.test.muxi-tech.xyz/';
 const Fetch = (url, data = {}, method = 'GET') => {
   const header = {
     'content-type': 'application/json',
-    cookie: Taro.getStorageSync('cookie')
+    token: Taro.getStorageSync('token')
   };
   return Taro.request({
     url: preHttp + url,

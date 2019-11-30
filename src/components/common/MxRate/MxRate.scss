@@ -8,9 +8,6 @@ $starsize: 30px;
     background-size: $starsize $starsize;
     background-repeat: repeat-x;
 }
-View{
-    display: inline-block;
-}
 .empty{
     @include star($star);
     width: 142px;
