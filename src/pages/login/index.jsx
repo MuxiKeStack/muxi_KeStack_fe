@@ -4,6 +4,7 @@ import './index.scss'
 import MxInput from '../../components/common/MxInput/MxInput'
 import MxButton from '../../components/common/MxButton/index'
 import image from '../../assets/png/navigation.png'
+import Fetch from '../../service/fetch'
 
 export default class Index extends Component {
   config = {

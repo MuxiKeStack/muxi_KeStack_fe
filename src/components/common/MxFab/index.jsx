@@ -14,6 +14,12 @@ export default class MxFab extends Component { // 名字是 MxFab，文件夹的
   //   this.props.onClick()
   // }
 
+  BacktoTop(){
+    Taro.pageScrollTo({
+      scrollTop:0
+    })
+  }
+
   render() {
     const {
       fabtext,

@@ -17,14 +17,14 @@
  <tr>
    <td>padding</td>
    <td>内边框</td>
-   <td>3px 6px 3px 6px</td>
+   <td></td>
    <td></td>
    <td>String</td>
  </tr>
  <tr>
    <td>borderRadius</td>
    <td>标签圆角</td>
-   <td>18rpx</td>
+   <td>34rpx</td>
    <td></td>
    <td>String</td>
  </tr>
