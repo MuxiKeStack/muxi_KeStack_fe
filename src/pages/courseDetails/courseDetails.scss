@@ -180,14 +180,6 @@ View{
     display: block;
     text-align: center;
 }
-.orderConditions{
-    display: block;
-    text-align: center;
-    Button{
-        display: inline-block;
-        width: 50%;
-    }
-}
 // drawer
 .drawer{
     background-color: #ffffff;
@@ -291,6 +283,13 @@ View{
     width: 80px;
     background-color: yellow;
     margin: 0 auto;
+}
+//hot && normal list
+.List{
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: green;
 }
 //drawer
 .classBox{

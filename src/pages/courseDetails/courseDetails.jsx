@@ -10,6 +10,8 @@ export default class Coursedetails extends Component {
   constructor() {
     super(...arguments);
     this.state = {
+      hotList: '',
+      normalList: '',
       commentsList: '',
       token:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY',
@@ -200,8 +202,9 @@ export default class Coursedetails extends Component {
       if (data) {
         console.log(data.data);
         this.setState({
-          commentsList: data.data.normal_list,
-          lastId: data.data.normal_sum - 1
+          hotList: data.data.hot_list,
+          normalList: data.data.normal_list,
+          commentsList: data.data.normal_list
         });
       }
     });
@@ -209,11 +212,6 @@ export default class Coursedetails extends Component {
       'token',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
     );
-    // Fetch('api/v1/course/using/112d34testsvggase/', 'GET').then(data => {
-    //   if (data) {
-    //     console.log(data);
-    //   }
-    // });
   }
 
   componentWillUnmount() {}
@@ -256,7 +254,8 @@ export default class Coursedetails extends Component {
   render() {
     const PALETTE = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
     const {
-      commentsList,
+      hotList,
+      normalList,
       courseCategory,
       courseCredit,
       rate,
@@ -437,13 +436,58 @@ export default class Coursedetails extends Component {
           <View className="tag">云课堂资料全(8)</View>
           <View className="tag">简单易学(0)</View>
         </View>
-        <View className="peopleComments">山民评论</View>
-        <View className="orderConditions">
-          <Button className="byhot">按热度</Button>
-          <Button className="bytime">按时间</Button>
-        </View>
+        <View className="List">热门评论</View>
         <View className="cmtBigBox">
-          {commentsList.map(item => {
+          {hotList.map(item => {
+            return (
+              <View key={item.id} className="commentCard">
+                <View className="userInfo">
+                  <Image
+                    style="width: 80rpx; height: 80rpx"
+                    src={item.user_info.avatar}
+                    className="avatar"
+                  />
+                  <View className="infoDetail">
+                    <View className="username">{item.user_info.username}</View>
+                    <View className="time">{this.normalTime(item.time)}</View>
+                  </View>
+                </View>
+                <View className="courseInfo">
+                  <View className="courseName">
+                    #{item.course_name}({item.teacher})
+                  </View>
+                  <View className="cmtRateBox">
+                    评价星级：
+                    <MxRate readOnly="true" value={item.rate} />
+                  </View>
+                </View>
+                <View className="cmtContent">{item.content}</View>
+                <View className="cmtIconsBox">
+                  <View className="likeIconBox">
+                    <MxLike
+                      theid={item.id}
+                      islike={item.is_like}
+                      likenum={item.like_num}
+                      type="evaluation"
+                    />
+                  </View>
+                  <View className="cmtIconBox">
+                    <MxIcon
+                      width="43"
+                      type="cmmtBtn"
+                      className="commentIcon"
+                      onClick={this.commentPage.bind(this, item.id)}
+                    />
+                    {item.like_num}
+                  </View>
+                </View>
+              </View>
+            );
+          })}
+        </View>
+        <View className="List">热门评论</View>
+        <View className="cmtBigBox">
+          {normalList.map(item => {
             return (
               <View key={item.id} className="commentCard">
                 <View className="userInfo">
