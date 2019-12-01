@@ -6,63 +6,68 @@ import './index.scss'
 // import {isLogined} from 'utils/tools'
 // import { courseList} from 'sevices/course'
 // import { serverUrl } from  'utils/config'
+import Fetch from '../../service/fetch'
 
 export default class Index extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            messages: [
+            // messageList: [],
+            messageList: [
                 {   id: 0, 
-                    userInfo:{
-                        userName:'我是一个小丸子',
+                    user_info:{
+                        username:'我是一个小丸子',
                         avatar:Img,
-                        time:'2019.8.23/11: 04',//暂时这样，到时候再该成时间格式？
+                       //暂时这样，到时候再该成时间格式？
                     },
-                    commentInfo:{
-                        commentCourseId: 0,
-                        courseName:'线性代数',
-                        teacherName:'李书刚',
+                    time:'2019.8.23/11: 04',
+                    course_info:{
+                       
+                        course_name:'线性代数',
+                        teacher:'李书刚',
                         comment: '在晚上上课，经常很困，书上的证明难，但是考的很简单，经常要交作业，不怎么点名，老师很有个性。在晚上上课，经常很困，书上的证明难，但是考的很简单，经常要交作业，不怎么点名，老师很有个性',
                     },
-                    isLike: true,
+                    is_like: true,
                     isComment: true,
                     reply: '哈哈哈，怎么有个性了',
-                    isRead:false,
+                    is_read:false,
                 },
                 {   id: 1, 
-                    userInfo:{
-                        userName:'我是一个小丸子',
+                    user_info:{
+                        username:'我是一个小丸子',
                         avatar:Img,
-                        time:'2019.8.23/11: 04',
+                        
                     },
-                    commentInfo:{
-                        commentCourseId: 1,
-                        courseName:'诗苑经典的芳菲世界',
-                        teacherName:'苏云',
+                    time:'2019.8.23/11: 04',
+                    course_info:{
+                        
+                        course_name:'诗苑经典的芳菲世界',
+                        teacher:'苏云',
                         comment:'上课经常要用手机操作和答题，总之事情有点多，每次上课都要手势签到或者拍旁边人的照片，很难逃课',
                     },
-                    isLike: false,
+                    is_like: false,
                     isComment: true,
                     reply: '这真的有点惨',
-                    isRead:false,
+                    is_read:false,
                 },
                 {   id: 2, 
-                    userInfo:{
-                        userName:'系统消息',
+                    user_info:{
+                        username:'系统消息',
                         avatar:Img,
-                        time:'2019.8.23/11: 04',
+                        
                     },
-                    commentInfo:{
-                        commentCourseId: 1,
-                        courseName:'诗苑经典的芳菲世界',
-                        teacherName:'苏云',
+                    time:'2019.8.23/11: 04',
+                    course_info:{
+                        
+                        course_name:'诗苑经典的芳菲世界',
+                        teacher:'苏云',
                         comment:'未评课！',
                     },
-                    isLike: false,
+                    is_like: false,
                     isComment: false,
                     reply: '',
-                    isRead:false,
+                    is_read:false,
                 }
 
             ],
@@ -80,6 +85,14 @@ export default class Index extends Component {
                     course: res.info,
                     });
                 });*/
+        Fetch(message,data,GET).then(
+            data => {
+                console.log(data.messageList),
+                this.setState({
+                    messageList: data.messageList,
+                })
+            }
+        )
     }
 
     componentWillUnmount() { }
@@ -88,19 +101,19 @@ export default class Index extends Component {
    
      
     render() {
-        const { messages } = this.state;
+        const { messageList } = this.state;
         return (
             <View className='index'>
-                {messages.map(message =>{
+                {messageList.map(message =>{
                     var isComment = (message.reply =='')?false:true;
                     return(
                         <View >
-                            {message.isLike &&(<View className='card-container'>
+                            {message.is_like &&(<View className='card-container'>
                                 <View className='user-info'>
-                                    <View className='avatar-container'><Image src={message.userInfo.avatar} className='avatar-image'></Image></View>
+                                    <View className='avatar-container'><Image src={message.user_info.avatar} className='avatar-image'></Image></View>
                                     <View className='name-time'>
-                                        <View className='name'>{message.userInfo.userName}</View>
-                                        <View className='time'>{message.userInfo.time}</View>
+                                        <View className='name'>{message.user_info.username}</View>
+                                        <View className='time'>{message.time}</View>
                                     </View>
                                 </View>
                                 <View className='message-text'>
@@ -108,15 +121,15 @@ export default class Index extends Component {
                                     <View className='detail-text'>赞了我</View>
                                 </View>
                                 <View className='course-container'>
-                                    <View className='course-name'>{'#'+ message.commentInfo.courseName} {'('+message.commentInfo.teacherName+')'}</View> {message.commentInfo.comment}
+                                    <View className='course-name'>{'#'+ message.course_info.course_name} {'('+message.course_info.teacher+')'}</View> {message.course_info.comment}
                                 </View>
                             </View>)}
                             {isComment &&(<View className='card-container'>
                                 <View className='user-info'>
-                                    <View className='avatar-container'><Image src={message.userInfo.avatar} className='avatar-image'></Image></View>
+                                    <View className='avatar-container'><Image src={message.user_info.avatar} className='avatar-image'></Image></View>
                                     <View className='name-time'>
-                                        <View className='name'>{message.userInfo.userName}</View>
-                                        <View className='time'>{message.userInfo.time}</View>
+                                        <View className='name'>{message.user_info.username}</View>
+                                        <View className='time'>{message.time}</View>
                                     </View>
                                 </View>
                                 <View className='message-text'>
@@ -125,20 +138,20 @@ export default class Index extends Component {
                                     <View className='reply-text'>{message.reply}</View>
                                 </View>
                                 <View className='course-container'>
-                                    <View className='course-name'>{'#'+ message.commentInfo.courseName} {'('+message.commentInfo.teacherName+')'}</View> {message.commentInfo.comment}
+                                    <View className='course-name'>{'#'+ message.course_info.course_name} {'('+message.course_info.teacher+')'}</View> {message.course_info.comment}
                                 </View>
                                 <View className='input'><Input placeholder='回复：' placeholderClass='placeholder' className='reply-input'/></View>
                             </View>)}
-                            {!message.isLike && !isComment &&(<View className='card-container'>
+                            {!message.is_like && !isComment &&(<View className='card-container'>
                                 <View className='user-info'>
-                                    <View className='avatar-container'><Image src={message.userInfo.avatar} className='avatar-image'></Image></View>
+                                    <View className='avatar-container'><Image src={message.user_info.avatar} className='avatar-image'></Image></View>
                                     <View className='name-time'>
-                                        <View className='name'>{message.userInfo.userName}</View>
-                                        <View className='time'>{message.userInfo.time}</View>
+                                        <View className='name'>{message.user_info.username}</View>
+                                        <View className='time'>{message.time}</View>
                                     </View>
                                 </View>
                                 <View className='course-container'>
-                                    <View className='course-name'>{'#'+ message.commentInfo.courseName} {'('+message.commentInfo.teacherName+')'}</View> {message.commentInfo.comment}
+                                    <View className='course-name'>{'#'+ message.course_info.course_name} {'('+message.course_info.teacher+')'}</View> {message.course_info.comment}
                                 </View>
                             </View>)}
                         </View>

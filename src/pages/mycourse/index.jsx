@@ -70,9 +70,10 @@ export default class Index extends Component {
                     </View>
                 </View>
                 {courses.map(course => {
-                    var leftIcon = course.isComment ? 'solidC' : 'hollowC';
-                    var rightIcon = course.isComment ? 'check' : 'square';
+                    var leftIcon = course.isComment ? 'solidC' : 'solidC';
+                    var rightIcon = course.isComment ? 'check' : 'arrowRM';
                     var hasComment = course.isComment ? '已评课' : '未评课';
+                    var teacher = course.isComment ? 'teacher-name':'teacher-name-color';
                     return (
                         <View onClick={() =>
                             Taro.navigateTo({ url: '/pages/somename/index?id=' + course.id })
@@ -80,13 +81,15 @@ export default class Index extends Component {
                           key={course.id}
                           className='mycourse_page-courselist-item'
                         >
+                          
                             <MxIcon className='left-icon' type={leftIcon} width='27' height='27'></MxIcon>
                             <Text className='course-name'>{course.courseName}</Text>
                             <Text className='teacher-name'>{course.teacherName}</Text>
                             <View className='float-right'>
-                            <Text className='is-comment'>{hasComment}</Text>
+                            <Text className={teacher}>{hasComment}</Text>
                             <MxIcon className='right-icon' type={rightIcon} width='42' height='42' ></MxIcon>
                             </View>
+                            
                          </View>
                     );
                 })}

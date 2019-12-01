@@ -25,11 +25,8 @@ export default class MxTag extends Component{
         const{ 
             display,
             font,
-            width,
-            height,
             borderRadius,
             padding,
-            lineHeight,
             checked,
             checkable,
         }=this.props;
@@ -37,10 +34,7 @@ export default class MxTag extends Component{
             tagStyle:{
                 display: `${display}`,                
                 'border-radius': `${borderRadius}`,
-                'line-height':`${lineHeight}`,
                 'font-size':`${font}`,
-                width:`${width}`,
-                height:`${height}`,
                 padding:`${padding}`,
             },     
         }
@@ -62,10 +56,7 @@ export default class MxTag extends Component{
 }
 
 MxTag.defaultProps = {
-    width:'222rpx',
-    height:'60rpx',
-    lineHeight:'40rpx',
-    padding:'31rpx 32rpx 10rpx 32rpx',
+    padding:'1rpx 44rpx 1rpx 44rp',
     display:'inline-block',
     font:'28rpx',
     borderRadius:'34rpx',
