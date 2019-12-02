@@ -1,98 +1,141 @@
+Page{
+    background-color: #F5F6FA;
+}
 View {
     display: inline-block;
-    font-size : 40px;
+    font-size : 40rpx;
 }
 .releaseBox{
     display: block;
     background: #B3B3B3;
     width: 100%;
-    padding: 48px 92px 48px 35px;
+    padding: 48rpx 92rpx 48rpx 35rpx;
 }
 .releaseTri {
-    margin-left: 50px;;
+    margin-left: 50rpx;;
 }
 .releaseText {
-    font-size: 40px;
-    margin-left: 100px;
+    font-size: 40rpx;
+    margin-left: 100rpx;
 }
 
+.nameText{
+    font-size: 32rpx;
+    font-family: PingFangSC-Regular, sans-serif;
+}
 .choiceBox{
     display: block;
-    height: 45px;
-    margin-left: 70px;
-    margin-top: 40px;
+    height: 45rpx;
+    margin-left: 37rpx;
+    margin-top: 40rpx;
+}
+.pickerStyle{
+    background-color: #6E66EE;
+    color: white;
+    border-radius:34rpx;
+
 }
 .choicePicker {
-    margin-left: 18px;
+    margin-left: 18rpx;
 }
 
 
 .commentBox{
     display: block;
-    height: 45px;
-    margin-left: 70px;
-    margin-top: 40px;
-    View {
-        vertical-align: bottom;
-    }
+    height: 45rpx;
+    margin-left: 37rpx;
+    margin-top: 36rpx;
+    // View {
+    //     vertical-align: bottom;
+    // }
 }
 .commentText{
     font-weight: normal;
 }
 .commentRate{
-    margin-left: 20px;
-    margin-bottom: 5px;
+    margin-left: 8rpx;
+    height: 40rpx;
+    vertical-align: middle;
+    margin-top: -8rpx;
+}
+.clickText{
+    color:#6869F7;
+    font-size: 28rpx;
+    font-family: PingFangSC-Regular, sans-serif;
 }
 
 .filterBox {
     display: block;
-    height: 45px;
-    margin-left: 83px;
-    margin-top: 40px; 
+    height: 45rpx;
+    margin-left: 37rpx;
+    margin-top: 36rpx; 
 }
 .filterPickerA {
-    margin-left: 18px;
+    margin-left: 18rpx;
 }
 .filterPickerB {
-    margin-left: 30px;
+    margin-left: 30rpx;
 }
 
 .featureBox{
     display: block;
-    height: 45px;
-    margin-left: 83px;
-    margin-top: 40px;
+    height: 45rpx;
+    margin-left: 37rpx;
+    margin-top: 36rpx;
 }
 .featureChoice{
     vertical-align: top;
 }
-.featureTags {
-    margin-left: 18px;
-    width: 400px;
-    vertical-align: top;
+
+
+.tagsBox {
+    display: block;
+    margin-left: 55rpx;
+    margin-top: 24rpx;
 }
 .featureTagLev{
-    margin-left: 15px;
+    margin-left: 15rpx;
 }
 .featureTagVer{
-    margin-top: 15px;
+    margin-top: 15rpx;
 }
 
 .evaluateBox{
     display: block;
-    height: 45px;
-    margin-left: 83px;
-    margin-top: 200px;
+    margin-left: 37rpx;
+    margin-top: 36rpx;
+    font-size: 28rpx
 }
 .evaluateTextarea {
-    border: 1px solid;
-    width: 575px;
-    height: 240px;
+    color: black;
+    width: 677rpx;
+    height: 402rpx;
+    background-color:rgba(255,255,255,1);
+    border-radius: 20rpx;
+    padding-left: 13rpx;
+    padding-top: 9rpx;
+}
+
+.evalutatePlaceholder{
+    color: #B0B3BF;
+    font-size: 28rpx;
 }
 
 .submitBox {
+    color:  #03081a;
     display: block;
-    height: 45px;
-    margin-left: 83px;
-    margin-top: 310px;
+    height: 45rpx;
+    margin-left: 119rpx;
+    margin-top: 47rpx;
+}
+
+
+.button{
+    width: 513rpx;
+    height: 92rpx;
+    border-radius: 46rpx;
+    background-color: #6868F8;
+    text-align: center;
+    line-height: 92rpx;
+    color: white;
 }

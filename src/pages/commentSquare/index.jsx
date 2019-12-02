@@ -17,22 +17,30 @@ export default class Index extends Component {
     onReachBottomDistance: 80
   }
 
+  constructor() {
+    super(...arguments);
+    this.state = {
+      comments: [],
+      sum: 0,
+      lastId: 0
+    };
+  }
+
   onPullDownRefresh() {
-    Taro.showNavigationBarLoading()
-    setTimeout(() => {
-      Taro.hideNavigationBarLoading()
-      Taro.stopPullDownRefresh()
-    }, 3000)
-    this.setState({})
+    this.setState({
+      comments: [],
+      sum: 0,
+      lastId: 0
+    },()=>{
+      Taro.showNavigationBarLoading()
+      this.getComments()
+    })
   }//下拉事件
 
+
   onReachBottom() {
-    this.getComments();
     Taro.showNavigationBarLoading()
-    setTimeout(() => {
-      Taro.hideNavigationBarLoading()
-      Taro.stopPullDownRefresh()
-    }, 500)
+    this.getComments();
   }
 
 
@@ -343,51 +351,39 @@ export default class Index extends Component {
     }
   }
 
+
   getComments() {
-    // var that = this;
-    // var postData = {
-    //   token: '123',
-    //   limit: this.state.sum,
-    //   lastId: this.state.lastId
-    // }
-    // Fetch(
-    //   '/api/v1/evaluation',
-    //   postData,
-    //   'Get'
-    // ).then(data =>{
-    //   if(data){
-    //     console.log('成功')
-    //     // that.setState({
-    //     //   comments: that.data.list,
-    //     //   lastId: that.data.list[that.data.sum-1]
-    //     // })
-    //   }
-    // })
-    if (this.state.sum != 4) {
-      var data = this.setData(0)
-      this.setState({
-        comments: data.list,
-        lastId: data.list[data.sum - 1].id,
-        sum: data.sum
+    var that = this;
+    let newComments = this.state.comments
+    if(this.state.lastId!=1){
+    Fetch(
+      'api/v1/evaluation',
+      {
+      limit: 3,
+      last_id: this.state.lastId
+      },
+      'GET'
+    ).then(data =>{
+      if(data){
+        newComments=newComments.concat(data.data.list)
+        Taro.stopPullDownRefresh()
+        Taro.hideNavigationBarLoading()
+        that.setState({
+          comments: newComments,
+          sum: data.data.sum,
+          lastId: data.data.list[data.data.sum-1].id
+        })
+      }
+    })} else {
+      Taro.showToast({
+        title: '到底啦！',
+        duration: 2000
       })
-    } else {
-      var data = this.setData(1)
-      this.setState({
-        comments: data.list,
-        lastId: data.list[data.sum - 1].id,
-        sum: data.sum
-      })
+      Taro.stopPullDownRefresh()
+      Taro.hideNavigationBarLoading()
     }
   }
 
-  constructor() {
-    super(...arguments);
-    this.state = {
-      comments: [],
-      sum: 0,
-      lastId: 0
-    };
-  }
   ChangeTosearch() {
     Taro.navigateTo({
       url: '/pages/search/index'
@@ -414,13 +410,14 @@ export default class Index extends Component {
   }
 
   componentWillMount() {
-    console.log("开始加载")
     this.setState({})
+    // this.login();
     console.log(this.state.sum)
     this.getComments();
   }
 
   render() {
+    var bottomFlag = this.state.lastId-1;
     const content = (
       <View
         className='detailsBoxes'
@@ -445,10 +442,10 @@ export default class Index extends Component {
                     </View>
                     <View className='detailsSecond'>
                       <View className='detailsSecondInfo1' onClick={this.ChangeTodetails.bind(this)}>#{comment.course_name}({comment.teacher})</View>
-                      <View style=''>
                         <View className='detailsSecondInfo2'>评价星级：</View>
-                        <MxRate value={comment.rate} style='vertical-align: top'></MxRate>
-                      </View>
+                        <View className='detailsRate'>
+                        <MxRate value={comment.rate}></MxRate>
+                        </View>
                     </View>
                     <View className='detailsThird'>
                       <View className='detailsThirdText'>{comment.content}</View>
@@ -479,7 +476,8 @@ export default class Index extends Component {
             <MxIcon type='add' className='chooseAdd' width='40p2' width='40p2'></MxIcon>
           </View>
         </View>
-        {content}
+        {content}    
+        {!bottomFlag && <View className='bottomBox'>到底啦！</View>}
       </View>
     )
   }

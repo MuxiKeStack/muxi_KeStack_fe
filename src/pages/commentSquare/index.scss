@@ -84,6 +84,10 @@ View {
 .detailsFirstInfo1 {
     display: block;
     font-size: 30rpx;
+    width: 200rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .detailsFirstInfo2 {
     display: block;
@@ -92,8 +96,9 @@ View {
 }
 .detailsFirstIcon {
     vertical-align: top;
+    margin-left: 100rpx;
     display: inline-block;
-    margin-left: 200rpx;
+    margin-top: -2rpx;
 }
 .detailsSecond {
     display: block;
@@ -115,6 +120,10 @@ View {
     color: #6869F7;
     font-weight: 700;
 }
+.detailsRate{
+    vertical-align: middle;
+    margin-top: -49rpx;
+}
 .detailsThird {
     display: block;
     margin-top: 24rpx;
@@ -124,6 +133,9 @@ View {
     width: 528rpx;
     color: #070707;
     font-family: 'PingFang SC';
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .detailsFourth {
     display: block;
@@ -136,4 +148,15 @@ View {
 }
 .detailsFourthIcon2{
     margin-left: 25rpx;
+}
+
+.bottomBox{
+    display: block;
+    width: 100%;
+    background: rgba(241,240,245,1);
+    color: black;
+    font-size: 30rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align:center
 }

@@ -34,7 +34,12 @@ export default class Index extends Component {
   ChangeTo(){
     Taro.switchTab({
       url: '/pages/commentSquare/index'
-    });
+    })
+    // success=()=>{
+    //   var page = Taro.getCurrentPages().pop();
+    //   if (page == undefined || page == null) return;
+    //   page;
+    // });
   }
   componentWillMount() {}
 
@@ -108,7 +113,7 @@ export default class Index extends Component {
                               'api/v1/user/info',
                               {
                                 avatar:res.userInfo.avatarUrl,
-                                username:res.userInfo.username
+                                username:res.userInfo.nickName
                               },
                               'POST'
                             )
