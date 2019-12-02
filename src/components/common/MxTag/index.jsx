@@ -26,6 +26,7 @@ export default class MxTag extends Component {
       font,
       borderRadius,
       padding,
+      margin,
       checked,
       checkable
     } = this.props;
@@ -34,7 +35,8 @@ export default class MxTag extends Component {
         display: `${display}`,
         'border-radius': `${borderRadius}`,
         'font-size': `${font}`,
-        padding: `${padding}`
+        padding: `${padding}`,
+        margin: `${margin}`
       }
     };
 
@@ -56,6 +58,7 @@ export default class MxTag extends Component {
 
 MxTag.defaultProps = {
   padding: '1rpx 44rpx 1rpx 44rp',
+  margin: '0',
   display: 'inline-block',
   font: '28rpx',
   borderRadius: '34rpx',

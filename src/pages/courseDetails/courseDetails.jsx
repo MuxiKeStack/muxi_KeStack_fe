@@ -438,22 +438,22 @@ export default class Coursedetails extends Component {
         </View>
         <View className="feature">课堂特点：</View>
         <View className="tagBox">
-          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag">
+          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag" margin= '5rpx 10rpx'>
             生动有趣(10)
           </MxTag>
-          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag">
+          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag" margin= '5rpx 10rpx'>
             干货满满(2)
           </MxTag>
-          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag">
+          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag" margin= '5rpx 10rpx'>
             老师很好(1)
           </MxTag>
-          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag">
+          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag" margin= '5rpx 10rpx'>
             作业量少(72)
           </MxTag>
-          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag">
+          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag" margin= '5rpx 10rpx'>
             云课堂资料全(8)
           </MxTag>
-          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag">
+          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag" margin= '5rpx 10rpx'>
             简单易学(0)
           </MxTag>
         </View>
