@@ -111,6 +111,13 @@
 					"pathName": "pages/courseAssistant/index",
 					"query": "",
 					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "登录",
+					"pathName": "pages/login/index",
+					"query": "",
+					"scene": ""
 				}
 			]
 		}

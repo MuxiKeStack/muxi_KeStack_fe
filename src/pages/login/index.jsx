@@ -1,35 +1,35 @@
-import Taro, { Component } from '@tarojs/taro'
-import { View, Text,Image } from '@tarojs/components'
-import './index.scss'
-import MxInput from '../../components/common/MxInput/MxInput'
-import MxButton from '../../components/common/MxButton/index'
-import image from '../../assets/png/navigation.png'
-import Fetch from '../../service/fetch'
-import MxTag from '../../components/common/MxTag'
+import Taro, { Component } from '@tarojs/taro';
+import { View, Text, Image } from '@tarojs/components';
+import './index.scss';
+import MxInput from '../../components/common/MxInput/MxInput';
+import MxButton from '../../components/common/MxButton/index';
+import image from '../../assets/png/navigation.png';
+import Fetch from '../../service/fetch';
+import MxTag from '../../components/common/MxTag';
 
 export default class Index extends Component {
   config = {
     navigationBarTitleText: '木犀课栈'
-  }
-  constructor(){
-    super(...arguments)
+  };
+  constructor() {
+    super(...arguments);
     this.state = {
-      userid:"",
-      password:"",
+      userid: '',
+      password: '',
       value: 2.5,
-      username:"",
-      avatar:"",
-    }
+      username: '',
+      avatar: ''
+    };
   }
 
-  ChangeTo(){
+  ChangeTo() {
     Taro.switchTab({
-      url:"/pages/commentSquare/index"
+      url: '/pages/commentSquare/index'
     });
   }
-  componentWillMount () { }
+  componentWillMount() {}
 
-  componentDidMount () {
+  componentDidMount() {
     // Fetch(
     //   'api/v1/login',
     //   {
@@ -43,152 +43,152 @@ export default class Index extends Component {
     //   if(res!==null&&res!==undefined){
     //     Taro.setStorageSync('key','token')
     //   }
-      
     // });
   }
-  
 
-  
+  componentWillUnmount() {}
 
+  componentDidShow() {}
 
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
+  componentDidHide() {}
 
   changeUserid(e) {
-    let value=e.detail.value;
+    let value = e.detail.value;
     this.setState({
       userid: value
     });
   }
 
   changePassword(e) {
-    let value=e.detail.value;
+    let value = e.detail.value;
     this.setState({
       password: value
     });
   }
-  
-  getUserInfo(){
-    var that=this;
+
+  getUserInfo() {
+    var that = this;
   }
   //20101密码错误
   //0 成功
   //500服务器错误
 
-  login(){
-    const{userid,password}=this.state;
-    if(userid&&password)
-    {
+  login() {
+    const { userid, password } = this.state;
+    if (userid && password) {
       Fetch(
         'api/v1/login',
         {
-          sid:userid,
-          password:password
+          sid: userid,
+          password: password
         },
-        'POST',
-      ).then(res =>{
+        'POST'
+      ).then(res => {
         switch (res.code) {
           case 0:
-              Taro.setStorage({
-                key:'token',
-                data:res.data.token,
-                success:function(res){
-                  Taro.getSetting({
-                    success(res){
-                      if(res.authSetting['scope.userInfo']){
-                        Taro.getUserInfo({
-                          success:function(res){
-                            Fetch(
-                              'api/v1/user/info',
-                              {
-                                avatar:res.userInfo.avatarUrl,
-                                username:res.userInfo.username
-                              },
-                              'POST'
-                            )
-                          },
-                          fail:function(res){
-                            console.log("获取用户信息失败");
-                          }
-                        })
-                      }else{
-                        Taro.showToast({
-                          title:'请授权'
-                        })
-                      }
-                      
-                    },
-                    fail:function(res){
+            Taro.setStorage({
+              key: 'token',
+              data: res.data.token,
+              success: function(res) {
+                Taro.getSetting({
+                  success(res) {
+                    if (res.authSetting['scope.userInfo']) {
+                      Taro.getUserInfo({
+                        success: function(res) {
+                          Fetch(
+                            'api/v1/user/info',
+                            {
+                              avatar: res.userInfo.avatarUrl,
+                              username: res.userInfo.username
+                            },
+                            'POST'
+                          );
+                        },
+                        fail: function(res) {
+                          console.log('获取用户信息失败');
+                        }
+                      });
+                    } else {
                       Taro.showToast({
-                        title:'请授权'
-                      })
+                        title: '请授权'
+                      });
                     }
-                  })
-                  Taro.switchTab({
-                    url:"/pages/commentSquare/index"
-                  });
-                }
-            })
+                  },
+                  fail: function(res) {
+                    Taro.showToast({
+                      title: '请授权'
+                    });
+                  }
+                });
+                Taro.switchTab({
+                  url: '/pages/commentSquare/index'
+                });
+              }
+            });
             break;
           case 20101:
             console.log('账号或者密码错误');
             break;
-          }
+        }
       });
-    }else{
+    } else {
       console.log('账号或密码不能为空');
     }
   }
 
-  render () {
-    const ImageUrl=image;
+  render() {
+    const ImageUrl = image;
     const { userid, password } = this.state;
     return (
-      <View className='index'>
-       
-        <Image className='head' src={ImageUrl}></Image>
-      
+      <View className="index">
+        <Image className="head" src={ImageUrl}></Image>
+
         <MxInput
-          width='480rpx'
-          placeholder='学号/昵称'
-          border='true'
+          width="480rpx"
+          placeholder="学号/昵称"
+          border="true"
           value={userid}
           onInput={this.changeUserid.bind(this)}
         ></MxInput>
-        <View className='input'>
-        <MxInput
-          width='480rpx'
-          placeholder='密码'
-          border='true'
-          value={password}
-          type='password'
-          onInput={this.changePassword.bind(this)}
-        ></MxInput>
+        <View className="input">
+          <MxInput
+            width="480rpx"
+            placeholder="密码"
+            border="true"
+            value={password}
+            type="password"
+            onInput={this.changePassword.bind(this)}
+          ></MxInput>
         </View>
-      <View className='login'>
-        <MxButton
-          buttomWidth='513rpx'
-          buttomHeight='92rpx'
-          buttonBackground='#6868F8'
-          border-radius='46rpx'
-          onClick={this.login.bind(this)}
-        >学号登录</MxButton>
-      </View>
-      
-      <View
-         className='visit'
-      ><Text className='visitor' onClick={this.ChangeTo.bind(this)}>游客登录</Text></View>
-    
-        <View
-          className='privacy'
-        ><Text className='secret'>隐私条例</Text></View>
-        <Button class='bottom' open-type="getUserInfo" onGetUserInfo={this.getUserInfo.bind(this)}>
-         授权登录
+        <View className="login">
+          <MxButton
+            buttomWidth="513rpx"
+            buttomHeight="92rpx"
+            buttonBackground="#6868F8"
+            border-radius="46rpx"
+            onClick={this.login.bind(this)}
+          >
+            学号登录
+          </MxButton>
+        </View>
+
+        <View className="visit">
+          <Text className="visitor" onClick={this.ChangeTo.bind(this)}>
+            游客登录
+          </Text>
+        </View>
+
+        <View className="privacy">
+          <Text className="secret">隐私条例</Text>
+        </View>
+        <Button
+          class="bottom"
+          open-type="getUserInfo"
+          onGetUserInfo={this.getUserInfo.bind(this)}
+        >
+          授权登录
         </Button>
       </View>
-    )
+    );
   }
 }

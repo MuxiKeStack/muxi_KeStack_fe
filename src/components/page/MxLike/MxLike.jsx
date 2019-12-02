@@ -17,9 +17,7 @@ class MxLike extends Component {
     Fetch(
       'api/v1/' + content + '/' + theid + '/like',
       {
-        data: {
-          like_state: this.state.islike
-        }
+        like_state: this.state.islike
       },
       'PUT'
     ).then(data => {
