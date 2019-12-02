@@ -5,6 +5,7 @@ import MxInput from '../../components/common/MxInput/MxInput'
 import MxButton from '../../components/common/MxButton/index'
 import image from '../../assets/png/navigation.png'
 import Fetch from '../../service/fetch'
+import MxTag from '../../components/common/MxTag'
 
 export default class Index extends Component {
   config = {
@@ -13,7 +14,11 @@ export default class Index extends Component {
   constructor(){
     super(...arguments)
     this.state = {
+      userid:"",
+      password:"",
       value: 2.5,
+      username:"",
+      avatar:"",
     }
   }
 
@@ -24,7 +29,27 @@ export default class Index extends Component {
   }
   componentWillMount () { }
 
-  componentDidMount () { }
+  componentDidMount () {
+    // Fetch(
+    //   'api/v1/login',
+    //   {
+    //     sid:userid,
+    //     password:password
+    //   },
+    //   'POST',
+    //   localStorage.getItem('userid'),
+    //   localStorage.getItem('password')
+    // ).then(res =>{
+    //   if(res!==null&&res!==undefined){
+    //     Taro.setStorageSync('key','token')
+    //   }
+      
+    // });
+  }
+  
+
+  
+
 
   componentWillUnmount () { }
 
@@ -32,22 +57,115 @@ export default class Index extends Component {
 
   componentDidHide () { }
 
+  changeUserid(e) {
+    let value=e.detail.value;
+    this.setState({
+      userid: value
+    });
+  }
+
+  changePassword(e) {
+    let value=e.detail.value;
+    this.setState({
+      password: value
+    });
+  }
+  
+  getUserInfo(){
+    var that=this;
+  }
+  //20101密码错误
+  //0 成功
+  //500服务器错误
+
+  login(){
+    const{userid,password}=this.state;
+    if(userid&&password)
+    {
+      Fetch(
+        'api/v1/login',
+        {
+          sid:userid,
+          password:password
+        },
+        'POST',
+      ).then(res =>{
+        switch (res.code) {
+          case 0:
+              Taro.setStorage({
+                key:'token',
+                data:res.data.token,
+                success:function(res){
+                  Taro.getSetting({
+                    success(res){
+                      if(res.authSetting['scope.userInfo']){
+                        Taro.getUserInfo({
+                          success:function(res){
+                            Fetch(
+                              'api/v1/user/info',
+                              {
+                                avatar:res.userInfo.avatarUrl,
+                                username:res.userInfo.username
+                              },
+                              'POST'
+                            )
+                          },
+                          fail:function(res){
+                            console.log("获取用户信息失败");
+                          }
+                        })
+                      }else{
+                        Taro.showToast({
+                          title:'请授权'
+                        })
+                      }
+                      
+                    },
+                    fail:function(res){
+                      Taro.showToast({
+                        title:'请授权'
+                      })
+                    }
+                  })
+                  Taro.switchTab({
+                    url:"/pages/commentSquare/index"
+                  });
+                }
+            })
+            break;
+          case 20101:
+            console.log('账号或者密码错误');
+            break;
+          }
+      });
+    }else{
+      console.log('账号或密码不能为空');
+    }
+  }
+
   render () {
     const ImageUrl=image;
+    const { userid, password } = this.state;
     return (
       <View className='index'>
+       
         <Image className='head' src={ImageUrl}></Image>
       
         <MxInput
           width='480rpx'
           placeholder='学号/昵称'
           border='true'
+          value={userid}
+          onInput={this.changeUserid.bind(this)}
         ></MxInput>
         <View className='input'>
         <MxInput
           width='480rpx'
           placeholder='密码'
           border='true'
+          value={password}
+          type='password'
+          onInput={this.changePassword.bind(this)}
         ></MxInput>
         </View>
       <View className='login'>
@@ -56,17 +174,20 @@ export default class Index extends Component {
           buttomHeight='92rpx'
           buttonBackground='#6868F8'
           border-radius='46rpx'
-          onClick={this.ChangeTo.bind(this)}
+          onClick={this.login.bind(this)}
         >学号登录</MxButton>
       </View>
       
       <View
          className='visit'
-      ><Text className='visitor'>游客登录</Text></View>
+      ><Text className='visitor' onClick={this.ChangeTo.bind(this)}>游客登录</Text></View>
+    
         <View
           className='privacy'
         ><Text className='secret'>隐私条例</Text></View>
-        
+        <Button class='bottom' open-type="getUserInfo" onGetUserInfo={this.getUserInfo.bind(this)}>
+         授权登录
+        </Button>
       </View>
     )
   }

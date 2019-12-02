@@ -3,14 +3,7 @@ import { Input, View, Image } from '@tarojs/components';
 import './MxInput.scss';
 
 class MxInput extends Component {
-  onInput = event => this.props.onChange(event.target.value, event);
-  onFocus = event => this.props.onFocus(event.target.value, event);
-  onBlur = event => {
-    this.props.onBlur(event.target.value, event);
-    this.props.onChange(event.target.value, event);
-  };
-  onConfirm = event => this.props.onConfirm(event.target.value, event);
-  onClick = () => !this.props.editable && this.props.onClick();
+
 
   render() {
     const {
@@ -24,8 +17,24 @@ class MxInput extends Component {
       placeholder,
       border,
       background,
-      radius
+      radius,
+      onClick,
+      onInput,
+      onBlur,
+      onChange,
+      onConfirm,
+      onFocus
     } = this.props;
+
+    var password=false
+
+    switch (type){
+      case 'password':
+      password = true
+      break
+    default:
+      break
+    }
 
     var left = leftSrc ? true : false;
     var right = rightSrc ? true : false;
@@ -61,13 +70,13 @@ class MxInput extends Component {
           style={css.input}
           type={type}
           placeholder={placeholder}
-          onInput={this.onInput}
-          onFocus={this.onFocus}
-          onBlur={this.onBlur}
-          onConfirm={this.onConfirm}
+          onInput={onInput}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          onConfirm={onConfirm}
         />
         {right && (
-          <Image style={css.right} src={rightSrc} onClick={this.onClick} />
+          <Image style={css.right} src={rightSrc} onClick={onClick} />
         )}
       </View>
     );
@@ -88,7 +97,10 @@ MxInput.defaultProps = {
   onChange: () => {},
   onFocus: () => {},
   onBlur: () => {},
-  onConfirm: () => {}
+  onConfirm: () => {},
+  onClick: () => {},
+  onInput: () => {},
+  
 };
 
 export default MxInput;

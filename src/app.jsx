@@ -2,6 +2,8 @@ import Taro, { Component } from '@tarojs/taro';
 import Index from './pages/index';
 
 import './app.scss';
+import Fetch from './service/fetch';
+import { userInfo } from 'os';
 
 // 如果需要在 h5 环境中开启 React Devtools
 // 取消以下注释：
@@ -16,6 +18,20 @@ class App extends Component {
       data: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
     });
   }
+  //   Taro.getStorage({key:'token',
+  //      success:function (res){
+  //        Taro.navigateTo({
+  //        url:"/pages/commentSquare/index"
+  //      })
+  //    },
+  //     fail:function(res){
+  //         Taro.navigateTo({
+  //         url:"/pages/login/index"
+  //     })
+  //   }
+  //  });
+                
+  } 
   config = {
     pages: [
       'pages/login/index',
@@ -23,6 +39,7 @@ class App extends Component {
       'pages/search/index',
       'pages/postReview/index',
       'pages/courseCommentsDetails/courseCommentsDetails',
+
       'pages/courseAssistant/index',
       'pages/freeCourse/index',
       'pages/courseDetails/courseDetails',
