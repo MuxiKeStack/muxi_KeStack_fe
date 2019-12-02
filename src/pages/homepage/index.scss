@@ -10,6 +10,8 @@
     display: inline-block;
     width: 100%;
     height: 100%;
+    border: 7px solid #6868F8;
+    border-radius: 50%;
 }
 .user-avatar{
     display: inline-block;
@@ -17,8 +19,6 @@
     width: 168px;
     height: 168px;
     box-sizing: border-box;
-    border: 7px solid #6868F8;
-    border-radius: 50%;
 }
 .user-info{
     display: inline-block;

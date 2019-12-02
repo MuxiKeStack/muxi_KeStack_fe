@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 11,
 			"list": [
 				{
 					"id": -1,
@@ -72,13 +72,6 @@
 				},
 				{
 					"id": -1,
-					"name": "list",
-					"pathName": "pages/list/index",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": -1,
 					"name": "myCourse",
 					"pathName": "pages/mycourse/index",
 					"query": "",
@@ -109,6 +102,20 @@
 					"id": -1,
 					"name": "courseAssistant",
 					"pathName": "pages/courseAssistant/index",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "message",
+					"pathName": "pages/message/index",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "commentHistory",
+					"pathName": "pages/commentHistory/index",
 					"query": "",
 					"scene": ""
 				}

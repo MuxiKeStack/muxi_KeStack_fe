@@ -52,10 +52,10 @@ Item.defaultProps = {
     iconType: '',
 }
 Item.propTypes = {
-    className: PropTypes.array,
-    title: PropTypes.array,
-    extraText: PropTypes.array,
-    customStyle: PropTypes.array,
+    className: PropTypes.string,
+    title: PropTypes.string,
+    extraText: PropTypes.string,
+    customStyle: PropTypes.string,
     hasBgi: PropTypes.bool,
     iconType: PropTypes.string,
 }
