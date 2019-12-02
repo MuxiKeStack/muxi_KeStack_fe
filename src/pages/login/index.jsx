@@ -19,7 +19,16 @@ export default class Index extends Component {
       value: 2.5,
       username:"",
       avatar:"",
+      mask_name: 'unmask',
+      mask_bg: 'mask_bg_show',
     }
+  }
+
+  handleSave(){
+    this.setState({
+      mask_name: 'mask',
+      mask_bg: 'mask_bg_none',
+    })
   }
 
   ChangeTo(){
@@ -109,6 +118,9 @@ export default class Index extends Component {
                               },
                               'POST'
                             )
+                            Taro.switchTab({
+                              url:"/pages/commentSquare/index"
+                            });
                           },
                           fail:function(res){
                             console.log("获取用户信息失败");
@@ -127,9 +139,6 @@ export default class Index extends Component {
                       })
                     }
                   })
-                  Taro.switchTab({
-                    url:"/pages/commentSquare/index"
-                  });
                 }
             })
             break;
@@ -185,9 +194,12 @@ export default class Index extends Component {
         <View
           className='privacy'
         ><Text className='secret'>隐私条例</Text></View>
-        <Button class='bottom' open-type="getUserInfo" onGetUserInfo={this.getUserInfo.bind(this)}>
+        <View className={this.state.mask_bg}></View>
+        <View className={this.state.mask_name}>
+        <Button class='bottom' open-type="getUserInfo" onGetUserInfo={this.getUserInfo.bind(this)} onClick={this.handleSave.bind(this)}>
          授权登录
         </Button>
+        </View>
       </View>
     )
   }
