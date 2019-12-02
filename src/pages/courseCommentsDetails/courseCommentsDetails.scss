@@ -43,6 +43,9 @@ page{
 .ancestorInformation{
     margin-left: 22px;
 }
+.ancestorAvatar{
+    vertical-align: top;
+}
 .ancestorAvatar Image{
     @include avatar(80px);
 }
@@ -101,6 +104,7 @@ page{
 .commentsList{
     @include bigbox();
     padding: 20px 0;
+    margin-bottom: 120px;
 }
 .parentCommentBox{
     margin-left: 40px;
@@ -163,6 +167,9 @@ page{
 }
 .sonCommentContent{
     margin-top: 8px;
+    width: 370px;
+    word-wrap: break-word;
+    word-break: normal;
 }
 .replyContext{
     font-weight: normal;

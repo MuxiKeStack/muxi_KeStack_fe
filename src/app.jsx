@@ -13,7 +13,7 @@ class App extends Component {
   componentDidMount() {
     Taro.setStorage({
       key: 'token',
-      data: 'Iamtoken'
+      data: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
     });
   }
   config = {

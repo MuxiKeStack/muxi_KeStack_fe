@@ -5,6 +5,7 @@ import MxRate from '../../components/common/MxRate/MxRate';
 import MxIcon from '../../components/common/MxIcon/index';
 import Fetch from '../../service/fetch';
 import MxLike from '../../components/page/MxLike/MxLike';
+import MxTag from '../../components/common/MxTag/index';
 
 export default class Coursedetails extends Component {
   constructor() {
@@ -12,7 +13,6 @@ export default class Coursedetails extends Component {
     this.state = {
       hotList: '',
       normalList: '',
-      commentsList: '',
       token:
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY',
       sort: 'hot',
@@ -192,6 +192,14 @@ export default class Coursedetails extends Component {
   }
 
   componentDidMount() {
+    // Fetch(
+    //   'api/v1/login',
+    //   {
+    //     passord: 'a170703s',
+    //     sid: '2018214823'
+    //   }
+    //   ''
+    // )
     Fetch(
       'api/v1/course/112d34testsvggase/evaluations/',
       {
@@ -203,8 +211,7 @@ export default class Coursedetails extends Component {
         console.log(data.data);
         this.setState({
           hotList: data.data.hot_list,
-          normalList: data.data.normal_list,
-          commentsList: data.data.normal_list
+          normalList: data.data.normal_list
         });
       }
     });
@@ -249,6 +256,32 @@ export default class Coursedetails extends Component {
     Taro.navigateTo({
       url: '../courseCommentsDetails/courseCommentsDetails?id=' + id
     });
+  }
+
+  tolike(theid, state) {
+    var likestate = state;
+    var likenum = 0;
+    if (theid && state) {
+      Fetch(
+        'api/v1/evaluation/' + theid + '/like',
+        {
+          like_state: state
+        },
+        'PUT'
+      ).then(data => {
+        if (data) {
+          likestate = data.data.like_state
+          likenum = data.data.like_num
+        }
+      });
+    }
+    return (
+      <View>
+        {!likestate && <MxIcon width="43" type="likeBtn" />}
+        {likestate && <MxIcon width="43" type="check" />}
+        {likenum}
+      </View>
+    );
   }
 
   render() {
@@ -309,20 +342,22 @@ export default class Coursedetails extends Component {
             <View className="info_drawer">课堂信息</View>
             <View className="info_Eng_drawer">class message</View>
           </View>
-          {classes.map(item => {
-            return (
-              <View className="classBox" key={item.id}>
-                <View>{item.id + 1}课堂</View>
-                {item.map(index => {
-                  return (
-                    <View key={index.id}>
-                      {index.time}节 @ {index.place}
-                    </View>
-                  );
-                })}
-              </View>
-            );
-          })}
+          {classes &&
+            classes.map(item => {
+              return (
+                <View className="classBox" key={item.id}>
+                  <View>{item.id + 1}课堂</View>
+                  {item &&
+                    item.map(index => {
+                      return (
+                        <View key={index.id}>
+                          {index.time}节 @ {index.place}
+                        </View>
+                      );
+                    })}
+                </View>
+              );
+            })}
         </View>
         <View className="detailBox">
           <View className="name">课程名称：</View>
@@ -429,110 +464,130 @@ export default class Coursedetails extends Component {
         </View>
         <View className="feature">课堂特点：</View>
         <View className="tagBox">
-          <View className="tag">生动有趣(10)</View>
-          <View className="tag">干货满满(2)</View>
-          <View className="tag">老师很好(1)</View>
-          <View className="tag">作业量少(72)</View>
-          <View className="tag">云课堂资料全(8)</View>
-          <View className="tag">简单易学(0)</View>
+          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag">
+            生动有趣(10)
+          </MxTag>
+          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag">
+            干货满满(2)
+          </MxTag>
+          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag">
+            老师很好(1)
+          </MxTag>
+          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag">
+            作业量少(72)
+          </MxTag>
+          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag">
+            云课堂资料全(8)
+          </MxTag>
+          <MxTag padding="10rpx 40rpx" borderRadius="30rpx" className="tag">
+            简单易学(0)
+          </MxTag>
         </View>
         <View className="List">热门评论</View>
         <View className="cmtBigBox">
-          {hotList.map(item => {
-            return (
-              <View key={item.id} className="commentCard">
-                <View className="userInfo">
-                  <Image
-                    style="width: 80rpx; height: 80rpx"
-                    src={item.user_info.avatar}
-                    className="avatar"
-                  />
-                  <View className="infoDetail">
-                    <View className="username">{item.user_info.username}</View>
-                    <View className="time">{this.normalTime(item.time)}</View>
+          {hotList &&
+            hotList.map(item => {
+              return (
+                <View key={item.id} className="commentCard">
+                  <View className="userInfo">
+                    {item.user_info.avatar && (
+                      <Image
+                        style="width: 80rpx; height: 80rpx"
+                        src={item.user_info.avatar}
+                        className="avatar"
+                      />
+                    )}
+                    <View className="infoDetail">
+                      <View className="username">
+                        {item.user_info.username}
+                      </View>
+                      <View className="time">{this.normalTime(item.time)}</View>
+                    </View>
+                  </View>
+                  <View className="courseInfo">
+                    <View className="courseName">
+                      #{item.course_name}({item.teacher})
+                    </View>
+                    <View className="cmtRateBox">
+                      评价星级：
+                      <MxRate readOnly="true" value={item.rate} />
+                    </View>
+                  </View>
+                  <View className="cmtContent">{item.content}</View>
+                  <View className="cmtIconsBox">
+                    <View className="likeIconBox">
+                      <MxLike
+                        theid={item.id}
+                        islike={item.is_like}
+                        likenum={item.like_num}
+                      />
+                    </View>
+                    <View className="cmtIconBox">
+                      <MxIcon
+                        width="43"
+                        type="cmmtBtn"
+                        className="commentIcon"
+                        onClick={this.commentPage.bind(this, item.id)}
+                      />
+                      {item.like_num}
+                    </View>
                   </View>
                 </View>
-                <View className="courseInfo">
-                  <View className="courseName">
-                    #{item.course_name}({item.teacher})
-                  </View>
-                  <View className="cmtRateBox">
-                    评价星级：
-                    <MxRate readOnly="true" value={item.rate} />
-                  </View>
-                </View>
-                <View className="cmtContent">{item.content}</View>
-                <View className="cmtIconsBox">
-                  <View className="likeIconBox">
-                    <MxLike
-                      theid={item.id}
-                      islike={item.is_like}
-                      likenum={item.like_num}
-                      type="evaluation"
-                    />
-                  </View>
-                  <View className="cmtIconBox">
-                    <MxIcon
-                      width="43"
-                      type="cmmtBtn"
-                      className="commentIcon"
-                      onClick={this.commentPage.bind(this, item.id)}
-                    />
-                    {item.like_num}
-                  </View>
-                </View>
-              </View>
-            );
-          })}
+              );
+            })}
         </View>
-        <View className="List">热门评论</View>
+        <View className="List">全部评论</View>
         <View className="cmtBigBox">
-          {normalList.map(item => {
-            return (
-              <View key={item.id} className="commentCard">
-                <View className="userInfo">
-                  <Image
-                    style="width: 80rpx; height: 80rpx"
-                    src={item.user_info.avatar}
-                    className="avatar"
-                  />
-                  <View className="infoDetail">
-                    <View className="username">{item.user_info.username}</View>
-                    <View className="time">{this.normalTime(item.time)}</View>
+          {normalList &&
+            normalList.map(item => {
+              return (
+                <View key={item.id} className="commentCard">
+                  <View className="userInfo">
+                    {item.user_info.avatar && (
+                      <Image
+                        style="width: 80rpx; height: 80rpx"
+                        src={item.user_info.avatar}
+                        className="avatar"
+                      />
+                    )}
+                    <View className="infoDetail">
+                      <View className="username">
+                        {item.user_info.username}
+                      </View>
+                      <View className="time">{this.normalTime(item.time)}</View>
+                    </View>
+                  </View>
+                  <View className="courseInfo">
+                    <View className="courseName">
+                      #{item.course_name}({item.teacher})
+                    </View>
+                    <View className="cmtRateBox">
+                      评价星级：
+                      <MxRate readOnly="true" value={item.rate} />
+                    </View>
+                  </View>
+                  <View className="cmtContent">{item.content}</View>
+                  <View className="cmtIconsBox">
+                    <View className="likeIconBox">
+                      <MxLike
+                        theid={item.id}
+                        islike={item.is_like}
+                        likenum={item.like_num}
+                      />
+                    </View>
+                    <View className="cmtIconBox">
+                      <MxIcon
+                        width="43"
+                        type="cmmtBtn"
+                        className="commentIcon"
+                        onClick={this.commentPage.bind(this, item.id)}
+                      />
+                      {item.like_num}
+                    </View>
                   </View>
                 </View>
-                <View className="courseInfo">
-                  <View className="courseName">
-                    #{item.course_name}({item.teacher})
-                  </View>
-                  <View className="cmtRateBox">
-                    评价星级：
-                    <MxRate readOnly="true" value={item.rate} />
-                  </View>
-                </View>
-                <View className="cmtContent">{item.content}</View>
-                <View className="cmtIconsBox">
-                  <View className="likeIconBox">
-                    <MxLike
-                      theid={item.id}
-                      islike={item.is_like}
-                      likenum={item.like_num}
-                      type="evaluation"
-                    />
-                  </View>
-                  <View className="cmtIconBox">
-                    <MxIcon
-                      width="43"
-                      type="cmmtBtn"
-                      className="commentIcon"
-                      onClick={this.commentPage.bind(this, item.id)}
-                    />
-                    {item.like_num}
-                  </View>
-                </View>
-              </View>
-            );
-          })}
+              );
+            })}
         </View>
       </View>
     );

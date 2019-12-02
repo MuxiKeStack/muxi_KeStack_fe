@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
 import './index.scss';
 import MxTag from '../../components/common/MxTag/index';
+import MxIcon from '../../components/common/MxIcon/index';
 import anonymous from '../../assets/png/octodex.jpg';
 
 export default class Index extends Component {
@@ -40,7 +41,7 @@ export default class Index extends Component {
           多行文本css溢出部分css溢出部分css溢出部分css溢出部分css溢出部分css溢出部分css溢出部分
         </View>
         <MxTag>我点击</MxTag>
-        <Image src={anonymous} />
+        <MxIcon width="43" type="cmmtBtn" className="commentIcon" />
       </View>
     );
   }

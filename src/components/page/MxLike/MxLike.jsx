@@ -1,3 +1,4 @@
+/* eslint-disable taro/duplicate-name-of-state-and-props */
 import Taro, { Component } from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import './MxLike.scss';
@@ -12,11 +13,9 @@ class MxLike extends Component {
     };
   }
   tolike() {
-    console.log('已点赞');
-    console.log(this.state.islike);
-    var theid = this.props.theid;
+    var { theid, content } = this.props;
     Fetch(
-      'api/v1/evaluation/' + theid + '/like',
+      'api/v1/' + content + '/' + theid + '/like',
       {
         data: {
           like_state: this.state.islike
@@ -25,21 +24,17 @@ class MxLike extends Component {
       'PUT'
     ).then(data => {
       if (data) {
-        console.log(data);
         this.setState({
           islike: data.data.like_state,
           likenum: data.data.like_num
         });
       }
     });
-    console.log(this.state.islike);
   }
   todislike() {
-    console.log('已取消点赞');
-    console.log(this.state.islike);
-    var theid = this.props.theid;
+    var { theid, content } = this.props;
     Fetch(
-      'api/v1/evaluation/' + theid + '/like',
+      'api/v1/' + content + '/' + theid + '/like',
       {
         data: {
           like_state: this.state.islike
@@ -54,7 +49,6 @@ class MxLike extends Component {
         });
       }
     });
-    console.log(this.state.islike);
   }
   render() {
     return (
@@ -86,7 +80,8 @@ class MxLike extends Component {
 MxLike.defaultProps = {
   theid: '',
   islike: '',
-  likenum: '0'
+  likenum: '0',
+  content: 'evaluation'
 };
 
 export default MxLike;

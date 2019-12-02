@@ -477,14 +477,15 @@ export default class Coursecommentsdetails extends Component {
     if (m % 10 == 0) return Y + M + D + h + m + 0;
     else return Y + M + D + h + m;
   }
-  test(x) {
-    console.log(x.id);
-    console.log(x.is_like);
-    console.log(x.like_num);
-  }
-
   render() {
-    const { ancestor } = this.state;
+    const { ancestor, cmtList } = this.state;
+
+    if (cmtList) {
+      sliceList = cmtList.map(item => {
+        item.sub_comments_list.slice(1, 4);
+      });
+    }
+
     var response1 = {
       code: 0,
       message: 'string',
@@ -723,9 +724,9 @@ export default class Coursecommentsdetails extends Component {
               {ancestor.user_info.avatar && (
                 <Image src={ancestor.user_info.avatar}></Image>
               )}
-              {!ancestor.user_info.avatar && (
+              {/* {!ancestor.user_info.avatar && (
                 <MxIcon type="avatar" width="80rpx" />
-              )}
+              )} */}
             </View>
             <View className="ancestorInformation">
               <View className="ancestorUsername">
@@ -751,7 +752,6 @@ export default class Coursecommentsdetails extends Component {
                 theid={ancestor.id}
                 islike={ancestor.is_like}
                 likenum={ancestor.like_num}
-                type="comment"
               />
             </View>
             <View className="commentsNumber">
@@ -761,103 +761,114 @@ export default class Coursecommentsdetails extends Component {
           </View>
         </View>
         <View className="commentsList">
-          {this.state.cmtList.map(item => {
-            return (
-              <View key={item.id}>
-                <View className="parentCommentBox">
-                  <View className="parentAvatar">
-                    {item.user_info.avatar && (
-                      <Image src={item.user_info.avatar} />
-                    )}
-                    {!item.user_info.avatar && <View>匿名</View>}
-                  </View>
-                  <View className="parentComment">
-                    <View className="parentContainer">
-                      <View className="parentContainerIn">
-                        <View className="parentUsername">
-                          {item.user_info.username}
-                        </View>
-                        <View className="parentCommentContent">
-                          {item.content}
-                        </View>
-                      </View>
+          {sliceList &&
+            sliceList.map(item => {
+              return (
+                <View key={item.id}>
+                  <View className="parentCommentBox">
+                    <View className="parentAvatar">
+                      {item.user_info.avatar && (
+                        <Image src={item.user_info.avatar} />
+                      )}
+                      {!item.user_info.avatar && <View>匿名</View>}
                     </View>
-                    <View className="parentDetail">
-                      <View className="time">{item.time}</View>
-                      <View className="reply">回复</View>
-                      <View className="like">
-                        赞
-                        {item.like_num != 0 && (
-                          <View className="likeNum">({item.like_num})</View>
-                        )}
-                      </View>
-                    </View>
-                  </View>
-                </View>
-                <View className="subCommentListBox">
-                  {item.sub_comments_list.map(x => {
-                    return (
-                      <View key={x.id} className="subCommentBox">
-                        <View className="sonAvatar">
-                          {x.user_info.avatar && (
-                            <Image src={x.user_info.avatar} />
-                          )}
-                          {!x.user_info.avatar && <View>匿名</View>}
-                        </View>
-                        <View className="sonComment">
-                          <View className="sonContainer">
-                            <View className="sonContainerIn">
-                              <View className="sonUsername">
-                                {x.target_user_info.username ==
-                                  item.user_info.username && (
-                                  <View className="sonUsername">
-                                    {x.user_info.username}
-                                  </View>
-                                )}
-                                {x.target_user_info.username !=
-                                  item.user_info.username && (
-                                  <View className="sonUsername">
-                                    {x.user_info.username}
-                                    <View className="replyContext">回复</View>
-                                    {x.target_user_info.username}
-                                  </View>
-                                )}
-                              </View>
-                              <View className="sonCommentContent">
-                                {x.content}
-                              </View>
-                            </View>
+                    <View className="parentComment">
+                      <View className="parentContainer">
+                        <View className="parentContainerIn">
+                          <View className="parentUsername">
+                            {item.user_info.username}
                           </View>
-                          <View className="sonDetail">
-                            <View className="time">{x.time}</View>
-                            <View
-                              className="reply"
-                              onClick={this.test.bind(this, x)}
-                            >
-                              回复
-                            </View>
-                            <View className="like">
-                              {/* <MxLike
-                                theid={x.id}
-                                islike={x.is_like}
-                                likenum={x.like_num}
-                              /> */}
-                            </View>
+                          <View className="parentCommentContent">
+                            {item.content}
                           </View>
                         </View>
                       </View>
-                    );
-                  })}
-                  {item.sub_comments_num > 5 &&
-                    item.sub_comments_list.length <= 5 && (
-                      <View onClick={this.toShow} className="remainComments">
-                        产看剩余{item.sub_comments_num - 5}条评论
+                      <View className="parentDetail">
+                        <View className="time">
+                          {this.normalTime(item.time)}
+                        </View>
+                        <View className="reply">回复</View>
+                        <View className="like">
+                          <MxLike
+                            theid={item.id}
+                            islike={item.is_like}
+                            likenum={item.like_num}
+                            content="comment"
+                          />
+                        </View>
                       </View>
-                    )}
+                    </View>
+                  </View>
+                  <View className="subCommentListBox">
+                    {item.sub_comments_list &&
+                      item.sub_comments_list.map(x => {
+                        return (
+                          <View key={x.id} className="subCommentBox">
+                            <View className="sonAvatar">
+                              {x.user_info.avatar && (
+                                <Image src={x.user_info.avatar} />
+                              )}
+                              {!x.user_info.avatar && <View>匿名</View>}
+                            </View>
+                            <View className="sonComment">
+                              <View className="sonContainer">
+                                <View className="sonContainerIn">
+                                  <View className="sonUsername">
+                                    {x.target_user_info.username ==
+                                      item.user_info.username && (
+                                      <View className="sonUsername">
+                                        {x.user_info.username}
+                                      </View>
+                                    )}
+                                    {x.target_user_info.username !=
+                                      item.user_info.username && (
+                                      <View className="sonUsername">
+                                        {x.user_info.username}
+                                        <View className="replyContext">
+                                          回复
+                                        </View>
+                                        {x.target_user_info.username}
+                                      </View>
+                                    )}
+                                  </View>
+                                  <View className="sonCommentContent">
+                                    {x.content}
+                                  </View>
+                                </View>
+                              </View>
+                              <View className="sonDetail">
+                                <View className="time">
+                                  {this.normalTime(x.time)}
+                                </View>
+                                <View
+                                  className="reply"
+                                  onClick={this.test.bind(this, x)}
+                                >
+                                  回复
+                                </View>
+                                <View className="like">
+                                  <MxLike
+                                    theid={x.id}
+                                    islike={x.is_like}
+                                    likenum={x.like_num}
+                                    content="comment"
+                                  />
+                                </View>
+                              </View>
+                            </View>
+                          </View>
+                        );
+                      })}
+                    {item.sub_comments_num > 5 &&
+                      item.sub_comments_list.length <= 5 && (
+                        <View onClick={this.toShow} className="remainComments">
+                          产看剩余{item.sub_comments_num - 5}条评论
+                        </View>
+                      )}
+                  </View>
                 </View>
-              </View>
-            );
-          })}
+              );
+            })}
         </View>
         <View className="inputBox">
           <MxInput placeholder="回复" background="#F1F0F5" />
