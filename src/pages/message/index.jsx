@@ -85,11 +85,11 @@ export default class Index extends Component {
                     course: res.info,
                     });
                 });*/
-        Fetch(message,data,GET).then(
-            data => {
-                console.log(data.messageList),
+        Fetch('message',{},'GET').then(
+            res => {
+                console.log(res),
                 this.setState({
-                    messageList: data.messageList,
+                    messageList: res.data.messageList,
                 })
             }
         )

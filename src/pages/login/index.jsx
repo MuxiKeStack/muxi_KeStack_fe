@@ -17,12 +17,21 @@ export default class Index extends Component {
       userid: '',
       password: '',
       value: 2.5,
-      username: '',
-      avatar: ''
-    };
+      username:"",
+      avatar:"",
+      mask_name: 'unmask',
+      mask_bg: 'mask_bg_show',
+    }
   }
 
-  ChangeTo() {
+  handleSave(){
+    this.setState({
+      mask_name: 'mask',
+      mask_bg: 'mask_bg_none',
+    })
+  }
+
+  ChangeTo(){
     Taro.switchTab({
       url: '/pages/commentSquare/index'
     });
@@ -86,6 +95,7 @@ export default class Index extends Component {
       ).then(res => {
         switch (res.code) {
           case 0:
+<<<<<<< HEAD
             Taro.setStorage({
               key: 'token',
               data: res.data.token,
@@ -109,10 +119,46 @@ export default class Index extends Component {
                         }
                       });
                     } else {
+=======
+              Taro.setStorage({
+                key:'token',
+                data:res.data.token,
+                success:function(res){
+                  Taro.getSetting({
+                    success(res){
+                      if(res.authSetting['scope.userInfo']){
+                        Taro.getUserInfo({
+                          success:function(res){
+                            Fetch(
+                              'api/v1/user/info',
+                              {
+                                avatar:res.userInfo.avatarUrl,
+                                username:res.userInfo.username
+                              },
+                              'POST'
+                            )
+                            Taro.switchTab({
+                              url:"/pages/commentSquare/index"
+                            });
+                          },
+                          fail:function(res){
+                            console.log("获取用户信息失败");
+                          }
+                        })
+                      }else{
+                        Taro.showToast({
+                          title:'请授权'
+                        })
+                      }
+                      
+                    },
+                    fail:function(res){
+>>>>>>> eb63b0f06711b808d9a85a0466595e00f45f706c
                       Taro.showToast({
                         title: '请授权'
                       });
                     }
+<<<<<<< HEAD
                   },
                   fail: function(res) {
                     Taro.showToast({
@@ -125,6 +171,11 @@ export default class Index extends Component {
                 });
               }
             });
+=======
+                  })
+                }
+            })
+>>>>>>> eb63b0f06711b808d9a85a0466595e00f45f706c
             break;
           case 20101:
             console.log('账号或者密码错误');
@@ -160,6 +211,7 @@ export default class Index extends Component {
             onInput={this.changePassword.bind(this)}
           ></MxInput>
         </View>
+<<<<<<< HEAD
         <View className="login">
           <MxButton
             buttomWidth="513rpx"
@@ -187,7 +239,31 @@ export default class Index extends Component {
           onGetUserInfo={this.getUserInfo.bind(this)}
         >
           授权登录
+=======
+      <View className='login'>
+        <MxButton
+          buttomWidth='513rpx'
+          buttomHeight='92rpx'
+          buttonBackground='#6868F8'
+          border-radius='46rpx'
+          onClick={this.login.bind(this)}
+        >学号登录</MxButton>
+      </View>
+      
+      <View
+         className='visit'
+      ><Text className='visitor' onClick={this.ChangeTo.bind(this)}>游客登录</Text></View>
+    
+        <View
+          className='privacy'
+        ><Text className='secret'>隐私条例</Text></View>
+        <View className={this.state.mask_bg}></View>
+        <View className={this.state.mask_name}>
+        <Button class='bottom' open-type="getUserInfo" onGetUserInfo={this.getUserInfo.bind(this)} onClick={this.handleSave.bind(this)}>
+         授权登录
+>>>>>>> eb63b0f06711b808d9a85a0466595e00f45f706c
         </Button>
+        </View>
       </View>
     );
   }
