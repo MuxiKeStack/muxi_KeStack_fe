@@ -4,8 +4,15 @@ import './index.scss';
 import MxTag from '../../components/common/MxTag/index';
 import MxIcon from '../../components/common/MxIcon/index';
 import anonymous from '../../assets/png/octodex.jpg';
+import Test from '../../components/page/test/Test';
 
 export default class Index extends Component {
+  constructor() {
+    super(...arguments);
+    this.state = {
+      value: 'parent'
+    };
+  }
   componentWillUnmount() {}
   config = {
     navigationBarTitleText: '首页',
@@ -23,25 +30,20 @@ export default class Index extends Component {
   componentWillUnmount() {}
 
   componentDidHide() {}
+  onItemChange(item) {
+    this.setState({
+      value: item
+    });
+    console.log('传值成功啦');
+    console.log(this.state.value);
+  }
   render() {
     return (
       <View>
-        <View className="son">1</View>
-        <View className="son">2</View>
-        <View className="son">3</View>
-        <View className="son">4</View>
-        <View className="son">5</View>
-        <View className="son">6</View>
-        <View className="son">7</View>
-        <View className="son">8</View>
-        <View className="son">9</View>
-        <View className="son">10</View>
-        <View className="son">11</View>
-        <View class="mult_line_ellipsis">
-          多行文本css溢出部分css溢出部分css溢出部分css溢出部分css溢出部分css溢出部分css溢出部分
-        </View>
-        <MxTag>我点击</MxTag>
-        <MxIcon width="43" type="cmmtBtn" className="commentIcon" />
+        <Test
+          value={this.state.value}
+          onItemChange={this.onItemChange.bind(this)}
+        />
       </View>
     );
   }

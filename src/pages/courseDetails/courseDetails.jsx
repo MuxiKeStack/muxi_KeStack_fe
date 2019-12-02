@@ -258,32 +258,6 @@ export default class Coursedetails extends Component {
     });
   }
 
-  tolike(theid, state) {
-    var likestate = state;
-    var likenum = 0;
-    if (theid && state) {
-      Fetch(
-        'api/v1/evaluation/' + theid + '/like',
-        {
-          like_state: state
-        },
-        'PUT'
-      ).then(data => {
-        if (data) {
-          likestate = data.data.like_state
-          likenum = data.data.like_num
-        }
-      });
-    }
-    return (
-      <View>
-        {!likestate && <MxIcon width="43" type="likeBtn" />}
-        {likestate && <MxIcon width="43" type="check" />}
-        {likenum}
-      </View>
-    );
-  }
-
   render() {
     const PALETTE = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
     const {

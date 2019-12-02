@@ -31,32 +31,13 @@ class MxLike extends Component {
       }
     });
   }
-  todislike() {
-    var { theid, content } = this.props;
-    Fetch(
-      'api/v1/' + content + '/' + theid + '/like',
-      {
-        data: {
-          like_state: this.state.islike
-        }
-      },
-      'PUT'
-    ).then(data => {
-      if (data) {
-        this.setState({
-          islike: data.data.like_state,
-          likenum: data.data.like_num
-        });
-      }
-    });
-  }
   render() {
     return (
       <View>
         <View>
           {!this.state.islike && (
             <MxIcon
-              width="43"
+              width={this.props.width}
               type="likeBtn"
               className="commentIcon"
               onClick={this.tolike.bind(this)}
@@ -64,10 +45,10 @@ class MxLike extends Component {
           )}
           {this.state.islike && (
             <MxIcon
-              width="43"
+              width={this.props.width}
               type="check"
               className="commentIcon"
-              onClick={this.todislike.bind(this)}
+              onClick={this.tolike.bind(this)}
             />
           )}
           {this.state.likenum}
@@ -81,7 +62,8 @@ MxLike.defaultProps = {
   theid: '',
   islike: '',
   likenum: '0',
-  content: 'evaluation'
+  content: 'evaluation',
+  width: '43'
 };
 
 export default MxLike;
