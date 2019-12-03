@@ -31,6 +31,25 @@ export default class Index extends Component {
     })
   }
 
+  handleMask(){
+    Taro.getSetting({
+      success:(res)=>{
+        if(res.authSetting['scope.userInfo']){
+          this.setState({
+            mask_name: 'mask',
+            mask_bg: 'mask_bg_none',
+          })
+        }
+      },
+      fail:(res)=>{
+        this.setState({
+          mask_name: 'unmask',
+          mask_bg: 'mask_bg_show',
+        })
+      }
+    })
+  }
+
   ChangeTo(){
     Taro.switchTab({
       url: '/pages/commentSquare/index'
@@ -43,22 +62,7 @@ export default class Index extends Component {
   }
   componentWillMount() {}
 
-  componentDidMount() {
-    // Fetch(
-    //   'api/v1/login',
-    //   {
-    //     sid:userid,
-    //     password:password
-    //   },
-    //   'POST',
-    //   localStorage.getItem('userid'),
-    //   localStorage.getItem('password')
-    // ).then(res =>{
-    //   if(res!==null&&res!==undefined){
-    //     Taro.setStorageSync('key','token')
-    //   }
-    // });
-  }
+  componentDidMount() { }
 
   componentWillUnmount() {}
 
@@ -79,6 +83,7 @@ export default class Index extends Component {
       password: value
     });
   }
+
 
   getUserInfo() {
     var that = this;
@@ -189,14 +194,14 @@ export default class Index extends Component {
          className='visit'
       ><Text className='visitor' onClick={this.ChangeTo.bind(this)}>游客登录</Text></View>
     
-        <View
-          className='privacy'
-        ><Text className='secret'>隐私条例</Text></View>
+        <View className='privacy'><Text className='secret'>隐私条例</Text></View>
+        <View onGetSetting={this.handleMask.bind(this)}>
         <View className={this.state.mask_bg}></View>
         <View className={this.state.mask_name}>
         <Button class='bottom' open-type="getUserInfo" onGetUserInfo={this.getUserInfo.bind(this)} onClick={this.handleSave.bind(this)}>
          授权登录
         </Button>
+        </View>
         </View>
       </View>
     );
