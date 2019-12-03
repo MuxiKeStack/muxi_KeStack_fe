@@ -19,19 +19,20 @@ export default class Coursecommentsdetails extends Component {
       replyUser: ' ：',
       replyContent: '',
       replySID: '',
-      isAnonymous: false
+      ancestorCmtNum: 0,
+      isAnonymous: false,
+      cmtList: []
     };
   }
-  componentWillMount() {}
-  componentDidMount() {
+  componentWillMount() {
     Fetch('api/v1/evaluation/' + this.$router.params.id + '/', 'GET').then(
       data => {
         if (data) {
           this.setState({
-            ancestor: data.data
+            ancestor: data.data,
+            ancestorCmtNum: data.data.comment_num
           });
           console.log(data.data);
-          console.log(data.data.is_like);
         }
       }
     );
@@ -40,7 +41,7 @@ export default class Coursecommentsdetails extends Component {
       { limit: 5, page: 1 },
       'GET'
     ).then(data => {
-      if (data) {
+      if (data.data.parent_comment_list) {
         this.setState({
           cmtList: data.data.parent_comment_list,
           page: data.data.page + 1
@@ -49,6 +50,7 @@ export default class Coursecommentsdetails extends Component {
       }
     });
   }
+  componentDidMount() {}
   componentDidShow() {}
 
   componentDidHide() {}
@@ -117,9 +119,9 @@ export default class Coursecommentsdetails extends Component {
     console.log(x);
     this.setState({
       replyID: user.id,
-      replyUser: x.user_info ? x.user_info.username + ' ：' : '匿名用户 ：',
+      replyUser: x.is_anonymous ? '匿名用户 ：' : x.user_info.username + ' ：',
       isAnonymous: x.user_info ? false : true,
-      replySID: x.user_info ? x.user_info.sid : '0'
+      replySID: x.is_anonymous ? '0' : x.user_info.sid
     });
     console.log(user);
   }
@@ -128,40 +130,61 @@ export default class Coursecommentsdetails extends Component {
     this.setState({
       replyContent: value
     });
-    console.log(this.state.replyContent);
   }
   toReply() {
     const { replyID, replyContent, isAnonymous, replySID } = this.state;
-    if (replyID == this.$router.params.id) {
-      Fetch(
-        'api/v1/evaluation/' + replyID + '/comment/',
-        {
-          content: replyContent,
-          is_anonymous: isAnonymous
-        },
-        'POST'
-      ).then(data => {
-        if (data) {
-          console.log(data.data);
-        }
-      });
-    } else {
-      Fetch(
-        'api/v1/comment/' + replyID + '/' + '?sid=' + `${replySID}`,
-        {
-          content: replyContent,
-          is_anonymous: isAnonymous
-        },
-        'POST'
-      ).then(data => {
-        if (data) {
-          console.log(data.data);
-        }
-      });
+    if(replyContent){
+      if (replyID == this.$router.params.id) {
+        Fetch(
+          'api/v1/evaluation/' + replyID + '/comment/',
+          {
+            content: replyContent,
+            is_anonymous: isAnonymous
+          },
+          'POST'
+        ).then(data => {
+          if (data) {
+            this.setState({
+              cmtList: this.state.cmtList.concat(data.data),
+              ancestorCmtNum: this.state.ancestorCmtNum + 1,
+              replyContent: ''
+            });
+            console.log(this.state.cmtList);
+          }
+        });
+      } else {
+        Fetch(
+          'api/v1/comment/' + replyID + '/' + '?sid=' + `${replySID}`,
+          {
+            content: replyContent,
+            is_anonymous: isAnonymous
+          },
+          'POST'
+        ).then(data => {
+          if (data) {
+            this.setState({
+              replyContent: ''
+            })
+            console.log(data.data);
+          }
+        });
+      }
+    }
+    else{
+      Taro.showToast({
+        title: '评论不能为空',
+        icon: 'none'
+      })
     }
   }
   render() {
-    const { ancestor, cmtList, replyUser, replyContent } = this.state;
+    const {
+      ancestor,
+      cmtList,
+      replyUser,
+      replyContent,
+      ancestorCmtNum
+    } = this.state;
     return (
       <View className="courseCommentsDetails">
         <View className="ancestorBox">
@@ -204,7 +227,7 @@ export default class Coursecommentsdetails extends Component {
               onClick={this.onChangeReply.bind(this, ancestor, ancestor)}
             >
               <MxIcon width="43" type="cmmtBtn" className="commentIcon" />
-              {ancestor.comment_num}
+              {ancestorCmtNum}
             </View>
           </View>
         </View>

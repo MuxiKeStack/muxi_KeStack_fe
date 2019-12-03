@@ -1,9 +1,6 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image } from '@tarojs/components';
+import { View, Textarea, Text, ScrollView } from '@tarojs/components';
 import './index.scss';
-import MxTag from '../../components/common/MxTag/index';
-import MxIcon from '../../components/common/MxIcon/index';
-import anonymous from '../../assets/png/octodex.jpg';
 import Test from '../../components/page/test/Test';
 
 export default class Index extends Component {
@@ -44,6 +41,8 @@ export default class Index extends Component {
           value={this.state.value}
           onItemChange={this.onItemChange.bind(this)}
         />
+        <Textarea placeholder='回复:' maxlength={-1} style="overflow-y:scroll"/>
+        
       </View>
     );
   }

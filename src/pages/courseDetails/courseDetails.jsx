@@ -466,7 +466,7 @@ export default class Coursedetails extends Component {
             className="tag"
             margin="5rpx 10rpx"
           >
-            老师幽默风趣(10)
+            幽默风趣(10)
           </MxTag>
           <MxTag
             padding="10rpx 40rpx"
@@ -474,7 +474,7 @@ export default class Coursedetails extends Component {
             className="tag"
             margin="5rpx 10rpx"
           >
-            课堂干货满满(2)
+            干货满满(2)
           </MxTag>
           <MxTag
             padding="10rpx 40rpx"
@@ -482,7 +482,7 @@ export default class Coursedetails extends Component {
             className="tag"
             margin="5rpx 10rpx"
           >
-            老师普通话标准(100)
+            普通话标准了了(99100)
           </MxTag>
           <MxTag
             padding="10rpx 40rpx"
@@ -490,7 +490,7 @@ export default class Coursedetails extends Component {
             className="tag"
             margin="5rpx 10rpx"
           >
-            作业量非常少(7582)
+            作业量非常少了(97582)
           </MxTag>
           <MxTag
             padding="10rpx 40rpx"

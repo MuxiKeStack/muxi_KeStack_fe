@@ -41,32 +41,32 @@ class App extends Component {
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
     },
-    tabBar: {
-      list: [
-        {
-          pagePath: 'pages/commentSquare/index',
-          // text: '评课广场',
-          iconPath: './assets/svg/cmmt-squaG.svg',
-          selectedIconPath: './assets/svg/cmmt-squa.svg'
-        },
-        {
-          pagePath: 'pages/courseAssistant/index',
-          // text: '选课助手',
-          iconPath: './assets/svg/shelperG.svg',
-          selectedIconPath: './assets/svg/shelper.svg'
-        },
-        {
-          pagePath: 'pages/homepage/index',
-          // text: '个人主页',
-          iconPath: './assets/svg/user-infoG.svg',
-          selectedIconPath: './assets/svg/user-info.svg'
-        }
-      ],
-      color: '#CACACA',
-      selectedColor: '#7273F7',
-      backgroundColor: '#ffffff',
-      borderStyle: 'white'
-    }
+    // tabBar: {
+    //   list: [
+    //     {
+    //       pagePath: 'pages/commentSquare/index',
+    //       // text: '评课广场',
+    //       iconPath: './assets/svg/cmmt-squaG.svg',
+    //       selectedIconPath: './assets/svg/cmmt-squa.svg'
+    //     },
+    //     {
+    //       pagePath: 'pages/courseAssistant/index',
+    //       // text: '选课助手',
+    //       iconPath: './assets/svg/shelperG.svg',
+    //       selectedIconPath: './assets/svg/shelper.svg'
+    //     },
+    //     {
+    //       pagePath: 'pages/homepage/index',
+    //       // text: '个人主页',
+    //       iconPath: './assets/svg/user-infoG.svg',
+    //       selectedIconPath: './assets/svg/user-info.svg'
+    //     }
+    //   ],
+    //   color: '#CACACA',
+    //   selectedColor: '#7273F7',
+    //   backgroundColor: '#ffffff',
+    //   borderStyle: 'white'
+    // }
   }
 
   // 在 App 类中的 render() 函数没有实际作用
