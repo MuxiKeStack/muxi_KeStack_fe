@@ -165,9 +165,6 @@ View{
     margin: 29px 0 15px 29px;
     font-size: 32px;
 }
-mx-tag{
-    margin: 30px 20px;
-}
 // 评课卡片列表开始
 .peopleComments{
     display: block;
@@ -218,6 +215,9 @@ mx-tag{
     width: 600px;
     display: block;
 }
+.avatar{
+    border-radius: 40px;
+}
 .infoDetail{
     margin-left: 22px;
     width: 480px;
@@ -235,7 +235,7 @@ mx-tag{
 }
 .courseName{
     margin-right: 30px;
-    @include one_line_ellipsis(250px);
+    @include one_line_ellipsis(360px);
     vertical-align: bottom;
 }
 .cmtRateBox{
@@ -289,4 +289,12 @@ mx-tag{
     width: 500px;
     background-color: red;
     margin: 20px 0;
+}
+.nomore{
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    background-color: red;
+    height: 50px;
+    line-height: 50px;
 }

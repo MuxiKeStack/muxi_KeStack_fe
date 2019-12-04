@@ -7,23 +7,30 @@ import MxInput from '../..//components/common/MxInput/MxInput';
 import Fetch from '../../service/fetch';
 import MxLike from '../../components/page/MxLike/MxLike';
 import CmtList from '../../components/page/CmtList/CmtList';
+import reply from '../../assets/png/star.png';
 
 export default class Coursecommentsdetails extends Component {
   constructor() {
     super(...arguments);
     this.state = {
       ancestor: '',
+      page: 1,
       replyID: '',
-      replyUser: ' ：'
+      replyUser: ' ：',
+      replyContent: '',
+      replySID: '',
+      ancestorCmtNum: 0,
+      isAnonymous: false,
+      cmtList: []
     };
   }
-  componentWillMount() {}
-  componentDidMount() {
+  componentWillMount() {
     Fetch('api/v1/evaluation/' + this.$router.params.id + '/', 'GET').then(
       data => {
         if (data) {
           this.setState({
-            ancestor: data.data
+            ancestor: data.data,
+            ancestorCmtNum: data.data.comment_num
           });
           console.log(data.data);
         }
@@ -34,23 +41,65 @@ export default class Coursecommentsdetails extends Component {
       { limit: 5, page: 1 },
       'GET'
     ).then(data => {
-      if (data) {
+      if (data.data.parent_comment_list) {
         this.setState({
-          cmtList: data.data.parent_comment_list
+          cmtList: data.data.parent_comment_list,
+          page: data.data.page + 1
         });
         console.log(data.data);
       }
     });
   }
-
-  componentWillUnmount() {}
-  config = {
-    navigationBarTitleText: '评课详情'
-  };
-
+  componentDidMount() {}
   componentDidShow() {}
 
   componentDidHide() {}
+
+  componentWillUnmount() {}
+  config = {
+    navigationBarTitleText: '评课详情',
+    enablePullDownRefresh: true,
+    onReachBottomDistance: 80
+  };
+  onPullDownRefresh() {
+    Taro.showNavigationBarLoading();
+    setTimeout(() => {
+      Taro.hideNavigationBarLoading();
+      Taro.stopPullDownRefresh();
+    }, 3000);
+    this.setState({});
+    console.log('下拉加载刷新');
+  } //下拉事件
+
+  onReachBottom() {
+    this.getComments();
+    Taro.showNavigationBarLoading();
+    setTimeout(() => {
+      Taro.hideNavigationBarLoading();
+      Taro.stopPullDownRefresh();
+    }, 500);
+    console.log('下拉加载更多');
+  }
+  getComments() {
+    console.log(this.state.page);
+    Fetch(
+      'api/v1/evaluation/' + +this.$router.params.id + '/comments/',
+      {
+        limit: 10,
+        page: this.state.page
+      },
+      'GET'
+    ).then(data => {
+      if (data) {
+        console.log(data.data);
+        this.setState({
+          cmtList: this.state.cmtList.concat(data.data.parent_comment_list),
+          page: data.data.page + 1
+        });
+      }
+    });
+    console.log(this.state.cmtList);
+  }
 
   normalTime(timestamp) {
     var date = new Date(timestamp * 1000);
@@ -65,17 +114,77 @@ export default class Coursecommentsdetails extends Component {
     if (m % 10 == 0) return Y + M + D + h + m + 0;
     else return Y + M + D + h + m;
   }
-  onChangeReply(user) {
+  onChangeReply(user, x) {
+    console.log(user);
+    console.log(x);
     this.setState({
       replyID: user.id,
-      replyUser: user.user_info
-        ? user.user_info.username + ' ：'
-        : '匿名用户 ：'
+      replyUser: x.is_anonymous ? '匿名用户 ：' : x.user_info.username + ' ：',
+      isAnonymous: x.user_info ? false : true,
+      replySID: x.is_anonymous ? '0' : x.user_info.sid
     });
     console.log(user);
   }
+  toWriteReplyContent(e) {
+    let value = e.detail.value;
+    this.setState({
+      replyContent: value
+    });
+  }
+  toReply() {
+    const { replyID, replyContent, isAnonymous, replySID } = this.state;
+    if(replyContent){
+      if (replyID == this.$router.params.id) {
+        Fetch(
+          'api/v1/evaluation/' + replyID + '/comment/',
+          {
+            content: replyContent,
+            is_anonymous: isAnonymous
+          },
+          'POST'
+        ).then(data => {
+          if (data) {
+            this.setState({
+              cmtList: this.state.cmtList.concat(data.data),
+              ancestorCmtNum: this.state.ancestorCmtNum + 1,
+              replyContent: ''
+            });
+            console.log(this.state.cmtList);
+          }
+        });
+      } else {
+        Fetch(
+          'api/v1/comment/' + replyID + '/' + '?sid=' + `${replySID}`,
+          {
+            content: replyContent,
+            is_anonymous: isAnonymous
+          },
+          'POST'
+        ).then(data => {
+          if (data) {
+            this.setState({
+              replyContent: ''
+            })
+            console.log(data.data);
+          }
+        });
+      }
+    }
+    else{
+      Taro.showToast({
+        title: '评论不能为空',
+        icon: 'none'
+      })
+    }
+  }
   render() {
-    const { ancestor, cmtList, replyUser } = this.state;
+    const {
+      ancestor,
+      cmtList,
+      replyUser,
+      replyContent,
+      ancestorCmtNum
+    } = this.state;
     return (
       <View className="courseCommentsDetails">
         <View className="ancestorBox">
@@ -115,14 +224,13 @@ export default class Coursecommentsdetails extends Component {
             </View>
             <View
               className="commentsNumber"
-              onClick={this.onChangeReply.bind(this, ancestor)}
+              onClick={this.onChangeReply.bind(this, ancestor, ancestor)}
             >
               <MxIcon width="43" type="cmmtBtn" className="commentIcon" />
-              {ancestor.comment_num}
+              {ancestorCmtNum}
             </View>
           </View>
         </View>
-        <View className="replyy">回复{replyUser}</View>
         <View className="commentsList">
           {cmtList &&
             cmtList.map(item => {
@@ -153,7 +261,7 @@ export default class Coursecommentsdetails extends Component {
                         </View>
                         <View
                           className="reply"
-                          onClick={this.onChangeReply.bind(this, item)}
+                          onClick={this.onChangeReply.bind(this, item, item)}
                         >
                           回复
                         </View>
@@ -180,7 +288,14 @@ export default class Coursecommentsdetails extends Component {
             })}
         </View>
         <View className="inputBox">
-          <MxInput placeholder="回复" background="#F1F0F5" />
+          <MxInput
+            width="480rpx"
+            placeholder={'回复' + replyUser}
+            value={replyContent}
+            onInput={this.toWriteReplyContent.bind(this)}
+            rightSrc={reply}
+            onClick={this.toReply.bind(this)}
+          />
         </View>
       </View>
     );

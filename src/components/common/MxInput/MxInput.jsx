@@ -64,7 +64,7 @@ class MxInput extends Component {
     return (
       <View style={css.box} className="box">
         {left && (
-          <Image style={css.left} src={leftSrc} onClick={this.onClick}></Image>
+          <Image style={css.left} src={leftSrc} onClick={this.props.onClick}></Image>
         )}
         <Input
           style={css.input}
@@ -76,7 +76,7 @@ class MxInput extends Component {
           onConfirm={onConfirm}
         />
         {right && (
-          <Image style={css.right} src={rightSrc} onClick={onClick} />
+          <Image style={css.right} src={rightSrc} onClick={this.props.onClick} />
         )}
       </View>
     );
@@ -100,7 +100,6 @@ MxInput.defaultProps = {
   onConfirm: () => {},
   onClick: () => {},
   onInput: () => {},
-  
 };
 
 export default MxInput;

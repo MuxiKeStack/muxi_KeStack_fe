@@ -32,8 +32,8 @@ class CmtList extends Component {
       cmtList: this.props.item.sub_comments_list
     });
   }
-  onChange(text) {
-    this.props.onChangeReply(text);
+  onChange(item, x) {
+    this.props.onChangeReply(item, x);
   }
 
   render() {
@@ -78,7 +78,7 @@ class CmtList extends Component {
                     <View className="time">{this.normalTime(x.time)}</View>
                     <View
                       className="reply"
-                      onClick={this.onChange.bind(this, x)}
+                      onClick={this.onChange.bind(this, item, x)}
                     >
                       回复
                     </View>
