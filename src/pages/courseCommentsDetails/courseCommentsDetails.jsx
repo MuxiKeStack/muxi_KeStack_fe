@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image } from '@tarojs/components';
+import { View, Image, Textarea } from '@tarojs/components';
 import './courseCommentsDetails.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxIcon from '../../components/common/MxIcon/index';
@@ -15,16 +15,17 @@ export default class Coursecommentsdetails extends Component {
     this.state = {
       ancestor: '',
       page: 1,
-      replyID: '',
-      replyUser: ' ：',
+      replyID: this.$router.params.id,
+      replyUser: this.$router.params.ancestorName + ' ：',
       replyContent: '',
-      replySID: '',
+      replySID: this.$router.params.sid,
       ancestorCmtNum: 0,
       isAnonymous: false,
       cmtList: []
     };
   }
   componentWillMount() {
+    console.log(this.$router.params);
     Fetch('api/v1/evaluation/' + this.$router.params.id + '/', 'GET').then(
       data => {
         if (data) {
@@ -33,6 +34,7 @@ export default class Coursecommentsdetails extends Component {
             ancestorCmtNum: data.data.comment_num
           });
           console.log(data.data);
+          console.log(data.data.is_like);
         }
       }
     );
@@ -83,7 +85,7 @@ export default class Coursecommentsdetails extends Component {
   getComments() {
     console.log(this.state.page);
     Fetch(
-      'api/v1/evaluation/' + +this.$router.params.id + '/comments/',
+      'api/v1/evaluation/' + this.$router.params.id + '/comments/',
       {
         limit: 10,
         page: this.state.page
@@ -115,6 +117,7 @@ export default class Coursecommentsdetails extends Component {
     else return Y + M + D + h + m;
   }
   onChangeReply(user, x) {
+    console.log('onChangeReply:');
     console.log(user);
     console.log(x);
     this.setState({
@@ -133,7 +136,7 @@ export default class Coursecommentsdetails extends Component {
   }
   toReply() {
     const { replyID, replyContent, isAnonymous, replySID } = this.state;
-    if(replyContent){
+    if (replyContent) {
       if (replyID == this.$router.params.id) {
         Fetch(
           'api/v1/evaluation/' + replyID + '/comment/',
@@ -164,17 +167,16 @@ export default class Coursecommentsdetails extends Component {
           if (data) {
             this.setState({
               replyContent: ''
-            })
+            });
             console.log(data.data);
           }
         });
       }
-    }
-    else{
+    } else {
       Taro.showToast({
         title: '评论不能为空',
         icon: 'none'
-      })
+      });
     }
   }
   render() {
@@ -288,13 +290,12 @@ export default class Coursecommentsdetails extends Component {
             })}
         </View>
         <View className="inputBox">
-          <MxInput
-            width="480rpx"
-            placeholder={'回复' + replyUser}
+          <View>回复{replyUser}</View>
+          <View onClick={this.toReply.bind(this)}>发送</View>
+          <Textarea
+            maxlength={-1}
             value={replyContent}
             onInput={this.toWriteReplyContent.bind(this)}
-            rightSrc={reply}
-            onClick={this.toReply.bind(this)}
           />
         </View>
       </View>

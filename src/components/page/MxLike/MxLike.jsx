@@ -13,6 +13,8 @@ class MxLike extends Component {
     };
   }
   tolike() {
+    console.log('tolikes like_state:');
+    console.log(this.state.islike);
     var { theid, content } = this.props;
     Fetch(
       'api/v1/' + content + '/' + theid + '/like',
@@ -26,6 +28,17 @@ class MxLike extends Component {
           islike: data.data.like_state,
           likenum: data.data.like_num
         });
+        if (this.state.islike) {
+          Taro.showToast({
+            title: '取消点赞成功',
+            icon: 'success'
+          });
+        } else {
+          Taro.showToast({
+            title: '点赞成功',
+            icon: 'success'
+          });
+        }
       }
     });
   }

@@ -273,9 +273,17 @@ export default class Coursedetails extends Component {
     else return Y + M + D + h + m;
   }
 
-  commentPage(id) {
+  commentPage(item) {
+    const SID = item.is_anonymous ? '0' : item.user_info.sid;
+    const name = item.is_anonymous ? '匿名用户' : item.user_info.username;
     Taro.navigateTo({
-      url: '../courseCommentsDetails/courseCommentsDetails?id=' + id
+      url:
+        '../courseCommentsDetails/courseCommentsDetails?id=' +
+        item.id +
+        '&ancestorName=' +
+        name +
+        '&sid=' +
+        SID
     });
   }
 
@@ -556,7 +564,10 @@ export default class Coursedetails extends Component {
                         width="43"
                         type="cmmtBtn"
                         className="commentIcon"
-                        onClick={this.commentPage.bind(this, item.id)}
+                        onClick={this.commentPage.bind(
+                          this,
+                          item
+                        )}
                       />
                       {item.comment_num}
                     </View>
@@ -612,7 +623,7 @@ export default class Coursedetails extends Component {
                         width="43"
                         type="cmmtBtn"
                         className="commentIcon"
-                        onClick={this.commentPage.bind(this, item.id)}
+                        onClick={this.commentPage.bind(this, item)}
                       />
                       {item.comment_num}
                     </View>

@@ -99,7 +99,7 @@ class CmtList extends Component {
           })}
         {cmtList && cmtList.length <= 5 && (
           <View onClick={this.toShow} className="remainComments">
-            产看剩余{item.sub_comments_num - 5}条评论
+            查看剩余{item.sub_comments_num - 5}条评论
           </View>
         )}
       </View>
