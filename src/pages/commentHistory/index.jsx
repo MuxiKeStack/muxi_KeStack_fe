@@ -138,8 +138,7 @@ export default class Index extends Component {
                 <View className='course-comment'>{course.content}</View>
               </View>
               <View className="like-and-comment">
-                <MxIcon type="likeBtn" className="like-icon"></MxIcon>
-                <View>{course.like_num}</View>
+                <MxLike theid={course.id} islike={course.is_like} likenum={course.like_num}></MxLike>
                 <MxIcon type="cmmtBtn" className="comment-icon"></MxIcon>
                 <View>{course.comment_num}</View>
               </View>
