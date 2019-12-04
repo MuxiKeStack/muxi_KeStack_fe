@@ -28,6 +28,7 @@ import history from '../../../assets/svg/history.svg';
 import message from '../../../assets/svg/message.svg';
 import myCourse from '../../../assets/svg/myCourse.svg';
 import arrowR from '../../../assets/svg/right_arrow.svg';
+import likeBtnS from '../../../assets/svg/like-btn-s.svg';
 
 import './index.scss';
 
@@ -61,6 +62,7 @@ export default class MxIcon extends MxComponent {
       ['arrowD',arrowD],
       ['largeC', largeC],
       ['likeBtn', likeBtn],
+      ['likeBtnS',likeBtnS],
       ['search', search],
       ['sHelper', sHelper],
       ['sHelperG', sHelperG],

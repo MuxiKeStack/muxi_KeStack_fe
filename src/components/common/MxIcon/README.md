@@ -21,6 +21,7 @@ cross| （外包裹了圈的）×，在登陆输入框时用到
 hollowC| ○
 largeC| ○
 likeBtn| 点赞
+likeBtnS|已点赞
 search| 🔍
 sHelper| tabbar的选课助手 紫色
 sHelperG| tabbar的选课助手 灰色
