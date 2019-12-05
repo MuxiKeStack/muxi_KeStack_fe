@@ -26,7 +26,8 @@ export default class MxButton extends Component{
             height: `${buttonHeight}`,
             background:`${buttonBackground}`,
             'border-radius':`${buttonRadius}`,
-            'line-height':`${buttonHeight}`
+            'line-height':`${buttonHeight}`,
+            'opacity':2,
         }
         const buttonStyleI={
             display: 'inline-block',
