@@ -4,13 +4,23 @@
     background:rgba(252,128,127,1);
     opacity:1;
     border-radius:20px;
-    font-size:28px;
-    font-family:PingFang SC;
-    font-weight:400;
     line-height:40px;
     color: #FFFFFF;
     padding: 0;
     box-shadow: 0;
     margin-left: 6px;
     position: absolute;
+}
+.content{
+    display: -webkit-box;
+    width: 56px;
+    font-size:28px;
+    font-family:PingFang SC;
+    font-weight:400;
+    padding-top: 15px;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    word-break: break-all;
 }

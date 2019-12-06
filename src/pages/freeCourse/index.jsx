@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Image ,Form ,ScrollView,Button,  Swiper, SwiperItem,Checkbox,CheckboxGroup,Label} from '@tarojs/components'
+import { View, Image ,Form ,ScrollView,Button,  Swiper, SwiperItem,Checkbox,CheckboxGroup,Label,Text} from '@tarojs/components'
 import MxButton from '../../components/common/MxButton' 
 import HeaderTab from '../../components/headerTab/header-tab'
 import FloatLayout from '../../components/layout'
@@ -85,6 +85,7 @@ export default class Index extends Component {
             }
           ],
           COURSESData:[],
+          collectedList:[],
         }
       }
 
@@ -338,14 +339,21 @@ export default class Index extends Component {
                                 buttonWidth='120rpx'
                                 buttonHeight='120rpx'
                                 buttonBackground='#6E66EE'  
-                                // onClick={this.showList.bind(this)}
-                                onClick={this.divideDay.bind(this)}      
+                                onClick={this.showList.bind(this)}
+                                     
                     >
                         课
                     </MxButton>
                 </View>
                 <FloatLayout isOpened={this.state.showList} title='课程清单' >
-                    <MxCard className="muxicard">这里装的是卡片内容</MxCard>
+                    {/* {
+                        this.state.collectedList.map((item)=>
+                           <View className='card'>卡斯柯打算打算打算才是</View>
+                        )
+                    } */}
+                    <View className='card'>
+                        <View className='card-content'>高等数学打开SD卡建设大街按时大</View>
+                    </View>
                 </FloatLayout>
                 {/* <MxModal isOpened={this.state.showList} title='创业项目的选择与执行'>
                     <CheckboxGroup>
