@@ -7,6 +7,22 @@ import Fetch from '../../../service/fetch';
 
 class MxLike extends Component {
   constructor() {
+    var likestate;
+    if (this.props.islike === 'true') {
+      likestate = true;
+    } else if (this.props.islike === 'false') {
+      likestate = false;
+    } else {
+      likestate = this.props.islike;
+    }
+    // switch (this.props.islike) {
+    //   case "true":
+    //   case true:
+    //     likestate = true;
+    //   case "false":
+    //   case false:
+    //     likestate = false;
+    // }
     this.state = {
       islike: this.props.islike,
       likenum: this.props.likenum
@@ -72,7 +88,7 @@ class MxLike extends Component {
 MxLike.defaultProps = {
   theid: '',
   islike: '',
-  likenum: '0',
+  likenum: '',
   content: 'evaluation',
   width: '43'
 };

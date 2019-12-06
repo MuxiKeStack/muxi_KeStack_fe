@@ -43,7 +43,7 @@
 					"scene": ""
 				},
 				{
-					"id": -1,
+					"id": 1,
 					"name": "课程详情",
 					"pathName": "pages/courseDetails/courseDetails",
 					"query": "",

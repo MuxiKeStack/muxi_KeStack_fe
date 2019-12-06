@@ -75,12 +75,13 @@ page{
 .rate{
     vertical-align: bottom;
 }
-.tag{
+.tags{
     display: block;
     margin: 0 30px;
     height: 40px;
 }
 .ancestorComment{
+    margin-top: 20px;
     font-size: 24px;
     width: 580px;
     display: block;
@@ -190,4 +191,12 @@ page{
 //MXlIKE
 mx-like{
     vertical-align: bottom;
+}
+.nomore{
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    background-color: red;
+    height: 50px;
+    line-height: 50px;
 }
