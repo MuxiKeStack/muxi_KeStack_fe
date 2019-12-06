@@ -25,7 +25,6 @@ export default class MxReport extends MxComponent {
     this.setState({
       open: !this.state.open
     })
-    console.log(this.state.open)
   }
 
   // propsClik = event =>{

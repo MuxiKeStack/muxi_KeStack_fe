@@ -4,9 +4,11 @@ import './index.scss'
 import MxCard from '../../components/common/MxCard'
 import MxRate from '../../components/common/MxRate/MxRate'
 import MxIcon from '../../components/common/MxIcon'
-import octodex from '../../assets/png/octodex.jpg'
 import Fetch from '../../service/fetch'
 import MxReport from '../../components/common/MxReport'
+import MxInput from '../../components/common/MxInput/MxInput'
+import MxLike from '../../components/page/MxLike/MxLike';
+import Octodex from '../../assets/png/octodex.jpg'
 
 export default class Index extends Component {
 
@@ -22,7 +24,8 @@ export default class Index extends Component {
     this.state = {
       comments: [],
       sum: 0,
-      lastId: 0
+      lastId: 0,
+      search: ''
     };
   }
 
@@ -35,320 +38,13 @@ export default class Index extends Component {
       Taro.showNavigationBarLoading()
       this.getComments()
     })
+    console.log(this.state.comments)
   }//下拉事件
 
 
   onReachBottom() {
     Taro.showNavigationBarLoading()
     this.getComments();
-  }
-
-
-
-  setData(time) {
-    var data1 = {
-      "list": [
-        {
-          "attendance_check_type": "",
-          "comment_num": 5,
-          "content": "老师也太有意思了吧哈哈哈哈哈，简直是被数学埋没的相声演员，课上一言不合就开始开始作诗......",
-          "course_id": "string",
-          "course_name": "线性代数B",
-          "exam_check_type": "string",
-          "id": 0,
-          "is_anonymous": true,
-          "is_like": true,
-          "is_valid": true,
-          "like_num": 17,
-          "rate": 0,
-          "tags": [
-            "string"
-          ],
-          "teacher": "张俊",
-          "time": 201908231104,
-          "user_info": {
-            "avatar": octodex,
-            "sid": "string",
-            "username": "用户昵称"
-          }
-        },
-        {
-          "attendance_check_type": "string",
-          "comment_num": 2,
-          "content": "数学太难了啊啊啊复习使人秃头",
-          "course_id": "string",
-          "course_name": "高等数学B",
-          "exam_check_type": "string",
-          "id": 1,
-          "is_anonymous": true,
-          "is_like": true,
-          "is_valid": true,
-          "like_num": 13,
-          "rate": 4,
-          "tags": [
-            "string"
-          ],
-          "teacher": "张圆",
-          "time": 201906231058,
-          "user_info": {
-            "avatar": octodex,
-            "sid": "string",
-            "username": "我爱数学数学爱我"
-          }
-        },
-        {
-          "attendance_check_type": "string",
-          "comment_num": 9,
-          "content": "真是一门神仙学科呢，谁选谁后悔",
-          "course_id": "string",
-          "course_name": "string",
-          "exam_check_type": "string",
-          "id": 2,
-          "is_anonymous": true,
-          "is_like": true,
-          "is_valid": true,
-          "like_num": 26,
-          "rate": 1,
-          "tags": [
-            "string"
-          ],
-          "teacher": "string",
-          "time": 201905282037,
-          "user_info": {
-            "avatar": octodex,
-            "sid": "string",
-            "username": "伍强贤"
-          }
-        },
-        {
-          "attendance_check_type": "string",
-          "comment_num": 4,
-          "content": "啊啊啊 模电魔电魔电！！！课挺难进度挺快的，不过薛老师挺认真负责的。选她准没错",
-          "course_id": "string",
-          "course_name": "string",
-          "exam_check_type": "string",
-          "id": 3,
-          "is_anonymous": true,
-          "is_like": true,
-          "is_valid": true,
-          "like_num": 20,
-          "rate": 4,
-          "tags": [
-            "string"
-          ],
-          "teacher": "string",
-          "time": 0,
-          "user_info": {
-            "avatar": octodex,
-            "sid": "string",
-            "username": "电信学子"
-          }
-        },
-      ],
-      "sum": 4
-    }
-    var data2 = {
-      "list": [
-        {
-          "attendance_check_type": "",
-          "comment_num": 5,
-          "content": "老师也太有意思了吧哈哈哈哈哈，简直是被数学埋没的相声演员，课上一言不合就开始开始作诗......",
-          "course_id": "string",
-          "course_name": "线性代数B",
-          "exam_check_type": "string",
-          "id": 0,
-          "is_anonymous": true,
-          "is_like": true,
-          "is_valid": true,
-          "like_num": 17,
-          "rate": 0,
-          "tags": [
-            "string"
-          ],
-          "teacher": "张俊",
-          "time": 201908231104,
-          "user_info": {
-            "avatar": octodex,
-            "sid": "string",
-            "username": "用户昵称"
-          }
-        },
-        {
-          "attendance_check_type": "string",
-          "comment_num": 2,
-          "content": "数学太难了啊啊啊复习使人秃头",
-          "course_id": "string",
-          "course_name": "高等数学B",
-          "exam_check_type": "string",
-          "id": 1,
-          "is_anonymous": true,
-          "is_like": true,
-          "is_valid": true,
-          "like_num": 13,
-          "rate": 4,
-          "tags": [
-            "string"
-          ],
-          "teacher": "张圆",
-          "time": 201906231058,
-          "user_info": {
-            "avatar": octodex,
-            "sid": "string",
-            "username": "我爱数学数学爱我"
-          }
-        },
-        {
-          "attendance_check_type": "string",
-          "comment_num": 9,
-          "content": "真是一门神仙学科呢，谁选谁后悔",
-          "course_id": "string",
-          "course_name": "string",
-          "exam_check_type": "string",
-          "id": 2,
-          "is_anonymous": true,
-          "is_like": true,
-          "is_valid": true,
-          "like_num": 26,
-          "rate": 1,
-          "tags": [
-            "string"
-          ],
-          "teacher": "string",
-          "time": 201905282037,
-          "user_info": {
-            "avatar": octodex,
-            "sid": "string",
-            "username": "伍强贤"
-          }
-        },
-        {
-          "attendance_check_type": "string",
-          "comment_num": 4,
-          "content": "啊啊啊 模电魔电魔电！！！课挺难进度挺快的，不过薛老师挺认真负责的。选她准没错",
-          "course_id": "string",
-          "course_name": "string",
-          "exam_check_type": "string",
-          "id": 4,
-          "is_anonymous": true,
-          "is_like": true,
-          "is_valid": true,
-          "like_num": 20,
-          "rate": 3,
-          "tags": [
-            "string"
-          ],
-          "teacher": "string",
-          "time": 0,
-          "user_info": {
-            "avatar": octodex,
-            "sid": "string",
-            "username": "电信学子"
-          }
-        },
-        {
-          "attendance_check_type": "",
-          "comment_num": 5,
-          "content": "老师也太有意思了吧哈哈哈哈哈，简直是被数学埋没的相声演员，课上一言不合就开始开始作诗......",
-          "course_id": "string",
-          "course_name": "线性代数B",
-          "exam_check_type": "string",
-          "id": 4,
-          "is_anonymous": true,
-          "is_like": true,
-          "is_valid": true,
-          "like_num": 17,
-          "rate": 0,
-          "tags": [
-            "string"
-          ],
-          "teacher": "张俊",
-          "time": 201908231104,
-          "user_info": {
-            "avatar": octodex,
-            "sid": "string",
-            "username": "用户昵称"
-          }
-        },
-        {
-          "attendance_check_type": "string",
-          "comment_num": 2,
-          "content": "数学太难了啊啊啊复习使人秃头",
-          "course_id": "string",
-          "course_name": "高等数学B",
-          "exam_check_type": "string",
-          "id": 5,
-          "is_anonymous": true,
-          "is_like": true,
-          "is_valid": true,
-          "like_num": 13,
-          "rate": 4,
-          "tags": [
-            "string"
-          ],
-          "teacher": "张圆",
-          "time": 201906231058,
-          "user_info": {
-            "avatar": octodex,
-            "sid": "string",
-            "username": "我爱数学数学爱我"
-          }
-        },
-        {
-          "attendance_check_type": "string",
-          "comment_num": 9,
-          "content": "真是一门神仙学科呢，谁选谁后悔",
-          "course_id": "string",
-          "course_name": "string",
-          "exam_check_type": "string",
-          "id": 6,
-          "is_anonymous": true,
-          "is_like": true,
-          "is_valid": true,
-          "like_num": 26,
-          "rate": 1,
-          "tags": [
-            "string"
-          ],
-          "teacher": "string",
-          "time": 201905282037,
-          "user_info": {
-            "avatar": octodex,
-            "sid": "string",
-            "username": "伍强贤"
-          }
-        },
-        {
-          "attendance_check_type": "string",
-          "comment_num": 4,
-          "content": "啊啊啊 模电魔电魔电！！！课挺难进度挺快的，不过薛老师挺认真负责的。选她准没错",
-          "course_id": "string",
-          "course_name": "string",
-          "exam_check_type": "string",
-          "id": 7,
-          "is_anonymous": true,
-          "is_like": true,
-          "is_valid": true,
-          "like_num": 20,
-          "rate": 3,
-          "tags": [
-            "string"
-          ],
-          "teacher": "string",
-          "time": 0,
-          "user_info": {
-            "avatar": octodex,
-            "sid": "string",
-            "username": "电信学子"
-          }
-        },
-      ],
-      "sum": 8
-    }
-    if (time == 0) {
-      return data1
-    } else {
-      return data2
-    }
   }
 
 
@@ -365,6 +61,7 @@ export default class Index extends Component {
       'GET'
     ).then(data =>{
       if(data){
+        console.log(data)
         newComments=newComments.concat(data.data.list)
         Taro.stopPullDownRefresh()
         Taro.hideNavigationBarLoading()
@@ -384,21 +81,35 @@ export default class Index extends Component {
     }
   }
 
+  handleClickContent(event) {
+    this.setState({
+        search: event.detail.value
+    })
+}
+
+
   ChangeTosearch() {
     Taro.navigateTo({
-      url: '/pages/search/index'
+      url: '/pages/search/index?searchInfo=' + this.state.search
     });
   }
 
   ChangeTopost() {
     Taro.navigateTo({
       url: '/pages/postReview/index'
+    },
+);
+  }
+
+  ChangeTodetails(value) {
+    Taro.navigateTo({
+      url: '/pages/courseDetails/courseDetails?courseId=' + value
     });
   }
 
-  ChangeTodetails() {
+  ChangeToCommentsDetails(value) {
     Taro.navigateTo({
-      url: '/pages/courseDetails/courseDetails'
+      url: '/pages/courseCommentsDetails/courseCommentsDetails?id=' + value
     });
   }
 
@@ -406,18 +117,39 @@ export default class Index extends Component {
     console.log("我要举报！！！")
   }
 
-  handleClick() {
+
+  componentDidShow() {
+    this.setState({
+      comments: [],
+      sum: 0,
+      lastId: 0
+    },()=>{
+      Taro.showNavigationBarLoading()
+      this.getComments()
+    })
   }
 
   componentWillMount() {
-    this.setState({})
-    // this.login();
-    console.log(this.state.sum)
     this.getComments();
+  }
+
+  normalTime(timestamp) {
+    var date = new Date(timestamp * 1000);
+    let Y = date.getFullYear() + '-';
+    let M =
+      (date.getMonth() + 1 < 10
+        ? '0' + (date.getMonth() + 1)
+        : date.getMonth() + 1) + '-';
+    let D = date.getDate() + ' ';
+    let h = date.getHours() + ':';
+    let m = date.getMinutes();
+    if (m % 10 == 0) return Y + M + D + h + m + 0;
+    else return Y + M + D + h + m;
   }
 
   render() {
     var bottomFlag = this.state.lastId-1;
+    var isAnonymous = this.state.is_anonymous
     const content = (
       <View
         className='detailsBoxes'
@@ -430,31 +162,40 @@ export default class Index extends Component {
                   <View className='detailsWrapper'>
                     <View className='detailsFirst'>
                       <View>
-                        <Image src={comment.user_info.avatar} className='detailsAvatar'></Image>
+                       {!isAnonymous && <Image src={comment.user_info.avatar} className='detailsAvatar'></Image> }
+                       {isAnonymous && <Image src={Octodex} className='detailsAvatar'></Image> }
                       </View>
                       <View className='detailsFirstInfo'>
-                        <View className='detailsFirstInfo1'>{comment.user_info.username}</View>
-                        <View className='detailsFirstInfo2'>{comment.comment}</View>
+                        {!isAnonymous && <View className='detailsFirstInfo1'>{comment.user_info.username}</View>}
+                        {isAnonymous && <View className='detailsFirstInfo1'>匿名用户</View>}
+                        <View className='detailsFirstInfo2'>{this.normalTime(comment.time)}</View>
                       </View>
                       <View className='detailsFirstIcon'>
                         <MxReport onClick={this.ChangeToReport.bind(this)}></MxReport>
                       </View>
                     </View>
                     <View className='detailsSecond'>
-                      <View className='detailsSecondInfo1' onClick={this.ChangeTodetails.bind(this)}>#{comment.course_name}({comment.teacher})</View>
+                      <View className='detailsSecondInfo1' onClick={this.ChangeTodetails.bind(this,comment.id)}>#{comment.course_name}({comment.teacher})</View>
                         <View className='detailsSecondInfo2'>评价星级：</View>
                         <View className='detailsRate'>
                         <MxRate value={comment.rate}></MxRate>
                         </View>
                     </View>
                     <View className='detailsThird'>
-                      <View className='detailsThirdText'>{comment.content}</View>
+                      <View className='detailsThirdText' onClick={this.ChangeToCommentsDetails.bind(this,comment.id)}>{comment.content}</View>
                     </View>
                     <View className='detailsFourth'>
-                      <MxIcon type='likeBtn' className='detailsFourthIcon1'></MxIcon>
-                      <View>{comment.like_num}</View>
+                      <View className='detailsFourthIcon1'>
+                    <MxLike
+                        theid={comment.id}
+                        islike={comment.is_like}
+                        likenum={comment.like_num}
+                      />
+                      </View>
+                      <View onClick={this.ChangeToCommentsDetails.bind(this,comment.id)}>
                       <MxIcon type='cmmtBtn' className='detailsFourthIcon2'></MxIcon>
                       <View>{comment.comment_num}</View>
+                      </View>
                     </View>
                   </View>
                 </View>
@@ -469,11 +210,18 @@ export default class Index extends Component {
       <View style='display: block'>
         {/* <View className='navigationBox'><View style='margin-top: 66rpx'>评课广场</View></View> */}
         <View className='chooseBox'>
-          <View className='chooseSearchBack' onClick={this.ChangeTosearch.bind(this)}>
-            <MxIcon type='search' className='chooseSearch' width='32px' height='32px'></MxIcon>
+          <View className='chooseInput'>
+          <MxInput
+          leftSrc='../../../assets/svg/searchicon.svg'leftSize='20px' width='670rpx' height='72rpx' background='rgba(241,240,245,1)'
+          radius='36rpx'
+          width='550rpx'
+          onClick={this.ChangeTosearch.bind(this)}
+          onInput={this.handleClickContent.bind(this)}
+          > 
+          </MxInput>
           </View>
-          <View onClick={this.ChangeTopost.bind(this)}>
-            <MxIcon type='add' className='chooseAdd' width='40p2' width='40p2'></MxIcon>
+          <View onClick={this.ChangeTopost.bind(this)} className='chooseAdd'>
+            <MxIcon type='add'  width='40p2' width='40p2'></MxIcon>
           </View>
         </View>
         {content}    

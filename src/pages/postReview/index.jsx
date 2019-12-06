@@ -44,7 +44,7 @@ export default class Index extends Component {
     }
 
     handleChangeCheck(value) {
-        if(value=='ture'){
+        if(value=='true'){
         this.setState({
             checkedList: value,
             is_anonymous: true
@@ -132,6 +132,7 @@ export default class Index extends Component {
             "rate": this.state.value,
             "tags": this.state.tags
         }
+        console.log(post)
             Fetch(
                 'api/v1/evaluation',
                 post,
