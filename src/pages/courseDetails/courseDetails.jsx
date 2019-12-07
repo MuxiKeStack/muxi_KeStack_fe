@@ -228,7 +228,7 @@ export default class Coursedetails extends Component {
       'GET'
     ).then(data => {
       if (data) {
-        console.log(data.data);
+        // console.log(data.data);
         this.setState({
           hotList: data.data.hot_list,
           normalList: data.data.normal_list,
@@ -240,6 +240,11 @@ export default class Coursedetails extends Component {
       'token',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
     );
+    // Fetch('api/v1/course/using/112d34testsvggase/', {}, 'GET').then(data => {
+    //   if (data) {
+    //     console.log(data.data);
+    //   }
+    // });
   }
 
   componentWillUnmount() {}
@@ -541,6 +546,11 @@ export default class Coursedetails extends Component {
                       </View>
                       <View className="time">{this.normalTime(item.time)}</View>
                     </View>
+                    <MxIcon
+                      type="arrowD"
+                      width="50"
+                      className="report"
+                    ></MxIcon>
                   </View>
                   <View className="courseInfo">
                     <View className="courseName">
@@ -564,10 +574,7 @@ export default class Coursedetails extends Component {
                         width="43"
                         type="cmmtBtn"
                         className="commentIcon"
-                        onClick={this.commentPage.bind(
-                          this,
-                          item
-                        )}
+                        onClick={this.commentPage.bind(this, item)}
                       />
                       {item.comment_num}
                     </View>
@@ -600,6 +607,11 @@ export default class Coursedetails extends Component {
                       </View>
                       <View className="time">{this.normalTime(item.time)}</View>
                     </View>
+                    <MxIcon
+                      type="arrowD"
+                      width="50"
+                      className="report"
+                    ></MxIcon>
                   </View>
                   <View className="courseInfo">
                     <View className="courseName">

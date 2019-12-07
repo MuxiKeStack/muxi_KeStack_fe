@@ -42,12 +42,16 @@ page{
 }
 .ancestorInformation{
     margin-left: 22px;
+    width: 420px;
 }
 .ancestorAvatar{
     vertical-align: top;
 }
 .ancestorAvatar Image{
     @include avatar(80px);
+}
+.report{
+    vertical-align: top;
 }
 .ancestorUsername{
     @include username(30px);

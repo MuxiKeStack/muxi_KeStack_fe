@@ -195,6 +195,19 @@ export default class Coursecommentsdetails extends Component {
       });
     }
   }
+  toReport(content, id) {
+    Fetch(
+      'api/v1/report/evaluation/' + id + '/',
+      {
+        content: content
+      },
+      'POST'
+    ).then(data => {
+      if (data) {
+        console.log(data.data);
+      }
+    });
+  }
   render() {
     const {
       ancestor,
@@ -222,6 +235,12 @@ export default class Coursecommentsdetails extends Component {
               <View className="ancestorTime">
                 {this.normalTime(ancestor.time)}
               </View>
+            </View>
+            <View
+              className="report"
+              onClick={this.toReport.bind(this, ancestor.content, ancestor.id)}
+            >
+              <MxIcon type="arrowD" width="50" />
             </View>
           </View>
           <View className="courseInformationBox">

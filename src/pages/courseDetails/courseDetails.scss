@@ -220,14 +220,17 @@ View{
 }
 .infoDetail{
     margin-left: 22px;
-    width: 480px;
+    width: 420px;
 }
 .username{
-    @include one_line_ellipsis(450px);
+    @include one_line_ellipsis(400px);
 }
 .time{
     color: #A1A4AE;
     font-size: 22px;
+}
+.report{
+    vertical-align: top;
 }
 .courseInfo{
     color: $violet;

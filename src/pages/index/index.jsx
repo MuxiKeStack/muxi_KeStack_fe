@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { View, Textarea, Text, ScrollView } from '@tarojs/components';
 import './index.scss';
 import Test from '../../components/page/test/Test';
+import MxIcon from '../../components/common/MxIcon/index';
 
 export default class Index extends Component {
   constructor() {
@@ -34,6 +35,12 @@ export default class Index extends Component {
     console.log('传值成功啦');
     console.log(this.state.value);
   }
+  toTop() {
+    Taro.pageScrollTo({
+      scrollTop: 0,
+      duration: 300
+    })
+  }
   render() {
     return (
       <View>
@@ -41,8 +48,20 @@ export default class Index extends Component {
           value={this.state.value}
           onItemChange={this.onItemChange.bind(this)}
         />
-        <Textarea placeholder='回复:' maxlength={-1} style="overflow-y:scroll"/>
-        
+        <View className="test"></View>
+        <View className="test"></View>
+        <View className="test"></View>
+        <View className="test"></View>
+        <View className="test"></View>
+        <View className="test"></View>
+        <View className="test"></View>
+        <View className="test"></View>
+        <View className="test"></View>
+        <View className="test"></View>
+        <View className="test"></View>
+        <View className="test"></View>
+        <View className="test"></View>
+        <View className="top" onClick={this.toTop}></View>
       </View>
     );
   }
