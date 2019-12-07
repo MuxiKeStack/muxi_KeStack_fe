@@ -34,11 +34,14 @@ export default class Index extends Component {
       value
     })
   }
-  componentWillMount () { }
+  componentWillMount () {
+    console.log(this.$router.params)
+  }
 
   componentDidMount () { }
 
   componentWillUnmount () {}
+
   componentDidShow () { }
 
   componentDidHide () { }

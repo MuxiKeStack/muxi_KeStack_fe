@@ -135,6 +135,7 @@ export default class Coursedetails extends Component {
     console.log(this.state.normalList);
   }
   componentWillMount() {
+    console.log(this.$router.params)
     var attendance1 = '30';
     var attendance2 = '60';
     var attendance3 = '10';

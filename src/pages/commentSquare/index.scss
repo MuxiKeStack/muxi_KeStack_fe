@@ -17,13 +17,14 @@ View {
     font-family: 'PingFangSC-Regular, sans-serif';
 }
 .chooseBox{
+    display: block;
     top: 0rpx;
     position: fixed;
     height: 98rpx;
     width: 750rpx;
     background:rgba(255,255,255,1);
     box-shadow:0rpx 4rpx 7rpx rgba(0,0,0,0.16);
-    z-index: 2;
+    z-index: 100;
 }
 .chooseSearchBack{
     margin: 13rpx 0rpx 0rpx 32rpx;
@@ -31,12 +32,19 @@ View {
     height:72rpx;
     background:rgba(241,240,245,1);
     border-radius:36rpx;
+    z-index: 100;
+}
+.chooseInput{
+    margin-top:9rpx;
+    margin-left:32rpx;
+    position: absolute;
 }
 .chooseSearch{
     margin: 20rpx 0rpx 0rpx 16rpx;
 }
 .chooseAdd{
-    margin: 15rpx 0rpx 0rpx 38rpx;
+    margin-top: 23rpx;
+    margin-left: 650rpx;
 }
 
 .detailsBoxes {
@@ -129,13 +137,18 @@ View {
     margin-top: 24rpx;
 }
 .detailsThirdText {
+    display: -webkit-box;
     font-size: 24rpx;
-    width: 528rpx;
+    width: 491rpx;
+    height: 67rpx;
     color: #070707;
     font-family: 'PingFang SC';
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    word-wrap: breka-word;
+    white-space: normal ! important;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 .detailsFourth {
     display: block;

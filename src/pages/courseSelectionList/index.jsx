@@ -4,6 +4,7 @@ import './index.scss'
 import MxCard from '../../components/common/MxCard'
 import MxRate from '../../components/common/MxRate/MxRate'
 import MxIcon from '../../components/common/MxIcon'
+import Fetch from '../../service/fetch'
 
 export default class Index extends Component {
 
@@ -64,6 +65,41 @@ export default class Index extends Component {
   handleClick() {
   }
 
+  getLists() {
+    // var that = this;
+    // let newComments = this.state.comments
+    // if(this.state.lastId!=1){
+      console.log('你好')
+    Fetch(
+      'api/v1/course/using/favoritelist',
+      {},
+      'GET'
+    ).then(data =>{
+      if(data){
+        console.log(data)
+      }
+    })
+    // .then(data =>{
+    //   if(data){
+    //     newComments=newComments.concat(data.data.list)
+    //     Taro.stopPullDownRefresh()
+    //     Taro.hideNavigationBarLoading()
+    //     that.setState({
+    //       comments: newComments,
+    //       sum: data.data.sum,
+    //       lastId: data.data.list[data.data.sum-1].id
+    //     })
+    //   }
+    // })} else {
+    //   Taro.showToast({
+    //     title: '到底啦！',
+    //     duration: 2000
+    //   })
+    //   Taro.stopPullDownRefresh()
+    //   Taro.hideNavigationBarLoading()
+    // }
+  }
+
   handleChangeCourse = e => {
     this.setState({
       courseChecked: this.course[e.detail.value]
@@ -80,7 +116,9 @@ export default class Index extends Component {
     });
   };
 
-  componentWillMount() { }
+  componentWillMount() {
+    this.getLists()
+   }
 
   componentDidMount() { }
 
@@ -98,7 +136,7 @@ export default class Index extends Component {
       this.state.datas.map((data) => {
         return(
           <View className='detailsBox'>
-        <MxCard className='detailsCard'>
+        <View className='detailsCard'>
           <View className='detailsLeft'>
             <View>{data.courseName}</View>
             <View style='display: block'>{data.name}</View>
@@ -122,7 +160,7 @@ export default class Index extends Component {
               </View>
             </View>
           </View>
-        </MxCard>
+        </View>
       </View>
         )
       })
@@ -132,16 +170,7 @@ export default class Index extends Component {
       
     return (
       <View style='display:block'>
-        <View className='chooseBox'>
-          <View>
-            <MxIcon type='triangle' className='chooseTri' />
-            <View className='chooseText'>选课清单</View>
-          </View>
-        </View>
-        
-        <View className='detailsBoxes'>
           {content}
-        </View>
       </View>
     )
   }

@@ -64,7 +64,7 @@ class MxInput extends Component {
     return (
       <View style={css.box} className="box">
         {left && (
-          <Image style={css.left} src={leftSrc} onClick={this.props.onClick}></Image>
+          <Image style={css.left} src={leftSrc} onClick={onClick}></Image>
         )}
         <Input
           style={css.input}
@@ -75,8 +75,8 @@ class MxInput extends Component {
           onBlur={onBlur}
           onConfirm={onConfirm}
         />
-        {right && (
-          <Image style={css.right} src={rightSrc} onClick={this.props.onClick} />
+        {right && (                           
+          <Image style={css.right} src={rightSrc} onClick={onClick} /> 
         )}
       </View>
     );

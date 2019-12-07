@@ -1,7 +1,6 @@
 
 
 .at-accordion__content--inactive {
-    position: absolute;
     visibility: hidden;
     height: 0;
     z-index: -10;
@@ -50,6 +49,7 @@
     width: 100%;
     min-height: 32rpx;
     font-size: 32rpx;
+    height: 40rpx;
 }
 
 
@@ -66,9 +66,6 @@
     border-bottom-width: 1PX;
 }
 
-.at-accordion__header:active {
-    background-color: #F0F0F0;
-}
 
 .at-accordion__header--noborder::after {
     display: none;
@@ -88,6 +85,6 @@
     text-align: center;
     width: 120rpx;
     font-size: 25rpx;
-    height: 41rpx;
-    line-height: 41rpx;
+    height: 50rpx;
+    line-height: 50rpx;
 }

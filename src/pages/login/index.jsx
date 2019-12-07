@@ -199,7 +199,7 @@ export default class Index extends Component {
         <View className={this.state.mask_bg}></View>
         <View className={this.state.mask_name}>
         <Button class='bottom' open-type="getUserInfo" onGetUserInfo={this.getUserInfo.bind(this)} onClick={this.handleSave.bind(this)}>
-         授权登录
+         授权登陆
         </Button>
         </View>
         </View>

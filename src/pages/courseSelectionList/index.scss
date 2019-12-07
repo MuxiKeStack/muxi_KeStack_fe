@@ -1,3 +1,6 @@
+Page {
+    background-color: rgba(241,240,245,1);
+}
 View {
     display: inline-block;
 }
@@ -5,57 +8,64 @@ View {
     display: block;
     background: #B3B3B3;
     width: 100%;
-    padding: 48px 92px 48px 35px;
+    padding: 48rpx 92rpx 48rpx 35rpx;
 }
 .chooseTri {
-    margin-left: 50px;;
+    margin-left: 50rpx;;
 }
 .chooseText {
-    font-size: 40px;
-    margin-left: 100px;
+    font-size: 40rpx;
+    margin-left: 100rpx;
 }
 
 .detailsBoxes {
     display: inline;
     overflow: scroll;
 }
-.detailsBox {
+.detailsBox:last-child {
     display: block;
-    height: 45px;
+    width: 750rpx;
+    margin: 37rpx 0rpx;
+}
+.detailsBox {
+    margin-top: 37rpx;
+    display: block;
+    width: 750rpx;
+    height: 300rpx;
 }
 .detailsCard {
-    width: 100%;
-    height: 200px;
-    padding: 28px 92px 48px 35px;
+    height: 300rpx;
+    width: 711rpx;
+    margin-left: 21rpx;
+    position: relative;
+    background:rgba(255,255,255,1);
+    border-radius: 20rpx;
 }
 .detailsLeft {
-    max-width: 220px;
+    max-width: 220rpx;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     display: inline-block;
     text-align: center;
-    margin-top: 63px;
+    margin-top: 100rpx;
+    margin-left: 25rpx;
     vertical-align: top;
     width: 200px;
 }
 .detailsRight {
     display: inline-block;
-    margin-top: 35px;
-    margin-left: 45px;
+    margin-top: 63rpx;
+    margin-left: 45rpx;
     vertical-align: top;
 }
 .detailsRightDown {
     display: block;
-    margin-top: 12px;
+    margin-top: 12rpx;
     color: rgb(173, 188, 230);
-    font-size: 35px;
+    font-size: 35rpx;
 }
 .detailsText{
-    width: 165px;
+    width: 165rpx;
     word-break:keep-all; 
-}
-.detailsBox {
-    display: block;
-    height: 276px;
 }
