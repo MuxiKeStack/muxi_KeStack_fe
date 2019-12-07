@@ -5,6 +5,8 @@ import { Item } from '../../components/page/List/Item';
 import image from '../../assets/svg/avatar-img.svg';
 import './index.scss';
 import Fetch from '../../service/fetch';
+import MxButton from '../../components/common/MxButton';
+import MxIcon from '../../components/common/MxIcon';
 // import {isLogined} from 'utils/tools'
 // import { courseList} from 'sevices/course'
 // import { serverUrl } from  'utils/config'
@@ -14,7 +16,8 @@ export default class Index extends Component {
     super(props);
     this.state = {
     //   user: { avatar: image, username: 'amybiubiu', sid: '2018214877' }
-    user:{}
+    user:{},
+    readAll:true,
     };
   }
 
@@ -31,7 +34,17 @@ export default class Index extends Component {
                         course: res.info,
                     });
                 });*/
-
+    Fetch('api/v1/message/count/',{},'GET').then(
+      res=> {
+        if(res){
+          if(res.data.count != 0){
+            this.setState({
+              readAll: false,
+            })
+          }
+        }
+      }
+    );
     Fetch('api/v1/user/info', {}, 'GET').then(res => {
       if (res) {
         console.log(res);
@@ -40,7 +53,7 @@ export default class Index extends Component {
           user: res.data
         });
       }
-    });
+    })
   }
 
   ChangeTomycourse() {
@@ -62,13 +75,23 @@ export default class Index extends Component {
     Taro.navigateTo({
       url: '/pages/message/index'
     });
+
+    Fetch('api/v1/message/readall/',{},'POST').then(
+      res=>{
+        if(res){
+          this.setState({
+            readAll:true,
+          });
+        }
+      }
+    )
   }
   handleLogin() {}
   componentWillUnmount() {}
 
   componentDidHide() {}
   render() {
-    const { user } = this.state;
+    const { user,readAll } = this.state;
     const rootStyle = {
       // width: `${Taro.pxTransform(164)}`,
       // height: `${Taro.pxTransform(164)}`,
@@ -88,6 +111,12 @@ export default class Index extends Component {
               {user.username}
             </View>
             <View className="sid">{user.sid}</View>
+          </View>
+          <View className='change-user-info' 
+                onClick={() =>
+                  Taro.navigateTo({ url: '/pages/changeUserInfo/index' })
+                }>
+            <MxIcon type='arrowR' width='50' height='50' ></MxIcon>
           </View>
         </View>
         <View className="home_page_list-title">MY PROJECT</View>
@@ -111,6 +140,7 @@ export default class Index extends Component {
             onClick={this.ChangeTocourseSelectionList.bind(this)}
           ></Item>
           <Item
+            hasNew={readAll}
             iconType="message"
             title="消息提醒"
             extraText="MESSAGE REMINDER"

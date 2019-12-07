@@ -25,6 +25,14 @@ export default class Item extends Component {
 
         return (
             <View className={rootClass} onClick={this.handleClick} >
+                {hasNew &&(<View className='item-container '>
+                    <View className='icon'> 
+                        <MxIcon type={iconType} width='44' height='45' className='item-icon' /*outerStyle={setIconCenter}*/></MxIcon>
+                    </View>
+                    <Text className='item-title'>{title}</Text>
+                    <MxIcon type='solidC' width='20' height='20'></MxIcon>
+                    <Text className='item-extra'>{extraText}</Text>
+                </View>)}
                 {!hasBgi && (<View className='item-container '>
                     <View className='icon'> 
                         <MxIcon type={iconType} width='44' height='45' className='item-icon' /*outerStyle={setIconCenter}*/></MxIcon>
@@ -49,6 +57,7 @@ Item.defaultProps = {
     extraText: '',
     customStyle: '',
     hasBgi: false,
+    hasNew: false,
     iconType: '',
 }
 Item.propTypes = {
@@ -57,5 +66,6 @@ Item.propTypes = {
     extraText: PropTypes.string,
     customStyle: PropTypes.string,
     hasBgi: PropTypes.bool,
+    hasNew: PropsTypes.bool,
     iconType: PropTypes.string,
 }

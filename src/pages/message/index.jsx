@@ -85,7 +85,7 @@ export default class Index extends Component {
                     course: res.info,
                     });
                 });*/
-        Fetch('message',{},'GET').then(
+        Fetch('ap1/v1/message',{},'GET').then(
             res => {
                 console.log(res),
                 this.setState({
@@ -104,10 +104,10 @@ export default class Index extends Component {
         const { messageList } = this.state;
         return (
             <View className='index'>
-                {messageList.map(message =>{
+                {messageList.map((message,index) =>{
                     var isComment = (message.reply =='')?false:true;
                     return(
-                        <View >
+                        <View key={index}>
                             {message.is_like &&(<View className='card-container'>
                                 <View className='user-info'>
                                     <View className='avatar-container'><Image src={message.user_info.avatar} className='avatar-image'></Image></View>
@@ -140,7 +140,26 @@ export default class Index extends Component {
                                 <View className='course-container'>
                                     <View className='course-name'>{'#'+ message.course_info.course_name} {'('+message.course_info.teacher+')'}</View> {message.course_info.comment}
                                 </View>
-                                <View className='input'><Input placeholder='回复：' placeholderClass='placeholder' className='reply-input'/></View>
+                                <View className='input'><Input placeholder='回复：' 
+                                placeholderClass='placeholder' 
+                                className='reply-input'
+                                confirmType='发送'
+                                onConfirm={
+                                    (e)=>{
+                                    Fetch('api/v1/comment/'+message.course_info.evaluation_id+'/',
+                                    {content: e.target.value,is_anonymous:false,},
+                                    'POST').then(
+                                        res=>{
+                                            console.log(res.data);
+                                            Taro.showToast({
+                                                title: '成功',
+                                                icon: 'success',
+                                                duration: 2000
+                                                })
+                                        }
+                                    )
+                                }}
+                                /></View>
                             </View>)}
                             {!message.is_like && !isComment &&(<View className='card-container'>
                                 <View className='user-info'>
