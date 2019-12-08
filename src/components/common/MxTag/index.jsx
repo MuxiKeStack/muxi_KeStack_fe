@@ -28,7 +28,10 @@ export default class MxTag extends Component {
       padding,
       margin,
       checked,
-      checkable
+      checkable,
+      check,
+      color,
+      backgroud,
     } = this.props;
     const tag = {
       tagStyle: {
@@ -36,7 +39,9 @@ export default class MxTag extends Component {
         'border-radius': `${borderRadius}`,
         'font-size': `${font}`,
         padding: `${padding}`,
-        margin: `${margin}`
+        margin: `${margin}`,
+        'backgroud-color':`${backgroud}`,
+        color:`${color}`
       }
     };
 
@@ -47,7 +52,8 @@ export default class MxTag extends Component {
         className={classNames({
           'tag-checked': this.state.ifChecked && this.props.checkable,
           'tag-unchecked': !this.state.ifChecked && this.props.checkable,
-          'tag-uncheckable': !this.props.checkable
+          'tag-uncheckable': !this.props.checkable,
+          'tag':!this.props.check
         })}
       >
         {this.props.children}
@@ -64,5 +70,8 @@ MxTag.defaultProps = {
   borderRadius: '34rpx',
   checkable: false,
   checked: false,
+  check:true,
+  backgroud:'',
+  color:'',
   onClick: () => {}
 };

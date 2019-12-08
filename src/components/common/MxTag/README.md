@@ -49,6 +49,13 @@
    <td></td>
    <td>String</td>
  </tr>
+ <tr>
+   <td>check</td>
+   <td>为false时标签为浅灰和深灰样式</td>
+   <td>true</td>
+   <td></td>
+   <td>String</td>
+ </tr>
   <tr>
    <td>onClick</td>
    <td>点击事件</td>
@@ -60,5 +67,6 @@
 
  注释 ：当checked和checkable的为false，为灰白标签
        当checked为false和checkable的为true为点击由灰白变成蓝白
+       当check为false时标签为浅灰和深灰样式
 
  
