@@ -127,7 +127,10 @@ export default class Index extends Component {
                             });
                           },
                           fail:function(res){
-                            console.log("获取用户信息失败");
+                            Taro.showToast({
+                              icon: 'none',
+                              title:'获取用户信息失败'
+                            })
                           }
                         })
                       }else{
@@ -140,7 +143,7 @@ export default class Index extends Component {
                     },
                     fail:function(res){
                       Taro.showToast({
-                        icon: 'success',
+                        icon: 'none',
                         title: '请授权'
                       });
                     }
@@ -150,6 +153,7 @@ export default class Index extends Component {
             break;
           case 20101:
               Taro.showToast({
+                icon: 'none',
                 title:'账号或者密码错误'
               })
             break;
@@ -157,6 +161,7 @@ export default class Index extends Component {
       });
     } else {
       Taro.showToast({
+        icon: 'none',
         title:'账号或密码不能为空'
       })
     }
