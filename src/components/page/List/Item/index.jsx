@@ -66,6 +66,6 @@ Item.propTypes = {
     extraText: PropTypes.string,
     customStyle: PropTypes.string,
     hasBgi: PropTypes.bool,
-    hasNew: PropsTypes.bool,
+    hasNew: PropTypes.bool,
     iconType: PropTypes.string,
 }
