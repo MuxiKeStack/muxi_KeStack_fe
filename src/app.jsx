@@ -41,8 +41,9 @@ class App extends Component {
       'pages/mycourse/index',
       'pages/commentHistory/index',
       'pages/message/index',
+      'pages/changeUserInfo/index',
       'pages/courseSelectionList/index',
-      'pages/index/index'
+      'pages/index/index',
     ],
     window: {
       backgroundTextStyle: 'light',

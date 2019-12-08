@@ -14,15 +14,15 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list:[],
-      last_id:0,
+      list: [],
+      last_id: 0
       // sum: 0,
-      };
-    }
+    };
+  }
   componentWillUnmount() {}
   config = {
     navigationBarTitleText: '评课历史',
-    onReachBottomDistance:50,
+    onReachBottomDistance: 50
   };
 
   componentDidMount() {
@@ -32,65 +32,64 @@ export default class Index extends Component {
                     course: res.info,
                     });
                 });*/
-                
-                      Fetch(
-                        'api/v1/user/evaluations/',
-                        {
-                          limit:'20',
-                        }
-                      ,'GET').then(
-                          res => {
-                              if(res){
-                                  console.log(res.data.list);
-                                  console.log(res.data.list[res.data.list.length-1].id);
-                              this.setState({
-                                  list: res.data.list,
-                                  last_id: res.data.list[res.data.list.length-1].id,
-                              })
-                          }
-                          }
-                      )
+
+    Fetch(
+      'api/v1/user/evaluations/',
+      {
+        limit: '20'
+      },
+      'GET'
+    ).then(res => {
+      if (res) {
+        console.log(res.data.list);
+        console.log(res.data.list[res.data.list.length - 1].id);
+        this.setState({
+          list: res.data.list,
+          last_id: res.data.list[res.data.list.length - 1].id
+        });
+      }
+    });
   }
 
   componentWillUnmount() {}
 
   componentDidHide() {}
-  onReachBottom(){
+  onReachBottom() {
     Fetch(
       'api/v1/user/evaluations/',
       {
-        limit:'10',
-        last_id: this.state.last_id,
+        limit: '10',
+        last_id: this.state.last_id
+      },
+      'GET'
+    ).then(res => {
+      if (res) {
+        console.log(res.data.list);
+        this.setState({
+          list: res.data.list,
+          last_id: this.state.id
+        });
+        if (!res.data.list) Taro.showToast('已经到底啦');
       }
-    ,'GET').then(
-        res => {
-            if(res){
-                console.log(res.data.list);
-                this.setState({
-                list: res.data.list,
-                last_id: this.state.id,
-               })
-               if(!res.data.list)
-                  Taro.showToast("已经到底啦")
-              }
-        }
-    )
+    });
   }
-  handleDelete(index){
+  handleDelete(index) {
     //console.log(id);//
-    console.log(this.state.list[index].id);//
+    console.log(this.state.list[index].id); //
 
-    Fetch('api/v1/evaluation/'+20+'/',{id:20},'DELETE').then(
-      res=>{
-        console.log(res);
-        if(res){
-          Taro.showToast('删除成功');
-        }
+    Fetch(
+      'api/v1/evaluation/' + this.state.list[index].id + '/',
+      { id: this.state.list[index].id },
+      'DELETE'
+    ).then(res => {
+      console.log(res);
+      if (res) {
+        Taro.showToast('删除成功');
       }
-    )
+    });
   }
 
-  toNormalTime(timestamp){
+  toNormalTime(timestamp) {
     var date = new Date(timestamp * 1000);
     let Y = date.getFullYear() + '-';
     let M =
@@ -114,8 +113,7 @@ export default class Index extends Component {
     const { list } = this.state;
     return (
       <View className="index">
-        {list.map((course,index) => {
-          
+        {list.map((course, index) => {
           return (
             <View className="card-container" key={list[index].id}>
               <View className="user-info">
@@ -130,37 +128,52 @@ export default class Index extends Component {
                   <View className="time">{this.toNormalTime(course.time)}</View>
                 </View>
                 <View className="delete-cmmt">
-                {/* key={this.state.list[index].id} */}
-                  <MxIcon type="arrowD" className='arrow'  onClick={this.handleDelete.bind(this,index)} ></MxIcon>
+                  {/* key={this.state.list[index].id} */}
+                  <MxIcon
+                    type="arrowD"
+                    className="arrow"
+                    onClick={this.handleDelete.bind(this, index)}
+                  ></MxIcon>
                 </View>
               </View>
               <View className="course-container">
-                <View className="course-name" onClick={this.ChangeTodetails.bind(this,index)} >
+                <View
+                  className="course-name"
+                  onClick={this.ChangeTodetails.bind(this, index)}
+                >
                   {'#' + course.course_name} {'(' + course.teacher + ')'}{' '}
                 </View>
-                <View className='course-rate'>
+                <View className="course-rate">
                   <View className="rate-text">评价星级:</View>
-                  <View className='rate-icon'><MxRate value={course.rate}></MxRate></View>
+                  <View className="rate-icon">
+                    <MxRate value={course.rate}></MxRate>
+                  </View>
                 </View>
-                <View className='course-comment'>{course.content}</View>
+                <View className="course-comment">{course.content}</View>
               </View>
               <View className="like-and-comment">
-                <MxLike theid={course.id} islike={course.is_like} likenum={course.like_num}></MxLike>
-                <MxIcon type="cmmtBtn" className="comment-icon"
-                onClick={
-                  ()=>{
-                    Fetch('api/v1/comment/'+course.id+'/?id='+course.id,
-                    {
-                       sid:course.user_info.sid,
-                    },
-                    {
-                      content:'巴啦啦小魔仙，变身！',
-                      is_anonymous:false,
-                    }
-                    ,
-                    'POST')
-                  }
-                }></MxIcon>
+                <MxLike
+                  theid={course.id}
+                  islike={course.is_like}
+                  likenum={course.like_num}
+                ></MxLike>
+                <MxIcon
+                  type="cmmtBtn"
+                  className="comment-icon"
+                  onClick={() => {
+                    Fetch(
+                      'api/v1/comment/' + course.id + '/?id=' + course.id,
+                      {
+                        sid: course.user_info.sid
+                      },
+                      {
+                        content: '巴啦啦小魔仙，变身！',
+                        is_anonymous: false
+                      },
+                      'POST'
+                    );
+                  }}
+                ></MxIcon>
                 <View>{course.comment_num}</View>
               </View>
             </View>

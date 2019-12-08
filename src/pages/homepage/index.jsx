@@ -15,9 +15,9 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-    //   user: { avatar: image, username: 'amybiubiu', sid: '2018214877' }
-    user:{},
-    readAll:true,
+      //   user: { avatar: image, username: 'amybiubiu', sid: '2018214877' }
+      user: {},
+      readAll: true
     };
   }
 
@@ -34,17 +34,16 @@ export default class Index extends Component {
                         course: res.info,
                     });
                 });*/
-    Fetch('api/v1/message/count/',{},'GET').then(
-      res=> {
-        if(res){
-          if(res.data.count != 0){
-            this.setState({
-              readAll: false,
-            })
-          }
+    Fetch('api/v1/message/count/', {}, 'GET').then(res => {
+      if (res) {
+        console.log(res.data);
+        if (res.data.count != 0) {
+          this.setState({
+            readAll: false
+          });
         }
       }
-    );
+    });
     Fetch('api/v1/user/info', {}, 'GET').then(res => {
       if (res) {
         console.log(res);
@@ -53,7 +52,7 @@ export default class Index extends Component {
           user: res.data
         });
       }
-    })
+    });
   }
 
   ChangeTomycourse() {
@@ -76,22 +75,20 @@ export default class Index extends Component {
       url: '/pages/message/index'
     });
 
-    Fetch('api/v1/message/readall/',{},'POST').then(
-      res=>{
-        if(res){
-          this.setState({
-            readAll:true,
-          });
-        }
+    Fetch('api/v1/message/readall/', {}, 'POST').then(res => {
+      if (res) {
+        this.setState({
+          readAll: true
+        });
       }
-    )
+    });
   }
   handleLogin() {}
   componentWillUnmount() {}
 
   componentDidHide() {}
   render() {
-    const { user,readAll } = this.state;
+    const { user, readAll } = this.state;
     const rootStyle = {
       // width: `${Taro.pxTransform(164)}`,
       // height: `${Taro.pxTransform(164)}`,
@@ -112,11 +109,13 @@ export default class Index extends Component {
             </View>
             <View className="sid">{user.sid}</View>
           </View>
-          <View className='change-user-info' 
-                onClick={() =>
-                  Taro.navigateTo({ url: '/pages/changeUserInfo/index' })
-                }>
-            <MxIcon type='arrowR' width='50' height='50' ></MxIcon>
+          <View
+            className="change-user-info"
+            onClick={() =>
+              Taro.navigateTo({ url: '/pages/changeUserInfo/index' })
+            }
+          >
+            <MxIcon type="arrowR" width="50" height="50"></MxIcon>
           </View>
         </View>
         <View className="home_page_list-title">MY PROJECT</View>
@@ -140,11 +139,11 @@ export default class Index extends Component {
             onClick={this.ChangeTocourseSelectionList.bind(this)}
           ></Item>
           <Item
-            hasNew={readAll}
+            hasNew={!readAll}
             iconType="message"
             title="消息提醒"
             extraText="MESSAGE REMINDER"
-            hasBgi ={true}
+            hasBgi={true}
             onClick={this.ChangeTomessage.bind(this)}
           ></Item>
         </List>
