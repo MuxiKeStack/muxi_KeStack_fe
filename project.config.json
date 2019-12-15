@@ -1,6 +1,6 @@
 {
 	"miniprogramRoot": "dist/",
-	"projectname": "muxi_stack_fe1",
+	"projectname": "muxi_stack_fe",
 	"description": "",
 	"appid": "touristappid",
 	"setting": {
@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,
