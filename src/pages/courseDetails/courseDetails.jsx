@@ -105,7 +105,7 @@ export default class Coursedetails extends Component {
     const { normalLimit, lastID, nomorecmt } = this.state;
     if (!nomorecmt) {
       Fetch(
-        'api/v1/course/112d34testsvggase/evaluations/',
+        'api/v1/course/history/112d34testsvggase/evaluations/',
         {
           id: '112d34testsvggase',
           limit: normalLimit,
@@ -221,7 +221,7 @@ export default class Coursedetails extends Component {
 
   componentDidMount() {
     Fetch(
-      'api/v1/course/112d34testsvggase/evaluations/',
+      'api/v1/course/history/112d34testsvggase/evaluations/',
       {
         id: '112d34testsvggase',
         hot_limit: '5'
@@ -241,11 +241,11 @@ export default class Coursedetails extends Component {
       'token',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
     );
-    // Fetch('api/v1/course/using/112d34testsvggase/', {}, 'GET').then(data => {
-    //   if (data) {
-    //     console.log(data.data);
-    //   }
-    // });
+    Fetch('api/v1/course/using/112d34testsvggase/', {}, 'GET').then(data => {
+      if (data) {
+        console.log(data.data);
+      }
+    });
   }
 
   componentWillUnmount() {}
