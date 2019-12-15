@@ -127,11 +127,15 @@ export default class Index extends Component {
                             });
                           },
                           fail:function(res){
-                            console.log("获取用户信息失败");
+                            Taro.showToast({
+                              icon: 'none',
+                              title:'获取用户信息失败'
+                            })
                           }
                         })
                       }else{
                         Taro.showToast({
+                          icon: 'none',
                           title:'请授权'
                         })
                       }
@@ -139,6 +143,7 @@ export default class Index extends Component {
                     },
                     fail:function(res){
                       Taro.showToast({
+                        icon: 'none',
                         title: '请授权'
                       });
                     }
@@ -147,12 +152,18 @@ export default class Index extends Component {
             })
             break;
           case 20101:
-            console.log('账号或者密码错误');
+              Taro.showToast({
+                icon: 'none',
+                title:'账号或者密码错误'
+              })
             break;
         }
       });
     } else {
-      console.log('账号或密码不能为空');
+      Taro.showToast({
+        icon: 'none',
+        title:'账号或密码不能为空'
+      })
     }
   }
 
@@ -195,13 +206,11 @@ export default class Index extends Component {
       ><Text className='visitor' onClick={this.ChangeTo.bind(this)}>游客登录</Text></View>
     
         <View className='privacy'><Text className='secret'>隐私条例</Text></View>
-        <View onGetSetting={this.handleMask.bind(this)}>
         <View className={this.state.mask_bg}></View>
         <View className={this.state.mask_name}>
         <Button class='bottom' open-type="getUserInfo" onGetUserInfo={this.getUserInfo.bind(this)} onClick={this.handleSave.bind(this)}>
          授权登陆
         </Button>
-        </View>
         </View>
       </View>
     );

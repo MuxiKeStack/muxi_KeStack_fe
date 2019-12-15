@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 11,
 			"list": [
 				{
 					"id": -1,
@@ -109,6 +109,13 @@
 					"id": -1,
 					"name": "登录",
 					"pathName": "pages/login/index",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "message",
+					"pathName": "pages/message/index",
 					"query": "",
 					"scene": ""
 				}

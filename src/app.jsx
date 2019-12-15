@@ -10,22 +10,23 @@ import './app.scss';
 
 class App extends Component {
   componentDidMount() {
-    Taro.getStorage({
-      key: 'token',
-      success:function(res){
-        Taro.switchTab({
-          url: '/pages/commentSquare/index'
-        })
-      },
-      fail:function(res){
-        Taro.switchTab({
-          url: '/pages/login/index'
-        })
-      }
-    });
+    // Taro.getStorage({
+    //   key: 'token',
+    //   success:function(res){
+    //     Taro.switchTab({
+    //       url: '/pages/commentSquare/index'
+    //     })
+    //   },
+    //   fail:function(res){
+    //     Taro.switchTab({
+    //       url: '/pages/login/index'
+    //     })
+    //   }
+    // });
   }
   config = {
     pages: [
+      
       'pages/login/index',
       'pages/commentSquare/index',
       'pages/search/index',
@@ -40,8 +41,9 @@ class App extends Component {
       'pages/mycourse/index',
       'pages/commentHistory/index',
       'pages/message/index',
+      'pages/changeUserInfo/index',
       'pages/courseSelectionList/index',
-      'pages/index/index'
+      'pages/index/index',
     ],
     window: {
       backgroundTextStyle: 'light',
