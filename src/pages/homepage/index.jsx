@@ -27,7 +27,7 @@ export default class Index extends Component {
 
   componentWillMount() {}
 
-  componentDidMount() {
+  componentDidShow() {
     /*       courseList().then(res => {
                     console.log(res);
                     this.setState({

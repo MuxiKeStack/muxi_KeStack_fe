@@ -26,7 +26,6 @@ class App extends Component {
   }
   config = {
     pages: [
-      
       'pages/login/index',
       'pages/commentSquare/index',
       'pages/search/index',
@@ -43,7 +42,7 @@ class App extends Component {
       'pages/message/index',
       'pages/changeUserInfo/index',
       'pages/courseSelectionList/index',
-      'pages/index/index',
+      'pages/index/index'
     ],
     window: {
       backgroundTextStyle: 'light',
