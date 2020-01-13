@@ -106,6 +106,14 @@ export default class Index extends Component {
         switch (res.code) {
           case 0:
             Taro.setStorage({
+              key: 'sid',
+              data: userid
+            });
+            Taro.setStorage({
+              key: 'password',
+              data: password
+            });
+            Taro.setStorage({
               key: 'token',
               data: res.data.token,
               success: function() {
@@ -192,6 +200,11 @@ export default class Index extends Component {
             onInput={this.changePassword.bind(this)}
           ></MxInput>
         </View>
+        <View className="privacy">
+          <Text className="secret">
+            我已同意《木犀课栈隐私条例》中的所有内容
+          </Text>
+        </View>
         <View className="login">
           <MxButton
             buttomWidth="513rpx"
@@ -209,20 +222,20 @@ export default class Index extends Component {
             游客登录
           </Text>
         </View>
-
-        <View className="privacy">
-          <Text className="secret">隐私条例</Text>
-        </View>
         <View className={this.state.mask_bg}></View>
         <View className={this.state.mask_name}>
-          <View>
+          <View className="authrization">
+            <View className="affirm">小程序授权确认</View>
+            <View className="content">
+              您需要将QQ账号信息授权给“木犀课栈”用以登录
+            </View>
             <Button
               class="bottom"
               open-type="getUserInfo"
               onGetUserInfo={this.getUserInfo.bind(this)}
               onClick={this.handleSave.bind(this)}
             >
-              授权登陆
+              授权登录
             </Button>
           </View>
         </View>

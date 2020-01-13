@@ -1,8 +1,9 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
+import { View, Text, MovableArea, MovableView } from '@tarojs/components';
 import './index.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxInput from '../../components/common/MxInput/MxInput';
+import Fetch from '../../service/fetch';
 
 export default class Index extends Component {
   constructor() {
@@ -166,6 +167,27 @@ export default class Index extends Component {
       animation: animation
     });
   }
+  collect() {
+    let id = '112d34testsvggase';
+    Fetch(
+      `api/v1/course/using/${id}/favorite`,
+      {
+        like_state: false
+      },
+      'PUT'
+    ).then(res => {
+      switch (res.code) {
+        case 0:
+          // eslint-disable-next-line no-undef
+          isCollect = true;
+          break;
+        case 20302:
+          // eslint-disable-next-line no-undef
+          isCollect = false;
+          break;
+      }
+    });
+  }
 
   componentWillUnmount() {}
 
@@ -174,48 +196,66 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
+    const isCollect = this.props.isCollect;
+    let status = null;
+    if (isCollect) {
+      status = <Text>收藏</Text>;
+    } else {
+      status = <Text>已收藏</Text>;
+    }
     const content = (
       <View className="detailsBoxes">
         {this.state.datas.map(data => {
           return (
             // eslint-disable-next-line react/jsx-key
-            <View className="detailsBox">
+            <View className="mx-card">
+              <MovableArea className="cardm">
+                <MovableView
+                  damping="100"
+                  out-of-bounds="true"
+                  direction="horizontal"
+                  className="card"
+                  onTouchStart={this.touchstart.bind(this)}
+                  onTouchEnd={this.touchmove.bind(this)}
+                  animation={this.state.animation}
+                  onClick={this.ChangeTodetails.bind(this)}
+                >
+                  <View className="blue">
+                    <View className="star">
+                      <MxRate
+                        value={this.state.value}
+                        onChange={this.handleChange.bind(this)}
+                        readOnly
+                      />
+                    </View>
+                    <View className="word">评价人数：</View>
+                    <View className="people">{data.people}</View>
+                  </View>
+                  <View className="user-info">
+                    <View className="class">{data.text}</View>
+                    <View className="teacher">{data.teacher}</View>
+                  </View>
+                  <View className="tag">
+                    <View className="tag1">
+                      <Text>{data.tag1}</Text>
+                    </View>
+                    <View className="tag2">
+                      <Text>{data.tag2}</Text>
+                    </View>
+                    <View className="tag3">
+                      <Text>{data.tag3}</Text>
+                    </View>
+                    <View className="tag4">
+                      <Text>{data.tag4}</Text>
+                    </View>
+                  </View>
+                </MovableView>
+              </MovableArea>
               <View
-                onTouchStart={this.touchstart.bind(this)}
-                onTouchEnd={this.touchmove.bind(this)}
-                animation={this.state.animation}
-                className="mx-card"
-                onClick={this.ChangeTodetails.bind(this)}
+                className="itemDelete right"
+                onClick={this.collect.bind(this)}
               >
-                <View className="blue">
-                  <View className="star">
-                    <MxRate
-                      value={this.state.value}
-                      onChange={this.handleChange.bind(this)}
-                      readOnly
-                    />
-                  </View>
-                  <View className="word">评价人数：</View>
-                  <View className="people">{data.people}</View>
-                </View>
-                <View className="user-info">
-                  <View className="class">{data.text}</View>
-                  <View className="teacher">{data.teacher}</View>
-                </View>
-                <View className="tag">
-                  <View className="tag1">
-                    <Text>{data.tag1}</Text>
-                  </View>
-                  <View className="tag2">
-                    <Text>{data.tag2}</Text>
-                  </View>
-                  <View className="tag3">
-                    <Text>{data.tag3}</Text>
-                  </View>
-                  <View className="tag4">
-                    <Text>{data.tag4}</Text>
-                  </View>
-                </View>
+                {status}
               </View>
             </View>
           );
