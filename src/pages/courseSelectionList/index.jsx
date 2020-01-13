@@ -10,11 +10,17 @@ export default class Index extends Component {
 
   config = {
     navigationBarTitleText: '选课清单',
+    enablePullDownRefresh: true,
+    onReachBottomDistance: 80
   }
 
   constructor() {
     super(...arguments);
     this.state = {
+      Lists: [],
+      sum: 0,
+      lastId: 0,
+
       datas: [
         {
           courseName: '线性代数B',
@@ -66,57 +72,68 @@ export default class Index extends Component {
   }
 
   getLists() {
-    // var that = this;
-    // let newComments = this.state.comments
-    // if(this.state.lastId!=1){
-      console.log('你好')
+    console.log('拉取数据')
+    let newLists= this.state.Lists
     Fetch(
-      'api/v1/course/using/favoritelist',
-      {},
+      'api/v1/collection',
+      {
+      limit: 4,
+      last_id: this.state.lastId
+      },
       'GET'
     ).then(data =>{
-      if(data){
-        console.log(data)
+      console.log(data)
+      console.log(this.state.lastId)
+      if(data.data.list!=null){
+        if(this.state.lastId!=0){
+          newLists = newLists.concat(data.data.list)
+          Taro.stopPullDownRefresh()
+          Taro.hideNavigationBarLoading()
+          this.setState({
+            Lists: newLists,
+            sum: data.data.sum,
+            lastId: data.data.list[data.data.sum-1].id
+          })
+        } else {
+          Taro.stopPullDownRefresh()
+          Taro.hideNavigationBarLoading()
+          this.setState({
+            Lists: data.data.list,
+            sum: data.data.sum,
+            lastId: data.data.list[data.data.sum-1].id
+          })
+        }
+        }else {
+          Taro.showToast({
+            title: '到底啦！',
+            duration: 2000
+          })
+          Taro.stopPullDownRefresh()
+          Taro.hideNavigationBarLoading()
+        }
       }
+    )
+}
+
+  onPullDownRefresh() {
+    this.setState({
+      sum: 0,
+      lastId: 0
+    }, ()=>{
+      Taro.showNavigationBarLoading()
+      this.getLists()
     })
-    // .then(data =>{
-    //   if(data){
-    //     newComments=newComments.concat(data.data.list)
-    //     Taro.stopPullDownRefresh()
-    //     Taro.hideNavigationBarLoading()
-    //     that.setState({
-    //       comments: newComments,
-    //       sum: data.data.sum,
-    //       lastId: data.data.list[data.data.sum-1].id
-    //     })
-    //   }
-    // })} else {
-    //   Taro.showToast({
-    //     title: '到底啦！',
-    //     duration: 2000
-    //   })
-    //   Taro.stopPullDownRefresh()
-    //   Taro.hideNavigationBarLoading()
-    // }
   }
 
-  handleChangeCourse = e => {
-    this.setState({
-      courseChecked: this.course[e.detail.value]
-    });
-  };
-  handleChangeFilterA = e => {
-    this.setState({
-      filterAChecked: this.filterA[e.detail.value]
-    });
-  };
-  handleChangeFilterB = e => {
-    this.setState({
-      filterBChecked: this.filterB[e.detail.value]
-    });
-  };
+  onReachBottom() {
+    Taro.showNavigationBarLoading()
+    this.getLists()
+  }
+
+
 
   componentWillMount() {
+    console.log("啦啦啦")
     this.getLists()
    }
 
@@ -129,34 +146,33 @@ export default class Index extends Component {
   componentDidHide() { }
 
   render() {
-    const rate = 3
     const content = (
     <View className='detailsBoxes'>
       {
-      this.state.datas.map((data) => {
+      this.state.Lists.map((data) => {
         return(
           <View className='detailsBox'>
         <View className='detailsCard'>
           <View className='detailsLeft'>
-            <View>{data.courseName}</View>
-            <View style='display: block'>{data.name}</View>
+            <View>{data.course_name}</View>
+            <View style='display: block'>{data.teacher}</View>
           </View>
           <View className='detailsRight'>
             <View>
               <MxRate
                 comment={false}
-                value={rate}>
+                value={data.rate}>
               </MxRate>
-              <View>评价人数：{data.numOfCommenters}</View>
+              <View>评价人数：{data.evaluation_num}</View>
             </View>
             <View className='detailsRightDown'>
               <View style='display:block'>
-                <View className='detailsText'>{data.tag1}</View>
-                <View className='detailsText'>{data.tag2}</View>
+                <View className='detailsText'>{data.tags[0]}</View>
+                <View className='detailsText'>{data.tags[1]}</View>
               </View>
               <View style='display:block'>
-                <View className='detailsText'>{data.tag3}</View>
-                <View className='detailsText'>{data.tag4}</View>
+                <View className='detailsText'>{data.tags[2]}</View>
+                <View className='detailsText'>{data.tags[3]}</View>
               </View>
             </View>
           </View>
