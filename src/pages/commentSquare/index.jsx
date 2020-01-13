@@ -123,8 +123,29 @@ export default class Index extends Component {
     });
   }
 
-  ChangeToReport() {
+  ChangeToReport(id) {
+    console.log(id)
     console.log("我要举报！！！")
+    Fetch(
+      `api/v1/evaluation/${id}/report`,
+      {},
+      'POST'
+    ).then(data =>{
+      console.log(data)
+      if(data.data.fail==true){
+        if(data.data.reason=="You have been reported this evaluation!"){
+        Taro.showToast({
+          title: '不要重复举报哟!',
+          icon: 'none'
+        })
+      }
+      } else {
+        Taro.showToast({
+          title: '举报成功！',
+          icon: 'success'
+        })
+      }
+    })
   }
 
 
@@ -182,7 +203,7 @@ export default class Index extends Component {
                         <View className='detailsFirstInfo2'>{this.normalTime(comment.time)}</View>
                       </View>
                       <View className='detailsFirstIcon'>
-                        <MxReport onClick={this.ChangeToReport.bind(this)}></MxReport>
+                        <MxReport onClick={this.ChangeToReport.bind(this,comment.id)}></MxReport>
                       </View>
                     </View>
                     <View className='detailsSecond'>
