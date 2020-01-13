@@ -174,6 +174,8 @@ export default class Index extends Component {
     }
 
     componentWillMount() {
+        let userid=Taro.getStorageSync('sid')
+        let upassword=Taro.getStorageSync('password')
         Taro.showLoading({
             title: '收集课程中....'
         })
@@ -190,8 +192,8 @@ export default class Index extends Component {
             }
         })
         let data = {
-            sid: '2018213900',
-            password: 'with'
+            sid: userid,
+            password: upassword
         }
         Fetch(
             'api/v1/user/courses/?year=0&term=0',
