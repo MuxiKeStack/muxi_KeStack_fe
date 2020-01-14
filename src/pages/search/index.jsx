@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, MovableArea, MovableView } from '@tarojs/components';
 import './index.scss';
+import MxTag from '../../components/common/MxTag/index';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxInput from '../../components/common/MxInput/MxInput';
 import Fetch from '../../service/fetch';
@@ -275,6 +276,29 @@ export default class Index extends Component {
               background="rgba(241,240,245,1)"
               radius="36rpx"
             ></MxInput>
+          </View>
+        </View>
+        <View className="label">
+          <View>
+            <Text>通识课：</Text>
+            <MxTag font="28rpx" checkable padding="1rpx 44rpx 1rpx 44rpx">
+              通必
+            </MxTag>
+            <MxTag font="28rpx" checkable padding="1rpx 44rpx 1rpx 44rpx">
+              通核
+            </MxTag>
+            <MxTag font="28rpx" checkable padding="1rpx 44rpx 1rpx 44rpx">
+              通选
+            </MxTag>
+          </View>
+          <View>
+            <Text>通识课：</Text>
+            <MxTag font="28rpx" checkable padding="1rpx 44rpx 1rpx 44rpx">
+              专业主干课
+            </MxTag>
+            <MxTag font="28rpx" checkable padding="1rpx 44rpx 1rpx 44rpx">
+              专业选修课
+            </MxTag>
           </View>
         </View>
         {content}
