@@ -3,6 +3,7 @@ import { View, Text } from '@tarojs/components';
 import './index.scss';
 import MxInput from '../../components/common/MxInput/MxInput';
 import MxFab from '../../components/common/MxFab';
+import MxPicker from '../../components/common/MxPicker'
 
 export default class Index extends Component {
   // eslint-disable-next-line react/sort-comp
@@ -13,6 +14,12 @@ export default class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {
+      kindChecked: "课程性质",
+      checkKind: ['通识必修课','通识选修课','通识核心课','专业必修课','专业选修课'],
+      timeChecked: "上课时间",
+      checkTime: ['周一','周二','周三','周四','周五'],
+      placeChecked: "上课地点",
+      checkPlace: ['本校','南湖'],
       // eslint-disable-next-line react/no-unused-state
       value: 5,
       datas: [
@@ -63,15 +70,38 @@ export default class Index extends Component {
     });
   }
 
-  componentWillMount() {}
 
-  componentDidMount() {}
+  handleChangeKind = e => {
+    this.setState({
+        kindChecked: this.state.checkKind[e.detail.value],
+    },()=>{
+      console.log(this.state.kindChecked)
+    });
+  };
+  handleChangeTime = e => {
+    this.setState({
+        timeChecked: this.state.checkTime[e.detail.value],
+    },()=>{
+      console.log(this.state.timeChecked)
+    });
+};
+handleChangePlace = e => {
+  this.setState({
+      placeChecked: this.state.checkPlace[e.detail.value],
+  },()=>{
+    console.log(this.state.placeChecked)
+  });
+};
 
-  componentWillUnmount() {}
+  componentWillMount() { }
 
-  componentDidShow() {}
+  componentDidMount() { }
 
-  componentDidHide() {}
+  componentWillUnmount() { }
+
+  componentDidShow() { }
+
+  componentDidHide() { }
 
   render() {
     const content = (
@@ -119,6 +149,34 @@ export default class Index extends Component {
               background="rgba(241,240,245,1)"
               radius="36rpx"
             ></MxInput>
+            <MxPicker
+              selectorChecked={this.state.kindChecked}
+              selector={this.state.checkKind}
+              width='170rpx'
+              onChange={this.handleChangeKind.bind(this)}
+              className='choicePicker'
+            />
+            <MxPicker
+              selectorChecked={this.state.timeChecked}
+              selector={this.state.checkTime}
+              width='170rpx'
+              onChange={this.handleChangeTime.bind(this)}
+              className='choicePicker'
+            />
+            <MxPicker
+              selectorChecked={this.state.timeChecked}
+              selector={this.state.checkTime}
+              width='170rpx'
+              onChange={this.handleChangeTime.bind(this)}
+              className='choicePicker'
+            />
+            <MxPicker
+              selectorChecked={this.state.placeChecked}
+              selector={this.state.checkPlace}
+              width='170rpx'
+              onChange={this.handleChangePlace.bind(this)}
+              className='choicePicker'
+            />
           </View>
         </View>
         {content}
