@@ -43,36 +43,36 @@ class App extends Component {
       'pages/changeUserInfo/index',
       'pages/courseSelectionList/index',
       'pages/index/index'
-    ]
-    // window: {
-    //   backgroundTextStyle: 'light',
-    //   navigationBarBackgroundColor: '#fff',
-    //   navigationBarTitleText: 'WeChat',
-    //   navigationBarTextStyle: 'black'
-    // },
-    //  tabBar: {
-    //    list: [
-    //      {
-    //        pagePath: 'pages/commentSquare/index',
-    //        iconPath: './assets/svg/cmmt-squaG.svg',
-    //        selectedIconPath: './assets/svg/cmmt-squa.svg'
-    //      },
-    //      {
-    //        pagePath: 'pages/courseAssistant/index',
-    //        iconPath: './assets/svg/shelperG.svg',
-    //        selectedIconPath: './assets/svg/shelper.svg'
-    //      },
-    //      {
-    //        pagePath: 'pages/homepage/index',
-    //        iconPath: './assets/svg/user-infoG.svg',
-    //        selectedIconPath: './assets/svg/user-info.svg'
-    //      }
-    //    ],
-    //    color: '#CACACA',
-    //    selectedColor: '#7273F7',
-    //    backgroundColor: '#ffffff',
-    //    borderStyle: 'white'
-    //  }
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: 'WeChat',
+      navigationBarTextStyle: 'black'
+    },
+    tabBar: {
+      list: [
+        {
+          pagePath: 'pages/commentSquare/index',
+          iconPath: './assets/svg/cmmt-squaG.svg',
+          selectedIconPath: './assets/svg/cmmt-squa.svg'
+        },
+        {
+          pagePath: 'pages/courseAssistant/index',
+          iconPath: './assets/svg/shelperG.svg',
+          selectedIconPath: './assets/svg/shelper.svg'
+        },
+        {
+          pagePath: 'pages/homepage/index',
+          iconPath: './assets/svg/user-infoG.svg',
+          selectedIconPath: './assets/svg/user-info.svg'
+        }
+      ],
+      color: '#CACACA',
+      selectedColor: '#7273F7',
+      backgroundColor: '#ffffff',
+      borderStyle: 'white'
+    }
   };
 
   // 在 App 类中的 render() 函数没有实际作用

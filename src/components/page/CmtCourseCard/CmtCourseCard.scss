@@ -5,10 +5,6 @@ $lightgrey:#D8D8D8;
 page{
     background-color: #F7F7F7;
 }
-View{
-    display: inline-block;
-    font-size: 32px;
-}
 @mixin one_line_ellipsis($width_ellipsis){
     width: $width_ellipsis;
     overflow: hidden;
@@ -232,6 +228,11 @@ View{
 .report{
     vertical-align: top;
     position: relative;
+}
+.reportBlock{
+    background-color: red;
+    position: absolute;
+    transition: height 2s;
 }
 .courseInfo{
     color: $violet;

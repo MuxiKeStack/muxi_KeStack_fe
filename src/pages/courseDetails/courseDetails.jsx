@@ -6,6 +6,7 @@ import MxIcon from '../../components/common/MxIcon/index';
 import Fetch from '../../service/fetch';
 import MxLike from '../../components/page/MxLike/MxLike';
 import MxTag from '../../components/common/MxTag/index';
+import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
 
 export default class Coursedetails extends Component {
   constructor() {
@@ -105,7 +106,7 @@ export default class Coursedetails extends Component {
     const { normalLimit, lastID, nomorecmt } = this.state;
     if (!nomorecmt) {
       Fetch(
-        'api/v1/course/112d34testsvggase/evaluations/',
+        'api/v1/course/history/112d34testsvggase/evaluations/',
         {
           id: '112d34testsvggase',
           limit: normalLimit,
@@ -135,7 +136,7 @@ export default class Coursedetails extends Component {
     console.log(this.state.normalList);
   }
   componentWillMount() {
-    console.log(this.$router.params)
+    // console.log(this.$router.params);
     var attendance1 = '30';
     var attendance2 = '60';
     var attendance3 = '10';
@@ -221,7 +222,7 @@ export default class Coursedetails extends Component {
 
   componentDidMount() {
     Fetch(
-      'api/v1/course/112d34testsvggase/evaluations/',
+      'api/v1/course/history/112d34testsvggase/evaluations/',
       {
         id: '112d34testsvggase',
         hot_limit: '5'
@@ -241,9 +242,9 @@ export default class Coursedetails extends Component {
       'token',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
     );
-    // Fetch('api/v1/course/using/112d34testsvggase/', {}, 'GET').then(data => {
+    // Fetch('api/v1/course/using/213f89eyguiguhy/', {}, 'GET').then(data => {
     //   if (data) {
-    //     console.log(data.data);
+    //     console.log(data);
     //   }
     // });
   }
@@ -527,122 +528,14 @@ export default class Coursedetails extends Component {
         <View className="cmtBigBox">
           {hotList &&
             hotList.map(item => {
-              return (
-                <View key={item.id} className="commentCard">
-                  <View className="userInfo">
-                    {item.user_info.avatar ? (
-                      <Image
-                        src={item.user_info.avatar}
-                        className="avatar"
-                        style="width: 80rpx; height: 80rpx"
-                      />
-                    ) : (
-                      <MxIcon type="avatar" width="80rpx" height="80rpx" />
-                    )}
-                    <View className="infoDetail">
-                      <View className="username">
-                        {item.user_info.username
-                          ? item.user_info.username
-                          : '匿名用户'}
-                      </View>
-                      <View className="time">{this.normalTime(item.time)}</View>
-                    </View>
-                    <MxIcon
-                      type="arrowD"
-                      width="50"
-                      className="report"
-                    ></MxIcon>
-                  </View>
-                  <View className="courseInfo">
-                    <View className="courseName">
-                      #{item.course_name}({item.teacher})
-                    </View>
-                    <View className="cmtRateBox">
-                      <MxRate readOnly="true" value={item.rate} />
-                    </View>
-                  </View>
-                  <View className="cmtContent">{item.content}</View>
-                  <View className="cmtIconsBox">
-                    <View className="likeIconBox">
-                      <MxLike
-                        theid={item.id}
-                        islike={item.is_like}
-                        likenum={item.like_num}
-                      />
-                    </View>
-                    <View className="cmtIconBox">
-                      <MxIcon
-                        width="43"
-                        type="cmmtBtn"
-                        className="commentIcon"
-                        onClick={this.commentPage.bind(this, item)}
-                      />
-                      {item.comment_num}
-                    </View>
-                  </View>
-                </View>
-              );
+              return <CmtCourseCard item={item} key={item.id}></CmtCourseCard>;
             })}
         </View>
         <View className="List">全部评论</View>
         <View className="cmtBigBox">
           {normalList &&
             normalList.map(item => {
-              return (
-                <View key={item.id} className="commentCard">
-                  <View className="userInfo">
-                    {item.user_info.avatar ? (
-                      <Image
-                        src={item.user_info.avatar}
-                        className="avatar"
-                        style="width: 80rpx; height: 80rpx"
-                      />
-                    ) : (
-                      <MxIcon type="avatar" width="80rpx" height="80rpx" />
-                    )}
-                    <View className="infoDetail">
-                      <View className="username">
-                        {item.user_info.username
-                          ? item.user_info.username
-                          : '匿名用户'}
-                      </View>
-                      <View className="time">{this.normalTime(item.time)}</View>
-                    </View>
-                    <MxIcon
-                      type="arrowD"
-                      width="50"
-                      className="report"
-                    ></MxIcon>
-                  </View>
-                  <View className="courseInfo">
-                    <View className="courseName">
-                      #{item.course_name}({item.teacher})
-                    </View>
-                    <View className="cmtRateBox">
-                      <MxRate readOnly="true" value={item.rate} />
-                    </View>
-                  </View>
-                  <View className="cmtContent">{item.content}</View>
-                  <View className="cmtIconsBox">
-                    <View className="likeIconBox">
-                      <MxLike
-                        theid={item.id}
-                        islike={item.is_like}
-                        likenum={item.like_num}
-                      />
-                    </View>
-                    <View className="cmtIconBox">
-                      <MxIcon
-                        width="43"
-                        type="cmmtBtn"
-                        className="commentIcon"
-                        onClick={this.commentPage.bind(this, item)}
-                      />
-                      {item.comment_num}
-                    </View>
-                  </View>
-                </View>
-              );
+              return <CmtCourseCard item={item} key={item.id}></CmtCourseCard>;
             })}
         </View>
         {nomorecmt && (

@@ -1,6 +1,6 @@
 {
 	"miniprogramRoot": "dist/",
-	"projectname": "muxi_stack_fe",
+	"projectname": "muxi_stack",
 	"description": "",
 	"appid": "touristappid",
 	"setting": {
@@ -32,90 +32,28 @@
 		"game": {
 			"list": []
 		},
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
-			"current": 1,
+			"current": -1,
 			"list": [
 				{
-					"id": -1,
-					"name": "ring",
-					"pathName": "components/page/Ring/Ring",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": 1,
-					"name": "课程详情",
-					"pathName": "pages/courseDetails/courseDetails",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": 2,
+					"id": 0,
 					"name": "评课详情",
 					"pathName": "pages/courseCommentsDetails/courseCommentsDetails",
 					"query": "",
 					"scene": ""
 				},
 				{
-					"id": -1,
-					"name": "homepage",
-					"pathName": "pages/homepage/index",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": -1,
-					"name": "postReview",
-					"pathName": "pages/postReview/index",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": -1,
-					"name": "myCourse",
-					"pathName": "pages/mycourse/index",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": -1,
-					"name": "搜索查询",
-					"pathName": "pages/search/index",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": 8,
-					"name": "星星",
-					"pathName": "components/common/MxRate/MxRate",
-					"query": "value=‘5’",
-					"scene": ""
-				},
-				{
-					"id": 9,
-					"name": "index",
-					"pathName": "pages/index/index",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": -1,
-					"name": "courseAssistant",
-					"pathName": "pages/courseAssistant/index",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": -1,
-					"name": "登录",
-					"pathName": "pages/login/index",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": -1,
-					"name": "message",
-					"pathName": "pages/message/index",
+					"id": 1,
+					"name": "课程主页",
+					"pathName": "pages/courseDetails/courseDetails",
 					"query": "",
 					"scene": ""
 				}
