@@ -18,7 +18,7 @@
 		"uglifyFileName": true
 	},
 	"compileType": "miniprogram",
-	"qqappid": "1108100302",
+	"qqappid": "1109891254",
 	"scripts": {
 		"beforeCompile": "",
 		"beforePreview": "",
@@ -33,15 +33,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 2,
 			"list": [
-				{
-					"id": -1,
-					"name": "ring",
-					"pathName": "components/page/Ring/Ring",
-					"query": "",
-					"scene": ""
-				},
 				{
 					"id": 1,
 					"name": "课程详情",
@@ -85,20 +78,6 @@
 					"scene": ""
 				},
 				{
-					"id": 8,
-					"name": "星星",
-					"pathName": "components/common/MxRate/MxRate",
-					"query": "value=‘5’",
-					"scene": ""
-				},
-				{
-					"id": 9,
-					"name": "index",
-					"pathName": "pages/index/index",
-					"query": "",
-					"scene": ""
-				},
-				{
 					"id": -1,
 					"name": "courseAssistant",
 					"pathName": "pages/courseAssistant/index",
@@ -123,6 +102,13 @@
 					"id": -1,
 					"name": "change",
 					"pathName": "pages/changeUserInfo/index",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "history",
+					"pathName": "pages/commentHistory/index",
 					"query": "",
 					"scene": ""
 				},

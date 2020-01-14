@@ -70,26 +70,32 @@ export default class Index extends Component {
           list: res.data.list,
           last_id: this.state.id
         });
-        if (!res.data.list) Taro.showToast('已经到底啦');
+        if (!res.data.list)
+          Taro.showToast({
+            title: '已经到底啦',
+            // icon: 'success'
+          });
       }
     });
   }
-  // handleTextClick(index) {
-  //   //console.log(id);//
-  //   console.log(this.state.list[index].id); //
+  handleClick(i) {
+    //console.log(i);//
+    // console.log(this.state.list[index].id);
+    console.log(i);
 
-  //   Fetch(
-  //     'api/v1/evaluation/' + this.state.list[index].id + '/',
-  //     // { id: this.state.list[index].id },
-  //     {},
-  //     'DELETE'
-  //   ).then(res => {
-  //     console.log(res);
-  //     if (res) {
-  //       Taro.showToast('删除成功');
-  //     }
-  //   });
-  // }
+    Fetch(
+      // 'api/v1/evaluation/' + this.state.list[index].id + '/',
+      // { id: this.state.list[index].id },
+      'api/v1/evaluation/' + i + '/',
+      {},
+      'DELETE'
+    ).then(res => {
+      console.log(res);
+      if (res) {
+        Taro.showToast('删除成功');
+      }
+    });
+  }
 
   toNormalTime(timestamp) {
     var date = new Date(timestamp * 1000);
@@ -140,9 +146,11 @@ export default class Index extends Component {
                     onClick={this.handleDelete.bind(this, index)}
                   ></MxIcon> */}
                   <clickUpdiv
-                    // onClick={this.handleTextClick.bind(this, index)}
-                    couserId={course.id}
-                  ></clickUpdiv>
+                    onClick={this.handleClick.bind(this, course.id)}
+                    courseId={course.teacher}
+                    className="sad"
+                    sdi="ahjs"
+                  />
                 </View>
               </View>
               <View className="course-container">
