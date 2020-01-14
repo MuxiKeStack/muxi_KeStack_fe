@@ -4,7 +4,9 @@ import { MxIcon } from '../../components/common/MxIcon';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxLike from '../../components/page/MxLike/MxLike';
 import Img from '../../assets/svg/avatar-img.svg';
-import { clickUpdiv } from '../../components/page/clickUpdiv';
+import clickUpdiv from '../../components/page/clickUpdiv'
+import MxDelete from '../../components/common/MxDelete'
+
 import './index.scss';
 import Fetch from '../../service/fetch';
 // import {isLogined} from 'utils/tools'
@@ -74,22 +76,22 @@ export default class Index extends Component {
       }
     });
   }
-  // handleTextClick(index) {
-  //   //console.log(id);//
-  //   console.log(this.state.list[index].id); //
+  handleTextClick(index) {
+    console.log('suyapeng');//
+    // console.log(this.state.list[index].id); //
 
-  //   Fetch(
-  //     'api/v1/evaluation/' + this.state.list[index].id + '/',
-  //     // { id: this.state.list[index].id },
-  //     {},
-  //     'DELETE'
-  //   ).then(res => {
-  //     console.log(res);
-  //     if (res) {
-  //       Taro.showToast('删除成功');
-  //     }
-  //   });
-  // }
+    // Fetch(
+    //   'api/v1/evaluation/' + this.state.list[index].id + '/',
+    //   // { id: this.state.list[index].id },
+    //   {},
+    //   'DELETE'
+    // ).then(res => {
+    //   console.log(res);
+    //   if (res) {
+    //     Taro.showToast('删除成功');
+    //   }
+    // });
+  }
 
   toNormalTime(timestamp) {
     var date = new Date(timestamp * 1000);
@@ -105,6 +107,36 @@ export default class Index extends Component {
     else return Y + M + D + h + m;
   }
 
+  ChangeToDelete(id){
+    console.log(id)
+    console.log("我要删除！！！")
+    Fetch(
+      `api/v1/evaluation/${id}/`,
+      {},
+      'DELETE'
+    ).then(data =>{
+      console.log(data)
+      if(data.message=="OK"){
+        Taro.showToast({
+              title: '删除成功！',
+              icon: 'success'
+            })
+      }
+      // if(data.data.fail==true){
+      //   if(data.data.reason=="You have been reported this evaluation!"){
+      //   Taro.showToast({
+      //     title: '不要重复举报哟!',
+      //     icon: 'none'
+      //   })
+      // }
+      // } else {
+      //   Taro.showToast({
+      //     title: '举报成功！',
+      //     icon: 'success'
+      //   })
+      // }
+    })
+  }
   // ChangeTodetails(index){
   //   Taro.navigateTo({
   //     url: '/pages/courseDetails/courseDetails/'+course_id +'/?id='+`${course_id}`,
@@ -139,10 +171,7 @@ export default class Index extends Component {
                     className="arrow"
                     onClick={this.handleDelete.bind(this, index)}
                   ></MxIcon> */}
-                  <clickUpdiv
-                    // onClick={this.handleTextClick.bind(this, index)}
-                    couserId={course.id}
-                  ></clickUpdiv>
+                  <MxDelete onClick={this.ChangeToDelete.bind(this,course.id)}></MxDelete>
                 </View>
               </View>
               <View className="course-container">
