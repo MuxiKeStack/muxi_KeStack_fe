@@ -45,54 +45,23 @@ export default class Index extends Component {
                     course: res.info,
                     });
                 });*/
-    var Y=0;
-    var T;
-    switch (this.state.selectorCheckedT) {
-      case '第一学期':
-        T = 1;
-        break;
-      case '第二学期':
-        T = 2;
-        break;
-      case '第三学期':
-        T = 3;
-        break;
-      default:
-        T = 0;
-    }
-    switch (this.state.selectorCheckedY) {
-      case this.state.selectoryears[0]:
-        Y = 1;
-        break;
-      case this.state.selectoryears[1]:
-        Y = 2;
-        break;
-      case this.state.selectoryears[2]:
-        Y = 3;
-        break;
-      case this.state.selectoryears[3]:
-        Y = 4;
-        break;
-      default:
-        T = 0;
-    }
     // Fetch('api/v1/login/',{sid:'2018214877',password:'2yuhly0312'},'POST').then(
     //   res =>{
     //     console.log(res.data.token);
     //   }
     // );
-    Fetch(`api/v1/user/courses/?year=${Y}&term=${T}`, {sid:'2018214877',password:'2yuhly0312'}, 'POST')
-      .then(
-        res =>{
-          console.log(res.data.data);
-          if(res.data.data){
-            this.setState({
-              courses: res.data.data,
-            })
-          }
-        }
-      )
-      .catch(err => console.error(err));
+    var sid = '2018214877';
+    var newList = [];
+    var firstYear = sid.slice(0,4);
+    newList.push(firstYear+'-'+parseInt(parseInt(firstYear)+1));
+    newList.push(parseInt(parseInt(firstYear)+1)+'-'+parseInt(parseInt(firstYear)+2));
+    newList.push(parseInt(parseInt(firstYear)+2)+'-'+parseInt(parseInt(firstYear)+3));
+    newList.push(parseInt(parseInt(firstYear)+3)+'-'+parseInt(parseInt(firstYear)+4));
+    this.setState({
+      selectoryears: newList,
+    },()=>{
+      console.log(this.state.selectoryears);
+    })
   }
 
   componentWillUnmount() {}
@@ -101,57 +70,59 @@ export default class Index extends Component {
   handleChangeY = e => {
     this.setState({
       selectorCheckedY: this.state.selectoryears[e.detail.value]
-    });
-    console.log('现在选择的学年'+this.state.selectorCheckedY);//还是上一个时刻的state，setState滞后了在此处；
-    var Y=0;
-    var T;
-    switch (this.state.selectorCheckedT) {
-      case '第一学期':
-        T = 1;
-        break;
-      case '第二学期':
-        T = 2;
-        break;
-      case '第三学期':
-        T = 3;
-        break;
-      default:
-        T = 0;
-    }
-    switch (this.state.selectorCheckedY) {
-      case this.state.selectoryears[0]:
-        Y = 1;
-        break;
-      case this.state.selectoryears[1]:
-        Y = 2;
-        break;
-      case this.state.selectoryears[2]:
-        Y = 3;
-        break;
-      case this.state.selectoryears[3]:
-        Y = 4;
-        break;
-      default:
-        Y = 0;
-    }
-    Fetch(`api/v1/user/courses/?year=${Y}&term=${T}`, {sid:'2018214877',password:'2yuhly0312'}, 'POST')
-      .then(
-        res =>{
-          console.log(res.data.data);
-          if(res.data.data){
-            this.setState({
-              courses: res.data.data,
-            })
+    },()=>{
+      console.log('现在选择的学年'+this.state.selectorCheckedY);//还是上一个时刻的state，setState滞后了在此处；
+      var Y=0;
+      var T;
+      switch (this.state.selectorCheckedT) {
+        case '第一学期':
+          T = 1;
+          break;
+        case '第二学期':
+          T = 2;
+          break;
+        case '第三学期':
+          T = 3;
+          break;
+        default:
+          T = 0;
+      }
+      switch (this.state.selectorCheckedY) {
+        case this.state.selectoryears[0]:
+          Y = this.state.selectoryears[0].slice(0,4);
+          break;
+        case this.state.selectoryears[1]:
+          Y = this.state.selectoryears[1].slice(0,4);
+          break;
+        case this.state.selectoryears[2]:
+          Y = this.state.selectoryears[2].slice(0,4);
+          break;
+        case this.state.selectoryears[3]:
+          Y = this.state.selectoryears[3].slice(0,4);
+          break;
+        default:
+          Y = '0';
+      }
+      Fetch(`api/v1/user/courses/?year=${Y}&term=${T}`, {sid:'2018214877',password:'2yuhly0312'}, 'POST')
+        .then(
+          res =>{
+            console.log(res.data.data);
+            if(res.data.data){
+              this.setState({
+                courses: res.data.data,
+              })
+            }
           }
-        }
-      )
-      .catch(err => console.error(err));
+        )
+        .catch(err => console.error(err));
+    });
+    
   };
   handleChangeT = e => {
     this.setState({
       selectorCheckedT: this.selectorterms[e.detail.value]
-    });
-    var Y=0;
+    },()=>{
+      var Y=0;
     var T;
     switch (this.state.selectorCheckedT) {
       case '第一学期':
@@ -168,19 +139,19 @@ export default class Index extends Component {
     }
     switch (this.state.selectorCheckedY) {
       case this.state.selectoryears[0]:
-        Y = 1;
+        Y = this.state.selectoryears[0].slice(0,4);
         break;
       case this.state.selectoryears[1]:
-        Y = 2;
+        Y = this.state.selectoryears[1].slice(0,4);
         break;
       case this.state.selectoryears[2]:
-        Y = 3;
+        Y = this.state.selectoryears[2].slice(0,4);
         break;
       case this.state.selectoryears[3]:
-        Y = 4;
+        Y = this.state.selectoryears[3].slice(0,4);
         break;
       default:
-        T = 0;
+        Y = '0';
     }
     Fetch(`api/v1/user/courses/?year=${Y}&term=${T}`, {sid:'2018214877',password:'2yuhly0312'}, 'POST')
       .then(
@@ -194,6 +165,7 @@ export default class Index extends Component {
         }
       )
       .catch(err => console.error(err));
+    });  
   };
 
   render() {

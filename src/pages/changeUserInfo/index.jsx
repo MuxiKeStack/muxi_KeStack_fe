@@ -15,8 +15,7 @@ export default class index extends Component {
       username: '',
       avatar: '',
       onfocus: '',
-      file:[],
-
+      file: []
     };
   }
 
@@ -60,58 +59,46 @@ export default class index extends Component {
     params.count = 1;
     params.sizeType = ['original', 'compressed'];
     params.sourceType = ['album', 'camera'];
-      Taro.chooseImage(params)
-        .then(res => {
-          console.log(res);
-          console.log(1);
-          this.setState({
-            avatar: res.tempFilePaths[0],
-            username: 'biu', //本地临时路径,
-            file: res.tempFiles
-          });
-          // Taro.uploadFile({
-          //   url: 'http://kstack.test.muxi-tech.xyz/api/v1/upload/image/', //上传头像的服务器接口
-          //   filePath: this.state.avatar,
-          //   name: 'image',
-          //   formData: {
-          //     image: this.state.avatar
-          //   },
-          //   header: {
-          //     token:
-          //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzUyMDg3MDIsImlkIjoxLCJuYmYiOjE1NzUyMDg3MDJ9.erNdOrNTLCD56D2UW0RmuYGGdfrPuO7hLZdtMtj1CdY'
-          //   },
-          //   success(ress) {
-          //     console.log(ress.data);
-          //     Taro.setStorageSync('image', ress.data.image_url);
-          //   }
-          // }).catch(err => {
-          //   console.error(err);
-          // });
-        })
-        .catch(error => {
-          console.error(error);
+    Taro.chooseImage(params)
+      .then(res => {
+        console.log(res);
+        console.log(1);
+        this.setState({
+          avatar: res.tempFilePaths[0],
+          username: this.state.username, //本地临时路径,
+          file: res.tempFiles
         });
-    }
-      
+        // Taro.uploadFile({
+        //   url: 'http://kstack.test.muxi-tech.xyz/api/v1/upload/image/', //上传头像的服务器接口
+        //   filePath: this.state.avatar,
+        //   name: 'image',
+        //   formData: {
+        //     image: this.state.avatar
+        //   },
+        //   header: {
+        //     token:
+        //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzUyMDg3MDIsImlkIjoxLCJuYmYiOjE1NzUyMDg3MDJ9.erNdOrNTLCD56D2UW0RmuYGGdfrPuO7hLZdtMtj1CdY'
+        //   },
+        //   success(ress) {
+        //     console.log(ress.data);
+        //     Taro.setStorageSync('image', ress.data.image_url);
+        //   }
+        // }).catch(err => {
+        //   console.error(err);
+        // });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   nameChangeHandle(val) {
     this.setState({
       username: val
     });
   }
-
-  onSubmit() {
-    if (this.state.name == '') {
-      Taro.atMessage({
-        message: '标题不能为空',
-        type: 'warning'
-      });
-      return;
-    }
-    //上传数据
-    // Fetch();
-    // var formData = new FormData();
-
-    // formData.append("image", this.state.avatar);
+  fun1(callback) {
+    var picurl;
     Taro.uploadFile({
       url: 'http://kstack.test.muxi-tech.xyz/api/v1/upload/image/', //上传头像的服务器接口
       filePath: this.state.avatar,
@@ -125,20 +112,44 @@ export default class index extends Component {
       },
       success(res) {
         console.log(res.data);
-        Taro.setStorageSync('image', res.data.image_url);
+        // console.log(res.data.url);
+        console.log(JSON.parse(res.data).data.url);
+        Taro.setStorageSync('image', JSON.parse(res.data).data.url);
+        // this.setState({
+        //   avatar: JSON.parse(res.data).data.url
+        // });
+        picurl = JSON.parse(res.data).data.url;
       }
-    }).catch(err => {
-      console.error(err);
     });
+    this.setState({
+      avatar: picurl
+    });
+    callback;
+  } //异步问题仍然没有解决 而且state经常出现未定义的情况 state使用问题有一些多；已经解决
+  fun2() {
     Fetch(
       'api/v1/user/info/',
+      // { username: this.state.username, avatar: Taro.getStorageSync('image') },
       { username: this.state.username, avatar: this.state.avatar },
       'POST'
-    ).then(
-      res =>{
-        console.log(res);
-      }
-    );
+    ).then(ress => {
+      console.log(ress);
+    });
+  }
+  onSubmit() {
+    if (this.state.username == '') {
+      Taro.atMessage({
+        message: '标题不能为空',
+        type: 'warning'
+      });
+      return;
+    }
+    //上传数据
+    // Fetch();
+    // var formData = new FormData();
+
+    // formData.append("image", this.state.avatar);
+    this.fun1(this.fun2());
   }
 
   render() {

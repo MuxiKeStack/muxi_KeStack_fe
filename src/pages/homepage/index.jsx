@@ -44,7 +44,7 @@ export default class Index extends Component {
         }
       }
     });
-    Fetch('api/v1/user/info', {}, 'GET').then(res => {
+    Fetch('api/v1/user/info/', {}, 'GET').then(res => {
       if (res) {
         console.log(res);
         this.setState({

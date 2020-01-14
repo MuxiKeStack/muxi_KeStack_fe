@@ -33,7 +33,7 @@ class MxLike extends Component {
     console.log(this.state.islike);
     var { theid, content } = this.props;
     Fetch(
-      'api/v1/' + content + '/' + theid + '/like',
+      'api/v1/' + content + '/' + theid + '/like/',
       {
         like_state: this.state.islike
       },
@@ -73,7 +73,7 @@ class MxLike extends Component {
           {this.state.islike && (
             <MxIcon
               width={this.props.width}
-              type="check"
+              type="likeBtnS"
               className="commentIcon"
               onClick={this.tolike.bind(this)}
             />

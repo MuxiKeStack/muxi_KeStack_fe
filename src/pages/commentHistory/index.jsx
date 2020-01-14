@@ -72,7 +72,11 @@ export default class Index extends Component {
           list: res.data.list,
           last_id: this.state.id
         });
-        if (!res.data.list) Taro.showToast('已经到底啦');
+        if (!res.data.list)
+          Taro.showToast({
+            title: '已经到底啦',
+            // icon: 'success'
+          });
       }
     });
   }
