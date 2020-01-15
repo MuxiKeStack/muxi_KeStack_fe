@@ -18,7 +18,7 @@ export default class clickUpdiv extends Component {
   //    this.props.onClick(...args);
   // };
   handleIconClick() {
-    console.log('已经点击啦');
+    // console.log('已经点击啦');
     // this.setState(prevState => ({
     //   isOpen: !prevState.isOpen,
     //   display: prevState.isOpen ? 'block' : 'none'
@@ -34,7 +34,7 @@ export default class clickUpdiv extends Component {
         });
       }
     );
-    console.log(this.state.isOpen + this.state.dispaly);
+    // console.log(this.state.isOpen + this.state.dispaly);
   }
   // handleTextClick = (...args) => {
   //   this.props.onClick(...args);
@@ -48,13 +48,23 @@ export default class clickUpdiv extends Component {
       'api/v1/evaluation/' + this.props.courseId + '/',
       {},
       'DELETE'
-    ).then(res => {
-      console.log(res);
-      if (res) {
-        Taro.showToast('删除成功');
-      }
-      this.setState({ isOpen: false });
-    });
+    )
+      .then(res => {
+        if (res) {
+          // console.log(res);
+          Taro.showToast({
+            title: '删除成功',
+            icon: 'succese',
+            duration: 2000
+          });
+          this.setState({ isOpen: false });
+        } else {
+          Taro.showToast({ title: '删除成功' });
+        }
+      })
+      .catch(err => {
+        Taro.showToast({ title: '删除失败', icon: 'none' });
+      });
   };
   render() {
     const { courseId, className } = this.props;
@@ -71,6 +81,7 @@ export default class clickUpdiv extends Component {
       <View className={classNames('box', className)}>
         <View className="icon">
           <MxIcon
+            width="60"
             type="arrowD"
             className="arrow"
             onClick={this.handleIconClick.bind(this)}

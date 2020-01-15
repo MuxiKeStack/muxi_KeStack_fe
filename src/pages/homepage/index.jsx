@@ -118,7 +118,7 @@ export default class Index extends Component {
             <MxIcon type="arrowR" width="50" height="50"></MxIcon>
           </View>
         </View>
-        <View className="home_page_list-title">MY PROJECT</View>
+        {/* <View className="home_page_list-title">MY PROJECT</View> */}
         <List className="main-page-list">
           <Item
             iconType="myCourse"

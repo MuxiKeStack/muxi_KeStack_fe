@@ -1,11 +1,86 @@
-.user-name{
-    display: flex;
+.index{
+    background-color: #F5F6FA;
 }
-.avatar{
-    display: flex;
-    .avatar-img{
-        border-radius: 50%;
-        width: 100px;
-        height: 100px;
+.from{
+    width: 750px;
+    padding:45px 0 45px 0;
+    font-size: 40px;
+    box-sizing: border-box;
+    .avatar{
+        height: 289px;
+        display: flex;
+        align-items: center;
+        border-bottom: 2px solid #979797;
+        margin-left: 15px;
+        .avatar-img{
+            margin-left: 277px;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            border: 2px solid #6868F8;
+        }
+        .avatar-icon{
+            margin: 0 0 0 auto;
+        }
     }
+    .user-name{
+        display: flex;
+        align-items: center;
+        height: 150px;
+        padding-left: 15px;
+        .nick{
+            font-size: 40px;
+        }
+        .delete-icon{
+            margin: 0 0 0 auto;
+        }
+    }
+}
+.from-content{
+    border-top: 2px solid #CACACA;
+    height: 441px;
+    background-color: white;
+    box-shadow:10px 10px 5px 5px #CACACA;
+    padding: 0 45px 0 45px;
+}
+.from-button{
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 36px;
+    .reset-button{
+        box-sizing: border-box;
+        text-align: center;
+        background-color: #CACACA;
+        width: 240px;
+        height: 92px;
+        line-height: 92px;
+        color: white;
+        border-radius: 42px;
+    }
+    .submit-button{
+        box-sizing: border-box;
+        color: white;
+        width: 360px;
+        height: 92px;
+        text-align: center;
+        line-height: 92px;
+        padding-left: 30px;
+        background-color: rgba(104, 104, 248, 1);
+        border-radius: 42px;
+    }
+}
+.icon-right{
+    margin: 0 0 0 auto;
+}
+.nick-input{
+    font-size: 32px;
+    padding-left: 32px;
+}
+.log-out{
+    margin-top: 454px;
+    text-align: center;
+    color: #6868F8;
+    font-size: 30px;
 }

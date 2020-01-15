@@ -10,7 +10,7 @@ export default class replyInput extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      is_anonymous: true,
+      is_anonymous: false,
       content: ''
     };
   }
@@ -23,9 +23,9 @@ export default class replyInput extends Component {
     });
   }
 
-  handleConfirm() {
-    this.props.onConfirm(...arguments);
-  }
+  // handleConfirm() {
+  //   this.props.onConfirm(...arguments);
+  // }
   //   handleSubmit() {
   //     this.props.onSubmit(...arguments);
   //   }
@@ -33,20 +33,27 @@ export default class replyInput extends Component {
     console.log(this.props.Eid);
     console.log(this.props.Sid);
     Fetch(
-      'api/v1/comment/' + this.props.Eid + '/?sid=2018214830',
+      'api/v1/comment/' + this.props.Eid + '/?sid=' + this.props.Sid,
       { content: this.state.content, is_anonymous: this.state.is_anonymous },
       'POST'
-    ).then(res => {
-      console.log(res.data);
-      Taro.showToast({
-        title: '成功',
-        icon: 'success',
-        duration: 2000
+    )
+      .then(res => {
+        console.log(res.data);
+        Taro.showToast({
+          title: '成功',
+          icon: 'success',
+          duration: 2000
+        });
+        this.setState({
+          content: ''
+        });
+      })
+      .catch(err => {
+        Taro.showToast({
+          title: '失败',
+          icon: 'none'
+        });
       });
-      this.setState({
-        content: ''
-      });
-    });
   }
 
   changeAnony() {
@@ -76,7 +83,7 @@ export default class replyInput extends Component {
             placeholderClass="placeholder"
             className="reply-input"
             cursorSpacing="50"
-            confirmType="send"
+            // confirmType="send"
             //   onConfirm={e => {
             //     Fetch(
             //       'api/v1/comment/' + message.EvaluationId + '/',
@@ -95,12 +102,7 @@ export default class replyInput extends Component {
             onChange={this.handleChange.bind(this)}
             onConfirm={this.handleConfirm.bind(this)}
           />
-          <Button
-            type="primary"
-            formType="submit"
-            size="2"
-            className="submit-button"
-          >
+          <Button className="send-button" formType="submit" size="2">
             发送
           </Button>
         </Form>
@@ -110,14 +112,14 @@ export default class replyInput extends Component {
 }
 replyInput.defaultProps = {
   className: '',
-  onConfirm: () => {},
+  // onConfirm: () => {},
   Eid: '',
   Sid: ''
 };
 
 replyInput.propTypes = {
   className: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
-  onConfirm: PropTypes.func,
+  // onConfirm: PropTypes.func,
   Eid: PropTypes.string,
   Sid: PropTypes.string
 };

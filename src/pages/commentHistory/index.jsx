@@ -73,8 +73,8 @@ export default class Index extends Component {
           });
           if (!res.data.list)
             Taro.showToast({
-              title: '已经到底啦'
-              // icon: 'success'
+              title: '已经到底啦',
+              icon: 'none'
             });
         }
       });
@@ -93,37 +93,6 @@ export default class Index extends Component {
     let m = date.getMinutes();
     if (m % 10 == 0) return Y + M + D + h + m + 0;
     else return Y + M + D + h + m;
-  }
-
-  ChangeToDelete(id){
-    console.log(id)
-    console.log("我要删除！！！")
-    Fetch(
-      `api/v1/evaluation/${id}/`,
-      {},
-      'DELETE'
-    ).then(data =>{
-      console.log(data)
-      if(data.message=="OK"){
-        Taro.showToast({
-              title: '删除成功！',
-              icon: 'success'
-            })
-      }
-      // if(data.data.fail==true){
-      //   if(data.data.reason=="You have been reported this evaluation!"){
-      //   Taro.showToast({
-      //     title: '不要重复举报哟!',
-      //     icon: 'none'
-      //   })
-      // }
-      // } else {
-      //   Taro.showToast({
-      //     title: '举报成功！',
-      //     icon: 'success'
-      //   })
-      // }
-    })
   }
   // ChangeTodetails(index){
   //   Taro.navigateTo({
@@ -183,24 +152,10 @@ export default class Index extends Component {
                   islike={course.is_like}
                   likenum={course.like_num}
                 ></MxLike>
-                <MxIcon
-                  type="cmmtBtn"
-                  className="comment-icon"
-                  onClick={() => {
-                    Fetch(
-                      'api/v1/comment/' + course.id + '/?id=' + course.id,
-                      {
-                        sid: course.user_info.sid
-                      },
-                      {
-                        content: '巴啦啦小魔仙，变身！',
-                        is_anonymous: false
-                      },
-                      'POST'
-                    );
-                  }}
-                ></MxIcon>
-                <View>{course.comment_num}</View>
+                <View className="icon-container">
+                  <MxIcon type="cmmtBtn" className="comment-icon"></MxIcon>
+                </View>
+                <View className="number">{course.comment_num}</View>
               </View>
             </View>
           );

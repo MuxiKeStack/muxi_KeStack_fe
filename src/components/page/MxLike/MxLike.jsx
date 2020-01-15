@@ -61,7 +61,7 @@ class MxLike extends Component {
   render() {
     return (
       <View>
-        <View>
+        <View className="like-comp">
           {!this.state.islike && (
             <MxIcon
               width={this.props.width}
@@ -78,8 +78,8 @@ class MxLike extends Component {
               onClick={this.tolike.bind(this)}
             />
           )}
-          {this.state.likenum}
         </View>
+        <View className="number">{this.state.likenum}</View>
       </View>
     );
   }

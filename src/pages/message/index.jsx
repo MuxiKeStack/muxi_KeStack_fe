@@ -18,9 +18,11 @@ export default class Index extends Component {
   }
   componentWillUnmount() {}
   config = {
-    navigationBarTitleText: '消息提醒'
+    navigationBarTitleText: '消息提醒',
+    onReachBottomDistance: 50
   };
 
+  //还有关于时间顺序和请求数量的问题
   componentDidMount() {
     /*        courseList().then(res => {
                 console.log(res);
@@ -37,6 +39,32 @@ export default class Index extends Component {
       }
     });
   }
+  // onReachBottom() {
+  //   if (this.state.last_id) {
+  //     Fetch(
+  //       'api/v1/user/evaluations/',
+  //       {
+  //         limit: '10',
+  //         last_id: this.state.last_id
+  //       },
+  //       'GET'
+  //     ).then(res => {
+  //       if (res) {
+  //         console.log(res.data.list);
+  //         this.setState({
+  //           list: res.data.list,
+  //           last_id: this.state.id
+  //         });
+  //         if (!res.data.list)
+  //           Taro.showToast({
+  //             title: '已经到底啦',
+  //             icon: 'none'
+  //           });
+  //       }
+  //     });
+  //   }
+  // }
+
   toNormalTime(timestamp) {
     var date = new Date(timestamp * 1000);
     let Y = date.getFullYear() + '-';
@@ -60,9 +88,9 @@ export default class Index extends Component {
     return (
       <View className="index">
         {messageList.map((message, index) => {
-          var isComment = message.Kind == 1 ? true : false;
-          var isLike = message.Kind == 0 ? true : false;
-          var isReport = message.Kind == 2 ? true : false;
+          var isComment = message.kind == 1 ? true : false;
+          var isLike = message.kind == 0 ? true : false;
+          var isReport = message.kind == 2 ? true : false;
           return (
             <View key={message.time}>
               {isLike && (
@@ -89,29 +117,15 @@ export default class Index extends Component {
                   </View>
                   <View className="course-container">
                     <View className="course-name">
-                      {'#' + message.CourseName} {'(' + message.Teacher + ')'}
+                      {'#' + message.course_name} {'(' + message.teacher + ')'}
                     </View>{' '}
-                    {message.Content}
+                    {message.content}
                   </View>
 
-                  <ReplyInput
-                    // onConfirm={e => {
-                    //   Fetch(
-                    //     'api/v1/comment/' + message.EvaluationId + '/',
-                    //     { content: e.target.value, is_anonymous: false },
-                    //     'POST'
-                    //   ).then(res => {
-                    //     console.log(res.data);
-                    //     Taro.showToast({
-                    //       title: '成功',
-                    //       icon: 'success',
-                    //       duration: 2000
-                    //     });
-                    //   });
-                    // }}
-                    Eid={message.EvaluationId}
-                    Sid={message.Sid}
-                  />
+                  {/* <ReplyInput
+                    Eid={message.parent_comment_id}
+                    Sid={message.sid}
+                  /> */}
                 </View>
               )}
               {isComment && (
@@ -137,32 +151,14 @@ export default class Index extends Component {
                   </View>
                   <View className="course-container">
                     <View className="course-name">
-                      {'#' + message.CourseName} {'(' + message.Teacher + ')'}
+                      {'#' + message.course_name} {'(' + message.teacher + ')'}
                     </View>{' '}
-                    {message.Content}
+                    {message.content}
                   </View>
-                  <View className="input">
-                    <Input
-                      placeholder="回复："
-                      placeholderClass="placeholder"
-                      className="reply-input"
-                      confirmType="send"
-                      onConfirm={e => {
-                        Fetch(
-                          'api/v1/comment/' + message.EvaluationId + '/',
-                          { content: e.target.value, is_anonymous: false },
-                          'POST'
-                        ).then(res => {
-                          console.log(res.data);
-                          Taro.showToast({
-                            title: '成功',
-                            icon: 'success',
-                            duration: 2000
-                          });
-                        });
-                      }}
-                    />
-                  </View>
+                  <ReplyInput
+                    Eid={message.parent_comment_id}
+                    Sid={message.sid}
+                  />
                 </View>
               )}
               {!isLike && !isComment && (
@@ -183,9 +179,9 @@ export default class Index extends Component {
                   </View>
                   <View className="course-container">
                     <View className="course-name">
-                      {'#' + message.CourseName} {'(' + message.Teacher + ')'}
+                      {'#' + message.course_name} {'(' + message.teacher + ')'}
                     </View>{' '}
-                    {message.Content}
+                    {message.content}
                   </View>
                 </View>
               )}
