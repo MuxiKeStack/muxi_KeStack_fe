@@ -7,68 +7,13 @@ import './index.scss';
 // import { courseList} from 'sevices/course'
 // import { serverUrl } from  'utils/config'
 import Fetch from '../../service/fetch';
+import ReplyInput from '../../components/page/replyInput';
 
 export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       messageList: []
-      //   messageList: [
-      //     {
-      //       id: 0,
-      //       user_info: {
-      //         username: '我是一个小丸子',
-      //         avatar: Img
-      //         //暂时这样，到时候再该成时间格式？
-      //       },
-      //       time: '2019.8.23/11: 04',
-      //       course_info: {
-      //         course_name: '线性代数',
-      //         teacher: '李书刚',
-      //         comment:
-      //           '在晚上上课，经常很困，书上的证明难，但是考的很简单，经常要交作业，不怎么点名，老师很有个性。在晚上上课，经常很困，书上的证明难，但是考的很简单，经常要交作业，不怎么点名，老师很有个性'
-      //       },
-      //       is_like: true,
-      //       isComment: true,
-      //       reply: '哈哈哈，怎么有个性了',
-      //       is_read: false
-      //     },
-      //     {
-      //       id: 1,
-      //       user_info: {
-      //         username: '我是一个小丸子',
-      //         avatar: Img
-      //       },
-      //       time: '2019.8.23/11: 04',
-      //       course_info: {
-      //         course_name: '诗苑经典的芳菲世界',
-      //         teacher: '苏云',
-      //         comment:
-      //           '上课经常要用手机操作和答题，总之事情有点多，每次上课都要手势签到或者拍旁边人的照片，很难逃课'
-      //       },
-      //       is_like: false,
-      //       isComment: true,
-      //       reply: '这真的有点惨',
-      //       is_read: false
-      //     },
-      //     {
-      //       id: 2,
-      //       user_info: {
-      //         username: '系统消息',
-      //         avatar: Img
-      //       },
-      //       time: '2019.8.23/11: 04',
-      //       course_info: {
-      //         course_name: '诗苑经典的芳菲世界',
-      //         teacher: '苏云',
-      //         comment: '未评课！'
-      //       },
-      //       is_like: false,
-      //       isComment: false,
-      //       reply: '',
-      //       is_read: false
-      //     }
-      //   ]
     };
   }
   componentWillUnmount() {}
@@ -115,10 +60,12 @@ export default class Index extends Component {
     return (
       <View className="index">
         {messageList.map((message, index) => {
-          var isComment = message.reply == '' ? false : true;
+          var isComment = message.Kind == 1 ? true : false;
+          var isLike = message.Kind == 0 ? true : false;
+          var isReport = message.Kind == 2 ? true : false;
           return (
-            <View key={index}>
-              {message.is_like && (
+            <View key={message.time}>
+              {isLike && (
                 <View className="card-container">
                   <View className="user-info">
                     <View className="avatar-container">
@@ -142,11 +89,29 @@ export default class Index extends Component {
                   </View>
                   <View className="course-container">
                     <View className="course-name">
-                      {'#' + message.course_info.course_name}{' '}
-                      {'(' + message.course_info.teacher + ')'}
+                      {'#' + message.CourseName} {'(' + message.Teacher + ')'}
                     </View>{' '}
-                    {message.course_info.content}
+                    {message.Content}
                   </View>
+
+                  <ReplyInput
+                    // onConfirm={e => {
+                    //   Fetch(
+                    //     'api/v1/comment/' + message.EvaluationId + '/',
+                    //     { content: e.target.value, is_anonymous: false },
+                    //     'POST'
+                    //   ).then(res => {
+                    //     console.log(res.data);
+                    //     Taro.showToast({
+                    //       title: '成功',
+                    //       icon: 'success',
+                    //       duration: 2000
+                    //     });
+                    //   });
+                    // }}
+                    Eid={message.EvaluationId}
+                    Sid={message.Sid}
+                  />
                 </View>
               )}
               {isComment && (
@@ -160,7 +125,9 @@ export default class Index extends Component {
                     </View>
                     <View className="name-time">
                       <View className="name">{message.user_info.username}</View>
-                      <View className="time">{message.time}</View>
+                      <View className="time">
+                        {this.toNormalTime(message.time)}
+                      </View>
                     </View>
                   </View>
                   <View className="message-text">
@@ -170,22 +137,19 @@ export default class Index extends Component {
                   </View>
                   <View className="course-container">
                     <View className="course-name">
-                      {'#' + message.course_info.course_name}{' '}
-                      {'(' + message.course_info.teacher + ')'}
+                      {'#' + message.CourseName} {'(' + message.Teacher + ')'}
                     </View>{' '}
-                    {message.course_info.comment}
+                    {message.Content}
                   </View>
                   <View className="input">
                     <Input
                       placeholder="回复："
                       placeholderClass="placeholder"
                       className="reply-input"
-                      confirmType="发送"
+                      confirmType="send"
                       onConfirm={e => {
                         Fetch(
-                          'api/v1/comment/' +
-                            message.course_info.evaluation_id +
-                            '/',
+                          'api/v1/comment/' + message.EvaluationId + '/',
                           { content: e.target.value, is_anonymous: false },
                           'POST'
                         ).then(res => {
@@ -201,7 +165,7 @@ export default class Index extends Component {
                   </View>
                 </View>
               )}
-              {!message.is_like && !isComment && (
+              {!isLike && !isComment && (
                 <View className="card-container">
                   <View className="user-info">
                     <View className="avatar-container">
@@ -212,15 +176,16 @@ export default class Index extends Component {
                     </View>
                     <View className="name-time">
                       <View className="name">{message.user_info.username}</View>
-                      <View className="time">{message.time}</View>
+                      <View className="time">
+                        {this.toNormalTime(message.time)}
+                      </View>
                     </View>
                   </View>
                   <View className="course-container">
                     <View className="course-name">
-                      {'#' + message.course_info.course_name}{' '}
-                      {'(' + message.course_info.teacher + ')'}
+                      {'#' + message.CourseName} {'(' + message.Teacher + ')'}
                     </View>{' '}
-                    {message.course_info.comment}
+                    {message.Content}
                   </View>
                 </View>
               )}

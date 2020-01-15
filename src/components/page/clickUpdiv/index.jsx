@@ -36,28 +36,26 @@ export default class clickUpdiv extends Component {
     );
     console.log(this.state.isOpen + this.state.dispaly);
   }
-  handleTextClick = (...args) => {
-    this.props.onClick(...args);
-  };
-  // handleTextClick = id => {
-  //   //console.log(id);//
-  //   const { courseId } = this.props;
-  //   console.log(courseId);
-  //   console.log(this.props.courseId); //
-  //   console.log(id);
-  //   Fetch(
-  //     // 'api/v1/evaluation/' + this.state.list[index].id + '/',
-  //     // { id: this.state.list[index].id },
-  //     'api/v1/evaluation/' + this.props.courseId + '/',
-  //     {},
-  //     'DELETE'
-  //   ).then(res => {
-  //     console.log(res);
-  //     if (res) {
-  //       Taro.showToast('删除成功');
-  //     }
-  //   });
+  // handleTextClick = (...args) => {
+  //   this.props.onClick(...args);
   // };
+  handleTextClick = () => {
+    //console.log(id);//
+    console.log(this.props.courseId); //
+    Fetch(
+      // 'api/v1/evaluation/' + this.state.list[index].id + '/',
+      // { id: this.state.list[index].id },
+      'api/v1/evaluation/' + this.props.courseId + '/',
+      {},
+      'DELETE'
+    ).then(res => {
+      console.log(res);
+      if (res) {
+        Taro.showToast('删除成功');
+      }
+      this.setState({ isOpen: false });
+    });
+  };
   render() {
     const { courseId, className } = this.props;
     // const rootClass = classNames('list-item', this.props.className);
@@ -81,7 +79,7 @@ export default class clickUpdiv extends Component {
         <View
           className="unsee"
           style={{ display: this.state.dispaly }}
-          onClick={this.handleTextClick.bind(this, courseId)}
+          onClick={this.handleTextClick.bind(this)}
         >
           删除
         </View>
@@ -91,12 +89,10 @@ export default class clickUpdiv extends Component {
 }
 clickUpdiv.defaultProps = {
   className: '',
-  onClick: () => {},
   courseId: 1
 };
 clickUpdiv.propTypes = {
   className: PropTypes.string,
   // isOpen: PropTypes.bool,
-  onClick: PropTypes.func,
   courseId: PropTypes.number
 };

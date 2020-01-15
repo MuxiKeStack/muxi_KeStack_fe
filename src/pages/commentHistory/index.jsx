@@ -4,9 +4,7 @@ import { MxIcon } from '../../components/common/MxIcon';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxLike from '../../components/page/MxLike/MxLike';
 import Img from '../../assets/svg/avatar-img.svg';
-import clickUpdiv from '../../components/page/clickUpdiv'
-import MxDelete from '../../components/common/MxDelete'
-
+import ClickUpdiv from '../../components/page/clickUpdiv';
 import './index.scss';
 import Fetch from '../../service/fetch';
 // import {isLogined} from 'utils/tools'
@@ -58,43 +56,29 @@ export default class Index extends Component {
 
   componentDidHide() {}
   onReachBottom() {
-    Fetch(
-      'api/v1/user/evaluations/',
-      {
-        limit: '10',
-        last_id: this.state.last_id
-      },
-      'GET'
-    ).then(res => {
-      if (res) {
-        console.log(res.data.list);
-        this.setState({
-          list: res.data.list,
-          last_id: this.state.id
-        });
-        if (!res.data.list)
-          Taro.showToast({
-            title: '已经到底啦',
-            // icon: 'success'
+    if (this.state.last_id) {
+      Fetch(
+        'api/v1/user/evaluations/',
+        {
+          limit: '10',
+          last_id: this.state.last_id
+        },
+        'GET'
+      ).then(res => {
+        if (res) {
+          console.log(res.data.list);
+          this.setState({
+            list: res.data.list,
+            last_id: this.state.id
           });
-      }
-    });
-  }
-  handleTextClick(index) {
-    console.log('suyapeng');//
-    // console.log(this.state.list[index].id); //
-
-    // Fetch(
-    //   'api/v1/evaluation/' + this.state.list[index].id + '/',
-    //   // { id: this.state.list[index].id },
-    //   {},
-    //   'DELETE'
-    // ).then(res => {
-    //   console.log(res);
-    //   if (res) {
-    //     Taro.showToast('删除成功');
-    //   }
-    // });
+          if (!res.data.list)
+            Taro.showToast({
+              title: '已经到底啦'
+              // icon: 'success'
+            });
+        }
+      });
+    }
   }
 
   toNormalTime(timestamp) {
@@ -175,7 +159,7 @@ export default class Index extends Component {
                     className="arrow"
                     onClick={this.handleDelete.bind(this, index)}
                   ></MxIcon> */}
-                  <MxDelete onClick={this.ChangeToDelete.bind(this,course.id)}></MxDelete>
+                  <ClickUpdiv courseId={course.id} className="sad"></ClickUpdiv>
                 </View>
               </View>
               <View className="course-container">
