@@ -52,12 +52,39 @@ class CourseDetailCard extends Component {
     return (
       <View className="card" style={cardStyle}>
         <View className="courseNumber">{courseInfo.id}课堂</View>
-        <View>
-          {courseInfo.list &&
-            courseLength(courseInfo.list) &&
-            courseInfo.list.map(index => {
-              return (
-                <View key={index.Id} className="row">
+        {courseInfo.list &&
+          courseLength(courseInfo.list) &&
+          courseInfo.list.map(index => {
+            return (
+              <View key={index.Id} className="row">
+                <View className="week">
+                  {'周' +
+                    getweek(index.Time.slice(-1)) +
+                    ' ' +
+                    index.Time.slice(0, -2) +
+                    '节'}
+                </View>
+                <View className="place">{'@ ' + index.Place}</View>
+                {index.Week.slice(-1) == '0' && (
+                  <View className="place">(双)</View>
+                )}
+                {index.Week.slice(-1) == '1' && (
+                  <View className="place">(单)</View>
+                )}
+              </View>
+            );
+          })}
+        {courseLength(courseInfo.list) && (
+          <View className="length">
+            {courseInfo.list[0].Week.slice(0, -2) + '周'}
+          </View>
+        )}
+        {courseInfo.list &&
+          !courseLength(courseInfo.list) &&
+          courseInfo.list.map(index => {
+            return (
+              <View key={index.Id}>
+                <View className="row">
                   <View className="week">
                     {'周' +
                       getweek(index.Time.slice(-1)) +
@@ -73,41 +100,10 @@ class CourseDetailCard extends Component {
                     <View className="place">(单)</View>
                   )}
                 </View>
-              );
-            })}
-          {courseLength(courseInfo.list) && (
-            <View className="length">
-              {courseInfo.list[0].Week.slice(0, -2) + '周'}
-            </View>
-          )}
-          {courseInfo.list &&
-            !courseLength(courseInfo.list) &&
-            courseInfo.list.map(index => {
-              return (
-                <View key={index.Id}>
-                  <View className="row">
-                    <View className="week">
-                      {'周' +
-                        getweek(index.Time.slice(-1)) +
-                        ' ' +
-                        index.Time.slice(0, -2) +
-                        '节'}
-                    </View>
-                    <View className="place">{'@ ' + index.Place}</View>
-                    {index.Week.slice(-1) == '0' && (
-                      <View className="place">(双)</View>
-                    )}
-                    {index.Week.slice(-1) == '1' && (
-                      <View className="place">(单)</View>
-                    )}
-                  </View>
-                  <View className="length">
-                    {index.Week.slice(0, -2) + '周'}
-                  </View>
-                </View>
-              );
-            })}
-        </View>
+                <View className="length">{index.Week.slice(0, -2) + '周'}</View>
+              </View>
+            );
+          })}
       </View>
     );
   }

@@ -12,15 +12,15 @@ class App extends Component {
   componentDidMount() {
     Taro.getStorage({
       key: 'token',
-      success:function(res){
+      success: function(res) {
         Taro.switchTab({
           url: '/pages/commentSquare/index'
-        })
+        });
       },
-      fail:function(res){
+      fail: function(res) {
         Taro.switchTab({
           url: '/pages/login/index'
-        })
+        });
       }
     });
   }
@@ -50,30 +50,30 @@ class App extends Component {
       navigationBarTitleText: 'WeChat',
       navigationBarTextStyle: 'black'
     },
-     tabBar: {
-       list: [
-         {
-           pagePath: 'pages/commentSquare/index',
-           iconPath: './assets/svg/cmmt-squaG.svg',
-           selectedIconPath: './assets/svg/cmmt-squa.svg'
-         },
-         {
-           pagePath: 'pages/courseAssistant/index',
-           iconPath: './assets/svg/shelperG.svg',
-           selectedIconPath: './assets/svg/shelper.svg'
-         },
-         {
-           pagePath: 'pages/homepage/index',
-           iconPath: './assets/svg/user-infoG.svg',
-           selectedIconPath: './assets/svg/user-info.svg'
-         }
-       ],
-       color: '#CACACA',
-       selectedColor: '#7273F7',
-       backgroundColor: '#ffffff',
-       borderStyle: 'white'
-     }
-  }
+    tabBar: {
+      list: [
+        {
+          pagePath: 'pages/commentSquare/index',
+          iconPath: './assets/svg/cmmt-squaG.svg',
+          selectedIconPath: './assets/svg/cmmt-squa.svg'
+        },
+        {
+          pagePath: 'pages/courseAssistant/index',
+          iconPath: './assets/svg/shelperG.svg',
+          selectedIconPath: './assets/svg/shelper.svg'
+        },
+        {
+          pagePath: 'pages/homepage/index',
+          iconPath: './assets/svg/user-infoG.svg',
+          selectedIconPath: './assets/svg/user-info.svg'
+        }
+      ],
+      color: '#CACACA',
+      selectedColor: '#7273F7',
+      backgroundColor: '#ffffff',
+      borderStyle: 'white'
+    }
+  };
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数

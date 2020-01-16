@@ -24,22 +24,25 @@
   margin:30px 20px 0 20px;
 }
 .user-info{
-  display: flex;
-  align-items: center;
+  // display: flex;
+  // align-items: center;
   .avatar-container{
       height: 80px;
       width: 80px;
-      
+      display: inline-block;
+      vertical-align: middle;
       box-sizing: border-box;
   }
   .name-time{
+    display: inline-block;
+    vertical-align: middle;
       margin-top:2px;
       padding-left:20px;
     .name{
       height:42px;
       line-height: 42px;//去掉也可？
       font-size:30px;
-  }
+    }
     .time{
       font-size:22px;
       color:rgba(161,164,174,1);
@@ -49,7 +52,9 @@
     }
   }
   .delete-cmmt{
-      margin: 0 0 0 auto;
+      float: right;
+      height: 36px;
+      margin-right: 55px;
   }
 }
 .course-container{
@@ -81,4 +86,13 @@
   display: flex;
   justify-content: flex-end;
   font-size:20px;
+  align-items: flex-end;
+}
+.icon-container{
+  margin-left:23px;
+}
+.number{
+  font-size:24px;
+  margin-left: 5px;
+  margin-right: 23px;
 }

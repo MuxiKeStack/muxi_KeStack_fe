@@ -8,10 +8,11 @@ import MxIcon from '../../common/MxIcon/index';
 class CmtList extends Component {
   constructor() {
     this.state = {
+      initialLength: this.props.item.sub_comments_num,
       cmtList:
         this.props.item.sub_comments_num > 5
           ? this.props.item.sub_comments_list.slice(0, 5)
-          : ''
+          : this.props.item.sub_comments_list
     };
   }
   normalTime(timestamp) {
@@ -37,7 +38,7 @@ class CmtList extends Component {
   }
 
   render() {
-    const { cmtList } = this.state;
+    const { cmtList, initialLength } = this.state;
     const { item } = this.props;
     return (
       <View>
@@ -97,7 +98,7 @@ class CmtList extends Component {
               </View>
             );
           })}
-        {cmtList && cmtList.length <= 5 && (
+        {cmtList && cmtList.length <= 5 && initialLength > 5 && (
           <View onClick={this.toShow} className="remainComments">
             查看剩余{item.sub_comments_num - 5}条评论
           </View>

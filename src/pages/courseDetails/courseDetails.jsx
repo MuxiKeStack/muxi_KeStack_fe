@@ -4,8 +4,8 @@ import './courseDetails.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import Fetch from '../../service/fetch';
 import MxTag from '../../components/common/MxTag/index';
-import newcmt from '../../assets/svg/newcmt.svg';
-import hotcmt from '../../assets/svg/hotcmt.svg';
+import newcmt from '../../assets/png/newcmt.png';
+import hotcmt from '../../assets/png/hotcmt.png';
 import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
 import CourseDetailCard from '../../components/page/CourseDetailCard/CourseDetailCard';
 
@@ -515,14 +515,14 @@ export default class Coursedetails extends Component {
             简单易学(0)
           </MxTag>
         </View>
-        <Image src={hotcmt} />
+        <Image className="cmtimg" src={hotcmt} />
         <View className="cmtBigBox">
           {hotList &&
             hotList.map(item => {
               return <CmtCourseCard item={item} key={item.id}></CmtCourseCard>;
             })}
         </View>
-        <Image src={newcmt} />
+        <Image className="cmtimg" src={newcmt} />
         <View className="cmtBigBox">
           {normalList &&
             normalList.map(item => {

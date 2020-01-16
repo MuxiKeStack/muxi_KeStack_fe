@@ -4,7 +4,7 @@ import { MxIcon } from '../../components/common/MxIcon';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxLike from '../../components/page/MxLike/MxLike';
 import Img from '../../assets/svg/avatar-img.svg';
-import { clickUpdiv } from '../../components/page/clickUpdiv';
+import ClickUpdiv from '../../components/page/clickUpdiv';
 import './index.scss';
 import Fetch from '../../service/fetch';
 // import {isLogined} from 'utils/tools'
@@ -56,40 +56,30 @@ export default class Index extends Component {
 
   componentDidHide() {}
   onReachBottom() {
-    Fetch(
-      'api/v1/user/evaluations/',
-      {
-        limit: '10',
-        last_id: this.state.last_id
-      },
-      'GET'
-    ).then(res => {
-      if (res) {
-        console.log(res.data.list);
-        this.setState({
-          list: res.data.list,
-          last_id: this.state.id
-        });
-        if (!res.data.list) Taro.showToast('已经到底啦');
-      }
-    });
+    if (this.state.last_id) {
+      Fetch(
+        'api/v1/user/evaluations/',
+        {
+          limit: '10',
+          last_id: this.state.last_id
+        },
+        'GET'
+      ).then(res => {
+        if (res) {
+          console.log(res.data.list);
+          this.setState({
+            list: res.data.list,
+            last_id: this.state.id
+          });
+          if (!res.data.list)
+            Taro.showToast({
+              title: '已经到底啦',
+              icon: 'none'
+            });
+        }
+      });
+    }
   }
-  // handleTextClick(index) {
-  //   //console.log(id);//
-  //   console.log(this.state.list[index].id); //
-
-  //   Fetch(
-  //     'api/v1/evaluation/' + this.state.list[index].id + '/',
-  //     // { id: this.state.list[index].id },
-  //     {},
-  //     'DELETE'
-  //   ).then(res => {
-  //     console.log(res);
-  //     if (res) {
-  //       Taro.showToast('删除成功');
-  //     }
-  //   });
-  // }
 
   toNormalTime(timestamp) {
     var date = new Date(timestamp * 1000);
@@ -104,7 +94,6 @@ export default class Index extends Component {
     if (m % 10 == 0) return Y + M + D + h + m + 0;
     else return Y + M + D + h + m;
   }
-
   // ChangeTodetails(index){
   //   Taro.navigateTo({
   //     url: '/pages/courseDetails/courseDetails/'+course_id +'/?id='+`${course_id}`,
@@ -139,10 +128,7 @@ export default class Index extends Component {
                     className="arrow"
                     onClick={this.handleDelete.bind(this, index)}
                   ></MxIcon> */}
-                  <clickUpdiv
-                    // onClick={this.handleTextClick.bind(this, index)}
-                    couserId={course.id}
-                  ></clickUpdiv>
+                  <ClickUpdiv courseId={course.id} className="sad"></ClickUpdiv>
                 </View>
               </View>
               <View className="course-container">
@@ -166,24 +152,10 @@ export default class Index extends Component {
                   islike={course.is_like}
                   likenum={course.like_num}
                 ></MxLike>
-                <MxIcon
-                  type="cmmtBtn"
-                  className="comment-icon"
-                  onClick={() => {
-                    Fetch(
-                      'api/v1/comment/' + course.id + '/?id=' + course.id,
-                      {
-                        sid: course.user_info.sid
-                      },
-                      {
-                        content: '巴啦啦小魔仙，变身！',
-                        is_anonymous: false
-                      },
-                      'POST'
-                    );
-                  }}
-                ></MxIcon>
-                <View>{course.comment_num}</View>
+                <View className="icon-container">
+                  <MxIcon type="cmmtBtn" className="comment-icon"></MxIcon>
+                </View>
+                <View className="number">{course.comment_num}</View>
               </View>
             </View>
           );

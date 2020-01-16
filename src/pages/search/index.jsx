@@ -1,6 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, MovableArea, MovableView } from '@tarojs/components';
 import './index.scss';
+import MxTag from '../../components/common/MxTag/index';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxInput from '../../components/common/MxInput/MxInput';
 import Fetch from '../../service/fetch';
@@ -9,6 +10,9 @@ export default class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {
+      keyword: '',
+      type: '',
+      tagsState: [false, false, false, false, false],
       datas: [
         {
           text: '线性代数B',
@@ -38,7 +42,8 @@ export default class Index extends Component {
           tag4: '期末闭卷'
         }
       ],
-      value: 4
+      value: 4,
+      checkable: false
     };
   }
   // eslint-disable-next-line react/sort-comp
@@ -60,6 +65,22 @@ export default class Index extends Component {
     Taro.navigateTo({
       url: '/pages/courseDetails/courseDetails'
     });
+  }
+
+
+  getHistorySearch() {
+    Fetch(
+      'api/v1/search/historyCourse',
+      {
+      keyword: this.state.keyword,
+      type: this.state.type,
+      page: '1',
+      limit: '10',
+      },
+      'GET'
+    ).then(data =>{
+      console.log(data)
+    })
   }
 
   handleChange(value) {
@@ -161,11 +182,11 @@ export default class Index extends Component {
         console.log(res);
       }
     });
-
     this.setState({
       // eslint-disable-next-line react/no-unused-state
       animation: animation
     });
+    this.getHistorySearch()
   }
   collect() {
     let id = '112d34testsvggase';
@@ -189,6 +210,32 @@ export default class Index extends Component {
     });
   }
 
+  handleClickInput() {
+    this.getHistorySearch()
+}
+
+  handleClickContent(event){
+    this.setState({
+          keyword: event.detail.value
+      })
+}
+
+  onClickTags(num){
+    let state = [false, false, false, false, false]
+    if(this.state.tagsState[num]!=true){
+    state[num] = true}
+
+    this.setState({
+      type: num,
+      tagsState: state
+    },()=>{
+      console.log(this.state.type)
+      console.log(this.state.tagsState)
+      this.getHistorySearch()
+    })
+  }
+
+
   componentWillUnmount() {}
 
   componentDidShow() {}
@@ -196,6 +243,7 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
+    let tagState = this.state.tagsState
     const isCollect = this.props.isCollect;
     let status = null;
     if (isCollect) {
@@ -274,7 +322,67 @@ export default class Index extends Component {
               height="72rpx"
               background="rgba(241,240,245,1)"
               radius="36rpx"
+              onClick={this.handleClickInput.bind(this)}
+              onInput={this.handleClickContent.bind(this)}
             ></MxInput>
+          </View>
+        </View>
+        <View className="label">
+          <View>
+            <Text>通识课：</Text>
+            <MxTag 
+            onClick={this.onClickTags.bind(this, 0)}
+            font="28rpx" 
+            checkable ={true}
+            checked = {tagState[0]}
+            padding="1rpx 44rpx 1rpx 44rpx" 
+            checkedControl={true}
+            >
+              专业必修课
+            </MxTag>
+            <MxTag 
+            onClick={this.onClickTags.bind(this, 1)}
+            font="28rpx" 
+            checkable= {true}
+            checked = {tagState[1]}
+            padding="1rpx 44rpx 1rpx 44rpx" 
+            checkedControl={true}
+            >
+              专业选修课
+            </MxTag>
+            <MxTag 
+            onClick={this.onClickTags.bind(this, 2)}
+            font="28rpx" 
+            checkable= {true}
+            checked = {tagState[2]}
+            padding="1rpx 44rpx 1rpx 44rpx" 
+            checkedControl={true}
+            >
+              通识核心课
+            </MxTag>
+          </View>
+          <View>
+            <Text>通识课：</Text>
+            <MxTag 
+            onClick={this.onClickTags.bind(this, 3)}
+            font="28rpx" 
+            checkable = {true}
+            checked = {tagState[3]}
+            padding="1rpx 44rpx 1rpx 44rpx"
+            checkedControl={true}
+            >
+              通识选修课
+            </MxTag>
+            <MxTag 
+            onClick={this.onClickTags.bind(this, 4)}
+            font="28rpx" 
+            checkable = {true}
+            checked = {tagState[4]}
+            padding="1rpx 44rpx 1rpx 44rpx" 
+            checkedControl={true}
+            >
+              公共课
+            </MxTag>
           </View>
         </View>
         {content}

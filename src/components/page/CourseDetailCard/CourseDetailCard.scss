@@ -7,10 +7,10 @@
 //     margin: 0 auto;
 // }
 .courseNumber{
-    width: 190px;
+    width: 380px;
     font-size: 30px;
     display: block;
-    margin: 10px 0 20px 0;
+    margin: 10px auto;
     @include row();
 }
 .week{

@@ -3,6 +3,8 @@ import { View, Text } from '@tarojs/components';
 import './index.scss';
 import MxInput from '../../components/common/MxInput/MxInput';
 import MxFab from '../../components/common/MxFab';
+import MxPicker from '../../components/common/MxPicker';
+import Fetch from '../../service/fetch'
 
 export default class Index extends Component {
   // eslint-disable-next-line react/sort-comp
@@ -13,8 +15,20 @@ export default class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      // eslint-disable-next-line react/no-unused-state
+      kindChecked: '课程性质',
+      checkKind: ['全部课程','公共课','专业必修课','专业选修课','通识选修课','通识核心课',],
+      colledgeChecked: '上课学院',
+      checkColledge: ['全部学院','城市与环境科学学院','历史社会学院','社会学院','生命科学学院','公共管理学院','文学院','计算机学院','外国语学院','数学与统计学院','化学学院','教育学院','物理科学与技术学院','新闻传播学院','体育学院','马克思主义学院','经济与工商管理学院','信息管理学院','音乐学院','心理学院','国家数字化学习工程技术研究中心','法学院','教育信息技术学院','美术学院','政治与国际关系学院'],
+      timeChecked: '上课时间',
+      checkTime: ['全部时间','周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+      placeChecked: '上课地点',
+      checkPlace: ['全部地点','本校区', '南湖'],
       value: 5,
+      keyword: '',
+      type: '',
+      academy: '',
+      weekday: '',
+      place: '',
       datas: [
         {
           text: '马克思主义基本原理',
@@ -63,10 +77,128 @@ export default class Index extends Component {
     });
   }
 
+  getSearch() {
+    Fetch(
+      'api/v1/search/course',
+      {
+      keyword: this.state.keyword,
+      type: this.state.type,
+      academy: this.state.academy,
+      weekday: this.state.weekday,
+      place: this.state.place,
+      page: 1,
+      limit: 15,
+      },
+      'GET'
+    ).then(data =>{
+      console.log(data)
+    })
+  }
+
+  handleChangeKind = e => {
+    if(e.detail.value!=0){
+    this.setState(
+      {
+        kindChecked: this.state.checkKind[e.detail.value],
+        type: e.detail.value-1
+      },
+      () => {
+        this.getSearch()
+      }
+    )} else {
+      this.setState(
+        {
+          kindChecked: this.state.checkKind[e.detail.value],
+          type: ''
+        },
+        () => {
+          this.getSearch()
+        }
+      )
+    };
+  };
+  handleChangeColledge = e => {
+    if(e.detail.value!=0){
+    this.setState(
+      {
+        colledgeChecked: this.state.checkColledge[e.detail.value],
+        academy: this.state.checkColledge[e.detail.value]
+      },
+      () => {
+        this.getSearch()
+      }
+    )} else {
+      this.setState(
+        {
+          colledgeChecked: this.state.checkColledge[e.detail.value],
+          academy: ''
+        },
+        () => {
+          this.getSearch()
+        }
+      )
+    };
+  };
+  handleChangeTime = e => {
+    if(e.detail.value!=0){
+    this.setState(
+      {
+        timeChecked: this.state.checkTime[e.detail.value],
+        weekday: e.detail.value
+      },
+      () => {
+        this.getSearch()
+      }
+    )} else {
+      this.setState(
+        {
+          timeChecked: this.state.checkTime[e.detail.value],
+          weekday: ''
+        },
+        () => {
+          this.getSearch()
+        }
+      )
+    }
+  };
+  handleChangePlace = e => {
+    if(e.detail.value!=0){
+    this.setState(
+      {
+        placeChecked: this.state.checkPlace[e.detail.value],
+        place: this.state.checkPlace[e.detail.value]
+      },
+      () => {
+        this.getSearch()
+      }
+    )} else {
+      this.setState(
+        {
+          placeChecked: this.state.checkPlace[e.detail.value],
+          place: ''
+        },
+        () => {
+          this.getSearch()
+        }
+      )
+    }
+  };
+
   componentWillMount() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.getSearch()
+  }
 
+  handleClickInput() {
+    this.getSearch()
+}
+
+  handleClickContent(event){
+    this.setState({
+          keyword: event.detail.value
+      })
+}
   componentWillUnmount() {}
 
   componentDidShow() {}
@@ -118,7 +250,41 @@ export default class Index extends Component {
               height="72rpx"
               background="rgba(241,240,245,1)"
               radius="36rpx"
+              onClick={this.handleClickInput.bind(this)}
+              onInput={this.handleClickContent.bind(this)}
             ></MxInput>
+          </View>
+          <View className="choicePicker1">
+            <MxPicker
+              selectorChecked={this.state.kindChecked}
+              selector={this.state.checkKind}
+              width="170rpx"
+              onChange={this.handleChangeKind.bind(this)}
+            />
+          </View>
+          <View className="choicePicker2">
+            <MxPicker
+              selectorChecked={this.state.colledgeChecked}
+              selector={this.state.checkColledge}
+              width="170rpx"
+              onChange={this.handleChangeColledge.bind(this)}
+            />
+          </View>
+          <View className="choicePicker3">
+            <MxPicker
+              selectorChecked={this.state.timeChecked}
+              selector={this.state.checkTime}
+              width="170rpx"
+              onChange={this.handleChangeTime.bind(this)}
+            />
+          </View>
+          <View className="choicePicker4">
+            <MxPicker
+              selectorChecked={this.state.placeChecked}
+              selector={this.state.checkPlace}
+              width="170rpx"
+              onChange={this.handleChangePlace.bind(this)}
+            />
           </View>
         </View>
         {content}

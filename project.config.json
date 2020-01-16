@@ -18,7 +18,7 @@
 		"uglifyFileName": true
 	},
 	"compileType": "miniprogram",
-	"qqappid": "1108100302",
+	"qqappid": "1109891254",
 	"scripts": {
 		"beforeCompile": "",
 		"beforePreview": "",
@@ -41,14 +41,42 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": -1,
 			"list": [
 				{
 					"id": 0,
-					"name": "课程详情",
+					"name": "评课详情",
+					"pathName": "pages/courseCommentsDetails/courseCommentsDetails",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": 1,
+					"name": "课程主页",
 					"pathName": "pages/courseDetails/courseDetails",
 					"query": "",
-					"scene": "1001"
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "change",
+					"pathName": "pages/changeUserInfo/index",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "history",
+					"pathName": "pages/commentHistory/index",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "me",
+					"pathName": "pages/homepage/index",
+					"query": "",
+					"scene": ""
 				}
 			]
 		}

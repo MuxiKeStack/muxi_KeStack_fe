@@ -19,50 +19,6 @@ export default class Index extends Component {
       // eslint-disable-next-line react/no-unused-state
       sum: 0,
       lastId: 0,
-
-      // eslint-disable-next-line react/no-unused-state
-      datas: [
-        {
-          courseName: '线性代数B',
-          name: '张俊',
-          starRate: 4,
-          numOfCommenters: 23,
-          tag1: '偶尔点名',
-          tag2: '期末闭卷',
-          tag3: '生动有趣',
-          tag4: '干货满满'
-        },
-        {
-          courseName: '也许是马基主义基本原理',
-          name: 'xxx',
-          starRate: 3,
-          numOfCommenters: 59,
-          tag1: '经常点名',
-          tag2: '期末开卷',
-          tag3: '简单易学',
-          tag4: '云课堂资料全'
-        },
-        {
-          courseName: '不知是啥课',
-          name: 'xxx',
-          starRate: 2,
-          numOfCommenters: 11,
-          tag1: '偶尔点名',
-          tag2: '论文考核',
-          tag3: '生动有趣',
-          tag4: '干货满满'
-        },
-        {
-          courseName: '神仙课程',
-          name: 'xxxxx',
-          starRate: 5,
-          numOfCommenters: 47,
-          tag1: '很少点名',
-          tag2: '没有考核',
-          tag3: '生动有趣',
-          tag4: '作业量少'
-        }
-      ]
     };
   }
   state = {
@@ -78,7 +34,8 @@ export default class Index extends Component {
   handleClick() {}
 
   getLists() {
-    console.log('拉取数据');
+    console.log(this.state.lastId)
+    console.log('拉取列表');
     let newLists = this.state.Lists;
     Fetch(
       'api/v1/collection',
@@ -92,6 +49,7 @@ export default class Index extends Component {
       console.log(this.state.lastId);
       if (data.data.list != null) {
         if (this.state.lastId != 0) {
+          console.log("password")
           newLists = newLists.concat(data.data.list);
           Taro.stopPullDownRefresh();
           Taro.hideNavigationBarLoading();
@@ -102,6 +60,7 @@ export default class Index extends Component {
             lastId: data.data.list[data.data.sum - 1].id
           });
         } else {
+          console.log("ID"+ this.state.lastId)
           Taro.stopPullDownRefresh();
           Taro.hideNavigationBarLoading();
           this.setState({
@@ -109,9 +68,16 @@ export default class Index extends Component {
             // eslint-disable-next-line react/no-unused-state
             sum: data.data.sum,
             lastId: data.data.list[data.data.sum - 1].id
+          },()=>{
+            console.log(this.state.Lists)
+            console.log("II"+ this.state.lastId)
           });
         }
       } else {
+        this.setState({
+          Lists: [],
+          sum: data.data.sum
+        })
         Taro.showToast({
           title: '到底啦！',
           duration: 2000
@@ -240,6 +206,11 @@ export default class Index extends Component {
       animation: animation
     });
   }
+  favorite(){
+    console.log("收藏")
+    this.collect()
+    console.log(this.state.noCollect)
+  }
 
   componentWillUnmount() {}
 
@@ -256,31 +227,38 @@ export default class Index extends Component {
       },
       'PUT'
     ).then(res => {
+      console.log(res)
+      console.log(res.code)
       switch (res.code) {
         case 0:
           // eslint-disable-next-line no-undef
-          noCollect = false;
+          Taro.showToast({
+            title: '取消收藏成功！',
+            icon: 'success'
+          })
+          this.getLists()
           break;
         case 20302:
           // eslint-disable-next-line no-undef
-          noCollect = true;
+          Taro.showToast({
+            title: '取消收藏失败!'
+          })
           break;
       }
     });
   }
   render() {
-    const noCollect = this.props.noCollect;
-    let status = null;
-    if (noCollect) {
-      // eslint-disable-next-line react/jsx-no-undef
-      status = <Text>取消收藏</Text>;
-    } else {
-      // eslint-disable-next-line react/jsx-no-undef
-      status = <Text>已取消</Text>;
-    }
+    // let status = null;
+    // if (noCollect) {
+    //   // eslint-disable-next-line react/jsx-no-undef
+    //   status = <Text>已取消收藏</Text>;
+    // } else {
+    //   // eslint-disable-next-line react/jsx-no-undef
+    //   status = <Text>取消收藏</Text>;
+    // }
     const content = (
       <View className="detailsBoxes">
-        {this.state.datas.map(data => {
+        {this.state.Lists.map(data => {
           return (
             // eslint-disable-next-line react/jsx-key
             <View className="mx-card">
@@ -316,7 +294,9 @@ export default class Index extends Component {
                   </View>
                 </MovableView>
               </MovableArea>
-              <View className="itemDelete right">{status}</View>
+              <View className="itemDelete right" onClick={this.favorite.bind(this)}>
+                <Text>取消收藏</Text>
+              </View>
             </View>
           );
         })}

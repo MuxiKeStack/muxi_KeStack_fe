@@ -29,6 +29,8 @@ import message from '../../../assets/svg/message.svg';
 import myCourse from '../../../assets/svg/myCourse.svg';
 import arrowR from '../../../assets/svg/right_arrow.svg';
 import likeBtnS from '../../../assets/svg/like-btn-s.svg';
+import unanony from '../../../assets/svg/unannoy.svg';
+import anony from '../../../assets/svg/annoy.svg';
 
 import './index.scss';
 
@@ -57,9 +59,9 @@ export default class MxIcon extends MxComponent {
       ['cmmtSq', cmmtSq],
       ['cmmtSqG', cmmtSqG],
       ['cross', cross],
-      ['arrowRM',arrowRM],
-      ['arrowR',arrowR],
-      ['arrowD',arrowD],
+      ['arrowRM', arrowRM],
+      ['arrowR', arrowR],
+      ['arrowD', arrowD],
       ['largeC', largeC],
       ['likeBtn', likeBtn],
       ['likeBtnS', likeBtnS],
@@ -75,7 +77,9 @@ export default class MxIcon extends MxComponent {
       ['courseList', courseList],
       ['history', history],
       ['message', message],
-      ['myCourse', myCourse]
+      ['myCourse', myCourse],
+      ['anony', anony],
+      ['unanony', unanony]
     ]);
 
     const rootStyle = {
@@ -112,5 +116,5 @@ MxIcon.propTypes = {
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   type: PropTypes.string,
   outerStyle: PropTypes.object,
-  onChange: PropTypes.func
+  onClick: PropTypes.func
 };

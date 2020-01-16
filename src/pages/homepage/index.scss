@@ -1,6 +1,8 @@
 .home-page-user-info{
     width:750px;
     height:284px;
+    display: flex;
+    align-items: center;
     padding: 65px 0  52px 53px;
     box-sizing: border-box;
     border-top:5px solid rgba(241, 240, 245, 1);
@@ -21,7 +23,7 @@
     box-sizing: border-box;
 }
 .user-info{
-    display: inline-block;
+    // display: inline-block;
     padding: 23px 0 0 30px;
     .nickname{
         font-size:50px;
@@ -32,9 +34,8 @@
     }
 }
 .change-user-info{
-    display:inline-block;
-    vertical-align: middle;
-    margin-left:150px;
+    // sdisplay:inline-block;
+    margin:0 45px 0 auto;
 }
 .home_page_list-title{
     font-size:40px;
@@ -47,7 +48,8 @@
     color: #000000;
 }
 .home_page_error-click{
-    margin:104px 0 0 81px;
+    margin-top:104px;
     color: #8F98FD;
     font-size: 24px;
+    text-align: center;
 }

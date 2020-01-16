@@ -188,19 +188,61 @@ page{
 .inputBox{
     position: fixed;
     bottom: 0;
-    height: 120px;
+    height: 180px;
     width: 100%;
-    background-color: red;
+    border-top-color: #CACACA;
+    background-color: #FFFFFF;
+    padding: 10px 20px;
 }
+.notanon{
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border-color: #6E66EE;
+    background-color: #EBEDF5;
+}
+.isanon{
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+}
+.anonWords{
+    margin-left: 10px;
+    font-size: 32px;
+    color: #707070;
+    vertical-align: top;
+}
+.replyFram{
+    width: 571px;
+    height: 63px;
+    display: inline-block;
+    padding: 10px 0 0 10px;
+    border: 1px solid #CACACA;
+    border-radius: 20px;
+}
+.replyWords{
+    display: inline-block;
+    background-color: #6E66EE;
+    color: #FFFFFF;
+    font-size: 32px;
+    width: 122px;
+    height: 73px;
+    text-align: center;
+    line-height: 73px;
+    vertical-align: top;
+    border-radius: 10px;
+    margin-left: 17px;
+}
+.replyCard{
+    display: block;
+}
+.toreply{
+    font-size: 32px;
+    color: #707070;
+    margin-left: 10px;
+}
+
 //MXlIKE
 mx-like{
     vertical-align: bottom;
-}
-.nomore{
-    width: 100%;
-    text-align: center;
-    padding: 20px 0;
-    background-color: red;
-    height: 50px;
-    line-height: 50px;
 }

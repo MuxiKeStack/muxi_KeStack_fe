@@ -1,39 +1,8 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 18.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 59.414 59.414" style="enable-background:new 0 0 59.414 59.414;" xml:space="preserve">
-<g>
-	<polygon style="fill:#000000;" points="29.707,45.268 0,15.561 1.414,14.146 29.707,42.439 58,14.146 59.414,15.561 	"/>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="24" viewBox="0 0 48 24">
+  <g id="向下箭头" transform="translate(-60 56) rotate(-90)">
+    <g id="back" transform="translate(32 60)">
+      <rect id="矩形" width="24" height="48" fill="none"/>
+      <path id="Path" d="M4.544,17.556,17.855,31.7a2.089,2.089,0,0,1,0,2.828,1.805,1.805,0,0,1-2.662,0L.551,18.971a2.089,2.089,0,0,1,0-2.828L15.193.586a1.805,1.805,0,0,1,2.662,0,2.089,2.089,0,0,1,0,2.828Z" transform="translate(1.529 6)" fill="#707070"/>
+    </g>
+  </g>
 </svg>
