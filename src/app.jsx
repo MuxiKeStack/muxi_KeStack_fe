@@ -54,18 +54,21 @@ class App extends Component {
       list: [
         {
           pagePath: 'pages/commentSquare/index',
-          iconPath: './assets/svg/cmmt-squaG.svg',
-          selectedIconPath: './assets/svg/cmmt-squa.svg'
+          // iconPath: './assets/svg/cmmt-squaG.svg',
+          text: '1'
+          // selectedIconPath: './assets/svg/cmmt-squa.svg'
         },
         {
           pagePath: 'pages/courseAssistant/index',
-          iconPath: './assets/svg/shelperG.svg',
-          selectedIconPath: './assets/svg/shelper.svg'
+          // iconPath: './assets/svg/shelperG.svg',
+          text: '2'
+          // selectedIconPath: './assets/svg/shelper.svg'
         },
         {
           pagePath: 'pages/homepage/index',
-          iconPath: './assets/svg/user-infoG.svg',
-          selectedIconPath: './assets/svg/user-info.svg'
+          // iconPath: './assets/svg/user-infoG.svg',
+          text: '3'
+          // selectedIconPath: './assets/svg/user-info.svg'
         }
       ],
       color: '#CACACA',
