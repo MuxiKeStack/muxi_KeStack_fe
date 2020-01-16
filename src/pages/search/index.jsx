@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-boolean-value */
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, MovableArea, MovableView } from '@tarojs/components';
 import './index.scss';
@@ -18,6 +19,7 @@ export default class Index extends Component {
           text: '线性代数B',
           teacher: '张俊',
           people: '84',
+          num: '2019347817462',
           tag1: '偶尔点名',
           tag2: '期末闭卷',
           tag3: '期末闭卷',
@@ -27,6 +29,7 @@ export default class Index extends Component {
           text: '线性代数B',
           teacher: '张俊',
           people: '84',
+          num: '2019347817462',
           tag1: '偶尔点名',
           tag2: '期末闭卷',
           tag3: '暂无课程特点评价',
@@ -36,6 +39,7 @@ export default class Index extends Component {
           text: '线性代数B',
           teacher: '张俊',
           people: '84',
+          num: '2019347817462',
           tag1: '偶尔点名',
           tag2: '期末闭卷',
           tag3: '期末闭卷',
@@ -43,6 +47,7 @@ export default class Index extends Component {
         }
       ],
       value: 4,
+      // eslint-disable-next-line react/no-unused-state
       checkable: false
     };
   }
@@ -67,20 +72,19 @@ export default class Index extends Component {
     });
   }
 
-
   getHistorySearch() {
     Fetch(
       'api/v1/search/historyCourse',
       {
-      keyword: this.state.keyword,
-      type: this.state.type,
-      page: '1',
-      limit: '10',
+        keyword: this.state.keyword,
+        type: this.state.type,
+        page: '1',
+        limit: '10'
       },
       'GET'
-    ).then(data =>{
-      console.log(data)
-    })
+    ).then(data => {
+      console.log(data);
+    });
   }
 
   handleChange(value) {
@@ -186,7 +190,7 @@ export default class Index extends Component {
       // eslint-disable-next-line react/no-unused-state
       animation: animation
     });
-    this.getHistorySearch()
+    this.getHistorySearch();
   }
   collect() {
     let id = '112d34testsvggase';
@@ -211,30 +215,33 @@ export default class Index extends Component {
   }
 
   handleClickInput() {
-    this.getHistorySearch()
-}
-
-  handleClickContent(event){
-    this.setState({
-          keyword: event.detail.value
-      })
-}
-
-  onClickTags(num){
-    let state = [false, false, false, false, false]
-    if(this.state.tagsState[num]!=true){
-    state[num] = true}
-
-    this.setState({
-      type: num,
-      tagsState: state
-    },()=>{
-      console.log(this.state.type)
-      console.log(this.state.tagsState)
-      this.getHistorySearch()
-    })
+    this.getHistorySearch();
   }
 
+  handleClickContent(event) {
+    this.setState({
+      keyword: event.detail.value
+    });
+  }
+
+  onClickTags(num) {
+    let state = [false, false, false, false, false];
+    if (this.state.tagsState[num] != true) {
+      state[num] = true;
+    }
+
+    this.setState(
+      {
+        type: num,
+        tagsState: state
+      },
+      () => {
+        console.log(this.state.type);
+        console.log(this.state.tagsState);
+        this.getHistorySearch();
+      }
+    );
+  }
 
   componentWillUnmount() {}
 
@@ -243,7 +250,7 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
-    let tagState = this.state.tagsState
+    let tagState = this.state.tagsState;
     const isCollect = this.props.isCollect;
     let status = null;
     if (isCollect) {
@@ -268,33 +275,44 @@ export default class Index extends Component {
                   animation={this.state.animation}
                   onClick={this.ChangeTodetails.bind(this)}
                 >
-                  <View className="blue">
-                    <View className="star">
-                      <MxRate
-                        value={this.state.value}
-                        onChange={this.handleChange.bind(this)}
-                        readOnly
-                      />
-                    </View>
-                    <View className="word">评价人数：</View>
-                    <View className="people">{data.people}</View>
-                  </View>
                   <View className="user-info">
                     <View className="class">{data.text}</View>
                     <View className="teacher">{data.teacher}</View>
+                    <View className="num">{data.num}</View>
                   </View>
-                  <View className="tag">
-                    <View className="tag1">
-                      <Text>{data.tag1}</Text>
+                  <View>
+                    <View className="blue">
+                      <View className="star">
+                        <MxRate
+                          value={this.state.value}
+                          onChange={this.handleChange.bind(this)}
+                          readOnly
+                        />
+                      </View>
+                      <View className="word">评价人数：</View>
+                      <View className="people">{data.people}</View>
                     </View>
-                    <View className="tag2">
-                      <Text>{data.tag2}</Text>
-                    </View>
-                    <View className="tag3">
-                      <Text>{data.tag3}</Text>
-                    </View>
-                    <View className="tag4">
-                      <Text>{data.tag4}</Text>
+                    <View className="tag">
+                      <View className="tag1">
+                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          {data.tag1}
+                        </MxTag>
+                      </View>
+                      <View className="tag2">
+                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          {data.tag2}
+                        </MxTag>
+                      </View>
+                      <View className="tag3">
+                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          {data.tag3}
+                        </MxTag>
+                      </View>
+                      <View className="tag4">
+                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          {data.tag4}
+                        </MxTag>
+                      </View>
                     </View>
                   </View>
                 </MovableView>
@@ -329,60 +347,73 @@ export default class Index extends Component {
         </View>
         <View className="label">
           <View>
-            <Text>通识课：</Text>
-            <MxTag 
-            onClick={this.onClickTags.bind(this, 0)}
-            font="28rpx" 
-            checkable ={true}
-            checked = {tagState[0]}
-            padding="1rpx 44rpx 1rpx 44rpx" 
-            checkedControl={true}
-            >
-              专业必修课
-            </MxTag>
-            <MxTag 
-            onClick={this.onClickTags.bind(this, 1)}
-            font="28rpx" 
-            checkable= {true}
-            checked = {tagState[1]}
-            padding="1rpx 44rpx 1rpx 44rpx" 
-            checkedControl={true}
-            >
-              专业选修课
-            </MxTag>
-            <MxTag 
-            onClick={this.onClickTags.bind(this, 2)}
-            font="28rpx" 
-            checkable= {true}
-            checked = {tagState[2]}
-            padding="1rpx 44rpx 1rpx 44rpx" 
-            checkedControl={true}
-            >
-              通识核心课
-            </MxTag>
+            <View className="label1">
+              <MxTag
+                onClick={this.onClickTags.bind(this, 0)}
+                font="28rpx"
+                checkable={true}
+                checked={tagState[0]}
+                padding="1rpx 44rpx 1rpx 44rpx"
+                checkedControl={true}
+                border="2px solid rgba(110,102,238,1)"
+              >
+                专业必修课
+              </MxTag>
+            </View>
+            <View className="label2">
+              <MxTag
+                onClick={this.onClickTags.bind(this, 1)}
+                font="28rpx"
+                checkable={true}
+                checked={tagState[1]}
+                padding="1rpx 44rpx 1rpx 44rpx"
+                checkedControl={true}
+                border="2px solid rgba(110,102,238,1)"
+              >
+                专业选修课
+              </MxTag>
+            </View>
           </View>
           <View>
-            <Text>通识课：</Text>
-            <MxTag 
-            onClick={this.onClickTags.bind(this, 3)}
-            font="28rpx" 
-            checkable = {true}
-            checked = {tagState[3]}
-            padding="1rpx 44rpx 1rpx 44rpx"
-            checkedControl={true}
-            >
-              通识选修课
-            </MxTag>
-            <MxTag 
-            onClick={this.onClickTags.bind(this, 4)}
-            font="28rpx" 
-            checkable = {true}
-            checked = {tagState[4]}
-            padding="1rpx 44rpx 1rpx 44rpx" 
-            checkedControl={true}
-            >
-              公共课
-            </MxTag>
+            <View className="label3">
+              <MxTag
+                onClick={this.onClickTags.bind(this, 2)}
+                font="28rpx"
+                checkable={true}
+                checked={tagState[2]}
+                padding="1rpx 44rpx 1rpx 44rpx"
+                checkedControl={true}
+                border="2px solid rgba(110,102,238,1)"
+              >
+                通识核心课
+              </MxTag>
+            </View>
+            <View className="label4">
+              <MxTag
+                onClick={this.onClickTags.bind(this, 3)}
+                font="28rpx"
+                checkable={true}
+                checked={tagState[3]}
+                padding="1rpx 44rpx 1rpx 44rpx"
+                checkedControl={true}
+                border="2px solid rgba(110,102,238,1)"
+              >
+                通识选修课
+              </MxTag>
+            </View>
+            <View className="label5">
+              <MxTag
+                onClick={this.onClickTags.bind(this, 4)}
+                font="28rpx"
+                checkable={true}
+                checked={tagState[4]}
+                padding="1rpx 44rpx 1rpx 44rpx"
+                checkedControl={true}
+                border="2px solid rgba(110,102,238,1)"
+              >
+                公共课
+              </MxTag>
+            </View>
           </View>
         </View>
         {content}
