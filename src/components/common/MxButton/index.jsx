@@ -34,7 +34,9 @@ export default class MxButton extends Component{
             width: `${buttonWidthI}`,
             height: `${buttonHeightI}`,
             padding: `${padding}`,
-            'line-height':`0`
+            'line-height':`0`,
+            background:`${buttonBackground}`,
+            'border-radius':`${buttonRadius}`,
         }
 
 

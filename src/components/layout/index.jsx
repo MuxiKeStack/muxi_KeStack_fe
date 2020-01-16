@@ -45,6 +45,10 @@ export default class FloatLayout extends Component {
 
   render () {
     const {_isOpened} = this.state;
+    const scrollStyle = {
+      // 'white-space':'nowrap',
+      width:'100%',
+    }
     const {content,title,cancelText,confirmText,popup, animationType, height} = this.props;
 
     const rootClass = classNames('mp-modal',{
@@ -84,6 +88,7 @@ export default class FloatLayout extends Component {
                <View className='mp-modal__content' style={contentHeight}>
                 <ScrollView
                   scrollX
+                  style={scrollStyle}
                 >
                   { this.props.children }
                 </ScrollView>
