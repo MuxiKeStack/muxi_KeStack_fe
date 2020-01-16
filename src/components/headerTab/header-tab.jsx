@@ -1,11 +1,10 @@
 /* eslint-disable taro/duplicate-name-of-state-and-props */
 import Taro, { Component } from '@tarojs/taro'
-import { View,ScrollView ,Button} from '@tarojs/components'
-import AtAccordion from '../../components/common/MxAccordion'
+import { View,ScrollView ,Button,CoverView, Input} from '@tarojs/components'
 import Fetch from '../../service/fetch'
 import './header-tab.scss'
 
-
+var newname;
 export default class HeaderTab extends Component {
 
   config = {
@@ -14,17 +13,20 @@ export default class HeaderTab extends Component {
   constructor(props){
     super(props)
     this.state = {
-      currentTab:1,
-      open:false
+        currentTab:1,
+        open:[],
+        caninput:true,
+        inputfocus:false,
+        newname:'',
       }
     }
-
-    switchNav (value,e){
+  switchNav (value,e){
+    this.props.navList.map(nav=>{
+      this.state.open[nav.key]=false
+    })
       var cur = e.target.dataset.current;
       if(this.state.currentTab === cur){
-        this.setState({
-          open: !this.state.open
-      });
+        this.state.open[cur]=!this.state.open[cur]
     }
       else{
         this.setState({
@@ -32,63 +34,88 @@ export default class HeaderTab extends Component {
         })
       }
       this.props.onGetIndex(value);
-    }
+  }
+  componentWillMount(){
+    this.setState({
+      navList:this.props.navList,
+      currentTab:this.props.navList[0].key
+    })
+    this.props.navList.map(nav=>{
+      this.state.open[nav.key]=false
+    })
+  }
+  newName(content){
+    this.setState({
+      caninput:!this.state.caninput,
+      inputfocus:!this.state.inputfocus
+    })
+    newname=content
+  }
 
-    onScrollToUpper(e){
-      console.log(e.detail)
+  inputname(e){
+    newname=e.detail.value
+  }  
+  pushnewName(id){
+    Fetch(
+      `api/v1/table/${id}/rename/`,
+      {
+        new_name:newname
+      },
+      'PUT'
+    ).then(res=>{
+      if(res.message=="OK"){
+        
+      }
+    })
+    this.setState({
+      caninput:!this.state.caninput,
+      inputfocus:!this.state.inputfocus
+    })
+  }
+newtable(id){
+  Fetch(
+    `api/v1/table/?id=${id}`,
+    {},
+    'POST'
+  ).then(res=>{
+    if(res.message=="OK"){
+      this.props.OnGettable()
     }
-     
-  onScroll(e){
-      console.log(e.detail)
-    }  
+  })
+}
+deletetable(id){
+  Fetch(
+    `api/v1/table/${id}`,
+    {},
+    'DELETE'
+  ).then(res=>{
+    if(res.message=="OK"){
+      this.props.OnGettable()
+    }
+  })
+}
   render () {
     const scrollStyle = {
       height: '100%',
       width:'100%'
     }
     const scrollLeft = 0
-        const scrollTop = 0
-        const Threshold = 20
+    const scrollTop = 0
+    const Threshold = 20
     return (
-      <View>
-          <ScrollView 
-            className='swiper-tab'
-            scrollX
-            scrollWithAnimation
-            scrollTop={scrollTop}
-            scrollLeft={scrollLeft}
-            style={scrollStyle}
-            lowerThreshold={Threshold}
-            upperThreshold={Threshold}
-            onScrollToUpper={this.onScrollToUpper.bind(this)}
-            onScroll={this.onScroll}
-          >
+      <View className='wrapper'>
             {this.props.navList.map((nav) =>
                 <View className={this.state.currentTab===nav.key?'active':'normal'}  data-current={nav.key} onClick={this.switchNav.bind(this,nav.key)} key='0'>
-                  {/* {nav.content} */}
-                  <AtAccordion
-                    open={this.state.open}
-                    title={nav.content}
-                    data-current={nav.key} onClick={this.switchNav.bind(this,nav.key)} key='0'
-                  >
-                    <View  className='menu'>
-                            <Button className='menuButton'>重命名</Button>
-                            <Button className='menuButton'>创建副本</Button>
-                            <Button className='menuButton'>删除课表</Button>
-                        </View>
-                  </AtAccordion>
+                  <Input className='nameinput' value={nav.content} disabled={this.state.caninput} onInput={this.inputname.bind(this)} maxLength='5'onBlur={this.pushnewName.bind(this,nav.key)} ></Input>
+                      <View className={this.state.open[nav.key] ? 'menu_active':'menu_normal'}>
+                          <CoverView >
+                              <Button className='menuButton' onClick={this.newName.bind(this,nav.content)}>重命名</Button>
+                              <Button className='menuButton' onClick={this.newtable.bind(this,nav.key)}>创建副本</Button>
+                              <Button className='menuButton' onClick={this.deletetable.bind(this,nav.key)}>删除课表</Button>
+                          </CoverView>
+                      </View>
                 </View>
             )}
-          </ScrollView>
-          {/* <View  className='menucard'>
-            {this.props.navList.map((nav) =>
-                  <View  className='menu' data-current={nav.key} onClick={this.switchNav.bind(this,nav.key)} key='0'>
-                            <Button className='menuButton'>重命名</Button>
-                            <Button className='menuButton'>创建副本</Button>
-                            <Button className='menuButton'>删除课表</Button>
-                  </View>
-            )}
-          </View> */}
     </View>
     )
   }

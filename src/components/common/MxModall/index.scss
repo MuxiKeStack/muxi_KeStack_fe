@@ -52,12 +52,13 @@
 
     &__title{
         width: 500px;
-        line-height: 150px;
-        height: 150px;
+        height: 120px;
         margin-left: 25px;
+        margin-top: 20px;
         border-bottom:2px solid rgba(110,102,238,1);
         text-align: center;
         color: #6E66EE;
+        font-size: 36px;
     }
 
     &__content{
@@ -80,11 +81,11 @@
         &>button{
             flex: auto;
             border-radius: 46px;
-            border: 1px solid #6E66EE;
             height: 80px;
             background: transparent;
             background-color: #6E66EE;
             color: #FFFFFF;
+            margin-right: 20px;
 
             &::after{
                 border: 0px;

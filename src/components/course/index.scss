@@ -1,7 +1,7 @@
 .course{
     width:120px;
     height:150px;
-    background:rgba(252,128,127,1);
+    // background:rgba(252,128,127,1);
     opacity:1;
     border-radius:20px;
     line-height:40px;
@@ -23,4 +23,9 @@
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
     word-break: break-all;
+}
+.conImg{
+    width: 40px;
+    height: 40px;
+    position: absolute;
 }

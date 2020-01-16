@@ -107,7 +107,7 @@
     margin-left: 10px;
 }
 .checkbox-list__checkbox{
-    border-bottom: 2px solid rgba(189,189,189,1);
+    border-top: 2px solid rgba(189,189,189,1);
     width: 500px;
 }
 .card{
@@ -121,8 +121,9 @@
     padding: 0;
     box-shadow: 0;
     margin-left: 6px;
+    display: inline-block;
 }
-.card-content{
+#card-content{
     display: -webkit-box;
     width: 56px;
     font-size:28px;
@@ -132,6 +133,33 @@
     overflow: hidden;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
+    box-orient: vertical;
     text-overflow: ellipsis;
     word-break: break-all;
+    white-space: normal;
+}
+.addtable{
+    position: absolute;
+    right: 28px;
+    top: 32px;
+}
+.radioG{
+    height: 258px;
+}
+.coursedetail{
+    display: flex;
+    justify-content: center;
+    margin-left: 20px;
+}
+.maincourse{
+    display: table-cell;
+    vertical-align: middle;
+    height: 250px;
+}
+.coursetime{
+    display: flex;
+    margin-left: -20px;
+}
+.place{
+    margin-left: 20px;
 }
