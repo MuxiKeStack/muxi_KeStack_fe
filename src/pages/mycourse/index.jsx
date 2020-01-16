@@ -13,23 +13,10 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      courses: [
-        {
-          id: 1,
-          name: '线性代数',
-          teacher: '(李书刚)',
-          is_evaluate: true
-        },
-        {
-          id: 2,
-          name: '线性代数aaa',
-          teacher: '(李书刚bbb)',
-          is_evaluate: false
-        }
-      ],
+      courses: [],
       selectorCheckedY: '选择学年',
       selectorCheckedT: '选择学期',
-      selectoryears: ['2018-2019','2019-2020','2020-2021','2021-2022'],
+      selectoryears: [],
     };
     this.selectorterms = ['第一学期', '第二学期', '第三学期'];
   }
@@ -50,7 +37,7 @@ export default class Index extends Component {
     //     console.log(res.data.token);
     //   }
     // );
-    var sid = '2018214877';
+    var sid = Taro.getStorageSync('sid');
     var newList = [];
     var firstYear = sid.slice(0,4);
     newList.push(firstYear+'-'+parseInt(parseInt(firstYear)+1));
@@ -103,7 +90,7 @@ export default class Index extends Component {
         default:
           Y = '0';
       }
-      Fetch(`api/v1/user/courses/?year=${Y}&term=${T}`, {sid:'2018214877',password:'2yuhly0312'}, 'POST')
+      Fetch(`api/v1/user/courses/?year=${Y}&term=${T}`, {sid:Taro.getStorageSync('sid'),password:Taro.getStorageSync('password')}, 'POST')
         .then(
           res =>{
             console.log(res.data.data);
@@ -114,7 +101,7 @@ export default class Index extends Component {
             }
           }
         )
-        .catch(err => console.error(err));
+        .catch(err => Taro.showToast({title: '已经到底了',icon: 'none'}));
     });
     
   };
@@ -153,7 +140,7 @@ export default class Index extends Component {
       default:
         Y = '0';
     }
-    Fetch(`api/v1/user/courses/?year=${Y}&term=${T}`, {sid:'2018214877',password:'2yuhly0312'}, 'POST')
+    Fetch(`api/v1/user/courses/?year=${Y}&term=${T}`, {sid: Taro.getStorageSync('sid'),password:Taro.getStorageSync('password')}, 'POST')
       .then(
         res =>{
           console.log(res.data.data);
@@ -201,7 +188,7 @@ export default class Index extends Component {
             <View
               onClick={() =>
                 Taro.navigateTo({
-                  url: '/pages/somename/index?id=' + course.id
+                  url: '/pages/postReview/index?id=' + course.course_id
                 })
               }
               key={course.id}

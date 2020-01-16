@@ -30,30 +30,56 @@ export default class replyInput extends Component {
   //     this.props.onSubmit(...arguments);
   //   }
   handleSubmit() {
-    console.log(this.props.Eid);
-    console.log(this.props.Sid);
-    Fetch(
-      'api/v1/comment/' + this.props.Eid + '/?sid=' + this.props.Sid,
-      { content: this.state.content, is_anonymous: this.state.is_anonymous },
-      'POST'
-    )
-      .then(res => {
-        console.log(res.data);
-        Taro.showToast({
-          title: '成功',
-          icon: 'success',
-          duration: 2000
+    // console.log(this.props.Eid);
+    // console.log(this.props.Sid);
+    if (this.props.Pid) {
+      Fetch(
+        'api/v1/comment/' + this.props.Pid + '/?sid=' + this.props.Sid,
+        { content: this.state.content, is_anonymous: this.state.is_anonymous },
+        'POST'
+      )
+        .then(res => {
+          console.log(res.data);
+          Taro.showToast({
+            title: '成功',
+            icon: 'success',
+            duration: 2000
+          });
+          this.setState({
+            content: ''
+          });
+        })
+        .catch(err => {
+          Taro.showToast({
+            title: '失败',
+            icon: 'none'
+          });
         });
-        this.setState({
-          content: ''
-        });
-      })
-      .catch(err => {
-        Taro.showToast({
-          title: '失败',
-          icon: 'none'
-        });
-      });
+    }
+    // } else {
+    //   Fetch(
+    //     'api/v1/comment/' + this.props.Pid + '/?sid=' + this.props.Sid,
+    //     { content: this.state.content, is_anonymous: this.state.is_anonymous },
+    //     'POST'
+    //   )
+    //     .then(res => {
+    //       console.log(res.data);
+    //       Taro.showToast({
+    //         title: '成功',
+    //         icon: 'success',
+    //         duration: 2000
+    //       });
+    //       this.setState({
+    //         content: ''
+    //       });
+    //     })
+    //     .catch(err => {
+    //       Taro.showToast({
+    //         title: '失败',
+    //         icon: 'none'
+    //       });
+    //     });
+    // }
   }
 
   changeAnony() {
@@ -78,6 +104,7 @@ export default class replyInput extends Component {
               onClick={this.changeAnony.bind(this)}
             ></MxIcon>
           )}
+          {'匿名'}
           <Input
             placeholder="回复："
             placeholderClass="placeholder"
@@ -114,12 +141,14 @@ replyInput.defaultProps = {
   className: '',
   // onConfirm: () => {},
   Eid: '',
-  Sid: ''
+  Sid: '',
+  Pid: ''
 };
 
 replyInput.propTypes = {
   className: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   // onConfirm: PropTypes.func,
   Eid: PropTypes.string,
-  Sid: PropTypes.string
+  Sid: PropTypes.string,
+  Pid: PropTypes.string
 };

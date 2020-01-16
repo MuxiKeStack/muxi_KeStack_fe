@@ -13,7 +13,9 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      messageList: []
+      messageList: [],
+      page: 1,
+      limit: 30
     };
   }
   componentWillUnmount() {}
@@ -30,40 +32,44 @@ export default class Index extends Component {
                     course: res.info,
                     });
                 });*/
-    Fetch('api/v1/message', { limit: 30 }, 'GET').then(res => {
+    Fetch(
+      'api/v1/message?page=' + this.state.page + 'limit=' + this.state.limit,
+      {},
+      'GET'
+    ).then(res => {
       if (res) {
         console.log(res.data),
           this.setState({
-            messageList: res.data
+            messageList: res.data,
+            page: this.state.page + 1
           });
       }
     });
   }
-  // onReachBottom() {
-  //   if (this.state.last_id) {
-  //     Fetch(
-  //       'api/v1/user/evaluations/',
-  //       {
-  //         limit: '10',
-  //         last_id: this.state.last_id
-  //       },
-  //       'GET'
-  //     ).then(res => {
-  //       if (res) {
-  //         console.log(res.data.list);
-  //         this.setState({
-  //           list: res.data.list,
-  //           last_id: this.state.id
-  //         });
-  //         if (!res.data.list)
-  //           Taro.showToast({
-  //             title: '已经到底啦',
-  //             icon: 'none'
-  //           });
-  //       }
-  //     });
-  //   }
-  // }
+  onReachBottom() {
+    if (this.state.last_id) {
+      Fetch(
+        'api/v1/message?page=' + this.state.page + 'limit=' + this.state.limit,
+        {},
+        'GET'
+      )
+        .then(res => {
+          if (res) {
+            console.log(res.data.list);
+            this.setState({
+              messageList: res.data,
+              page: this.state.page + 1
+            });
+          }
+        })
+        .catch(err => {
+          Taro.showToast({
+            title: '已经到底啦',
+            icon: 'none'
+          });
+        });
+    }
+  }
 
   toNormalTime(timestamp) {
     var date = new Date(timestamp * 1000);
@@ -91,6 +97,7 @@ export default class Index extends Component {
           var isComment = message.kind == 1 ? true : false;
           var isLike = message.kind == 0 ? true : false;
           var isReport = message.kind == 2 ? true : false;
+          var isToEvalueation = message.kind == 3 ? true : false;
           return (
             <View key={message.time}>
               {isLike && (
@@ -116,10 +123,29 @@ export default class Index extends Component {
                     <View className="detail-text">赞了我</View>
                   </View>
                   <View className="course-container">
-                    <View className="course-name">
+                    <View
+                      className="course-name"
+                      onClick={() =>
+                        Taro.navigateTo({
+                          url:
+                            '/pages/courseDetails/index?id=' + message.course_id
+                        })
+                      }
+                    >
                       {'#' + message.course_name} {'(' + message.teacher + ')'}
                     </View>{' '}
-                    {message.content}
+                    <View
+                      className="message-content"
+                      onClick={() =>
+                        Taro.navigateTo({
+                          url:
+                            '/pages/courseCommentsDetails/index?id=' +
+                            message.evaluation_id
+                        })
+                      }
+                    >
+                      {message.content}
+                    </View>
                   </View>
 
                   {/* <ReplyInput
@@ -150,18 +176,65 @@ export default class Index extends Component {
                     <View className="reply-text">{message.reply}</View>
                   </View>
                   <View className="course-container">
+                    <View
+                      className="course-name"
+                      onClick={() =>
+                        Taro.navigateTo({
+                          url:
+                            '/pages/courseDetails/index?id=' + message.course_id
+                        })
+                      }
+                    >
+                      {'#' + message.course_name} {'(' + message.teacher + ')'}
+                    </View>{' '}
+                    <View
+                      className="message-content"
+                      onClick={() =>
+                        Taro.navigateTo({
+                          url:
+                            '/pages/courseCommentsDetails/index?id=' +
+                            message.evaluation_id
+                        })
+                      }
+                    >
+                      {message.content}
+                    </View>
+                  </View>
+                  <ReplyInput
+                    Pid={message.parent_comment_id}
+                    Sid={message.sid}
+                    Eid={message.evaluation_id}
+                  />
+                </View>
+              )}
+              {isReport && (
+                <View className="card-container">
+                  <View className="user-info">
+                    <View className="avatar-container">
+                      <Image
+                        src={message.user_info.avatar}
+                        className="avatar-image"
+                      ></Image>
+                    </View>
+                    <View className="name-time">
+                      <View className="name">{message.user_info.username}</View>
+                      <View className="time">
+                        {this.toNormalTime(message.time)}
+                      </View>
+                    </View>
+                  </View>
+                  <View className="text">
+                    你的评论/评课，已被举报，经系统审核不合规范，已被删除！
+                  </View>
+                  <View className="course-container">
                     <View className="course-name">
                       {'#' + message.course_name} {'(' + message.teacher + ')'}
                     </View>{' '}
                     {message.content}
                   </View>
-                  <ReplyInput
-                    Eid={message.parent_comment_id}
-                    Sid={message.sid}
-                  />
                 </View>
               )}
-              {!isLike && !isComment && (
+              {isToEvalueation && (
                 <View className="card-container">
                   <View className="user-info">
                     <View className="avatar-container">
@@ -178,10 +251,18 @@ export default class Index extends Component {
                     </View>
                   </View>
                   <View className="course-container">
-                    <View className="course-name">
+                    <View
+                      className="course-name"
+                      onClick={() =>
+                        Taro.navigateTo({
+                          url: '/pages/postReview/index?id=' + message.course_id
+                        })
+                      }
+                    >
                       {'#' + message.course_name} {'(' + message.teacher + ')'}
                     </View>{' '}
-                    {message.content}
+                    {/* {message.content} */}
+                    未评课～欢迎评课
                   </View>
                 </View>
               )}
