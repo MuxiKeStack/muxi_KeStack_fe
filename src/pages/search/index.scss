@@ -6,7 +6,6 @@ View {
     height: 98rpx;
     width: 750rpx;
     background:rgba(255,255,255,1);
-    box-shadow:0rpx 4rpx 7rpx rgba(0,0,0,0.16);
 }
 .search{
     margin: 13rpx 0rpx 0rpx 32rpx;
@@ -42,24 +41,24 @@ View {
 }
 .cardm{
     width:532px;
-    height:300px;
+    height:240px;
     background:rgba(255,255,255,1);
     border-radius: 30px;
 }
 .card{
     width:711px;
-    height:300px;
+    height:240px;
     background:rgba(255,255,255,1);
     opacity:1;
     border-radius: 30px;
     margin-top: 37px;
     margin-left: 21px;
-    display: inline-block;
+    display: flex;
     position: absolute;
 }
 .itemDelete{
     width: 184rpx;
-    height: 300rpx;
+    height: 240rpx;
     background-color: #ff81b4;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
@@ -70,39 +69,49 @@ View {
 }
 
 .user-info{
-    margin-left: 60rpx;
+    margin-top: 24rpx;
+    margin-left: 30rpx;
     display: inline-block;
-    width: 200rpx;
+    width: 220rpx;
    .class{
-    max-width: 220px;
+    max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size:40px;
-    color: #000000;
+    font-size:34px;
+    color:rgba(104,105,247,1);
+    line-height:48px;
+    width:220rpx;
+    height:48px;
    }
    .teacher{
-      margin-top: 30rpx;
-      margin-left: 50rpx;
-      font-size:35px;
-      color: #000000;
+      margin-top: 23rpx;
+      margin-left: 51rpx;
+      font-size:27px;
+      color:rgba(104,105,247,1);
+   }
+   .num{
+       width:155px;
+       height:38px;
+       font-size: 27px;
+       color:#A1A4AE ;
+       margin-top: 24rpx;
    }
 }
 .blue{
-    margin-top: 40px;
-    margin-left: 280rpx;
+    margin-top: 24rpx;
     width: 410px;
     display: inline-block;
     .people{
         font-size:27px;
-        color:rgba(104,105,247,1);
+        color:rgba(112,112,112,1);
         opacity:1;
         display: inline-block;
     }
     .word{
         display: inline-block;
         font-size:27px;
-        color:rgba(104,105,247,1);
+        color:rgba(112,112,112,1);
         opacity:1;
         margin-left: 31px;
     }
@@ -112,33 +121,42 @@ View {
 }
 .tag{
     display: inline-block;
-    margin-left: 80rpx;
+    margin-left: 20rpx;
     margin-top:20rpx;
-    width: 300rpx;
-    .tag1{
-        font-size:34px;
-        color:rgba(104,105,247,1);
-    }
     .tag2{
         margin-left: 15rpx;
-        font-size:34px;
-        color:rgba(104,105,247,1);
     }
     .tag3{
         margin-top:20rpx ;
         display: inline-block;
-        font-size:34px;
-        color:rgba(104,105,247,1);
     }
     .tag4{
         margin-top: 20rpx;
         margin-left: 15rpx;
-        font-size:34px;
-        color:rgba(104,105,247,1);
     }
 
 }
 .label{
     width: 750rpx;
     height: 150rpx;
+}
+.label1{
+    margin-left: 150rpx;
+    margin-top: 20rpx;
+}
+.label2{
+    margin-top: 20rpx;
+    margin-left: 30rpx;
+}
+.label3{
+    margin-top: 20rpx;
+    margin-left: 55rpx;
+}
+.label4{
+    margin-top: 20rpx;
+    margin-left: 20rpx;
+}
+.label5{
+    margin-top: 20rpx;
+    margin-left: 20rpx;
 }

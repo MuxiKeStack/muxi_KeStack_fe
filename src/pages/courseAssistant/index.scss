@@ -6,7 +6,6 @@ View {
     height: 98rpx;
     width: 750rpx;
     background:rgba(255,255,255,1);
-    box-shadow:0rpx 4rpx 7rpx rgba(0,0,0,0.16);
 }
 .search{
     margin: 13rpx 0rpx 0rpx 32rpx;
@@ -29,13 +28,13 @@ View {
     width: 750rpx;
 }
 .mx-card{
-    width:711px;
-    height:300px;
+    width:710px;
+    height:240px;
     background:rgba(255,255,255,1);
     opacity:1;
     border-radius: 30px;
     margin-left: 21px;
-    display: inline-block;
+    display: flex;
 }
 .blue{
     margin-top: 40px;
@@ -59,52 +58,73 @@ View {
         display: inline-block;
     }
 }
-.info{
-    display: inline-block;
-    height: 200rpx;
 .user-info{
-    margin-left: 60rpx;
+    margin-top: 24rpx;
+    margin-left: 30rpx;
     display: inline-block;
     width: 220rpx;
    .class{
-    max-width: 220px;
+    max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size:40px;
-    color: #000000;
+    font-size:34px;
+    color:rgba(104,105,247,1);
+    line-height:48px;
+    width:220rpx;
+    height:48px;
    }
    .teacher{
-      margin-top: 30rpx;
-      margin-left: 50rpx;
-      font-size:35px;
-      color: #000000;
+      margin-top: 23rpx;
+      margin-left: 51rpx;
+      font-size:27px;
+      color:rgba(104,105,247,1);
    }
    .num{
-       font-size: 30px;
+       width:155px;
+       height:38px;
+       font-size: 27px;
        color:#A1A4AE ;
-       margin-top: 20rpx;
+       margin-top: 24rpx;
    }
 }
-
-.ta{
-    margin-left: 80rpx;
-    margin-top:10rpx;
-    width: 350rpx;
-    .time{
-        max-width: 270px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        font-size:34px;
-        color:rgba(104,105,247,1);
+.rate{
+    margin-top: 24rpx;
+    width: 410px;
+    display: inline-block;
+    .people{
+        font-size:27px;
+        color:rgba(112,112,112,1);
+        opacity:1;
+        display: inline-block;
     }
-    .address{
-        margin-top:20rpx ;
-        font-size:34px;
-        color:rgba(104,105,247,1);
+    .word{
+        display: inline-block;
+        font-size:27px;
+        color:rgba(112,112,112,1);
+        opacity:1;
+        margin-left: 31px;
+    }
+    .star{
+        display: inline-block;
     }
 }
+.tag{
+    display: inline-block;
+    margin-left: 20rpx;
+    margin-top:20rpx;
+    .tag2{
+        margin-left: 15rpx;
+    }
+    .tag3{
+        margin-top:20rpx ;
+        display: inline-block;
+    }
+    .tag4{
+        margin-top: 20rpx;
+        margin-left: 15rpx;
+    }
+
 }
 .choicePicker1{
     margin-top: 20rpx;
@@ -125,15 +145,21 @@ View {
     border-left: 5px solid rgba(241, 240, 245, 1);
     text-align: center;
 }
-/*.muxi-fab{
-    width:100px;
-    height: 100px;
-    border: 2px solid black;
-    border-radius: 100px;
+.choicePicker{
+    box-shadow:0px 3px 3px rgba(0,0,0,0.16);
+}
+.fab{
+    width:120px;
+    height:120px;
+    background:rgba(110,102,238,1);
+    box-shadow:3px 3px 10px rgba(0,0,0,0.16);
+    border-radius:50%;
+    opacity:1;
     font-size: 40px;
     text-align: center;
-    line-height: 90px;
+    line-height: 110px;
     position: fixed;
     right: 40px;
     bottom: 0;
-}*/
+    color:rgba(255,255,255,1);
+}
