@@ -8,6 +8,8 @@ const Fetch = (url, data = {}, method = 'GET') => {
     'content-type': 'application/json',
     token: Taro.getStorageSync('token')
     // 'token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzUyMDg3MDIsImlkIjoxLCJuYmYiOjE1NzUyMDg3MDJ9.erNdOrNTLCD56D2UW0RmuYGGdfrPuO7hLZdtMtj1CdY'
+    // token:
+    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1Nzg4MzQ2OTMsImlkIjoxNCwibmJmIjoxNTc4ODM0NjkzfQ.bCRnUEWABSO54-Nwc3lu9TPZOIwadovJwXg27Llcz04'
   };
   return Taro.request({
     url: preHttp + url,

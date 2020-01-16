@@ -178,13 +178,13 @@ View{
     position: absolute;
     right: 0;
     z-index: 30;
-    border-top-left-radius: 70px;
-    border-bottom-left-radius: 70px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
     font-size: 25px;
 }
 .infobox_drawer{
     width: 448px;
-    margin: 60px 0;
+    margin: 60px 0 30px 0;
 }
 .info_drawer{
     font-size: 40px;
@@ -289,11 +289,6 @@ View{
     background-color: green;
 }
 //drawer
-.classBox{
-    width: 500px;
-    background-color: red;
-    margin: 20px 0;
-}
 .nomore{
     width: 100%;
     text-align: center;
@@ -301,4 +296,10 @@ View{
     background-color: red;
     height: 50px;
     line-height: 50px;
+}
+.classMessageCard{
+    width: 380px;
+    display: block;
+    // margin: 10px 0 10px 35px;
+    margin: 10px auto;
 }

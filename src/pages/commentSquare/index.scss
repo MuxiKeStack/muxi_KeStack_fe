@@ -16,6 +16,9 @@ View {
     font-weight: 700;
     font-family: 'PingFangSC-Regular, sans-serif';
 }
+.chooseAdd{
+    margin: 15rpx 0rpx 0rpx 38rpx;
+}
 .chooseBox{
     display: block;
     top: 0rpx;
@@ -42,9 +45,10 @@ View {
 .chooseSearch{
     margin: 20rpx 0rpx 0rpx 16rpx;
 }
-.chooseAdd{
-    margin-top: 23rpx;
-    margin-left: 650rpx;
+.cho oseAdd{
+    // margin-top: 23rpx;
+    // margin-left: 6s50rpx;
+    margin: 15rpx 0rpx 0rpx 38rpx;
 }
 
 .detailsBoxes {

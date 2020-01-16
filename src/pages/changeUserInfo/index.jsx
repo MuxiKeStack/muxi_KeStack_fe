@@ -14,7 +14,9 @@ export default class index extends Component {
     this.state = {
       username: '',
       avatar: '',
-      onfocus: ''
+      onfocus: '',
+      file:[],
+
     };
   }
 
@@ -54,23 +56,48 @@ export default class index extends Component {
     });
   }
   toChangeAvatar() {
-    Taro.chooseImage({
-      count: 1,
-      sizeType: 'compressed',
-      success: res => {
-        this.setState({
-          avatar: res.tempFilePaths[0] //本地临时路径
+    const params = {};
+    params.count = 1;
+    params.sizeType = ['original', 'compressed'];
+    params.sourceType = ['album', 'camera'];
+      Taro.chooseImage(params)
+        .then(res => {
+          console.log(res);
+          console.log(1);
+          this.setState({
+            avatar: res.tempFilePaths[0],
+            username: 'biu', //本地临时路径,
+            file: res.tempFiles
+          });
+          // Taro.uploadFile({
+          //   url: 'http://kstack.test.muxi-tech.xyz/api/v1/upload/image/', //上传头像的服务器接口
+          //   filePath: this.state.avatar,
+          //   name: 'image',
+          //   formData: {
+          //     image: this.state.avatar
+          //   },
+          //   header: {
+          //     token:
+          //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzUyMDg3MDIsImlkIjoxLCJuYmYiOjE1NzUyMDg3MDJ9.erNdOrNTLCD56D2UW0RmuYGGdfrPuO7hLZdtMtj1CdY'
+          //   },
+          //   success(ress) {
+          //     console.log(ress.data);
+          //     Taro.setStorageSync('image', ress.data.image_url);
+          //   }
+          // }).catch(err => {
+          //   console.error(err);
+          // });
+        })
+        .catch(error => {
+          console.error(error);
         });
-        //   this.uploadImage(res.tempFilePaths)
-      },
-      complete: () => {}
+    }
+      
+  nameChangeHandle(val) {
+    this.setState({
+      username: val
     });
   }
-  //   nameChangeHandle(val) {
-  //     this.setState({
-  //       username: val,
-  //     });
-  //   }
 
   onSubmit() {
     if (this.state.name == '') {
@@ -81,20 +108,37 @@ export default class index extends Component {
       return;
     }
     //上传数据
-    Fetch();
+    // Fetch();
+    // var formData = new FormData();
+
+    // formData.append("image", this.state.avatar);
     Taro.uploadFile({
-      url: 'http://kstack.test.muxi-tech.xyz/api/v1/user/info/', //上传头像的服务器接口
+      url: 'http://kstack.test.muxi-tech.xyz/api/v1/upload/image/', //上传头像的服务器接口
       filePath: this.state.avatar,
-      name: 'file',
+      name: 'image',
       formData: {
-        username: this.state.username,
+        // image: this.state.file
+      },
+      header: {
         token:
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzUyMDg3MDIsImlkIjoxLCJuYmYiOjE1NzUyMDg3MDJ9.erNdOrNTLCD56D2UW0RmuYGGdfrPuO7hLZdtMtj1CdY'
       },
       success(res) {
         console.log(res.data);
+        Taro.setStorageSync('image', res.data.image_url);
       }
+    }).catch(err => {
+      console.error(err);
     });
+    Fetch(
+      'api/v1/user/info/',
+      { username: this.state.username, avatar: this.state.avatar },
+      'POST'
+    ).then(
+      res =>{
+        console.log(res);
+      }
+    );
   }
 
   render() {
@@ -107,7 +151,7 @@ export default class index extends Component {
             <View>昵称</View>
             <Input
               className={inputclassname}
-              placeholder="你的昵称"
+              placeholder={username}
               placeholderClass="input-font"
               value={username}
               onChange={this.toChangeName.bind(this)}

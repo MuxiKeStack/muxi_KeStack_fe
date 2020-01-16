@@ -62,7 +62,7 @@ export default class MxIcon extends MxComponent {
       ['arrowD',arrowD],
       ['largeC', largeC],
       ['likeBtn', likeBtn],
-      ['likeBtnS',likeBtnS],
+      ['likeBtnS', likeBtnS],
       ['search', search],
       ['sHelper', sHelper],
       ['sHelperG', sHelperG],
@@ -102,7 +102,7 @@ MxIcon.defaultProps = {
   width: 40,
   height: 40,
   type: '',
-  outerStyle: '',
+  outerStyle: {},
   onClick: () => {}
 };
 
@@ -111,6 +111,6 @@ MxIcon.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   type: PropTypes.string,
-  outerStyle: PropTypes.string,
+  outerStyle: PropTypes.object,
   onChange: PropTypes.func
 };

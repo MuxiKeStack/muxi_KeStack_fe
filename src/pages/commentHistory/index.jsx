@@ -4,6 +4,7 @@ import { MxIcon } from '../../components/common/MxIcon';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxLike from '../../components/page/MxLike/MxLike';
 import Img from '../../assets/svg/avatar-img.svg';
+import { clickUpdiv } from '../../components/page/clickUpdiv';
 import './index.scss';
 import Fetch from '../../service/fetch';
 // import {isLogined} from 'utils/tools'
@@ -73,21 +74,22 @@ export default class Index extends Component {
       }
     });
   }
-  handleDelete(index) {
-    //console.log(id);//
-    console.log(this.state.list[index].id); //
+  // handleTextClick(index) {
+  //   //console.log(id);//
+  //   console.log(this.state.list[index].id); //
 
-    Fetch(
-      'api/v1/evaluation/' + this.state.list[index].id + '/',
-      { id: this.state.list[index].id },
-      'DELETE'
-    ).then(res => {
-      console.log(res);
-      if (res) {
-        Taro.showToast('删除成功');
-      }
-    });
-  }
+  //   Fetch(
+  //     'api/v1/evaluation/' + this.state.list[index].id + '/',
+  //     // { id: this.state.list[index].id },
+  //     {},
+  //     'DELETE'
+  //   ).then(res => {
+  //     console.log(res);
+  //     if (res) {
+  //       Taro.showToast('删除成功');
+  //     }
+  //   });
+  // }
 
   toNormalTime(timestamp) {
     var date = new Date(timestamp * 1000);
@@ -114,8 +116,11 @@ export default class Index extends Component {
     return (
       <View className="index">
         {list.map((course, index) => {
+          var deleteBackground = course.can_delete
+            ? 'card-container'
+            : 'card-container-delete';
           return (
-            <View className="card-container" key={list[index].id}>
+            <View className={deleteBackground} key={list[index].id}>
               <View className="user-info">
                 <View className="avatar-container">
                   <Image
@@ -129,11 +134,15 @@ export default class Index extends Component {
                 </View>
                 <View className="delete-cmmt">
                   {/* key={this.state.list[index].id} */}
-                  <MxIcon
+                  {/* <MxIcon
                     type="arrowD"
                     className="arrow"
                     onClick={this.handleDelete.bind(this, index)}
-                  ></MxIcon>
+                  ></MxIcon> */}
+                  <clickUpdiv
+                    // onClick={this.handleTextClick.bind(this, index)}
+                    couserId={course.id}
+                  ></clickUpdiv>
                 </View>
               </View>
               <View className="course-container">

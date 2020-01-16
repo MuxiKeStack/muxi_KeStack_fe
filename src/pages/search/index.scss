@@ -13,22 +13,40 @@ View {
 }
 
 .detailsBoxes {
-    overflow: scroll;
     height: 989rpx;
+    width: 750px;
     margin-top: 7rpx;
     background-color: rgba(241,240,245,1);
+    align-items: center;
+    overflow: scroll;
 }
+/*
 .detailsBox:last-child {
     display: block;
     width: 750rpx;
     margin: 37rpx 0rpx;
-}
-.detailsBox {
+}*/
+/*.detailsBox {
+    position: relative;
     margin-top: 37rpx;
     display: block;
     width: 750rpx;
-}
+}*/
 .mx-card{
+    display: flex;
+    flex-direction: row;
+    background:rgba(241,240,245,1);
+    margin-bottom: 37px;
+    margin-top: 37px;
+    margin-left: 25px;
+}
+.cardm{
+    width:532px;
+    height:300px;
+    background:rgba(255,255,255,1);
+    border-radius: 30px;
+}
+.card{
     width:711px;
     height:300px;
     background:rgba(255,255,255,1);
@@ -37,6 +55,18 @@ View {
     margin-top: 37px;
     margin-left: 21px;
     display: inline-block;
+    position: absolute;
+}
+.itemDelete{
+    width: 184rpx;
+    height: 300rpx;
+    background-color: #ff81b4;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: #fff;
+    font-size: 50rpx;
+    text-align: center;
+    line-height: 201rpx;
 }
 
 .user-info{

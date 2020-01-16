@@ -1,17 +1,19 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Canvas, Button, Image } from '@tarojs/components';
+import { View, Canvas, Image, ScrollView } from '@tarojs/components';
 import './courseDetails.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
-import MxIcon from '../../components/common/MxIcon/index';
 import Fetch from '../../service/fetch';
-import MxLike from '../../components/page/MxLike/MxLike';
 import MxTag from '../../components/common/MxTag/index';
+import newcmt from '../../assets/svg/newcmt.svg';
+import hotcmt from '../../assets/svg/hotcmt.svg';
 import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
+import CourseDetailCard from '../../components/page/CourseDetailCard/CourseDetailCard';
 
 export default class Coursedetails extends Component {
   constructor() {
     super(...arguments);
     this.state = {
+      classInfo: '',
       hotList: '',
       normalList: '',
       lastID: 0,
@@ -242,11 +244,16 @@ export default class Coursedetails extends Component {
       'token',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
     );
-    // Fetch('api/v1/course/using/213f89eyguiguhy/', {}, 'GET').then(data => {
-    //   if (data) {
-    //     console.log(data);
-    //   }
-    // });
+    Fetch('api/v1/course/using/info/112d34testsvggase/', {}, 'GET').then(
+      data => {
+        if (data) {
+          this.setState({
+            classInfo: data.data
+          });
+          console.log(data.data);
+        }
+      }
+    );
   }
 
   componentWillUnmount() {}
@@ -297,6 +304,7 @@ export default class Coursedetails extends Component {
   render() {
     const PALETTE = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
     const {
+      classInfo,
       nomorecmt,
       hotList,
       normalList,
@@ -312,12 +320,6 @@ export default class Coursedetails extends Component {
       inspection2,
       inspection3,
       inspection4,
-      courseTime1,
-      courseTime2,
-      courseTime3,
-      coursePlace1,
-      coursePlace2,
-      coursePlace3,
       courseGrade70,
       courseGrade7085,
       courseGrade85,
@@ -344,46 +346,35 @@ export default class Coursedetails extends Component {
     const coverStyle = {
       display: this.state.cover
     };
-
     return (
       <View className="courseDetails">
         <View className="cover" style={coverStyle} onClick={this.toHide} />
-        <View style={drawerStyle} className="drawer">
+        <ScrollView style={drawerStyle} className="drawer" scrollY>
           <View className="infobox_drawer">
             <View className="info_drawer">课堂信息</View>
             <View className="info_Eng_drawer">class message</View>
           </View>
-          {classes &&
-            classes.map(item => {
-              return (
-                <View className="classBox" key={item.id}>
-                  <View>{item.id + 1}课堂</View>
-                  {item &&
-                    item.map(index => {
-                      return (
-                        <View key={index.id}>
-                          {index.time}节 @ {index.place}
-                        </View>
-                      );
-                    })}
-                </View>
-              );
-            })}
-        </View>
+          <View className="classMessageCard">
+            {classInfo.class_info &&
+              classInfo.class_info.map(item => {
+                return <CourseDetailCard key={item.id} courseInfo={item} />
+              })}
+          </View>
+        </ScrollView>
         <View className="detailBox">
           <View className="name">课程名称：</View>
-          <View className="content">线性代数</View>
+          <View className="content">{classInfo.course_name}</View>
         </View>
         <View className="detailBox">
           <View className="name">课程教师：</View>
-          <View className="content">张俊</View>
+          <View className="content">{classInfo.teacher_name}</View>
         </View>
         <View className="detailBox">
           <View className="name">综合评分：</View>
           <View className="rate">
-            <MxRate commont={false} value={rate} />
+            <MxRate commont={false} value={classInfo.rate} />
           </View>
-          <View className="commentNumber">(共{starNumber}人评价)</View>
+          <View className="commentNumber">(共{classInfo.stars_num}人评价)</View>
         </View>
         <View className="detailBox">
           <View className="name">基本信息：</View>
@@ -466,11 +457,11 @@ export default class Coursedetails extends Component {
         <View className="averageBox">
           <View className="averageSmallBox1">
             <View className="averageName">总平均分</View>
-            <View className="averageGrade">{this.state.totalGrade}</View>
+            <View className="averageGrade">{classInfo.total_score}</View>
           </View>
           <View className="averageSmallBox2">
             <View className="averageName">平时均分</View>
-            <View className="averageGrade">{this.state.ordinaryGrade}</View>
+            <View className="averageGrade">{classInfo.ordinary_score}</View>
           </View>
         </View>
         <View className="feature">课堂特点：</View>
@@ -524,14 +515,14 @@ export default class Coursedetails extends Component {
             简单易学(0)
           </MxTag>
         </View>
-        <View className="List">热门评论</View>
+        <Image src={hotcmt} />
         <View className="cmtBigBox">
           {hotList &&
             hotList.map(item => {
               return <CmtCourseCard item={item} key={item.id}></CmtCourseCard>;
             })}
         </View>
-        <View className="List">全部评论</View>
+        <Image src={newcmt} />
         <View className="cmtBigBox">
           {normalList &&
             normalList.map(item => {

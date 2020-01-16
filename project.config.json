@@ -41,21 +41,14 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
 					"id": 0,
-					"name": "评课详情",
-					"pathName": "pages/courseCommentsDetails/courseCommentsDetails",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": 1,
-					"name": "课程主页",
+					"name": "课程详情",
 					"pathName": "pages/courseDetails/courseDetails",
 					"query": "",
-					"scene": ""
+					"scene": "1001"
 				}
 			]
 		}

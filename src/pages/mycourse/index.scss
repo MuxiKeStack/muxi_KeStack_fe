@@ -20,15 +20,24 @@
 }
 .mycourse_page-courselist-item {
   width: 750px;
-  height: 104px;
+  // height: 104px;
   opacity: 0.84;
-  padding: 0 75px 0 47px;
+  padding: 35px 75px 35px 47px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
   border-bottom: 2px solid #EBEDF5;
 }
-.course-name,
+.course-name{
+  font-size: 30px;
+  font-weight: 300;
+  line-height: 42px;
+  color: rgba(0, 0, 0, 1);
+  opacity: 1;
+  padding-right: 25px;
+  vertical-align: middle;
+  width:270px;
+}
 .teacher-name {
   font-size: 30px;
   font-weight: 300;

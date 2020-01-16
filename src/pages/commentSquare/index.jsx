@@ -1,7 +1,6 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Text, Textarea, ScrollView } from '@tarojs/components'
 import './index.scss'
-import MxCard from '../../components/common/MxCard'
 import MxRate from '../../components/common/MxRate/MxRate'
 import MxIcon from '../../components/common/MxIcon'
 import Fetch from '../../service/fetch'
@@ -31,7 +30,6 @@ export default class Index extends Component {
 
   onPullDownRefresh() {
     this.setState({
-      comments: [],
       sum: 0,
       lastId: 0
     },()=>{
@@ -40,7 +38,6 @@ export default class Index extends Component {
     })
     console.log(this.state.comments)
   }//下拉事件
-
 
   onReachBottom() {
     Taro.showNavigationBarLoading()
@@ -51,7 +48,7 @@ export default class Index extends Component {
   getComments() {
     var that = this;
     let newComments = this.state.comments
-    if(this.state.lastId!=1){
+    console.log("id"+this.state.lastId)
     Fetch(
       'api/v1/evaluation',
       {
@@ -60,8 +57,10 @@ export default class Index extends Component {
       },
       'GET'
     ).then(data =>{
-      if(data){
-        console.log(data)
+      if(data.data.list!=null){
+        console.log("id"+this.state.lastId)
+        console.log(data.data.list)
+        if(this.state.lastId!=0){
         newComments=newComments.concat(data.data.list)
         Taro.stopPullDownRefresh()
         Taro.hideNavigationBarLoading()
@@ -70,15 +69,25 @@ export default class Index extends Component {
           sum: data.data.sum,
           lastId: data.data.list[data.data.sum-1].id
         })
+      } else {
+        console.log("abcde")
+        Taro.stopPullDownRefresh()
+        Taro.hideNavigationBarLoading()
+        that.setState({
+          comments: data.data.list,
+          sum: data.data.sum,
+          lastId: data.data.list[data.data.sum-1].id
+        })
+      }} else {
+        Taro.showToast({
+          title: '到底啦！',
+          duration: 2000
+        })
+        Taro.stopPullDownRefresh()
+        Taro.hideNavigationBarLoading()
       }
-    })} else {
-      Taro.showToast({
-        title: '到底啦！',
-        duration: 2000
-      })
-      Taro.stopPullDownRefresh()
-      Taro.hideNavigationBarLoading()
-    }
+    })
+
   }
 
   handleClickContent(event) {
@@ -90,7 +99,8 @@ export default class Index extends Component {
 
   ChangeTosearch() {
     Taro.navigateTo({
-      url: '/pages/search/index?searchInfo=' + this.state.search
+      // url: '/pages/search/index?searchInfo=' + this.state.search
+      url: '/pages/search/index'
     });
   }
 
@@ -113,23 +123,45 @@ export default class Index extends Component {
     });
   }
 
-  ChangeToReport() {
+  ChangeToReport(id) {
+    console.log(id)
     console.log("我要举报！！！")
+    Fetch(
+      `api/v1/evaluation/${id}/report`,
+      {},
+      'POST'
+    ).then(data =>{
+      console.log(data)
+      if(data.data.fail==true){
+        if(data.data.reason=="You have been reported this evaluation!"){
+        Taro.showToast({
+          title: '不要重复举报哟!',
+          icon: 'none'
+        })
+      }
+      } else {
+        Taro.showToast({
+          title: '举报成功！',
+          icon: 'success'
+        })
+      }
+    })
   }
 
 
   componentDidShow() {
     this.setState({
-      comments: [],
       sum: 0,
       lastId: 0
     },()=>{
       Taro.showNavigationBarLoading()
       this.getComments()
     })
+    console.log(this.state.comments)
   }
 
   componentWillMount() {
+    Taro.showNavigationBarLoading()
     this.getComments();
   }
 
@@ -171,7 +203,7 @@ export default class Index extends Component {
                         <View className='detailsFirstInfo2'>{this.normalTime(comment.time)}</View>
                       </View>
                       <View className='detailsFirstIcon'>
-                        <MxReport onClick={this.ChangeToReport.bind(this)}></MxReport>
+                        <MxReport onClick={this.ChangeToReport.bind(this,comment.id)}></MxReport>
                       </View>
                     </View>
                     <View className='detailsSecond'>
@@ -209,19 +241,26 @@ export default class Index extends Component {
     return (
       <View style='display: block'>
         {/* <View className='navigationBox'><View style='margin-top: 66rpx'>评课广场</View></View> */}
-        <View className='chooseBox'>
-          <View className='chooseInput'>
+        {/* <View className='chooseBox'>
+          <View className='chooseInput' onClick={this.ChangeTosearch.bind(this)}>
           <MxInput
           leftSrc='../../../assets/svg/searchicon.svg'leftSize='20px' width='670rpx' height='72rpx' background='rgba(241,240,245,1)'
           radius='36rpx'
           width='550rpx'
-          onClick={this.ChangeTosearch.bind(this)}
           onInput={this.handleClickContent.bind(this)}
           > 
           </MxInput>
           </View>
           <View onClick={this.ChangeTopost.bind(this)} className='chooseAdd'>
             <MxIcon type='add'  width='40p2' width='40p2'></MxIcon>
+          </View>
+        </View> */}
+        <View className='chooseBox'>
+            <View className='chooseSearchBack' onClick={this.ChangeTosearch.bind(this)}>
+              <MxIcon type='search' className='chooseSearch' width='32px' height='32px'></MxIcon>
+          </View>
+          <View onClick={this.ChangeTopost.bind(this)}>
+            <MxIcon type='add' className='chooseAdd' width='42px'></MxIcon>
           </View>
         </View>
         {content}    

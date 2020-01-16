@@ -1,13 +1,13 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Image } from '@tarojs/components';
+import { View, Text, Image, Button } from '@tarojs/components';
 import './index.scss';
 import MxInput from '../../components/common/MxInput/MxInput';
 import MxButton from '../../components/common/MxButton/index';
 import image from '../../assets/png/navigation.png';
 import Fetch from '../../service/fetch';
-import MxTag from '../../components/common/MxTag';
 
 export default class Index extends Component {
+  // eslint-disable-next-line react/sort-comp
   config = {
     navigationBarTitleText: '木犀课栈'
   };
@@ -16,8 +16,11 @@ export default class Index extends Component {
     this.state = {
       userid: '',
       password: '',
+      // eslint-disable-next-line react/no-unused-state
       value: 2.5,
+      // eslint-disable-next-line react/no-unused-state
       username: '',
+      // eslint-disable-next-line react/no-unused-state
       avatar: '',
       mask_name: 'unmask',
       mask_bg: 'mask_bg_show'
@@ -41,7 +44,7 @@ export default class Index extends Component {
           });
         }
       },
-      fail: res => {
+      fail: () => {
         this.setState({
           mask_name: 'unmask',
           mask_bg: 'mask_bg_show'
@@ -84,9 +87,7 @@ export default class Index extends Component {
     });
   }
 
-  getUserInfo() {
-    var that = this;
-  }
+  getUserInfo() {}
   //20101密码错误
   //0 成功
   //500服务器错误
@@ -105,13 +106,23 @@ export default class Index extends Component {
         switch (res.code) {
           case 0:
             Taro.setStorage({
+              key: 'sid',
+              data: userid
+            });
+            Taro.setStorage({
+              key: 'password',
+              data: password
+            });
+            Taro.setStorage({
               key: 'token',
               data: res.data.token,
-              success: function(res) {
+              success: function() {
                 Taro.getSetting({
+                  // eslint-disable-next-line no-shadow
                   success(res) {
                     if (res.authSetting['scope.userInfo']) {
                       Taro.getUserInfo({
+                        // eslint-disable-next-line no-shadow
                         success: function(res) {
                           Fetch(
                             'api/v1/user/info',
@@ -125,7 +136,7 @@ export default class Index extends Component {
                             url: '/pages/commentSquare/index'
                           });
                         },
-                        fail: function(res) {
+                        fail: function() {
                           Taro.showToast({
                             icon: 'none',
                             title: '获取用户信息失败'
@@ -139,7 +150,7 @@ export default class Index extends Component {
                       });
                     }
                   },
-                  fail: function(res) {
+                  fail: function() {
                     Taro.showToast({
                       icon: 'none',
                       title: '请授权'
@@ -189,6 +200,11 @@ export default class Index extends Component {
             onInput={this.changePassword.bind(this)}
           ></MxInput>
         </View>
+        <View className="privacy">
+          <Text className="secret">
+            我已同意《木犀课栈隐私条例》中的所有内容
+          </Text>
+        </View>
         <View className="login">
           <MxButton
             buttomWidth="513rpx"
@@ -206,20 +222,22 @@ export default class Index extends Component {
             游客登录
           </Text>
         </View>
-
-        <View className="privacy">
-          <Text className="secret">隐私条例</Text>
-        </View>
         <View className={this.state.mask_bg}></View>
         <View className={this.state.mask_name}>
-          <Button
-            class="bottom"
-            open-type="getUserInfo"
-            onGetUserInfo={this.getUserInfo.bind(this)}
-            onClick={this.handleSave.bind(this)}
-          >
-            授权登陆
-          </Button>
+          <View className="authrization">
+            <View className="affirm">小程序授权确认</View>
+            <View className="content">
+              您需要将QQ账号信息授权给“木犀课栈”用以登录
+            </View>
+            <Button
+              class="bottom"
+              open-type="getUserInfo"
+              onGetUserInfo={this.getUserInfo.bind(this)}
+              onClick={this.handleSave.bind(this)}
+            >
+              授权登录
+            </Button>
+          </View>
         </View>
       </View>
     );

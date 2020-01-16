@@ -1,7 +1,6 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View } from '@tarojs/components';
 import classNames from 'classnames';
-import PropTypes from 'prop-types';
 import './index.scss';
 
 export default class MxTag extends Component {
@@ -27,11 +26,8 @@ export default class MxTag extends Component {
       borderRadius,
       padding,
       margin,
-      checked,
-      checkable,
-      check,
       color,
-      backgroud,
+      backgroud
     } = this.props;
     const tag = {
       tagStyle: {
@@ -40,8 +36,8 @@ export default class MxTag extends Component {
         'font-size': `${font}`,
         padding: `${padding}`,
         margin: `${margin}`,
-        'backgroud-color':`${backgroud}`,
-        color:`${color}`
+        'backgroud-color': `${backgroud}`,
+        color: `${color}`
       }
     };
 
@@ -53,7 +49,7 @@ export default class MxTag extends Component {
           'tag-checked': this.state.ifChecked && this.props.checkable,
           'tag-unchecked': !this.state.ifChecked && this.props.checkable,
           'tag-uncheckable': !this.props.checkable,
-          'tag':!this.props.check
+          tag: !this.props.check
         })}
       >
         {this.props.children}
@@ -70,8 +66,8 @@ MxTag.defaultProps = {
   borderRadius: '34rpx',
   checkable: false,
   checked: false,
-  check:true,
-  backgroud:'',
-  color:'',
+  check: true,
+  backgroud: '',
+  color: '',
   onClick: () => {}
 };
