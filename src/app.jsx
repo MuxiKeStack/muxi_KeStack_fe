@@ -18,7 +18,7 @@ class App extends Component {
         })
       },
       fail:function(res){
-        Taro.switchTab({
+        Taro.redirectTo({
           url: '/pages/login/index'
         })
       }
