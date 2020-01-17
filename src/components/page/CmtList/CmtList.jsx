@@ -91,6 +91,7 @@ class CmtList extends Component {
                         content="comment"
                         width="20"
                         height="20"
+                        bottom="30rpx"
                       />
                     </View>
                   </View>

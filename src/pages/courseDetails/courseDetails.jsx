@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Canvas, Image, ScrollView } from '@tarojs/components';
+import { View, Canvas, Image, ScrollView, CoverView } from '@tarojs/components';
 import './courseDetails.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import Fetch from '../../service/fetch';
@@ -310,9 +310,6 @@ export default class Coursedetails extends Component {
       normalList,
       courseCategory,
       courseCredit,
-      rate,
-      classes,
-      starNumber,
       attendance1,
       attendance2,
       attendance3,
@@ -343,24 +340,24 @@ export default class Coursedetails extends Component {
     const drawerStyle = {
       width: this.state.drawerWidth
     };
-    const coverStyle = {
-      display: this.state.cover
-    };
+    const coverStyle = { display: this.state.cover };
     return (
       <View className="courseDetails">
-        <View className="cover" style={coverStyle} onClick={this.toHide} />
-        <ScrollView style={drawerStyle} className="drawer" scrollY>
-          <View className="infobox_drawer">
-            <View className="info_drawer">课堂信息</View>
-            <View className="info_Eng_drawer">class message</View>
-          </View>
-          <View className="classMessageCard">
-            {classInfo.class_info &&
-              classInfo.class_info.map(item => {
-                return <CourseDetailCard key={item.id} courseInfo={item} />
-              })}
-          </View>
-        </ScrollView>
+        <CoverView className="cover" style={coverStyle}>
+          <CoverView className="leftCover" onClick={this.toHide} />
+          <CoverView style={drawerStyle} className="drawer" scrollY>
+            <CoverView className="infobox_drawer">
+              <CoverView className="info_drawer">课堂信息</CoverView>
+              <CoverView className="info_Eng_drawer">class message</CoverView>
+            </CoverView>
+            <CoverView className="classMessageCard">
+              {classInfo.class_info &&
+                classInfo.class_info.map(item => {
+                  return <CourseDetailCard key={item.id} courseInfo={item} />;
+                })}
+            </CoverView>
+          </CoverView>
+        </CoverView>
         <View className="detailBox">
           <View className="name">课程名称：</View>
           <View className="content">{classInfo.course_name}</View>
@@ -515,7 +512,9 @@ export default class Coursedetails extends Component {
             简单易学(0)
           </MxTag>
         </View>
+        <View className="cmtimgBox">
         <Image className="cmtimg" src={hotcmt} />
+          </View>
         <View className="cmtBigBox">
           {hotList &&
             hotList.map(item => {
@@ -533,6 +532,7 @@ export default class Coursedetails extends Component {
           <View className="nomore">已经到底啦，没有更多数据啦</View>
         )}
       </View>
+      // [3-4#1, {place: 7102#}]
     );
   }
 }

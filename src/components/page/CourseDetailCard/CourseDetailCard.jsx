@@ -1,6 +1,6 @@
 /* eslint-disable taro/duplicate-name-of-state-and-props */
 import Taro, { Component } from '@tarojs/taro';
-import { View } from '@tarojs/components';
+import { CoverView } from '@tarojs/components';
 import './CourseDetailCard.scss';
 
 function getweek(x) {
@@ -50,61 +50,63 @@ class CourseDetailCard extends Component {
       backgroundColor: this.state.color
     };
     return (
-      <View className="card" style={cardStyle}>
-        <View className="courseNumber">{courseInfo.id}课堂</View>
+      <CoverView className="card" style={cardStyle}>
+        <CoverView className="courseNumber">{courseInfo.id}课堂</CoverView>
         {courseInfo.list &&
           courseLength(courseInfo.list) &&
           courseInfo.list.map(index => {
             return (
-              <View key={index.Id} className="row">
-                <View className="week">
+              <CoverView key={index.Id} className="row">
+                <CoverView className="week">
                   {'周' +
                     getweek(index.Time.slice(-1)) +
                     ' ' +
                     index.Time.slice(0, -2) +
                     '节'}
-                </View>
-                <View className="place">{'@ ' + index.Place}</View>
+                </CoverView>
+                <CoverView className="place">{'@ ' + index.Place}</CoverView>
                 {index.Week.slice(-1) == '0' && (
-                  <View className="place">(双)</View>
+                  <CoverView className="place">(双)</CoverView>
                 )}
                 {index.Week.slice(-1) == '1' && (
-                  <View className="place">(单)</View>
+                  <CoverView className="place">(单)</CoverView>
                 )}
-              </View>
+              </CoverView>
             );
           })}
         {courseLength(courseInfo.list) && (
-          <View className="length">
+          <CoverView className="length">
             {courseInfo.list[0].Week.slice(0, -2) + '周'}
-          </View>
+          </CoverView>
         )}
         {courseInfo.list &&
           !courseLength(courseInfo.list) &&
           courseInfo.list.map(index => {
             return (
-              <View key={index.Id}>
-                <View className="row">
-                  <View className="week">
+              <CoverView key={index.Id}>
+                <CoverView className="row">
+                  <CoverView className="week">
                     {'周' +
                       getweek(index.Time.slice(-1)) +
                       ' ' +
                       index.Time.slice(0, -2) +
                       '节'}
-                  </View>
-                  <View className="place">{'@ ' + index.Place}</View>
+                  </CoverView>
+                  <CoverView className="place">{'@ ' + index.Place}</CoverView>
                   {index.Week.slice(-1) == '0' && (
-                    <View className="place">(双)</View>
+                    <CoverView className="place">(双)</CoverView>
                   )}
                   {index.Week.slice(-1) == '1' && (
-                    <View className="place">(单)</View>
+                    <CoverView className="place">(单)</CoverView>
                   )}
-                </View>
-                <View className="length">{index.Week.slice(0, -2) + '周'}</View>
-              </View>
+                </CoverView>
+                <CoverView className="length">
+                  {index.Week.slice(0, -2) + '周'}
+                </CoverView>
+              </CoverView>
             );
           })}
-      </View>
+      </CoverView>
     );
   }
 }

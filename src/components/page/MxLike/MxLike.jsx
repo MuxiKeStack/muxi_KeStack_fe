@@ -59,6 +59,9 @@ class MxLike extends Component {
     });
   }
   render() {
+    const likeNumStyle = {
+      marginBottom: this.props.bottom
+    };
     return (
       <View>
         <View className="like-comp">
@@ -79,7 +82,9 @@ class MxLike extends Component {
             />
           )}
         </View>
-        <View className="number">{this.state.likenum}</View>
+        <View className="number" style={likeNumStyle}>
+          {this.state.likenum}
+        </View>
       </View>
     );
   }
@@ -90,7 +95,8 @@ MxLike.defaultProps = {
   islike: '',
   likenum: '',
   content: 'evaluation',
-  width: '43'
+  width: '43',
+  bottom: '0rpx'
 };
 
 export default MxLike;
