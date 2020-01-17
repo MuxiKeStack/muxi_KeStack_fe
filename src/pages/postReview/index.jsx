@@ -147,21 +147,17 @@ export default class Index extends Component {
                     icon: 'none',
                     duration: 2000
                 })
-                console.log(post)
             } else {
                 Fetch(
                     'api/v1/evaluation',
                     post,
                     'POST'
                 ).then(data => {
-                    if (data) {
-                        console.log(data)
-                    }
+                    Taro.switchTab({
+                        url: '/pages/commentSquare/index'
+                    });
                 })
-                console.log(post)
-                Taro.switchTab({
-                    url: '/pages/commentSquare/index'
-                });
+                
             }
         } else {
             Taro.showToast({
@@ -169,7 +165,6 @@ export default class Index extends Component {
                 icon: 'none',
                 duration: 2000
             })
-            console.log(post)
         }
     }
 
@@ -185,7 +180,6 @@ export default class Index extends Component {
             'GET'
         ).then(data => {
             if (data) {
-                console.log(data.data.list)
                 this.setState({
                     tagsReceive: data.data.list
                 })
@@ -200,12 +194,12 @@ export default class Index extends Component {
             data,
             'POST'
         ).then(data => {
+            console.log(data)
             Taro.hideLoading()
             let datas = data.data.data
             let newCourse = []
             let newId = []
             let newEvaluateState = []
-            console.log(datas)
             for (let i = 0; i < datas.length; i++) {
                 newCourse = newCourse.concat(datas[i].name)
                 newId = newId.concat(datas[i].course_id)

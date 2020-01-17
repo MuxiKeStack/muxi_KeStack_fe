@@ -34,9 +34,8 @@ export default class Index extends Component {
   handleClick() {}
 
   getLists() {
-    console.log(this.state.lastId)
-    console.log('拉取列表');
     let newLists = this.state.Lists;
+    console.log(this.state.lastId)
     Fetch(
       'api/v1/collection',
       {
@@ -45,12 +44,12 @@ export default class Index extends Component {
       },
       'GET'
     ).then(data => {
-      console.log(data);
-      console.log(this.state.lastId);
+      console.log(data)
       if (data.data.list != null) {
         if (this.state.lastId != 0) {
-          console.log("password")
+          console.log(data.data.list+ '新列表')
           newLists = newLists.concat(data.data.list);
+          console.log(newLists)
           Taro.stopPullDownRefresh();
           Taro.hideNavigationBarLoading();
           this.setState({
@@ -60,7 +59,6 @@ export default class Index extends Component {
             lastId: data.data.list[data.data.sum - 1].id
           });
         } else {
-          console.log("ID"+ this.state.lastId)
           Taro.stopPullDownRefresh();
           Taro.hideNavigationBarLoading();
           this.setState({
@@ -68,16 +66,9 @@ export default class Index extends Component {
             // eslint-disable-next-line react/no-unused-state
             sum: data.data.sum,
             lastId: data.data.list[data.data.sum - 1].id
-          },()=>{
-            console.log(this.state.Lists)
-            console.log("II"+ this.state.lastId)
           });
         }
       } else {
-        this.setState({
-          Lists: [],
-          sum: data.data.sum
-        })
         Taro.showToast({
           title: '到底啦！',
           duration: 2000
@@ -108,7 +99,6 @@ export default class Index extends Component {
   }
 
   componentWillMount() {
-    console.log('啦啦啦');
     this.getLists();
   }
   // 滑动开始
@@ -140,16 +130,12 @@ export default class Index extends Component {
     if (Math.abs(angle) > 30) return;
     //右滑
     if (touchMoveX > startX) {
-      console.log('右滑');
       //实例化一个动画
       let _animation = Taro.createAnimation({
         duration: 400,
         timingFunction: 'linear',
         delay: 100,
         transformOrigin: 'left top 0',
-        success: function(res) {
-          console.log(res);
-        }
       });
 
       _animation.translateX(0).step();
@@ -159,16 +145,12 @@ export default class Index extends Component {
       });
     } else if (touchMoveX - startX < -10) {
       //左滑
-      console.log('左滑');
       //实例化一个动画
       let _animation = Taro.createAnimation({
         duration: 400,
         timingFunction: 'linear',
         delay: 100,
         transformOrigin: 'left top 0',
-        success: function(res) {
-          console.log(res);
-        }
       });
       _animation.translateX(-80).step();
       that.setState({
@@ -196,20 +178,12 @@ export default class Index extends Component {
       timingFunction: 'linear',
       delay: 100,
       transformOrigin: 'left top 0',
-      success: function(res) {
-        console.log(res);
-      }
     });
 
     this.setState({
       // eslint-disable-next-line react/no-unused-state
       animation: animation
     });
-  }
-  favorite(){
-    console.log("收藏")
-    this.collect()
-    console.log(this.state.noCollect)
   }
 
   componentWillUnmount() {}
@@ -227,8 +201,6 @@ export default class Index extends Component {
       },
       'PUT'
     ).then(res => {
-      console.log(res)
-      console.log(res.code)
       switch (res.code) {
         case 0:
           // eslint-disable-next-line no-undef
@@ -294,7 +266,7 @@ export default class Index extends Component {
                   </View>
                 </MovableView>
               </MovableArea>
-              <View className="itemDelete right" onClick={this.favorite.bind(this)}>
+              <View className="itemDelete right" onClick={this.collect.bind(this)}>
                 <Text>取消收藏</Text>
               </View>
             </View>
