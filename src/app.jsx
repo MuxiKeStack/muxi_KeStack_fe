@@ -7,6 +7,20 @@ import './app.scss';
 // if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
 //   require('nerv-devtools')
 // }
+Array.prototype.remove=function(obj){
+  for(var i =0;i <this.length;i++){
+  var temp = this[i];
+  if(!isNaN(obj)){
+  temp=i;
+  }
+  if(temp == obj){
+  for(var j = i;j <this.length;j++){
+  this[j]=this[j+1];
+  }
+  this.length = this.length-1;
+  }
+  }
+  }
 
 class App extends Component {
   componentDidMount() {

@@ -108,7 +108,7 @@ export default class Index extends Component {
 
   ChangeTodetails(value) {
     Taro.navigateTo({
-      url: '/pages/courseDetails/courseDetails?courseId=' + value
+      url: `/pages/courseDetails/courseDetails?courseId=123` 
     });
   }
 

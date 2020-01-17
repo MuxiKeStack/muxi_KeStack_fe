@@ -6,6 +6,7 @@ import MxIcon from '../../components/common/MxIcon/index';
 import Fetch from '../../service/fetch';
 import MxLike from '../../components/page/MxLike/MxLike';
 import MxTag from '../../components/common/MxTag/index';
+import star from '../../assets/png/star.png'
 
 export default class Coursedetails extends Component {
   constructor() {
@@ -135,7 +136,7 @@ export default class Coursedetails extends Component {
     console.log(this.state.normalList);
   }
   componentWillMount() {
-    console.log(this.$router.params)
+    console.log(this.$router.params.courseId)  //前页面传过来的id
     var attendance1 = '30';
     var attendance2 = '60';
     var attendance3 = '10';
@@ -253,6 +254,39 @@ export default class Coursedetails extends Component {
   componentDidShow() {}
 
   componentDidHide() {}
+
+  favorite() {
+    // "2e154de56gyubdq"
+    // "0s9uighvg121efe"
+    //"28yy89dqube12d8"
+    // "723fguib98y2e1h"
+    let id = '2e154de56gyubdq';//现在测试是 let id 后端好了改成前页面传过来id
+    Fetch(
+      `api/v1/course/using/${id}/favorite`,
+      {
+        like_state: false
+      },
+      'PUT'
+    ).then(res => {
+      console.log(res)
+      switch (res.code) {
+        case 0:
+          // eslint-disable-next-line no-undef
+          Taro.showToast({
+            title: '收藏成功！',
+            icon: 'success'
+          })
+          break;
+        case 20302:
+          // eslint-disable-next-line no-undef
+          Taro.showToast({
+            title: '收藏失败!'
+          })
+          break;
+      }
+    });
+  }
+
   toCover() {
     this.setState({
       drawerWidth: '448rpx',
@@ -346,6 +380,9 @@ export default class Coursedetails extends Component {
 
     return (
       <View className="courseDetails">
+        <View className='starBac' onClick={this.favorite.bind(this)}>
+        <Image src={star} className='star'></Image>
+        </View>
         <View className="cover" style={coverStyle} onClick={this.toHide} />
         <View style={drawerStyle} className="drawer">
           <View className="infobox_drawer">
