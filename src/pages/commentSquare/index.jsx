@@ -36,7 +36,6 @@ export default class Index extends Component {
       Taro.showNavigationBarLoading()
       this.getComments()
     })
-    console.log(this.state.comments)
   }//下拉事件
 
   onReachBottom() {
@@ -48,7 +47,6 @@ export default class Index extends Component {
   getComments() {
     var that = this;
     let newComments = this.state.comments
-    console.log("id"+this.state.lastId)
     Fetch(
       'api/v1/evaluation',
       {
@@ -58,8 +56,6 @@ export default class Index extends Component {
       'GET'
     ).then(data =>{
       if(data.data.list!=null){
-        console.log("id"+this.state.lastId)
-        console.log(data.data.list)
         if(this.state.lastId!=0){
         newComments=newComments.concat(data.data.list)
         Taro.stopPullDownRefresh()
@@ -70,7 +66,6 @@ export default class Index extends Component {
           lastId: data.data.list[data.data.sum-1].id
         })
       } else {
-        console.log("abcde")
         Taro.stopPullDownRefresh()
         Taro.hideNavigationBarLoading()
         that.setState({
@@ -113,7 +108,7 @@ export default class Index extends Component {
 
   ChangeTodetails(value) {
     Taro.navigateTo({
-      url: '/pages/courseDetails/courseDetails?courseId=' + value
+      url: `/pages/courseDetails/courseDetails?courseId=123` 
     });
   }
 
@@ -124,14 +119,11 @@ export default class Index extends Component {
   }
 
   ChangeToReport(id) {
-    console.log(id)
-    console.log("我要举报！！！")
     Fetch(
       `api/v1/evaluation/${id}/report`,
       {},
       'POST'
     ).then(data =>{
-      console.log(data)
       if(data.data.fail==true){
         if(data.data.reason=="You have been reported this evaluation!"){
         Taro.showToast({
@@ -157,7 +149,6 @@ export default class Index extends Component {
       Taro.showNavigationBarLoading()
       this.getComments()
     })
-    console.log(this.state.comments)
   }
 
   componentWillMount() {
@@ -214,7 +205,8 @@ export default class Index extends Component {
                         </View>
                     </View>
                     <View className='detailsThird'>
-                      <View className='detailsThirdText' onClick={this.ChangeToCommentsDetails.bind(this,comment.id)}>{comment.content}</View>
+                      {comment.content != '' &&   <View className='detailsThirdText' onClick={this.ChangeToCommentsDetails.bind(this,comment.id)}>{comment.content}</View>}
+                      {comment.content == '' &&   <View className='detailsThirdText' onClick={this.ChangeToCommentsDetails.bind(this,comment.id)}>该用户没有评论</View>}
                     </View>
                     <View className='detailsFourth'>
                       <View className='detailsFourthIcon1'>
