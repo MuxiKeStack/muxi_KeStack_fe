@@ -33,7 +33,7 @@ export default class Index extends Component {
                     });
                 });*/
     Fetch(
-      'api/v1/message?page=' + this.state.page + 'limit=' + this.state.limit,
+      'api/v1/message/?page=' + this.state.page + ',limit=' + this.state.limit,
       {},
       'GET'
     ).then(res => {
@@ -49,7 +49,7 @@ export default class Index extends Component {
   onReachBottom() {
     if (this.state.last_id) {
       Fetch(
-        'api/v1/message?page=' + this.state.page + 'limit=' + this.state.limit,
+        'api/v1/message?page=' + this.state.page + ',limit=' + this.state.limit,
         {},
         'GET'
       )

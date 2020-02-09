@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -60,6 +60,13 @@
 					"id": -1,
 					"name": "history",
 					"pathName": "pages/commentHistory/index",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "course",
+					"pathName": "pages/mycourse/index",
 					"query": "",
 					"scene": ""
 				}

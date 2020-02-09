@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image } from '@tarojs/components';
+import { View, Image, Text } from '@tarojs/components';
 import { List } from '../../components/page/List';
 import { Item } from '../../components/page/List/Item';
 import image from '../../assets/svg/avatar-img.svg';
@@ -15,8 +15,8 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      //   user: { avatar: image, username: 'amybiubiu', sid: '2018214877' }
-      user: {},
+      user: { avatar: image, username: 'amybiubiu', sid: '2018214877' },
+      // user: {},
       readAll: true
     };
   }
@@ -83,7 +83,20 @@ export default class Index extends Component {
       }
     });
   }
-  handleLogin() {}
+  handleFeedBack() {
+    Taro.showModal({
+      title: '反馈',
+      content: 'QQ群：799651462。\n 邮箱：i@muxistudio.com',
+      // content: `${(<Text>QQ群：799651462。\n 邮箱：i@muxistudio.com</Text>)}`,
+      success: function(res) {
+        // if (res.confirm) {
+        //   console.log('用户点击确定');
+        // } else if (res.cancel) {
+        //   console.log('用户点击取消');
+        // }
+      }
+    });
+  }
   componentWillUnmount() {}
 
   componentDidHide() {}
@@ -143,11 +156,16 @@ export default class Index extends Component {
             iconType="message"
             title="消息提醒"
             extraText="MESSAGE REMINDER"
-            hasBgi={true}
+            hasBgi
             onClick={this.ChangeTomessage.bind(this)}
           ></Item>
         </List>
-        <View className="home_page_error-click">有问题？点此反馈给我们</View>
+        <View
+          className="home_page_error-click"
+          // onClick={this.handleFeedBack.bind(this)}
+        >
+          <Text>T有问题？点此反馈给我们</Text>
+        </View>
       </View>
     );
   }

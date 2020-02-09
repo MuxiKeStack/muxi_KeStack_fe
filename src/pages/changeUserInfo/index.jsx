@@ -122,7 +122,7 @@ export default class index extends Component {
     // formData.append("image", this.state.avatar);
     // this.fun1(this.fun2());
     Taro.uploadFile({
-      url: 'http://kstack.test.muxi-tech.xyz/api/v1/upload/image/', //上传头像的服务器接口
+      url: 'http://kstack.test.muxixyz.com/api/v1/upload/image/', //上传头像的服务器接口
       filePath: this.state.avatar,
       name: 'image',
       formData: {
@@ -131,13 +131,16 @@ export default class index extends Component {
       header: {
         token: Taro.getStorageSync('token')
         // token:
-        //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzUyMDg3MDIsImlkIjoxLCJuYmYiOjE1NzUyMDg3MDJ9.erNdOrNTLCD56D2UW0RmuYGGdfrPuO7hLZdtMtj1CdY'
+        //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzkyNDM3NjksImlkIjoxMywibmJmIjoxNTc5MjQzNzY5fQ.T9W1C_zS9U6mf_RazwToNQ8pAvHBUi96mesdWvlDKa4'
       },
       success(res) {
-        console.log(res.data);
-        // console.log(res.data.url);
-        console.log(JSON.parse(res.data).data.url);
-        Taro.setStorageSync('image', JSON.parse(res.data).data.url);
+        // console.log(res);
+        if (res.data) {
+          // console.log(res.data);
+          // console.log(res.data.url);
+          // console.log(JSON.parse(res.data).data.url);
+          Taro.setStorageSync('image', JSON.parse(res.data).data.url);
+        }
         // this.setState({
         //   avatar: JSON.parse(res.data).data.url
         // });
