@@ -29,8 +29,8 @@ class MxLike extends Component {
     };
   }
   tolike() {
-    console.log('tolikes like_state:');
-    console.log(this.state.islike);
+    // console.log('tolikes like_state:');
+    // console.log(this.state.islike);
     var { theid, content } = this.props;
     Fetch(
       'api/v1/' + content + '/' + theid + '/like/',

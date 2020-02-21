@@ -238,10 +238,10 @@ export default class Coursedetails extends Component {
         });
       }
     });
-    Taro.setStorageSync(
-      'token',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
-    );
+    // Taro.setStorageSync(
+    //   'token',
+    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
+    // );
     Fetch('api/v1/course/using/info/112d34testsvggase/', {}, 'GET').then(data => {
       if (data) {
         console.log(data.data);

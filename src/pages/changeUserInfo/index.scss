@@ -1,4 +1,4 @@
-.index{
+Page {
     background-color: #F5F6FA;
 }
 .from{
@@ -44,7 +44,7 @@
     padding: 0 45px 0 45px;
 }
 .from-button{
-    margin: 30px 60px ;
+    margin: 40px 60px ;
     // display: flex;
     // justify-content: center;
     .reset-button{
@@ -87,8 +87,12 @@
     padding-left: 32px;
 }
 .log-out{
-    margin-top: 454px;
-    text-align: center;
+    position: fixed;
+    top: 85%;
+    left: 20%;
+    right: 20%;
+    width: fit-content;
+    margin: 0 auto;
     color: #6868F8;
     font-size: 30px;
 }

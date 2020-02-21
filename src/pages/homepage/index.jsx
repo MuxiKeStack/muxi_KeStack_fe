@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text } from '@tarojs/components';
+import { View, Image, Text, Block } from '@tarojs/components';
 import { List } from '../../components/page/List';
 import { Item } from '../../components/page/List/Item';
 import image from '../../assets/svg/avatar-img.svg';
@@ -17,7 +17,8 @@ export default class Index extends Component {
     this.state = {
       user: { avatar: image, username: 'amybiubiu', sid: '2018214877' },
       // user: {},
-      readAll: true
+      readAll: true,
+      openModal: false
     };
   }
 
@@ -25,7 +26,13 @@ export default class Index extends Component {
     navigationBarTitleText: '个人主页'
   };
 
-  componentWillMount() {}
+  componentDidMount() {
+    if (!Taro.getStorageSync('sid'))
+      Taro.showModal({
+        title: '提示',
+        content: '未登陆'
+      });
+  }
 
   componentDidShow() {
     /*       courseList().then(res => {
@@ -36,7 +43,7 @@ export default class Index extends Component {
                 });*/
     Fetch('api/v1/message/count/', {}, 'GET').then(res => {
       if (res) {
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.count != 0) {
           this.setState({
             readAll: false
@@ -46,7 +53,7 @@ export default class Index extends Component {
     });
     Fetch('api/v1/user/info/', {}, 'GET').then(res => {
       if (res) {
-        console.log(res);
+        // console.log(res);
         this.setState({
           // avatar: res.data.avatar,
           user: res.data
@@ -83,29 +90,16 @@ export default class Index extends Component {
       }
     });
   }
-  handleFeedBack() {
-    Taro.showModal({
-      title: '反馈',
-      content: 'QQ群：799651462。\n 邮箱：i@muxistudio.com',
-      // content: `${(<Text>QQ群：799651462。\n 邮箱：i@muxistudio.com</Text>)}`,
-      success: function(res) {
-        // if (res.confirm) {
-        //   console.log('用户点击确定');
-        // } else if (res.cancel) {
-        //   console.log('用户点击取消');
-        // }
-      }
-    });
-  }
   componentWillUnmount() {}
 
   componentDidHide() {}
   render() {
-    const { user, readAll } = this.state;
+    const { user, readAll, openModal } = this.state;
     const rootStyle = {
       // width: `${Taro.pxTransform(164)}`,
       // height: `${Taro.pxTransform(164)}`,
     };
+    const modalStyle = openModal ? { display: 'block' } : { display: 'none' };
     return (
       <View>
         <View className="home-page-user-info">
@@ -163,8 +157,27 @@ export default class Index extends Component {
         <View
           className="home_page_error-click"
           // onClick={this.handleFeedBack.bind(this)}
+          onClick={() => {
+            this.setState({ openModal: true });
+          }}
         >
-          <Text>T有问题？点此反馈给我们</Text>
+          <View className="text">有问题？点此反馈给我们</View>
+        </View>
+        <View className="modal" style={modalStyle}>
+          <View className="modal-backdrop"></View>
+          <View className="modal-body">
+            <View className="modal-title">反馈</View>
+            <View className="modal-content">QQ群：799651462</View>
+            <View className="modal-content">邮箱：i@muxistudio.com</View>
+            <View
+              className="confirm"
+              onClick={() => {
+                this.setState({ openModal: false });
+              }}
+            >
+              确定
+            </View>
+          </View>
         </View>
       </View>
     );

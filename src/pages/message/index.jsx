@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Input } from '@tarojs/components';
+import { View, Image, Input, Text } from '@tarojs/components';
 import { MxIcon } from '../../components/common/MxIcon';
 import Img from '../../assets/svg/avatar-img.svg';
 import './index.scss';
@@ -15,60 +15,46 @@ export default class Index extends Component {
     this.state = {
       messageList: [],
       page: 1,
-      limit: 30
+      limit: 20
     };
   }
   componentWillUnmount() {}
   config = {
     navigationBarTitleText: '消息提醒',
-    onReachBottomDistance: 50
+    onReachBottomDistance: 50,
+    enablePullDownRefresh: true
   };
 
   //还有关于时间顺序和请求数量的问题
   componentDidMount() {
-    /*        courseList().then(res => {
-                console.log(res);
-                this.setState({
-                    course: res.info,
-                    });
-                });*/
+    this.getData();
+  }
+  getData() {
     Fetch(
-      'api/v1/message/?page=' + this.state.page + ',limit=' + this.state.limit,
+      'api/v1/message/?page=' + this.state.page + '&limit=' + this.state.limit,
       {},
       'GET'
-    ).then(res => {
-      if (res) {
-        console.log(res.data),
+    )
+      .then(res => {
+        if (res.data) {
+          // console.log(res.data),
           this.setState({
-            messageList: res.data,
+            messageList: this.state.messageList.concat(res.data),
             page: this.state.page + 1
           });
-      }
-    });
+        } else {
+          Taro.showToast({ title: '已经到底了', icon: 'none' });
+        }
+      })
+      .catch(err => {
+        Taro.showToast({ title: '已经到底了', icon: 'none' });
+      });
   }
   onReachBottom() {
-    if (this.state.last_id) {
-      Fetch(
-        'api/v1/message?page=' + this.state.page + ',limit=' + this.state.limit,
-        {},
-        'GET'
-      )
-        .then(res => {
-          if (res) {
-            console.log(res.data.list);
-            this.setState({
-              messageList: res.data,
-              page: this.state.page + 1
-            });
-          }
-        })
-        .catch(err => {
-          Taro.showToast({
-            title: '已经到底啦',
-            icon: 'none'
-          });
-        });
-    }
+    this.getData();
+  }
+  onPullDownRefresh() {
+    this.getData();
   }
 
   toNormalTime(timestamp) {
@@ -117,7 +103,7 @@ export default class Index extends Component {
                     </View>
                   </View>
                   <View className="message-text">
-                    <View>
+                    <View className="icon">
                       <MxIcon type="likeBtn"></MxIcon>
                     </View>
                     <View className="detail-text">赞了我</View>
@@ -128,7 +114,8 @@ export default class Index extends Component {
                       onClick={() =>
                         Taro.navigateTo({
                           url:
-                            '/pages/courseDetails/index?id=' + message.course_id
+                            '/pages/courseDetails/courseDetails?courseId=' +
+                            message.course_id
                         })
                       }
                     >
@@ -139,7 +126,7 @@ export default class Index extends Component {
                       onClick={() =>
                         Taro.navigateTo({
                           url:
-                            '/pages/courseCommentsDetails/index?id=' +
+                            '/pages/courseCommentsDetails/courseCommentsDetails?id=' +
                             message.evaluation_id
                         })
                       }
@@ -159,21 +146,31 @@ export default class Index extends Component {
                   <View className="user-info">
                     <View className="avatar-container">
                       <Image
-                        src={message.user_info.avatar}
+                        src={
+                          message.user_info.avatar
+                            ? message.user_info.avatar
+                            : Img
+                        }
                         className="avatar-image"
                       ></Image>
                     </View>
                     <View className="name-time">
-                      <View className="name">{message.user_info.username}</View>
+                      <View className="name">
+                        {message.user_info.username
+                          ? message.user_info.username
+                          : '匿名'}
+                      </View>
                       <View className="time">
                         {this.toNormalTime(message.time)}
                       </View>
                     </View>
                   </View>
                   <View className="message-text">
-                    <MxIcon type="cmmtBtn"></MxIcon>
+                    <View className="icon">
+                      <MxIcon type="cmmtBtn"></MxIcon>
+                    </View>
                     <View className="detail-text">回复我</View>
-                    <View className="reply-text">{message.reply}</View>
+                    <Text className="reply-text">{message.reply}</Text>
                   </View>
                   <View className="course-container">
                     <View
@@ -181,7 +178,8 @@ export default class Index extends Component {
                       onClick={() =>
                         Taro.navigateTo({
                           url:
-                            '/pages/courseDetails/index?id=' + message.course_id
+                            '/pages/courseDetails/courseDetails?courseId=' +
+                            message.course_id
                         })
                       }
                     >
@@ -192,7 +190,7 @@ export default class Index extends Component {
                       onClick={() =>
                         Taro.navigateTo({
                           url:
-                            '/pages/courseCommentsDetails/index?id=' +
+                            '/pages/courseCommentsDetails/courseCommentsDetails?id=' +
                             message.evaluation_id
                         })
                       }
@@ -255,7 +253,9 @@ export default class Index extends Component {
                       className="course-name"
                       onClick={() =>
                         Taro.navigateTo({
-                          url: '/pages/postReview/index?id=' + message.course_id
+                          url:
+                            '/pages/courseDetails/courseDetails?courseId=' +
+                            message.course_id
                         })
                       }
                     >

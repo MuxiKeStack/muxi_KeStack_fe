@@ -1,3 +1,9 @@
+Page {
+  background-color: rgba(241,240,245,1);
+}
+:root{
+  box-sizing: border-box;
+}
 .avatar-image{
   display: inline-block;
   width: 100%;
@@ -54,7 +60,7 @@
   .delete-cmmt{
       float: right;
       height: 36px;
-      margin-right: 55px;
+      margin-right: 36px;
   }
 }
 .course-container{
@@ -63,14 +69,19 @@
   font-size:24px;
   .course-name{
       display: inline-block;
+      vertical-align: middle;
       font-size:27px;
       font-weight:400;
       color:rgba(104,105,247,1);
-
+      width:280px;
+      overflow:hidden; //超出的文本隐藏
+      text-overflow:ellipsis; //溢出用省略号显示
+      white-space:nowrap; //溢出不换行
   }
   .course-rate{
       display: inline-flex;
       align-items: center;
+      vertical-align: middle;
       .rate-text{
         font-size:27px;
         color:rgba(104,105,247,1);
@@ -93,6 +104,6 @@
 }
 .number{
   font-size:24px;
-  margin-left: 5px;
+  margin-left: 10px;
   margin-right: 23px;
 }
