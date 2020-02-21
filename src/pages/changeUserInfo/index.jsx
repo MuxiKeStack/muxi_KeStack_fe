@@ -39,16 +39,6 @@ export default class index extends Component {
 
   componentDidHide() {}
 
-  // handleFocus() {
-  //   this.setState({
-  //     onfocus: false
-  //   });
-  // }
-  // handleUnFocus() {
-  //   this.setState({
-  //     onfocus: false
-  //   });
-  // }
   toChangeName(e) {
     this.setState({
       username: e.target.value
@@ -60,6 +50,7 @@ export default class index extends Component {
     });
   }
   handleLogout() {
+    Taro.clearStorageSync();
     Taro.navigateTo({
       url: '/pages/login/index'
     });
@@ -71,8 +62,8 @@ export default class index extends Component {
     params.sourceType = ['album', 'camera'];
     Taro.chooseImage(params)
       .then(res => {
-        console.log(res);
-        console.log(1);
+        // console.log(res);
+        // console.log(1);
         this.setState({
           avatar: res.tempFilePaths[0],
           username: this.state.username //本地临时路径,
@@ -115,12 +106,6 @@ export default class index extends Component {
       });
       return;
     }
-    //上传数据
-    // Fetch();
-    // var formData = new FormData();
-
-    // formData.append("image", this.state.avatar);
-    // this.fun1(this.fun2());
     Taro.uploadFile({
       url: 'http://kstack.test.muxixyz.com/api/v1/upload/image/', //上传头像的服务器接口
       filePath: this.state.avatar,
@@ -136,14 +121,8 @@ export default class index extends Component {
       success(res) {
         // console.log(res);
         if (res.data) {
-          // console.log(res.data);
-          // console.log(res.data.url);
-          // console.log(JSON.parse(res.data).data.url);
           Taro.setStorageSync('image', JSON.parse(res.data).data.url);
         }
-        // this.setState({
-        //   avatar: JSON.parse(res.data).data.url
-        // });
       }
     });
     setTimeout(() => {
@@ -173,7 +152,6 @@ export default class index extends Component {
 
   render() {
     const { username, avatar } = this.state;
-    // const inputclassname = onfocus ? 'input-start' : 'input-end';
     return (
       <View className="index">
         <Form
