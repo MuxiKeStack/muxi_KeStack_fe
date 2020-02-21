@@ -77,6 +77,7 @@ export default class Index extends Component {
         .then(
           res =>{
             // console.log(res.data.data);
+            Taro.hideNavigationBarLoading()
             if(res.data.data){
               this.setState({
                 courses: res.data.data,
@@ -84,7 +85,10 @@ export default class Index extends Component {
             }
           }
         )
-        .catch(err => Taro.showToast({title: '查询失败，请稍后再试',icon: 'none'})); 
+        .catch(err => {
+          Taro.showToast({title: '查询失败，请稍后再试',icon: 'none'})
+          Taro.hideNavigationBarLoading()
+      }); 
   }
   handleChangeY = e => {
     this.setState({
