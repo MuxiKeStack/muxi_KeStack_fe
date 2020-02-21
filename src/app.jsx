@@ -23,21 +23,21 @@ import './app.scss';
 // };
 
 class App extends Component {
-  // componentDidMount() {
-  //   Taro.getStorage({
-  //     key: 'token',
-  //     success: function(res) {
-  //       Taro.switchTab({
-  //         url: '/pages/commentSquare/index'
-  //       });
-  //     },
-  //     fail: function(res) {
-  //       Taro.redirectTo({
-  //         url: '/pages/login/index'
-  //       });
-  //     }
-  //   });
-  // }
+  componentDidMount() {
+    Taro.getStorage({
+      key: 'token',
+      success: function(res) {
+        Taro.switchTab({
+          url: '/pages/commentSquare/index'
+        });
+      },
+      fail: function(res) {
+        Taro.redirectTo({
+          url: '/pages/login/index'
+        });
+      }
+    });
+  }
   config = {
     pages: [
       // 'pages/homepage/index',
