@@ -15,8 +15,7 @@ export default class Index extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: { avatar: image, username: 'amybiubiu', sid: '2018214877' },
-      // user: {},
+      user: { avatar: image, username: 'null', sid: 'null' },
       readAll: true,
       openModal: false
     };
@@ -167,8 +166,12 @@ export default class Index extends Component {
           <View className="modal-backdrop"></View>
           <View className="modal-body">
             <View className="modal-title">反馈</View>
-            <View className="modal-content">QQ群：799651462</View>
-            <View className="modal-content">邮箱：i@muxistudio.com</View>
+            <Text className="modal-content" selectable="true">
+              QQ群：799651462
+            </Text>
+            <Text className="modal-content" selectable="true">
+              邮箱：i@muxistudio.com
+            </Text>
             <View
               className="confirm"
               onClick={() => {
