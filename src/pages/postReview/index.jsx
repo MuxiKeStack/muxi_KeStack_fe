@@ -19,7 +19,7 @@ export default class Index extends Component {
     this.state = {
       courseCheckedName: '(只能评价自己上过的课程哦)',
       courseCheckedId: '',
-      courseCheckedState: true,
+      courseCheckedState: false,
       filterAChecked: '(考勤方式)',
       filterBChecked: '(考核方式)',
       value: 0,
@@ -34,7 +34,7 @@ export default class Index extends Component {
       rate: 0,
       attendance_check_type: 0,
       exam_check_type: 0,
-      tags: new Array(),
+      tags: [],
       content: '',
       is_anonymous: false,
       contentSaved: ''
@@ -306,7 +306,7 @@ export default class Index extends Component {
               </MxTag>
             </View>
           </View>
-          <View className="featureTagVer">
+          <View>
             <MxTag
               onClick={this.handleClickTag.bind(this, 3)}
               font="28rpx"
@@ -336,7 +336,7 @@ export default class Index extends Component {
               </View>
             </View>
           </View>
-          <View className="featureTagVer">
+          <View>
             <MxTag
               onClick={this.handleClickTag.bind(this, 6)}
               font="28rpx"

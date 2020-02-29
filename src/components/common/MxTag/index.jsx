@@ -38,7 +38,7 @@ export default class MxTag extends Component {
       backgroud,
       checked,
       checkedControl,
-      border
+      border,
       width
     } = this.props;
     const tag = {
