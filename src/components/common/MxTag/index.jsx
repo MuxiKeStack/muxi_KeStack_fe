@@ -11,19 +11,20 @@ export default class MxTag extends Component {
     };
   }
   onClick() {
-    let checkedControl = this.props.checkedControl
-    if(this.props.checkable){
-    if(checkedControl){
-    this.props.onClick && this.props.onClick({
-      checked: this.props.checked
-  })} else {
-    this.setState({
-      ifChecked: !this.state.ifChecked
-    })
-    this.props.onClick()
-  }
-}
-    
+    let checkedControl = this.props.checkedControl;
+    if (this.props.checkable) {
+      if (checkedControl) {
+        this.props.onClick &&
+          this.props.onClick({
+            checked: this.props.checked
+          });
+      } else {
+        this.setState({
+          ifChecked: !this.state.ifChecked
+        });
+        this.props.onClick();
+      }
+    }
   }
 
   render() {
@@ -36,7 +37,8 @@ export default class MxTag extends Component {
       color,
       backgroud,
       checked,
-      checkedControl
+      checkedControl,
+      border
     } = this.props;
     const tag = {
       tagStyle: {
@@ -46,37 +48,42 @@ export default class MxTag extends Component {
         padding: `${padding}`,
         margin: `${margin}`,
         'backgroud-color': `${backgroud}`,
-        color: `${color}`
+        color: `${color}`,
+        border: `${border}`
       }
     };
 
     return (
       <View>
-        {checkedControl && <View
-        style={tag.tagStyle}
-        onClick={this.onClick.bind(this)}
-        className={classNames({
-          'tag-checked': checked && this.props.checkable,
-          'tag-unchecked': !checked && this.props.checkable,
-          'tag-uncheckable': !this.props.checkable,
-          tag: !this.props.check
-        })}
-      >
-        {this.props.children}
-      </View>}
+        {checkedControl && (
+          <View
+            style={tag.tagStyle}
+            onClick={this.onClick.bind(this)}
+            className={classNames({
+              'tag-checked': checked && this.props.checkable,
+              'tag-uncheck': !checked && this.props.checkable,
+              'tag-uncheckable': !this.props.checkable,
+              tag: !this.props.check
+            })}
+          >
+            {this.props.children}
+          </View>
+        )}
 
-      {!checkedControl && <View
-        style={tag.tagStyle}
-        onClick={this.onClick.bind(this)}
-        className={classNames({
-          'tag-checked': (this.state.ifChecked ) && this.props.checkable,
-          'tag-unchecked': (!this.state.ifChecked ) && this.props.checkable,
-          'tag-uncheckable': !this.props.checkable,
-          tag: !this.props.check
-        })}
-      >
-        {this.props.children}
-      </View>}
+        {!checkedControl && (
+          <View
+            style={tag.tagStyle}
+            onClick={this.onClick.bind(this)}
+            className={classNames({
+              'tag-checked': this.state.ifChecked && this.props.checkable,
+              'tag-unchecked': !this.state.ifChecked && this.props.checkable,
+              'tag-uncheckable': !this.props.checkable,
+              tag: !this.props.check
+            })}
+          >
+            {this.props.children}
+          </View>
+        )}
       </View>
     );
   }
@@ -94,5 +101,6 @@ MxTag.defaultProps = {
   checkedControl: false,
   backgroud: '',
   color: '',
+  border: '',
   onClick: () => {}
 };

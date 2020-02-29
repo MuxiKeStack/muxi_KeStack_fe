@@ -3,7 +3,7 @@ View {
 }
 .chooseBox{
     margin-top: 7rpx;
-    height: 98rpx;
+    height: 301rpx;
     width: 750rpx;
     background:rgba(255,255,255,1);
 }
@@ -46,7 +46,7 @@ View {
     border-radius: 30px;
 }
 .card{
-    width:711px;
+    width:713px;
     height:240px;
     background:rgba(255,255,255,1);
     opacity:1;
@@ -56,21 +56,25 @@ View {
     display: flex;
     position: absolute;
 }
+.right{
+    margin-left: 71rpx;
+}
 .itemDelete{
     width: 184rpx;
     height: 240rpx;
-    background-color: #ff81b4;
+    background-color: #FFCB7B;
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
     color: #fff;
     font-size: 50rpx;
     text-align: center;
     line-height: 201rpx;
+    writing-mode:tb-rl
 }
 
 .user-info{
-    margin-top: 24rpx;
-    margin-left: 30rpx;
+    margin-top: 40rpx;
+    margin-left: 40rpx;
     display: inline-block;
     width: 220rpx;
    .class{
@@ -123,40 +127,68 @@ View {
     display: inline-block;
     margin-left: 20rpx;
     margin-top:20rpx;
+    // .tag1{
+    //     max-width: 150px;
+    //     overflow: hidden;
+    //     text-overflow: ellipsis;
+    //     white-space: nowrap;
+    // }
     .tag2{
         margin-left: 15rpx;
     }
     .tag3{
         margin-top:20rpx ;
         display: inline-block;
+        margin-right: 15rpx;
     }
     .tag4{
         margin-top: 20rpx;
-        margin-left: 15rpx;
     }
 
 }
-.label{
-    width: 750rpx;
-    height: 150rpx;
-}
 .label1{
     margin-left: 150rpx;
-    margin-top: 20rpx;
+    margin-top: 40rpx;
 }
 .label2{
-    margin-top: 20rpx;
-    margin-left: 30rpx;
+    margin-top: 40rpx;
+    margin-left: 40rpx;
 }
 .label3{
-    margin-top: 20rpx;
+    margin-top: 36rpx;
     margin-left: 55rpx;
 }
 .label4{
-    margin-top: 20rpx;
+    margin-top: 36rpx;
     margin-left: 20rpx;
 }
 .label5{
-    margin-top: 20rpx;
+    margin-top: 36rpx;
     margin-left: 20rpx;
+}
+.history{
+    background:rgba(255,255,255,1);
+    border-radius: 34px;
+    border:3px solid rgba(112,112,112,1);
+    font-size: 34rpx;
+    padding:1rpx 44rpx 1rpx 44rpx;
+}
+.clear{
+    margin-right: 0;
+    background:rgba(255,255,255,1);
+    border-radius: 34px;
+    border:3px solid rgba(112,112,112,1);
+    font-size: 34rpx;
+    padding:1rpx 44rpx 1rpx 44rpx;
+}
+.index{
+    width: 750rpx;
+    height: 1196rpx;
+}
+.title{
+    background:rgba(255,255,255,1);
+    border-radius: 34px;
+    border:3px solid rgba(112,112,112,1);
+    font-size: 34rpx;
+    padding:1rpx 44rpx 1rpx 44rpx;
 }

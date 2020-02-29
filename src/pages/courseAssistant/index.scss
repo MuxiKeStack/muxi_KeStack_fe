@@ -59,7 +59,7 @@ View {
     }
 }
 .user-info{
-    margin-top: 24rpx;
+    margin-top: 40rpx;
     margin-left: 30rpx;
     display: inline-block;
     width: 220rpx;
@@ -113,6 +113,12 @@ View {
     display: inline-block;
     margin-left: 20rpx;
     margin-top:20rpx;
+    // .tag1{
+    //     max-width: 150px;
+    //     overflow: hidden;
+    //     text-overflow: ellipsis;
+    //     white-space: nowrap;
+    // }
     .tag2{
         margin-left: 15rpx;
     }
@@ -162,4 +168,30 @@ View {
     right: 40px;
     bottom: 0;
     color:rgba(255,255,255,1);
+}
+.history{
+    background:rgba(255,255,255,1);
+    border-radius: 34px;
+    border:3px solid rgba(112,112,112,1);
+    font-size: 34rpx;
+    padding:1rpx 44rpx 1rpx 44rpx;
+}
+.clear{
+    margin-right: 0;
+    background:rgba(255,255,255,1);
+    border-radius: 34px;
+    border:3px solid rgba(112,112,112,1);
+    font-size: 34rpx;
+    padding:1rpx 44rpx 1rpx 44rpx;
+}
+.index{
+    width: 750rpx;
+    height: 1196rpx;
+}
+.title{
+    background:rgba(255,255,255,1);
+    border-radius: 34px;
+    border:3px solid rgba(112,112,112,1);
+    font-size: 34rpx;
+    padding:1rpx 44rpx 1rpx 44rpx;
 }
