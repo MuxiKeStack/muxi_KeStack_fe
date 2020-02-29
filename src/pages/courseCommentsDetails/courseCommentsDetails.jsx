@@ -252,8 +252,9 @@ export default class Coursecommentsdetails extends Component {
               #{ancestor.course_name} ({ancestor.teacher})
             </View>
             <View className="toRate">评价星级：</View>
-            <View className="rateBox"><MxRate value={ancestor.rate} readOnly="true" className="rate" /></View>
-            
+            <View className="rateBox">
+              <MxRate value={ancestor.rate} readOnly="true" className="rate" />
+            </View>
           </View>
           <View className="tags">
             {ancestor.tags &&
@@ -333,7 +334,7 @@ export default class Coursecommentsdetails extends Component {
                             likenum={item.like_num}
                             content="comment"
                             width="20"
-                            bottom='30rpx'
+                            bottom="30rpx"
                           />
                         </View>
                       </View>

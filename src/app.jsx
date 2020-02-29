@@ -17,8 +17,8 @@ class App extends Component {
           url: '/pages/commentSquare/index'
         });
       },
-      fail: function(res) {
-        Taro.switchTab({
+      fail:function(res){
+        Taro.redirectTo({
           url: '/pages/login/index'
         });
       }

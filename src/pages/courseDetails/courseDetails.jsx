@@ -120,7 +120,10 @@ export default class Coursedetails extends Component {
           console.log(data.data);
           this.setState({
             normalList: this.state.normalList.concat(data.data.normal_list),
-            lastID: data.data.normal_list[data.data.normal_list.length - 1].id
+            lastID:
+              data.data.normal_list == null
+                ? 0
+                : data.data.normal_list[data.data.normal_list.length - 1].id
           });
           console.log(lastID);
         } else {
@@ -236,7 +239,10 @@ export default class Coursedetails extends Component {
         this.setState({
           hotList: data.data.hot_list,
           normalList: data.data.normal_list,
-          lastID: data.data.normal_list[data.data.normal_list.length - 1].id
+          lastID:
+            data.data.normal_list == null
+              ? 0
+              : data.data.normal_list[data.data.normal_list.length - 1].id
         });
       }
     });
@@ -244,7 +250,7 @@ export default class Coursedetails extends Component {
       'token',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
     );
-    Fetch('api/v1/course/using/info/112d34testsvggase/', {}, 'GET').then(
+    Fetch('api/v1/course/using/info/5d4f786073f6e00ccef7406f95996548/', {}, 'GET').then(
       data => {
         if (data) {
           this.setState({
@@ -513,8 +519,8 @@ export default class Coursedetails extends Component {
           </MxTag>
         </View>
         <View className="cmtimgBox">
-        <Image className="cmtimg" src={hotcmt} />
-          </View>
+          <Image className="cmtimg" src={hotcmt} />
+        </View>
         <View className="cmtBigBox">
           {hotList &&
             hotList.map(item => {

@@ -1,6 +1,7 @@
 @mixin row(){//多行文本溢出
     width: 356px;
     text-align: center;
+    display: block;
 }
 // @mixin longtext(length){
 //     width: length;
@@ -9,7 +10,6 @@
 .courseNumber{
     width: 380px;
     font-size: 30px;
-    display: block;
     margin: 10px auto;
     @include row();
 }
@@ -17,10 +17,10 @@
     font-size: 25px;
     width: 144px;
     margin-left: 10px;
+    display: inline-block;
 }
 .length{
     font-size: 25px;
-    display: block;
     @include row();
 }
 .row{
@@ -42,4 +42,5 @@
 }
 .place{
     font-size: 25px;
+    display: inline-block;
 }

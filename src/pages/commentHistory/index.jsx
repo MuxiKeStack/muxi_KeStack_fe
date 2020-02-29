@@ -94,11 +94,6 @@ export default class Index extends Component {
     if (m % 10 == 0) return Y + M + D + h + m + 0;
     else return Y + M + D + h + m;
   }
-  // ChangeTodetails(index){
-  //   Taro.navigateTo({
-  //     url: '/pages/courseDetails/courseDetails/'+course_id +'/?id='+`${course_id}`,
-  //   });
-  // }
 
   render() {
     const { list } = this.state;
@@ -134,7 +129,12 @@ export default class Index extends Component {
               <View className="course-container">
                 <View
                   className="course-name"
-                  onClick={this.ChangeTodetails.bind(this, index)}
+                  // onClick={this.ChangeTodetails.bind(this, index)}
+                  onClick={() =>
+                    Taro.navigateTo({
+                      url: '/pages/postReview/index?id=' + course.id
+                    })
+                  }
                 >
                   {'#' + course.course_name} {'(' + course.teacher + ')'}{' '}
                 </View>

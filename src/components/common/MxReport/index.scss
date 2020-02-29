@@ -7,7 +7,7 @@
 }
 
 .at-accordion__arrow {
-    margin-left:72rpx;
+    margin-left: 47rpx;
     color: #6869F7;
     font-size: 48rpx;
     line-height: 1;
@@ -72,19 +72,20 @@
 }
 
 .at-accordion {
-    width: 120rpx;
+    width: 95rpx;
 }
 
 
 .at-accordion__content {
     overflow: hidden;
-    left: 0rpx;
-    top: 0rpx;
-    background: #ccc;
-    color: gray;
+    background:#EBEDF5;
+    color:#6E66EE;
+    border-radius: 10rpx;
+    border:1px solid rgba(110,102,238,1);
     text-align: center;
-    width: 120rpx;
+    width: 95rpx;
     font-size: 25rpx;
     height: 50rpx;
     line-height: 50rpx;
+    margin-top: -7rpx;
 }
