@@ -23,7 +23,7 @@ export default class MxTag extends Component {
     this.props.onClick()
   }
 }
-    
+
   }
 
   render() {
@@ -36,7 +36,8 @@ export default class MxTag extends Component {
       color,
       backgroud,
       checked,
-      checkedControl
+      checkedControl,
+      width
     } = this.props;
     const tag = {
       tagStyle: {
@@ -46,7 +47,9 @@ export default class MxTag extends Component {
         padding: `${padding}`,
         margin: `${margin}`,
         'backgroud-color': `${backgroud}`,
-        color: `${color}`
+        color: `${color}`,
+        width: `${width}`,
+        'text-align': 'center'
       }
     };
 
@@ -94,5 +97,6 @@ MxTag.defaultProps = {
   checkedControl: false,
   backgroud: '',
   color: '',
+  width: '',
   onClick: () => {}
 };

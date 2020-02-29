@@ -120,7 +120,10 @@ View {
     width: inherit;
 }
 .detailsSecondInfo1 {
-    vertical-align: top;
+    width: 200rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: #6869F7;
     font-size: 27rpx;
     height: 38rpx;

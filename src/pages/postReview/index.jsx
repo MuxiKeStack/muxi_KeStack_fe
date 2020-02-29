@@ -36,7 +36,8 @@ export default class Index extends Component {
       exam_check_type: 0,
       tags: new Array(),
       content: '',
-      is_anonymous: false
+      is_anonymous: false,
+      contentSaved: ''
     };
     this.filterA = ['经常点名', '偶尔点名', '手机签到'];
     this.filterB = ['闭卷考试', '开卷考试', '论文考核', '无考核'];
@@ -93,6 +94,14 @@ export default class Index extends Component {
     this.setState({
       content: event.detail.value
     });
+  }
+
+  handleFinishContent(event) {
+    console.log(event.detail.value)
+    Taro.setStorage({
+      key: 'contentSaved',
+      data: event.detail.value
+    })
   }
   onClickCheckbox(event) {
     if (event.detail.value == 'true') {
@@ -172,7 +181,8 @@ export default class Index extends Component {
     Fetch('api/v1/tags', {}, 'GET').then(data => {
       if (data) {
         this.setState({
-          tagsReceive: data.data.list
+          tagsReceive: data.data.list,
+          contentSaved: Taro.getStorageSync('contentSaved')
         });
       }
     });
@@ -223,6 +233,7 @@ export default class Index extends Component {
               width="430"
               onChange={this.handleChangeCourse.bind(this)}
               className="choicePicker"
+              color='white'
             />
           </View>
         </View>
@@ -249,7 +260,7 @@ export default class Index extends Component {
               width="180"
               onChange={this.handleChangeFilterA.bind(this)}
               className="filterPickerA"
-              color="white"
+              color="black"
             />
             <MxPicker
               selectorChecked={this.state.filterBChecked}
@@ -257,7 +268,7 @@ export default class Index extends Component {
               width="180"
               onChange={this.handleChangeFilterB.bind(this)}
               className="filterPickerB"
-              color="white"
+              color="black"
             />
           </View>
         </View>
@@ -270,18 +281,18 @@ export default class Index extends Component {
               onClick={this.handleClickTag.bind(this, 0)}
               font="28rpx"
               checkable
-              padding="1rpx 44rpx 1rpx 44rpx"
+              width="200rpx"
             >
-              {this.state.tagsReceive[0].Name}
+              {this.state.tagsReceive[0].name}
             </MxTag>
             <View className="featureTagLev">
               <MxTag
                 onClick={this.handleClickTag.bind(this, 1)}
                 font="28rpx"
                 checkable
-                padding="1rpx 44rpx 1rpx 44rpx"
+                width="200rpx"
               >
-                {this.state.tagsReceive[1].Name}
+                {this.state.tagsReceive[1].name}
               </MxTag>
             </View>
             <View className="featureTagLev">
@@ -289,9 +300,9 @@ export default class Index extends Component {
                 onClick={this.handleClickTag.bind(this, 2)}
                 font="28rpx"
                 checkable
-                padding="1rpx 44rpx 1rpx 44rpx"
+                width="200rpx"
               >
-                {this.state.tagsReceive[2].Name}
+                {this.state.tagsReceive[2].name}
               </MxTag>
             </View>
           </View>
@@ -300,29 +311,49 @@ export default class Index extends Component {
               onClick={this.handleClickTag.bind(this, 3)}
               font="28rpx"
               checkable
-              padding="1rpx 44rpx 1rpx 44rpx"
+              width="200rpx"
             >
-              {this.state.tagsReceive[3].Name}
+              {this.state.tagsReceive[3].name}
             </MxTag>
             <View className="featureTagLev">
               <MxTag
                 onClick={this.handleClickTag.bind(this, 4)}
                 font="28rpx"
                 checkable
-                padding="1rpx 44rpx 1rpx 44rpx"
+                width="200rpx"
               >
-                {this.state.tagsReceive[4].Name}
+                {this.state.tagsReceive[4].name}
               </MxTag>
               <View className="featureTagLev">
                 <MxTag
                   onClick={this.handleClickTag.bind(this, 5)}
                   font="28rpx"
                   checkable
-                  padding="1rpx 16rpx 1rpx 16rpx"
+                  width="200rpx"
                 >
-                  {this.state.tagsReceive[5].Name}
+                  {this.state.tagsReceive[5].name}
                 </MxTag>
               </View>
+            </View>
+          </View>
+          <View className="featureTagVer">
+            <MxTag
+              onClick={this.handleClickTag.bind(this, 6)}
+              font="28rpx"
+              checkable
+              width="200rpx"
+            >
+              {this.state.tagsReceive[6].name}
+            </MxTag>
+            <View className="featureTagLev">
+              <MxTag
+                onClick={this.handleClickTag.bind(this, 7)}
+                font="28rpx"
+                checkable
+                width="200rpx"
+              >
+                {this.state.tagsReceive[7].name}
+              </MxTag>
             </View>
           </View>
         </View>
@@ -333,6 +364,8 @@ export default class Index extends Component {
             placeholderClass="evalutatePlaceholder"
             className="evaluateTextarea"
             onInput={this.handleClickContent.bind(this)}
+            onBlur={this.handleFinishContent.bind(this)}
+            value={this.state.contentSaved}
           ></Textarea>
           <MxCheckbox
             options={this.checkboxOption}
