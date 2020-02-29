@@ -11,6 +11,7 @@ export default class MxTag extends Component {
     };
   }
   onClick() {
+<<<<<<< HEAD
     let checkedControl = this.props.checkedControl;
     if (this.props.checkable) {
       if (checkedControl) {
@@ -25,6 +26,21 @@ export default class MxTag extends Component {
         this.props.onClick();
       }
     }
+=======
+    let checkedControl = this.props.checkedControl
+    if(this.props.checkable){
+    if(checkedControl){
+    this.props.onClick && this.props.onClick({
+      checked: this.props.checked
+  })} else {
+    this.setState({
+      ifChecked: !this.state.ifChecked
+    })
+    this.props.onClick()
+  }
+}
+
+>>>>>>> fix:commentSquare & postReview
   }
 
   render() {
@@ -38,7 +54,11 @@ export default class MxTag extends Component {
       backgroud,
       checked,
       checkedControl,
+<<<<<<< HEAD
       border
+=======
+      width
+>>>>>>> fix:commentSquare & postReview
     } = this.props;
     const tag = {
       tagStyle: {
@@ -49,7 +69,12 @@ export default class MxTag extends Component {
         margin: `${margin}`,
         'backgroud-color': `${backgroud}`,
         color: `${color}`,
+<<<<<<< HEAD
         border: `${border}`
+=======
+        width: `${width}`,
+        'text-align': 'center'
+>>>>>>> fix:commentSquare & postReview
       }
     };
 
@@ -101,6 +126,10 @@ MxTag.defaultProps = {
   checkedControl: false,
   backgroud: '',
   color: '',
+<<<<<<< HEAD
   border: '',
+=======
+  width: '',
+>>>>>>> fix:commentSquare & postReview
   onClick: () => {}
 };
