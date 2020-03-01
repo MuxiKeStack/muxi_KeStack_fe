@@ -3,15 +3,20 @@ View {
 }
 .chooseBox{
     margin-top: 7rpx;
-    height: 98rpx;
+    height: 158rpx;
     width: 750rpx;
     background:rgba(255,255,255,1);
+    display: block;
+    top: 0rpx;
+    position: fixed;
+    z-index: 100;
 }
 .search{
     margin: 13rpx 0rpx 0rpx 32rpx;
 }
 
 .detailsBoxes {
+    padding-top: 158rpx;
     overflow: scroll;
     height: 989rpx;
     margin-top: 7rpx;

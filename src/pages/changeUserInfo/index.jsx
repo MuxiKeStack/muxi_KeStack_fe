@@ -107,7 +107,7 @@ export default class index extends Component {
       return;
     }
     Taro.uploadFile({
-      url: 'http://kstack.test.muxixyz.com/api/v1/upload/image/', //上传头像的服务器接口
+      url: 'https://kstack.test.muxixyz.com/api/v1/upload/image/', //上传头像的服务器接口
       filePath: this.state.avatar,
       name: 'image',
       formData: {

@@ -1,23 +1,28 @@
 View {
-    display: inline-block;
+  display: inline-block;
 }
 .chooseBox{
-    margin-top: 7rpx;
-    height: 301rpx;
-    width: 750rpx;
-    background:rgba(255,255,255,1);
+  margin-top: 7rpx;
+  height: 301rpx;
+  width: 750rpx;
+  background:rgba(255,255,255,1);
+  display: block;
+  top: 0rpx;
+  position: fixed;
+  z-index: 100;
 }
 .search{
-    margin: 13rpx 0rpx 0rpx 32rpx;
+  margin: 13rpx 0rpx 0rpx 32rpx;
 }
 
 .detailsBoxes {
-    height: 989rpx;
-    width: 750px;
-    margin-top: 7rpx;
-    background-color: rgba(241,240,245,1);
-    align-items: center;
-    overflow: scroll;
+  height: 887rpx;
+  width: 750px;
+  margin-top: 7rpx;
+  padding-top: 316rpx;
+  background-color: rgba(241,240,245,1);
+  align-items: center;
+  overflow: scroll;
 }
 /*
 .detailsBox:last-child {
@@ -32,52 +37,52 @@ View {
     width: 750rpx;
 }*/
 .mx-card{
-    display: flex;
-    flex-direction: row;
-    background:rgba(241,240,245,1);
-    margin-bottom: 37px;
-    margin-top: 37px;
-    margin-left: 25px;
+  display: flex;
+  flex-direction: row;
+  background:rgba(241,240,245,1);
+  margin-bottom: 37px;
+  margin-top: 37px;
+  margin-left: 25px;
 }
 .cardm{
-    width:532px;
-    height:240px;
-    background:rgba(255,255,255,1);
-    border-radius: 30px;
+  width:532px;
+  height:240px;
+  background:rgba(255,255,255,1);
+  border-radius: 30px;
 }
 .card{
-    width:713px;
-    height:240px;
-    background:rgba(255,255,255,1);
-    opacity:1;
-    border-radius: 30px;
-    margin-top: 37px;
-    margin-left: 21px;
-    display: flex;
-    position: absolute;
+  width:713px;
+  height:240px;
+  background:rgba(255,255,255,1);
+  opacity:1;
+  border-radius: 30px;
+  margin-top: 37px;
+  margin-left: 21px;
+  display: flex;
+  position: absolute;
 }
 .right{
-    margin-left: 71rpx;
+  margin-left: 71rpx;
 }
 .itemDelete{
-    width: 184rpx;
-    height: 240rpx;
-    background-color: #FFCB7B;
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    color: #fff;
-    font-size: 50rpx;
-    text-align: center;
-    line-height: 201rpx;
-    writing-mode:tb-rl
+  width: 184rpx;
+  height: 240rpx;
+  background-color: #FFCB7B;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  color: #fff;
+  font-size: 50rpx;
+  text-align: center;
+  line-height: 201rpx;
+  writing-mode:tb-rl
 }
 
 .user-info{
-    margin-top: 40rpx;
-    margin-left: 40rpx;
-    display: inline-block;
-    width: 220rpx;
-   .class{
+  margin-top: 40rpx;
+  margin-left: 40rpx;
+  display: inline-block;
+  width: 220rpx;
+  .class{
     max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -87,108 +92,110 @@ View {
     line-height:48px;
     width:220rpx;
     height:48px;
-   }
-   .teacher{
-      margin-top: 23rpx;
-      margin-left: 51rpx;
-      font-size:27px;
-      color:rgba(104,105,247,1);
-   }
-   .num{
-       width:155px;
-       height:38px;
-       font-size: 27px;
-       color:#A1A4AE ;
-       margin-top: 24rpx;
-   }
+  }
+  .teacher{
+    margin-top: 23rpx;
+    margin-left: 51rpx;
+    font-size:27px;
+    color:rgba(104,105,247,1);
+  }
+  .num{
+    width:155px;
+    height:38px;
+    font-size: 27px;
+    color:#A1A4AE ;
+    margin-top: 24rpx;
+  }
 }
 .blue{
-    margin-top: 24rpx;
-    width: 410px;
+  margin-top: 24rpx;
+  width: 410px;
+  display: inline-block;
+  .people{
+    font-size:27px;
+    color:rgba(112,112,112,1);
+    opacity:1;
     display: inline-block;
-    .people{
-        font-size:27px;
-        color:rgba(112,112,112,1);
-        opacity:1;
-        display: inline-block;
-    }
-    .word{
-        display: inline-block;
-        font-size:27px;
-        color:rgba(112,112,112,1);
-        opacity:1;
-        margin-left: 31px;
-    }
-    .star{
-        display: inline-block;
-    }
+  }
+  .word{
+    display: inline-block;
+    font-size:27px;
+    color:rgba(112,112,112,1);
+    opacity:1;
+    margin-left: 31px;
+  }
+  .star{
+    display: inline-block;
+  }
 }
 .tag{
+  display: inline-block;
+  margin-left: 20rpx;
+  margin-top:20rpx;
+  // .tag1{
+  //     max-width: 150px;
+  //     overflow: hidden;
+  //     text-overflow: ellipsis;
+  //     white-space: nowrap;
+  // }
+  .tag2{
+    margin-left: 15rpx;
+  }
+  .tag3{
+    margin-top:20rpx ;
     display: inline-block;
-    margin-left: 20rpx;
-    margin-top:20rpx;
-    // .tag1{
-    //     max-width: 150px;
-    //     overflow: hidden;
-    //     text-overflow: ellipsis;
-    //     white-space: nowrap;
-    // }
-    .tag2{
-        margin-left: 15rpx;
-    }
-    .tag3{
-        margin-top:20rpx ;
-        display: inline-block;
-        margin-right: 15rpx;
-    }
-    .tag4{
-        margin-top: 20rpx;
-    }
+    margin-right: 15rpx;
+  }
+  .tag4{
+    margin-top: 20rpx;
+  }
 
 }
 .label1{
-    margin-left: 150rpx;
-    margin-top: 40rpx;
+  margin-left: 150rpx;
+  margin-top: 40rpx;
 }
 .label2{
-    margin-top: 40rpx;
-    margin-left: 40rpx;
+  margin-top: 40rpx;
+  margin-left: 40rpx;
 }
 .label3{
-    margin-top: 36rpx;
-    margin-left: 55rpx;
+  margin-top: 36rpx;
+  margin-left: 55rpx;
 }
 .label4{
-    margin-top: 36rpx;
-    margin-left: 20rpx;
+  margin-top: 36rpx;
+  margin-left: 20rpx;
 }
 .label5{
-    margin-top: 36rpx;
-    margin-left: 20rpx;
+  margin-top: 36rpx;
+  margin-left: 20rpx;
 }
 .history{
-    background:rgba(255,255,255,1);
-    border-radius: 34px;
-    border:3px solid rgba(112,112,112,1);
-    font-size: 34rpx;
-    padding:1rpx 44rpx 1rpx 44rpx;
+  background:rgba(255,255,255,1);
+  border-radius: 34px;
+  border:3px solid rgba(112,112,112,1);
+  font-size: 34rpx;
+  padding:1rpx 44rpx 1rpx 44rpx;
 }
 .clear{
-    margin-right: 0;
-    background:rgba(255,255,255,1);
-    border-radius: 34px;
-    border:3px solid rgba(112,112,112,1);
-    font-size: 34rpx;
-    padding:1rpx 44rpx 1rpx 44rpx;
+  margin-right: 0;
+  background:rgba(255,255,255,1);
+  border-radius: 34px;
+  border:3px solid rgba(112,112,112,1);
+  font-size: 34rpx;
+  padding:1rpx 44rpx 1rpx 44rpx;
 }
 .index{
-    width: 750rpx;
-    height: 1196rpx;
+  padding-top: 316rpx;
+  width: 750rpx;
+  height: 1196rpx;
 }
 .title{
-    background:rgba(255,255,255,1);
-    border-radius: 34px;
-    border:3px solid rgba(112,112,112,1);
-    font-size: 34rpx;
-    padding:1rpx 44rpx 1rpx 44rpx;
+  background:rgba(255,255,255,1);
+  border-radius: 34px;
+  border:3px solid rgba(112,112,112,1);
+  font-size: 34rpx;
+  padding:1rpx 44rpx 1rpx 44rpx;
 }
+
