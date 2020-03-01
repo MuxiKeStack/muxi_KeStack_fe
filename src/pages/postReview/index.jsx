@@ -372,6 +372,7 @@ export default class Index extends Component {
             onInput={this.handleClickContent.bind(this)}
             onBlur={this.handleFinishContent.bind(this)}
             value={this.state.contentSaved}
+            autoFocus={false}
           ></Textarea>
           <MxCheckbox
             options={this.checkboxOption}

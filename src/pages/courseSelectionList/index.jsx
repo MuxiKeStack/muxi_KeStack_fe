@@ -36,7 +36,7 @@ export default class Index extends Component {
   handleClick() {}
 
   getLists() {
-    
+
     let newLists = this.state.Lists;
     console.log(this.state.lastId)
     Fetch(
@@ -82,11 +82,11 @@ export default class Index extends Component {
     });
   }
 
-  
+
   getListsAfterFavor(index) {
     console.log('index为' + index)
     let newLists = this.state.Lists
-    newLists.remove(index)
+    newLists.splice(index,1)
     console.log('当前要删除id' + newLists[0])
     console.log('当前要删除id' + newLists[1])
     console.log('当前要删除id' + newLists[2])
@@ -209,12 +209,12 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
-  collect(thisIndex) {
+  collect(thisIndex, course_id) {
     // "2e154de56gyubdq" 高等程序语言设计
     // "0s9uighvg121efe" java程序语言设计
     //"28yy89dqube12d8"   面向对象程序设计
     // "723fguib98y2e1h"  python程序语言设计
-    let id = '0s9uighvg121efe';
+    let id = course_id
     Fetch(
       `api/v1/course/using/${id}/favorite`,
       {
@@ -288,7 +288,7 @@ export default class Index extends Component {
                   </View>
                 </MovableView>
               </MovableArea>
-              <View className="itemDelete right" onClick={this.collect.bind(this,index)}>
+              <View className="itemDelete right" onClick={this.collect.bind(this,index,data.course_id)}>
                 <Text>取消收藏</Text>
               </View>
             </View>

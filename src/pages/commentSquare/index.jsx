@@ -52,7 +52,7 @@ export default class Index extends Component {
     Fetch(
       'api/v1/evaluation',
       {
-      limit: 3,
+      limit: 4,
       last_id: this.state.lastId
       },
       'GET'
