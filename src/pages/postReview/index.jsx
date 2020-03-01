@@ -25,7 +25,7 @@ export default class Index extends Component {
       value: 0,
       checkedList: [],
       tagsReceive: [],
-      tagsState: [-1, -1, -1, -1, -1, -1],
+      tagsState: [-1, -1, -1, -1, -1, -1, -1, -1],
       myCourse: [],
       myId: [],
       myEvaState: [],
@@ -68,11 +68,14 @@ export default class Index extends Component {
     var States = this.state.tagsState;
     var lists = this.state.tags;
     if (local == -1) {
-      local = lists.push(this.state.tagsReceive[num].Id) - 1;
+      local = lists.push(this.state.tagsReceive[num].id) - 1;
       States[num] = local;
       this.setState({
         tags: lists,
         tagsState: States
+      },()=>{
+        console.log(this.state.tagsState)
+        console.log(this.state.tags)
       });
     } else {
       States[num] = -1;
@@ -80,6 +83,9 @@ export default class Index extends Component {
       this.setState({
         tags: lists,
         tagsState: States
+      },() => {
+        console.log(this.state.tagsState)
+        console.log(this.state.tags)
       });
     }
   }
@@ -178,7 +184,7 @@ export default class Index extends Component {
     Taro.showLoading({
       title: '收集课程中....'
     });
-    Fetch('api/v1/tags', {}, 'GET').then(data => {
+    Fetch('api/v1/tags/', {}, 'GET').then(data => {
       if (data) {
         this.setState({
           tagsReceive: data.data.list,
