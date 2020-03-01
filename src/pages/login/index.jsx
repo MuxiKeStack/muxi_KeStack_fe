@@ -75,7 +75,25 @@ export default class Index extends Component {
     //   page;
     // });
   }
-  componentWillMount() {}
+  componentWillMount() {
+    const header = {
+      'content-type': 'application/json',
+      token: Taro.getStorageSync('token')
+    };
+    const data = {
+      sid: '2018213900',
+      password: 'withminyue123'
+    };
+    const method = 'POST';
+    Taro.request({
+      url: 'https://kstack.test.muxixyz.com/api/v1/login/',
+      data,
+      method,
+      header
+    }).then(res => {
+      console.log(res);
+    });
+  }
 
   componentDidMount() {}
 
@@ -106,16 +124,24 @@ export default class Index extends Component {
 
   login() {
     const { userid, password, isAnony } = this.state;
+    const header = {
+      'content-type': 'application/json',
+      token: Taro.getStorageSync('token')
+    };
+    const data = {
+      sid: userid,
+      password: password
+    };
+    const method = 'POST';
     if (userid && password && isAnony) {
-      Fetch(
-        'api/v1/login',
-        {
-          sid: userid,
-          password: password
-        },
-        'POST'
-      ).then(res => {
-        switch (res.code) {
+      Taro.request({
+        url: 'https://kstack.test.muxixyz.com/api/v1/login/',
+        data,
+        method,
+        header
+      }).then(res => {
+        console.log(res);
+        switch (res.data.code) {
           case 0:
             Taro.setStorage({
               key: 'sid',
@@ -127,7 +153,7 @@ export default class Index extends Component {
             });
             Taro.setStorage({
               key: 'token',
-              data: res.data.token,
+              data: res.data.data.token,
               success: function() {
                 Taro.getSetting({
                   // eslint-disable-next-line no-shadow
