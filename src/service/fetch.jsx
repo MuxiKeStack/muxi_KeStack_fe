@@ -2,7 +2,7 @@ import Taro from '@tarojs/taro';
 
 // Fetch(url, data).then((res) => { console.log(res)})
 
-const preHttp = 'http://kstack.test.muxixyz.com/';
+const preHttp = 'https://kstack.test.muxixyz.com/';
 const Fetch = (url, data = {}, method = 'GET') => {
   const header = {
     'content-type': 'application/json',
