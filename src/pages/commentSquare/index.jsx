@@ -50,7 +50,7 @@ export default class Index extends Component {
     var that = this;
     let newComments = this.state.comments
     Fetch(
-      'api/v1/evaluation',
+      'api/v1/evaluation/',
       {
       limit: 4,
       last_id: this.state.lastId
@@ -124,7 +124,7 @@ export default class Index extends Component {
 
   ChangeToReport(id) {
     Fetch(
-      `api/v1/evaluation/${id}/report`,
+      `api/v1/evaluation/${id}/report/`,
       {},
       'POST'
     ).then(data =>{

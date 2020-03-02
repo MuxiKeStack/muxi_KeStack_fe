@@ -37,7 +37,6 @@ export default class Index extends Component {
       tags: [],
       content: '',
       is_anonymous: false,
-      contentSaved: ''
     };
     this.filterA = ['经常点名', '偶尔点名', '手机签到'];
     this.filterB = ['闭卷考试', '开卷考试', '论文考核', '无考核'];
@@ -99,6 +98,8 @@ export default class Index extends Component {
   handleClickContent(event) {
     this.setState({
       content: event.detail.value
+    },()=>{
+      console.log(this.state.content)
     });
   }
 
@@ -163,7 +164,7 @@ export default class Index extends Component {
           duration: 2000
         });
       } else {
-        Fetch('api/v1/evaluation', post, 'POST').then(data => {
+        Fetch('api/v1/evaluation/', post, 'POST').then(data => {
           Taro.switchTab({
             url: '/pages/commentSquare/index'
           });
@@ -188,7 +189,7 @@ export default class Index extends Component {
       if (data) {
         this.setState({
           tagsReceive: data.data.list,
-          contentSaved: Taro.getStorageSync('contentSaved')
+          content: Taro.getStorageSync('contentSaved')
         });
       }
     });
@@ -196,7 +197,7 @@ export default class Index extends Component {
       sid: userid,
       password: upassword
     };
-    Fetch('api/v1/user/courses/?year=0&term=0', data, 'POST').then(data => {
+    Fetch('api/v1/user/courses/?year=0&term=0/', data, 'POST').then(data => {
       console.log(data);
       Taro.hideLoading();
       let datas = data.data.data;
@@ -371,7 +372,7 @@ export default class Index extends Component {
             className="evaluateTextarea"
             onInput={this.handleClickContent.bind(this)}
             onBlur={this.handleFinishContent.bind(this)}
-            value={this.state.contentSaved}
+            value={this.state.content}
             autoFocus={false}
           ></Textarea>
           <MxCheckbox

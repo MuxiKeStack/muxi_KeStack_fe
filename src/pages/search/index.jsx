@@ -71,7 +71,7 @@ export default class Index extends Component {
   getHistorySearch() {
     var that = this;
     Fetch(
-      'api/v1/search/historyCourse',
+      'api/v1/search/historyCourse/',
       {
         keyword: this.state.keyword,
         type: this.state.type,
@@ -198,15 +198,16 @@ export default class Index extends Component {
     this.getHistorySearch();
   }
   collect(hash) {
-    let id = hash;
-    console.log(id);
+    // const { userid, password, isAnony } = this.state;
+
     Fetch(
-      `api/v1/course/using/${id}/favorite`,
+      `api/v1/course/using/${hash}/favorite/`,
       {
         like_state: false
       },
       'PUT'
     ).then(res => {
+      console.log(res);
       switch (res.code) {
         case 0:
           this.setState({
