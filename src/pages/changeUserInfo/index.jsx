@@ -24,7 +24,7 @@ export default class index extends Component {
   componentDidMount() {
     Fetch('api/v1/user/info', {}, 'GET').then(res => {
       if (res) {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({
           username: res.data.username,
           avatar: res.data.avatar
@@ -107,7 +107,7 @@ export default class index extends Component {
       return;
     }
     Taro.uploadFile({
-      url: 'http://kstack.test.muxixyz.com/api/v1/upload/image/', //上传头像的服务器接口
+      url: 'https://kstack.test.muxixyz.com/api/v1/upload/image/', //上传头像的服务器接口
       filePath: this.state.avatar,
       name: 'image',
       formData: {
@@ -132,7 +132,7 @@ export default class index extends Component {
         // { username: this.state.username, avatar: this.state.avatar },
         'POST'
       ).then(ress => {
-        console.log(ress);
+        // console.log(ress);
         if (ress.message == 'OK')
           Taro.showToast({ title: '修改成功', icon: 'success' });
       });
