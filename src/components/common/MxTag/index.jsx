@@ -38,7 +38,8 @@ export default class MxTag extends Component {
       backgroud,
       checked,
       checkedControl,
-      border
+      border,
+      width
     } = this.props;
     const tag = {
       tagStyle: {
@@ -49,7 +50,9 @@ export default class MxTag extends Component {
         margin: `${margin}`,
         'backgroud-color': `${backgroud}`,
         color: `${color}`,
-        border: `${border}`
+        border: `${border}`,
+        width: `${width}`,
+        'text-align': 'center'
       }
     };
 
@@ -102,5 +105,6 @@ MxTag.defaultProps = {
   backgroud: '',
   color: '',
   border: '',
+  width: '',
   onClick: () => {}
 };

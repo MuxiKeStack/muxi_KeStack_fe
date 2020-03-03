@@ -19,13 +19,13 @@ export default class Index extends Component {
     this.state = {
       courseCheckedName: '(只能评价自己上过的课程哦)',
       courseCheckedId: '',
-      courseCheckedState: true,
+      courseCheckedState: false,
       filterAChecked: '(考勤方式)',
       filterBChecked: '(考核方式)',
       value: 0,
       checkedList: [],
       tagsReceive: [],
-      tagsState: [-1, -1, -1, -1, -1, -1],
+      tagsState: [-1, -1, -1, -1, -1, -1, -1, -1],
       myCourse: [],
       myId: [],
       myEvaState: [],
@@ -34,9 +34,9 @@ export default class Index extends Component {
       rate: 0,
       attendance_check_type: 0,
       exam_check_type: 0,
-      tags: new Array(),
+      tags: [],
       content: '',
-      is_anonymous: false
+      is_anonymous: false,
     };
     this.filterA = ['经常点名', '偶尔点名', '手机签到'];
     this.filterB = ['闭卷考试', '开卷考试', '论文考核', '无考核'];
@@ -67,11 +67,14 @@ export default class Index extends Component {
     var States = this.state.tagsState;
     var lists = this.state.tags;
     if (local == -1) {
-      local = lists.push(this.state.tagsReceive[num].Id) - 1;
+      local = lists.push(this.state.tagsReceive[num].id) - 1;
       States[num] = local;
       this.setState({
         tags: lists,
         tagsState: States
+      },()=>{
+        console.log(this.state.tagsState)
+        console.log(this.state.tags)
       });
     } else {
       States[num] = -1;
@@ -79,6 +82,9 @@ export default class Index extends Component {
       this.setState({
         tags: lists,
         tagsState: States
+      },() => {
+        console.log(this.state.tagsState)
+        console.log(this.state.tags)
       });
     }
   }
@@ -92,7 +98,17 @@ export default class Index extends Component {
   handleClickContent(event) {
     this.setState({
       content: event.detail.value
+    },()=>{
+      console.log(this.state.content)
     });
+  }
+
+  handleFinishContent(event) {
+    console.log(event.detail.value)
+    Taro.setStorage({
+      key: 'contentSaved',
+      data: event.detail.value
+    })
   }
   onClickCheckbox(event) {
     if (event.detail.value == 'true') {
@@ -148,7 +164,7 @@ export default class Index extends Component {
           duration: 2000
         });
       } else {
-        Fetch('api/v1/evaluation', post, 'POST').then(data => {
+        Fetch('api/v1/evaluation/', post, 'POST').then(data => {
           Taro.switchTab({
             url: '/pages/commentSquare/index'
           });
@@ -169,10 +185,11 @@ export default class Index extends Component {
     Taro.showLoading({
       title: '收集课程中....'
     });
-    Fetch('api/v1/tags', {}, 'GET').then(data => {
+    Fetch('api/v1/tags/', {}, 'GET').then(data => {
       if (data) {
         this.setState({
-          tagsReceive: data.data.list
+          tagsReceive: data.data.list,
+          content: Taro.getStorageSync('contentSaved')
         });
       }
     });
@@ -180,7 +197,7 @@ export default class Index extends Component {
       sid: userid,
       password: upassword
     };
-    Fetch('api/v1/user/courses/?year=0&term=0', data, 'POST').then(data => {
+    Fetch('api/v1/user/courses/?year=0&term=0/', data, 'POST').then(data => {
       console.log(data);
       Taro.hideLoading();
       let datas = data.data.data;
@@ -223,6 +240,7 @@ export default class Index extends Component {
               width="430"
               onChange={this.handleChangeCourse.bind(this)}
               className="choicePicker"
+              color='white'
             />
           </View>
         </View>
@@ -249,7 +267,7 @@ export default class Index extends Component {
               width="180"
               onChange={this.handleChangeFilterA.bind(this)}
               className="filterPickerA"
-              color="white"
+              color="black"
             />
             <MxPicker
               selectorChecked={this.state.filterBChecked}
@@ -257,7 +275,7 @@ export default class Index extends Component {
               width="180"
               onChange={this.handleChangeFilterB.bind(this)}
               className="filterPickerB"
-              color="white"
+              color="black"
             />
           </View>
         </View>
@@ -270,18 +288,18 @@ export default class Index extends Component {
               onClick={this.handleClickTag.bind(this, 0)}
               font="28rpx"
               checkable
-              padding="1rpx 44rpx 1rpx 44rpx"
+              width="200rpx"
             >
-              {this.state.tagsReceive[0].Name}
+              {this.state.tagsReceive[0].name}
             </MxTag>
             <View className="featureTagLev">
               <MxTag
                 onClick={this.handleClickTag.bind(this, 1)}
                 font="28rpx"
                 checkable
-                padding="1rpx 44rpx 1rpx 44rpx"
+                width="200rpx"
               >
-                {this.state.tagsReceive[1].Name}
+                {this.state.tagsReceive[1].name}
               </MxTag>
             </View>
             <View className="featureTagLev">
@@ -289,40 +307,60 @@ export default class Index extends Component {
                 onClick={this.handleClickTag.bind(this, 2)}
                 font="28rpx"
                 checkable
-                padding="1rpx 44rpx 1rpx 44rpx"
+                width="200rpx"
               >
-                {this.state.tagsReceive[2].Name}
+                {this.state.tagsReceive[2].name}
               </MxTag>
             </View>
           </View>
-          <View className="featureTagVer">
+          <View>
             <MxTag
               onClick={this.handleClickTag.bind(this, 3)}
               font="28rpx"
               checkable
-              padding="1rpx 44rpx 1rpx 44rpx"
+              width="200rpx"
             >
-              {this.state.tagsReceive[3].Name}
+              {this.state.tagsReceive[3].name}
             </MxTag>
             <View className="featureTagLev">
               <MxTag
                 onClick={this.handleClickTag.bind(this, 4)}
                 font="28rpx"
                 checkable
-                padding="1rpx 44rpx 1rpx 44rpx"
+                width="200rpx"
               >
-                {this.state.tagsReceive[4].Name}
+                {this.state.tagsReceive[4].name}
               </MxTag>
               <View className="featureTagLev">
                 <MxTag
                   onClick={this.handleClickTag.bind(this, 5)}
                   font="28rpx"
                   checkable
-                  padding="1rpx 16rpx 1rpx 16rpx"
+                  width="200rpx"
                 >
-                  {this.state.tagsReceive[5].Name}
+                  {this.state.tagsReceive[5].name}
                 </MxTag>
               </View>
+            </View>
+          </View>
+          <View>
+            <MxTag
+              onClick={this.handleClickTag.bind(this, 6)}
+              font="28rpx"
+              checkable
+              width="200rpx"
+            >
+              {this.state.tagsReceive[6].name}
+            </MxTag>
+            <View className="featureTagLev">
+              <MxTag
+                onClick={this.handleClickTag.bind(this, 7)}
+                font="28rpx"
+                checkable
+                width="200rpx"
+              >
+                {this.state.tagsReceive[7].name}
+              </MxTag>
             </View>
           </View>
         </View>
@@ -333,6 +371,9 @@ export default class Index extends Component {
             placeholderClass="evalutatePlaceholder"
             className="evaluateTextarea"
             onInput={this.handleClickContent.bind(this)}
+            onBlur={this.handleFinishContent.bind(this)}
+            value={this.state.content}
+            autoFocus={false}
           ></Textarea>
           <MxCheckbox
             options={this.checkboxOption}

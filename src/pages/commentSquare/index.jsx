@@ -24,14 +24,16 @@ export default class Index extends Component {
       comments: [],
       sum: 0,
       lastId: 0,
-      search: ''
+      search: '',
+      bottomFlag: false
     };
   }
 
   onPullDownRefresh() {
     this.setState({
       sum: 0,
-      lastId: 0
+      lastId: 0,
+      bottomFlag: false
     },()=>{
       Taro.showNavigationBarLoading()
       this.getComments()
@@ -48,9 +50,9 @@ export default class Index extends Component {
     var that = this;
     let newComments = this.state.comments
     Fetch(
-      'api/v1/evaluation',
+      'api/v1/evaluation/',
       {
-      limit: 3,
+      limit: 4,
       last_id: this.state.lastId
       },
       'GET'
@@ -76,10 +78,13 @@ export default class Index extends Component {
       }} else {
         Taro.showToast({
           title: '到底啦！',
-          duration: 2000
+          duration: 2000,
         })
         Taro.stopPullDownRefresh()
         Taro.hideNavigationBarLoading()
+        this.setState({
+          bottomFlag: true
+        })
       }
     })
 
@@ -90,7 +95,6 @@ export default class Index extends Component {
         search: event.detail.value
     })
 }
-
 
   ChangeTosearch() {
     Taro.navigateTo({
@@ -108,7 +112,7 @@ export default class Index extends Component {
 
   ChangeTodetails(value) {
     Taro.navigateTo({
-      url: `/pages/courseDetails/courseDetails?courseId=123` 
+      url: `/pages/courseDetails/courseDetails?courseId=123`
     });
   }
 
@@ -120,7 +124,7 @@ export default class Index extends Component {
 
   ChangeToReport(id) {
     Fetch(
-      `api/v1/evaluation/${id}/report`,
+      `api/v1/evaluation/${id}/report/`,
       {},
       'POST'
     ).then(data =>{
@@ -143,6 +147,7 @@ export default class Index extends Component {
 
   componentDidShow() {
     this.setState({
+      bottomFlag: false,
       sum: 0,
       lastId: 0
     },()=>{
@@ -157,21 +162,18 @@ export default class Index extends Component {
   }
 
   normalTime(timestamp) {
-    var date = new Date(timestamp * 1000);
-    let Y = date.getFullYear() + '-';
-    let M =
-      (date.getMonth() + 1 < 10
-        ? '0' + (date.getMonth() + 1)
-        : date.getMonth() + 1) + '-';
-    let D = date.getDate() + ' ';
-    let h = date.getHours() + ':';
-    let m = date.getMinutes();
-    if (m % 10 == 0) return Y + M + D + h + m + 0;
-    else return Y + M + D + h + m;
+    var date = new Date(timestamp*1000);//如果date为13位不需要乘1000
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+    var D = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate()) + ' ';
+    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var m = (date.getMinutes() <10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+    var s = (date.getSeconds() <10 ? '0' + date.getSeconds() : date.getSeconds());
+    return Y+M+D+h+m+s;
   }
 
   render() {
-    var bottomFlag = this.state.lastId-1;
+    var bottomFlag = this.state.bottomFlag
     var isAnonymous = this.state.is_anonymous
     const content = (
       <View
@@ -240,7 +242,7 @@ export default class Index extends Component {
           radius='36rpx'
           width='550rpx'
           onInput={this.handleClickContent.bind(this)}
-          > 
+          >
           </MxInput>
           </View>
           <View onClick={this.ChangeTopost.bind(this)} className='chooseAdd'>
@@ -255,8 +257,8 @@ export default class Index extends Component {
             <MxIcon type='add' className='chooseAdd' width='42px'></MxIcon>
           </View>
         </View>
-        {content}    
-        {!bottomFlag && <View className='bottomBox'>到底啦！</View>}
+        {content}
+        {bottomFlag && <View className='bottomBox'>到底啦！</View>}
       </View>
     )
   }

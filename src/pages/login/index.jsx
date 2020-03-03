@@ -108,13 +108,14 @@ export default class Index extends Component {
     const { userid, password, isAnony } = this.state;
     if (userid && password && isAnony) {
       Fetch(
-        'api/v1/login',
+        'api/v1/login/',
         {
           sid: userid,
           password: password
         },
         'POST'
       ).then(res => {
+        console.log(res);
         switch (res.code) {
           case 0:
             Taro.setStorage({
@@ -137,7 +138,7 @@ export default class Index extends Component {
                         // eslint-disable-next-line no-shadow
                         success: function(res) {
                           Fetch(
-                            'api/v1/user/info',
+                            'api/v1/user/info/',
                             {
                               avatar: res.userInfo.avatarUrl,
                               username: res.userInfo.nickName

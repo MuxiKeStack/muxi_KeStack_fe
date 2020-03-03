@@ -116,7 +116,7 @@ export default class Index extends Component {
   getSearch() {
     var that = this;
     Fetch(
-      'api/v1/search/course',
+      'api/v1/search/course/',
       {
         keyword: this.state.keyword,
         type: this.state.type,
