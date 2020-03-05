@@ -15,8 +15,9 @@ export default class index extends Component {
       username: '',
       avatar: ''
       // onfocus: ''
-      // file: []
     };
+    this.targetUrl = '';
+    this.token = '';
   }
 
   componentWillMount() {}
@@ -31,6 +32,7 @@ export default class index extends Component {
         });
       }
     });
+    this.token = Taro.getStorageSync('token');
   }
 
   componentWillUnmount() {}
@@ -38,6 +40,12 @@ export default class index extends Component {
   componentDidShow() {}
 
   componentDidHide() {}
+
+  toLower(str) {
+    var i = str.lastIndexOf('.');
+    var res = str.substring(0, i) + str.substring(i, str.length).toLowerCase();
+    return res;
+  }
 
   toChangeName(e) {
     this.setState({
