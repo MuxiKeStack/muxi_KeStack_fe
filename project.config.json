@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -67,6 +67,13 @@
 					"id": -1,
 					"name": "cmsq",
 					"pathName": "pages/commentSquare/index",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "goDieavatar",
+					"pathName": "pages/changeUserInfo/index",
 					"query": "",
 					"scene": ""
 				}
