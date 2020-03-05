@@ -15,8 +15,9 @@ export default class index extends Component {
       username: '',
       avatar: ''
       // onfocus: ''
-      // file: []
     };
+    this.targetUrl = '';
+    this.token = '';
   }
 
   componentWillMount() {}
@@ -31,6 +32,7 @@ export default class index extends Component {
         });
       }
     });
+    this.token = Taro.getStorageSync('token');
   }
 
   componentWillUnmount() {}
@@ -38,6 +40,12 @@ export default class index extends Component {
   componentDidShow() {}
 
   componentDidHide() {}
+
+  toLower(str) {
+    var i = str.lastIndexOf('.');
+    var res = str.substring(0, i) + str.substring(i, str.length).toLowerCase();
+    return res;
+  }
 
   toChangeName(e) {
     this.setState({
@@ -62,31 +70,15 @@ export default class index extends Component {
     params.sourceType = ['album', 'camera'];
     Taro.chooseImage(params)
       .then(res => {
-        // console.log(res);
-        // console.log(1);
+        console.log(res.tempFilePaths[0]);
+
+        this.targetUrl = this.toLower(res.tempFilePaths[0]);
+        console.log(this.targetUrl);
         this.setState({
           avatar: res.tempFilePaths[0],
           username: this.state.username //本地临时路径,
           // file: res.tempFiles
         });
-        // Taro.uploadFile({
-        //   url: 'http://kstack.test.muxi-tech.xyz/api/v1/upload/image/', //上传头像的服务器接口
-        //   filePath: this.state.avatar,
-        //   name: 'image',
-        //   formData: {
-        //     image: this.state.avatar
-        //   },
-        //   header: {
-        //     token:
-        //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzUyMDg3MDIsImlkIjoxLCJuYmYiOjE1NzUyMDg3MDJ9.erNdOrNTLCD56D2UW0RmuYGGdfrPuO7hLZdtMtj1CdY'
-        //   },
-        //   success(ress) {
-        //     console.log(ress.data);
-        //     Taro.setStorageSync('image', ress.data.image_url);
-        //   }
-        // }).catch(err => {
-        //   console.error(err);
-        // });
       })
       .catch(error => {
         console.error(error);
@@ -106,37 +98,49 @@ export default class index extends Component {
       });
       return;
     }
+    var name = this.state.username;
     Taro.uploadFile({
       url: 'https://kstack.test.muxixyz.com/api/v1/upload/image/', //上传头像的服务器接口
-      filePath: this.state.avatar,
+      filePath: this.targetUrl,
       name: 'image',
       formData: {
         // image: this.state.file
       },
       header: {
-        token: Taro.getStorageSync('token')
-        // token:
-        //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzkyNDM3NjksImlkIjoxMywibmJmIjoxNTc5MjQzNzY5fQ.T9W1C_zS9U6mf_RazwToNQ8pAvHBUi96mesdWvlDKa4'
+        'content-type': 'multipart/form-data',
+        token: this.token
+        // token: Taro.getStorageSync('token')
       },
       success(res) {
-        // console.log(res);
+        console.log(res);
         if (res.data) {
-          Taro.setStorageSync('image', JSON.parse(res.data).data.url);
+          // Taro.setStorageSync('image', JSON.parse(res.data).data.url);
+          Fetch(
+            'api/v1/user/info/',
+            {
+              username: name,
+              avatar: JSON.parse(res.data).data.url
+            },
+            'POST'
+          ).then(ress => {
+            console.log(ress);
+            if (ress.message == 'OK')
+              Taro.showToast({ title: '修改成功', icon: 'success' });
+          });
         }
       }
     });
-    setTimeout(() => {
-      Fetch(
-        'api/v1/user/info/',
-        { username: this.state.username, avatar: Taro.getStorageSync('image') },
-        // { username: this.state.username, avatar: this.state.avatar },
-        'POST'
-      ).then(ress => {
-        // console.log(ress);
-        if (ress.message == 'OK')
-          Taro.showToast({ title: '修改成功', icon: 'success' });
-      });
-    }, 1000);
+    // setTimeout(() => {
+    //   Fetch(
+    //     'api/v1/user/info/',
+    //     { username: this.state.username, avatar: Taro.getStorageSync('image') },
+    //     'POST'
+    //   ).then(ress => {
+    //     console.log(ress);
+    //     if (ress.message == 'OK')
+    //       Taro.showToast({ title: '修改成功', icon: 'success' });
+    //   });
+    // }, 1000);
   }
   onReset() {
     Fetch('api/v1/user/info', {}, 'GET').then(res => {
