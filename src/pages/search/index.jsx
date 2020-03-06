@@ -21,6 +21,8 @@ export default class Index extends Component {
       checkable: false,
       page: 1,
       isCollect: true
+      // mask: 'mask',
+      // masklist: 'masklist'
     };
   }
   // eslint-disable-next-line react/sort-comp
@@ -38,6 +40,13 @@ export default class Index extends Component {
     // eslint-disable-next-line react/no-unused-state
     startY: 0
   };
+
+  // handleSave() {
+  //   this.setState({
+  //     mask: 'unmask',
+  //     masklist: 'unmasklist'
+  //   });
+  // }
 
   handleChange(value) {
     this.setState({
@@ -198,8 +207,6 @@ export default class Index extends Component {
     this.getHistorySearch();
   }
   collect(hash) {
-    // const { userid, password, isAnony } = this.state;
-
     Fetch(
       `api/v1/course/using/${hash}/favorite/`,
       {
@@ -220,8 +227,10 @@ export default class Index extends Component {
           });
           break;
         case 20302:
-          this.setState({
-            isCollect: true
+          Taro.showToast({
+            title: '收藏失败',
+            icon: 'none',
+            duration: 2000
           });
           break;
       }
@@ -268,8 +277,6 @@ export default class Index extends Component {
       });
       Taro.setStorageSync('history', history);
     }
-    let history = Taro.getStorageSync('history') || [];
-    console.log(history);
   }
   //清除缓存历史并关闭历史搜索框
   onClearHistory() {
@@ -341,6 +348,7 @@ export default class Index extends Component {
     const { history } = this.state;
     const list = (
       <View className="index">
+        <View className="history">历史记录</View>
         {history.map(h => {
           return (
             <View
@@ -353,10 +361,9 @@ export default class Index extends Component {
             </View>
           );
         })}
-        <Text className="history">历史记录</Text>
-        <Text className="clear" onClick={this.onClearHistory.bind(this)}>
+        <View className="clear" onClick={this.onClearHistory.bind(this)}>
           清空
-        </Text>
+        </View>
       </View>
     );
     const content = (
@@ -478,78 +485,76 @@ export default class Index extends Component {
               onFocus={this.handleFocus.bind(this)}
             ></MxInput>
           </View>
+          {hidden && list}
+          <View className="label1">
+            <MxTag
+              onClick={this.onClickTags.bind(this, 0)}
+              font="28rpx"
+              checkable={true}
+              checked={tagState[0]}
+              padding="1rpx 44rpx 1rpx 44rpx"
+              checkedControl={true}
+              border="2rpx solid rgba(110,102,238,1)"
+            >
+              专业必修课
+            </MxTag>
+          </View>
+          <View className="label2">
+            <MxTag
+              onClick={this.onClickTags.bind(this, 1)}
+              font="28rpx"
+              checkable={true}
+              checked={tagState[1]}
+              padding="1rpx 44rpx 1rpx 44rpx"
+              checkedControl={true}
+              border="2rpx solid rgba(110,102,238,1)"
+            >
+              专业选修课
+            </MxTag>
+          </View>
           <View>
-            <View className="label1">
+            <View className="label3">
               <MxTag
-                onClick={this.onClickTags.bind(this, 0)}
+                onClick={this.onClickTags.bind(this, 2)}
                 font="28rpx"
                 checkable={true}
-                checked={tagState[0]}
+                checked={tagState[2]}
                 padding="1rpx 44rpx 1rpx 44rpx"
                 checkedControl={true}
                 border="2rpx solid rgba(110,102,238,1)"
               >
-                专业必修课
+                通识核心课
               </MxTag>
             </View>
-            <View className="label2">
+            <View className="label4">
               <MxTag
-                onClick={this.onClickTags.bind(this, 1)}
+                onClick={this.onClickTags.bind(this, 3)}
                 font="28rpx"
                 checkable={true}
-                checked={tagState[1]}
+                checked={tagState[3]}
                 padding="1rpx 44rpx 1rpx 44rpx"
                 checkedControl={true}
                 border="2rpx solid rgba(110,102,238,1)"
               >
-                专业选修课
+                通识选修课
               </MxTag>
             </View>
-            <View>
-              <View className="label3">
-                <MxTag
-                  onClick={this.onClickTags.bind(this, 2)}
-                  font="28rpx"
-                  checkable={true}
-                  checked={tagState[2]}
-                  padding="1rpx 44rpx 1rpx 44rpx"
-                  checkedControl={true}
-                  border="2rpx solid rgba(110,102,238,1)"
-                >
-                  通识核心课
-                </MxTag>
-              </View>
-              <View className="label4">
-                <MxTag
-                  onClick={this.onClickTags.bind(this, 3)}
-                  font="28rpx"
-                  checkable={true}
-                  checked={tagState[3]}
-                  padding="1rpx 44rpx 1rpx 44rpx"
-                  checkedControl={true}
-                  border="2rpx solid rgba(110,102,238,1)"
-                >
-                  通识选修课
-                </MxTag>
-              </View>
-              <View className="label5">
-                <MxTag
-                  onClick={this.onClickTags.bind(this, 4)}
-                  font="28rpx"
-                  checkable={true}
-                  checked={tagState[4]}
-                  padding="1rpx 44rpx 1rpx 44rpx"
-                  checkedControl={true}
-                  border="2rpx solid rgba(110,102,238,1)"
-                >
-                  公共课
-                </MxTag>
-              </View>
+            <View className="label5">
+              <MxTag
+                onClick={this.onClickTags.bind(this, 4)}
+                font="28rpx"
+                checkable={true}
+                checked={tagState[4]}
+                padding="1rpx 44rpx 1rpx 44rpx"
+                checkedControl={true}
+                border="2rpx solid rgba(110,102,238,1)"
+              >
+                公共课
+              </MxTag>
             </View>
           </View>
         </View>
-        {!hidden && content}
-        {hidden && list}
+        {content}
       </View>
     );
   }

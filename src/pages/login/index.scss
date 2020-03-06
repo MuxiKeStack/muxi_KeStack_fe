@@ -16,9 +16,9 @@
 }
 
 .login{
-    margin-top:96rpx;
     margin-left:113rpx ;
     margin-right: 124rpx;
+    margin-top: 10rpx;
 }
 
 .visit{
@@ -35,15 +35,20 @@
     width:600rpx;
     height:40rpx;
     margin-left: 135rpx;
+    margin-top: 30rpx;
+    .icon{
+        display: inline-block;
+    }
+    .agree{
+        font-size:28rpx;
+        color:rgba(136,136,136,1);
+    }
+    .secret{
+        font-size:28rpx;
+        color: #6868F8;
+    }
 }
-.agree{
-    font-size:28rpx;
-    color:rgba(136,136,136,1);
-}
-.secret{
-    font-size:28rpx;
-    color: #6868F8;
-}
+
 
 .mask_bg_show{
     width: 100%;

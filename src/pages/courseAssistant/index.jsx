@@ -10,7 +10,8 @@ import Fetch from '../../service/fetch';
 export default class Index extends Component {
   config = {
     navigationBarTitleText: '选课助手',
-    enablePullDownRefresh: true
+    enablePullDownRefresh: true,
+    onReachBottomDistance: 80
   };
 
   constructor() {
@@ -106,11 +107,13 @@ export default class Index extends Component {
   } //下拉事件
 
   onReachBottom() {
-    this.setState({
-      page: this.state.page + 1
-    });
-    Taro.showNavigationBarLoading();
-    this.getSearch();
+    this.setState(
+      {
+        page: this.state.page + 1
+      },
+      () => Taro.showNavigationBarLoading(),
+      this.getSearch()
+    );
   }
 
   getSearch() {
@@ -330,6 +333,7 @@ export default class Index extends Component {
     const { records } = this.state;
     const list = (
       <View className="index">
+        <Text className="history">历史记录</Text>
         {records.map(record => {
           // eslint-disable-next-line react/jsx-key
           return (
@@ -343,7 +347,6 @@ export default class Index extends Component {
             </View>
           );
         })}
-        <Text className="history">历史记录</Text>
         <Text className="clear" onClick={this.onClearHistory.bind(this)}>
           清空
         </Text>
@@ -453,6 +456,7 @@ export default class Index extends Component {
               onFocus={this.handleFocus.bind(this)}
             ></MxInput>
           </View>
+          {hidden && list}
           <View className="choicePicker">
             <View className="choicePicker1">
               <MxPicker
@@ -488,8 +492,7 @@ export default class Index extends Component {
             </View>
           </View>
         </View>
-        {!hidden && content}
-        {hidden && list}
+        {content}
       </View>
     );
   }

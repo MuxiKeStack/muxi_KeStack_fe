@@ -2,24 +2,22 @@ View {
   display: inline-block;
 }
 .chooseBox{
-  margin-top: 7rpx;
-  height: 301rpx;
+  height: 300rpx;
   width: 750rpx;
   background:rgba(255,255,255,1);
   display: block;
   top: 0rpx;
-  position: fixed;
   z-index: 100;
+  position: fixed;
 }
 .search{
   margin: 13rpx 0rpx 0rpx 32rpx;
 }
 
 .detailsBoxes {
-  height: 887rpx;
+  height: 100%;
   width: 750px;
-  margin-top: 7rpx;
-  padding-top: 316rpx;
+  padding-top: 300rpx;
   background-color: rgba(241,240,245,1);
   align-items: center;
   overflow: scroll;
@@ -52,17 +50,14 @@ View {
 }
 .card{
   width:713px;
-  height:240px;
+  height:245px;
   background:rgba(255,255,255,1);
   opacity:1;
   border-radius: 30px;
-  margin-top: 37px;
+  margin-top: 30px;
   margin-left: 21px;
   display: flex;
   position: absolute;
-}
-.right{
-  margin-left: 71rpx;
 }
 .itemDelete{
   width: 184rpx;
@@ -94,8 +89,12 @@ View {
     height:48px;
   }
   .teacher{
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     margin-top: 23rpx;
-    margin-left: 51rpx;
+    margin-left: 25rpx;
     font-size:27px;
     color:rgba(104,105,247,1);
   }
@@ -105,6 +104,7 @@ View {
     font-size: 27px;
     color:#A1A4AE ;
     margin-top: 24rpx;
+    margin-left: 25rpx;
   }
 }
 .blue{
@@ -172,30 +172,43 @@ View {
   margin-left: 20rpx;
 }
 .history{
-  background:rgba(255,255,255,1);
-  border-radius: 34px;
-  border:3px solid rgba(112,112,112,1);
+  border-bottom:3px solid rgba(112,112,112,1);
   font-size: 34rpx;
-  padding:1rpx 44rpx 1rpx 44rpx;
+  width: 600rpx;
+  margin-left: 20rpx;
+  margin-top: 10rpx;
 }
 .clear{
-  margin-right: 0;
-  background:rgba(255,255,255,1);
-  border-radius: 34px;
-  border:3px solid rgba(112,112,112,1);
+  border-top:3px solid rgba(112,112,112,1);
+  margin-left: 20rpx;
+  margin-top: 10rpx;
+  width: 600rpx;
   font-size: 34rpx;
-  padding:1rpx 44rpx 1rpx 44rpx;
+  bottom: 10rpx;
+  left: 0;
+  position:absolute;
+  display: inline-block;
 }
 .index{
-  padding-top: 316rpx;
-  width: 750rpx;
-  height: 1196rpx;
+  background-color: rgba(255,255,255,1);
+  border-left:1px solid rgba(112,112,112,1);
+  border-right:1px solid rgba(112,112,112,1);
+  border-bottom:1px solid rgba(112,112,112,1);
+  width: 650rpx;
+  height: 600rpx;
+  position: absolute;
+    z-index: 1005;
+    top: 128%;
+    left: 51%;
+    transform:translate(-50%, -50%);
+    opacity: 1;
+  display: inline-block;
 }
 .title{
-  background:rgba(255,255,255,1);
-  border-radius: 34px;
-  border:3px solid rgba(112,112,112,1);
+  border-bottom:2px solid rgba(112,112,112,1);
   font-size: 34rpx;
-  padding:1rpx 44rpx 1rpx 44rpx;
+  width: 600rpx;
+  margin-left: 20rpx;
+  margin-top: 10rpx;
 }
 

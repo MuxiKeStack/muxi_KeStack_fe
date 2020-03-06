@@ -2,24 +2,22 @@ View {
     display: inline-block;
 }
 .chooseBox{
-    margin-top: 7rpx;
-    height: 158rpx;
     width: 750rpx;
     background:rgba(255,255,255,1);
     display: block;
     top: 0rpx;
-    position: fixed;
     z-index: 100;
+    position: fixed;
+    height: 200rpx;
 }
 .search{
-    margin: 13rpx 0rpx 0rpx 32rpx;
+    margin: 24rpx 32rpx 24rpx 32rpx;
 }
 
 .detailsBoxes {
-    padding-top: 158rpx;
     overflow: scroll;
-    height: 989rpx;
-    margin-top: 7rpx;
+    height: 100%;
+    padding-top: 205rpx;
     background-color: rgba(241,240,245,1);
 }
 .detailsBox:last-child {
@@ -28,7 +26,7 @@ View {
     margin: 37rpx 0rpx;
 }
 .detailsBox {
-    margin-top: 37rpx;
+    margin-top: 24rpx;
     display: block;
     width: 750rpx;
 }
@@ -80,8 +78,12 @@ View {
     height:48px;
    }
    .teacher{
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
       margin-top: 23rpx;
-      margin-left: 51rpx;
+      margin-left: 30rpx;
       font-size:27px;
       color:rgba(104,105,247,1);
    }
@@ -158,6 +160,7 @@ View {
 }
 .choicePicker{
     box-shadow:0px 3px 3px rgba(0,0,0,0.16);
+    height: 80rpx;
 }
 .fab{
     width:120px;
@@ -168,35 +171,49 @@ View {
     opacity:1;
     font-size: 40px;
     text-align: center;
-    line-height: 110px;
+    line-height: 120px;
     position: fixed;
     right: 40px;
     bottom: 0;
     color:rgba(255,255,255,1);
 }
 .history{
-    background:rgba(255,255,255,1);
-    border-radius: 34px;
-    border:3px solid rgba(112,112,112,1);
+    border-bottom:3px solid rgba(112,112,112,1);
     font-size: 34rpx;
-    padding:1rpx 44rpx 1rpx 44rpx;
+    width: 600rpx;
+    margin-left: 20rpx;
+    margin-top: 10rpx;
 }
 .clear{
-    margin-right: 0;
-    background:rgba(255,255,255,1);
-    border-radius: 34px;
-    border:3px solid rgba(112,112,112,1);
+    border-top:3px solid rgba(112,112,112,1);
+    margin-left: 20rpx;
+    margin-top: 10rpx;
+    width: 600rpx;
     font-size: 34rpx;
-    padding:1rpx 44rpx 1rpx 44rpx;
+    bottom: 10rpx;
+    left: 0;
+    position:absolute;
+    display: inline-block;
 }
 .index{
-    width: 750rpx;
-    height: 1196rpx;
+  background-color: rgba(255,255,255,1);
+  border-left:1px solid rgba(112,112,112,1);
+  border-right:1px solid rgba(112,112,112,1);
+  border-bottom:1px solid rgba(112,112,112,1);
+  width: 650rpx;
+  height: 600rpx;
+  position: absolute;
+    z-index: 1005;
+    top: 198%;
+    left: 51%;
+    transform:translate(-50%, -50%);
+    opacity: 1;
+  display: inline-block;
 }
 .title{
-    background:rgba(255,255,255,1);
-    border-radius: 34px;
-    border:3px solid rgba(112,112,112,1);
+    border-bottom:2px solid rgba(112,112,112,1);
     font-size: 34rpx;
-    padding:1rpx 44rpx 1rpx 44rpx;
+    width: 600rpx;
+    margin-left: 20rpx;
+    margin-top: 10rpx;
 }

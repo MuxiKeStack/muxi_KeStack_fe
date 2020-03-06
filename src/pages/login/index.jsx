@@ -283,12 +283,14 @@ export default class Index extends Component {
           ></MxInput>
         </View>
         <View className="privacy">
-          {isAnony && (
-            <MxIcon type="anony" onClick={this.onAnony.bind(this)}></MxIcon>
-          )}
-          {!isAnony && (
-            <MxIcon type="unanony" onClick={this.onAnony.bind(this)}></MxIcon>
-          )}
+          <View className="icon">
+            {isAnony && (
+              <MxIcon type="anony" onClick={this.onAnony.bind(this)}></MxIcon>
+            )}
+            {!isAnony && (
+              <MxIcon type="unanony" onClick={this.onAnony.bind(this)}></MxIcon>
+            )}
+          </View>
           <Text className="agree">我已同意</Text>
           <Text className="secret" onClick={this.ondialog.bind(this)}>
             《木犀课栈隐私条例》
