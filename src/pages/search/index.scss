@@ -60,7 +60,7 @@ View {
   position: absolute;
 }
 .itemDelete{
-  width: 184rpx;
+  width: 180rpx;
   height: 240rpx;
   background-color: #FFCB7B;
   border-top-right-radius: 30px;
@@ -172,14 +172,15 @@ View {
   margin-left: 20rpx;
 }
 .history{
-  border-bottom:3px solid rgba(112,112,112,1);
+  border:3px solid rgba(112,112,112,1);
+  border-radius: 34rpx;
   font-size: 34rpx;
-  width: 600rpx;
   margin-left: 20rpx;
   margin-top: 10rpx;
+  padding:0rpx 5rpx 0rpx 5rpx
 }
 .clear{
-  border-top:3px solid rgba(112,112,112,1);
+  border-top:3px solid #6868F8;
   margin-left: 20rpx;
   margin-top: 10rpx;
   width: 600rpx;
@@ -188,6 +189,8 @@ View {
   left: 0;
   position:absolute;
   display: inline-block;
+  text-align: center;
+  color: #6868F8;
 }
 .index{
   background-color: rgba(255,255,255,1);

@@ -249,10 +249,10 @@ export default class Index extends Component {
   }
 
   handleClickInput() {
-    this.getSearch();
     this.setState({
       hidden: false
     });
+    this.getSearch();
   }
 
   handleClickContent(e) {
@@ -444,11 +444,12 @@ export default class Index extends Component {
             <MxInput
               leftSrc="../../../assets/svg/searchicon.svg"
               leftSize="32rpx"
-              rightSize="32rpx"
+              rightSize="5rpx"
               width="670rpx"
               height="72rpx"
               background="rgba(241,240,245,1)"
               radius="36rpx"
+              placeholder="搜索课程名/老师名/课程序号"
               onClick={this.handleClickInput.bind(this)}
               onInput={this.handleClickContent.bind(this)}
               onChange={this.onChhange.bind(this)}

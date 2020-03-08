@@ -68,6 +68,7 @@ class MxInput extends Component {
           style={css.input}
           type={type}
           placeholder={placeholder}
+          placeholderClass="placeholderStyle"
           onInput={onInput}
           onFocus={onFocus}
           onBlur={onBlur}
