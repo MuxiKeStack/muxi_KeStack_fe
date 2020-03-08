@@ -64,7 +64,7 @@ export default class HeaderTab extends Component {
       'PUT'
     ).then(res=>{
       if(res.message=="OK"){
-        
+        this.props.OnGettable()
       }
     })
     this.setState({
@@ -95,18 +95,15 @@ deletetable(id){
   })
 }
   render () {
-    const scrollStyle = {
-      height: '100%',
-      width:'100%'
-    }
-    const scrollLeft = 0
-    const scrollTop = 0
-    const Threshold = 20
     return (
       <View className='wrapper'>
-            {this.props.navList.map((nav) =>
+            {this.props.navList.map((nav,i) =>
                 <View className={this.state.currentTab===nav.key?'active':'normal'}  data-current={nav.key} onClick={this.switchNav.bind(this,nav.key)} key='0'>
+                  { !this.state.caninput ?
                   <Input className='nameinput' value={nav.content} disabled={this.state.caninput} onInput={this.inputname.bind(this)} maxLength='5'onBlur={this.pushnewName.bind(this,nav.key)} ></Input>
+                    :
+                  nav.content
+                  }
                       <View className={this.state.open[nav.key] ? 'menu_active':'menu_normal'}>
                           <CoverView >
                               <Button className='menuButton' onClick={this.newName.bind(this,nav.content)}>重命名</Button>

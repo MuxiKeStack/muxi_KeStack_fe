@@ -46,7 +46,7 @@ export default class MxModal extends MxComponent{
 
   render () {
     const {_isOpened} = this.state;
-    const {content,teacher,title,cancelText,confirmText,popup, animationType, width,height,class_id,contentHeight } = this.props;
+    const {content,teacher,title,cancelText,confirmText,popup, animationType, width,height,class_id,contentHeight,titleHeight,top } = this.props;
 
     const rootClass = classNames('mp-modal',{
       'mp-modal--active':_isOpened
@@ -64,9 +64,17 @@ export default class MxModal extends MxComponent{
     const Height = {'height':`${contentHeight}rpx`}
     const contentstyle={
       'width':`${width}rpx`,
-      'height':`${height}rpx`
+      'height':`${height}rpx`,
+      'top':`${top}%`,
     }
-
+    const titlestyle={
+      'height':`${titleHeight}rpx`
+    }
+    const scrollStyle = {
+      height: '100%',
+      width:'100%'
+    }
+    const scrollTop = 0
     const popUpClass = classNames(
       {
         'mp-modal__container': !isPopUp,
@@ -81,17 +89,23 @@ export default class MxModal extends MxComponent{
       <View className={rootClass} onTouchMove={this.handleTouchMove}>
 
             <View className='mp-modal__overlay' onClick={this.onClose}> </View>
+            
             <View className={popUpClass} style={contentstyle}>
                {
-                  title && <View className='mp-modal__title'>
+                  title && <View style={titlestyle} className='mp-modal__title'>
                     <View>{title}</View>
                     <View>{teacher}</View>
-                    <View>{class_id}</View>
+                    <View className='class_id'>{class_id}</View>
                     </View>
                }
                <Text className='mp-icon mp-icon-closemodal' style='position:absolute;top:-11px;right:-9px;'  onClick={this.onClose}></Text>
                <View className='mp-modal__content' style={Height}>
+                 <ScrollView
+                  scrollY
+                  style={scrollStyle}
+                  scrollTop={scrollTop}>
                  { this.props.children }
+                 </ScrollView>
                </View>
                {
                   isRenderFooter && (
@@ -108,6 +122,7 @@ export default class MxModal extends MxComponent{
                   )
                }
             </View>
+            
       </View>
     )
   }

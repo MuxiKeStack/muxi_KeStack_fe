@@ -1,10 +1,11 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button,ScrollView,Text } from '@tarojs/components'
 import classNames from 'classnames'
+import MxComponent from '../../../common/component'
 import './index.scss'
 import PropTypes from 'prop-types'
 
-export default class FloatLayout extends Component {
+export default class Modal extends MxComponent{
   constructor (props){
     super(props);
     this.state = {
@@ -45,11 +46,7 @@ export default class FloatLayout extends Component {
 
   render () {
     const {_isOpened} = this.state;
-    const scrollStyle = {
-      // 'white-space':'nowrap',
-      width:'100%',
-    }
-    const {content,title,cancelText,confirmText,popup, animationType, height} = this.props;
+    const {content,teacher,title,cancelText,confirmText,popup, animationType, width,height,class_id,contentHeight,titleHeight,top } = this.props;
 
     const rootClass = classNames('mp-modal',{
       'mp-modal--active':_isOpened
@@ -64,8 +61,20 @@ export default class FloatLayout extends Component {
       animationType === 'slide-up' ? 'slide-up' : 'slide-down'
     }
 
-    let contentHeight = `height:${height}px`;
-
+    const Height = {'height':`${contentHeight}rpx`}
+    const contentstyle={
+      'width':`${width}rpx`,
+      'height':`${height}rpx`,
+      'top':`${top}%`,
+    }
+    const titlestyle={
+      'height':`${titleHeight}rpx`
+    }
+    const scrollStyle = {
+      height: '100%',
+      width:'100%'
+    }
+    const scrollTop = 0
     const popUpClass = classNames(
       {
         'mp-modal__container': !isPopUp,
@@ -77,43 +86,50 @@ export default class FloatLayout extends Component {
     const isRenderFooter = cancelText || confirmText;
 
     return (
-      <View className={rootClass} onTouchMove={this.handleTouchMove}>
-          <View className='mp-modal__overlay' onClick={this.onClose}> </View>
-            <View className={popUpClass}>
+      <View className={rootClass}>
+
+            <View className='mp-modal__overlay' onClick={this.onClose}> </View>
+            <View className={popUpClass} style={contentstyle}>
                {
-                  title && <View className='mp-modal__title'>{title}</View>
+                  title && <View style={titlestyle} className='mp-modal__title'>
+                    <View>{title}</View>
+                    <View>{teacher}</View>
+                    <View className='class_id'>{class_id}</View>
+                    </View>
                }
                <Text className='mp-icon mp-icon-closemodal' style='position:absolute;top:-11px;right:-9px;'  onClick={this.onClose}></Text>
-               <View className='mp-modal__content' style={contentHeight}>
-                <ScrollView
-                  scrollX
-                  style={scrollStyle}
-                >
-                  { this.props.children }
-                </ScrollView>
+               <View className='mp-modal__content' style={Height}>
+                 { this.props.children }
                </View>
                {
                   isRenderFooter && (
                       <View  className='mp-modal__footer'>
                           <View className='mp-modal__action'>
                               {
-                                cancelText && <Button onClick={this.onCancel}>{cancelText}</Button>
+                                confirmText && <Button  onClick={this.onConfirm}>{confirmText}</Button>
                               }
                               {
-                                confirmText && <Button onClick={this.onConfirm}>{confirmText}</Button>
+                                cancelText && <Button onClick={this.onCancel}>{cancelText}</Button>
                               }
                           </View>
                      </View>
                   )
                }
             </View>
+            
       </View>
     )
   }
 }
 
+Modal.defaultProps = {
+  closeOnClickOverlay:true,
+  height:502,
+  width:550,
+}
 
-FloatLayout.propTypes = {
+Modal.propTypes = {
+  teacher:PropTypes.string,
   title:PropTypes.string,
   isOpened:PropTypes.bool,
   onClose:PropTypes.func,
