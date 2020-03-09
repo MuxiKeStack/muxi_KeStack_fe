@@ -1,0 +1,46 @@
+@mixin row(){//多行文本溢出
+    width: 356px;
+    text-align: center;
+    display: block;
+}
+// @mixin longtext(length){
+//     width: length;
+//     margin: 0 auto;
+// }
+.courseNumber{
+    width: 380px;
+    font-size: 30px;
+    margin: 10px auto;
+    @include row();
+}
+.week{
+    font-size: 25px;
+    width: 144px;
+    margin-left: 10px;
+    display: inline-block;
+}
+.length{
+    font-size: 25px;
+    @include row();
+}
+.row{
+    font-size: 25px;
+    width: 280px;
+    display: block;
+    margin: 4px auto;
+    // margin: 4px 0 4px 8px;
+}
+.card{
+    font-size: 25px;
+    color: #FFFFFF;
+    width: 380px;
+    background-color: red;
+    display: block;
+    padding: 20px 0;
+    border-radius: 20px;
+    margin: 24px 0;
+}
+.place{
+    font-size: 25px;
+    display: inline-block;
+}

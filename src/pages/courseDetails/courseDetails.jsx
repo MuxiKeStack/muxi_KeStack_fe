@@ -1,17 +1,19 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Canvas, Button, Image } from '@tarojs/components';
+import { View, Canvas, Image, Text } from '@tarojs/components';
 import './courseDetails.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
-import MxIcon from '../../components/common/MxIcon/index';
 import Fetch from '../../service/fetch';
-import MxLike from '../../components/page/MxLike/MxLike';
 import MxTag from '../../components/common/MxTag/index';
-import star from '../../assets/png/star.png'
+import star from '../../assets/png/star.png';
+import hotcmt from '../../assets/png/hotcmt.png';
+import newcmt from '../../assets/png/newcmt.png';
+import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
 
 export default class Coursedetails extends Component {
   constructor() {
     super(...arguments);
     this.state = {
+      classInfo: '',
       hotList: '',
       normalList: '',
       lastID: 0,
@@ -54,7 +56,6 @@ export default class Coursedetails extends Component {
       ],
       drawerWidth: '0px',
       cover: 'none',
-      courseCategory: '专业必修课',
       courseCredit: '2',
       rate: '4',
       starNumber: '23',
@@ -118,7 +119,10 @@ export default class Coursedetails extends Component {
           console.log(data.data);
           this.setState({
             normalList: this.state.normalList.concat(data.data.normal_list),
-            lastID: data.data.normal_list[data.data.normal_list.length - 1].id
+            lastID:
+              data.data.normal_list == null
+                ? 0
+                : data.data.normal_list[data.data.normal_list.length - 1].id
           });
           console.log(lastID);
         } else {
@@ -136,7 +140,7 @@ export default class Coursedetails extends Component {
     console.log(this.state.normalList);
   }
   componentWillMount() {
-    console.log(this.$router.params.courseId)  //前页面传过来的id
+    console.log(this.$router.params.courseId); //前页面传过来的id
     var attendance1 = '30';
     var attendance2 = '60';
     var attendance3 = '10';
@@ -234,7 +238,10 @@ export default class Coursedetails extends Component {
         this.setState({
           hotList: data.data.hot_list,
           normalList: data.data.normal_list,
-          lastID: data.data.normal_list[data.data.normal_list.length - 1].id
+          lastID:
+            data.data.normal_list == null
+              ? 0
+              : data.data.normal_list[data.data.normal_list.length - 1].id
         });
       }
     });
@@ -242,8 +249,15 @@ export default class Coursedetails extends Component {
     //   'token',
     //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
     // );
-    Fetch('api/v1/course/using/info/112d34testsvggase/', {}, 'GET').then(data => {
+    Fetch(
+      'api/v1/course/using/info/9861750066dd7bc0698926e4c6986b80/',
+      {},
+      'GET'
+    ).then(data => {
       if (data) {
+        this.setState({
+          classInfo: data.data
+        });
         console.log(data.data);
       }
     });
@@ -260,7 +274,7 @@ export default class Coursedetails extends Component {
     // "0s9uighvg121efe"
     //"28yy89dqube12d8"
     // "723fguib98y2e1h"
-    let id = '2e154de56gyubdq';//现在测试是 let id 后端好了改成前页面传过来id
+    let id = '2e154de56gyubdq'; //现在测试是 let id 后端好了改成前页面传过来id
     Fetch(
       `api/v1/course/using/${id}/favorite`,
       {
@@ -268,20 +282,20 @@ export default class Coursedetails extends Component {
       },
       'PUT'
     ).then(res => {
-      console.log(res)
+      console.log(res);
       switch (res.code) {
         case 0:
           // eslint-disable-next-line no-undef
           Taro.showToast({
             title: '收藏成功！',
             icon: 'success'
-          })
+          });
           break;
         case 20302:
           // eslint-disable-next-line no-undef
           Taro.showToast({
             title: '收藏失败!'
-          })
+          });
           break;
       }
     });
@@ -327,17 +341,32 @@ export default class Coursedetails extends Component {
     });
   }
 
+  renderWelcome(e) {
+    return <View>Hello, {e}</View>;
+  }
+
   render() {
+    let courseCategory = null;
+    if (this.state.classInfo.course_category == 0) {
+      courseCategory = <Text>通识必修课</Text>;
+    } else if (this.state.classInfo.course_category == 1) {
+      courseCategory = <Text>专业必修课</Text>;
+    } else if (this.state.classInfo.course_category == 2) {
+      courseCategory = <Text>专业选修课</Text>;
+    } else if (this.state.classInfo.course_category == 3) {
+      courseCategory = <Text>通识选修课</Text>;
+    } else if (this.state.classInfo.course_category == 4) {
+      courseCategory = <Text>专业课</Text>;
+    } else if (this.state.classInfo.course_category == 5) {
+      courseCategory = <Text>通识核心课</Text>;
+    }
+
     const PALETTE = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
     const {
+      classInfo,
       nomorecmt,
       hotList,
       normalList,
-      courseCategory,
-      courseCredit,
-      rate,
-      classes,
-      starNumber,
       attendance1,
       attendance2,
       attendance3,
@@ -345,12 +374,6 @@ export default class Coursedetails extends Component {
       inspection2,
       inspection3,
       inspection4,
-      courseTime1,
-      courseTime2,
-      courseTime3,
-      coursePlace1,
-      coursePlace2,
-      coursePlace3,
       courseGrade70,
       courseGrade7085,
       courseGrade85,
@@ -374,14 +397,12 @@ export default class Coursedetails extends Component {
     const drawerStyle = {
       width: this.state.drawerWidth
     };
-    const coverStyle = {
-      display: this.state.cover
-    };
-
+    const coverStyle = { display: this.state.cover };
     return (
       <View className="courseDetails">
-        <View className='starBac' onClick={this.favorite.bind(this)}>
-        <Image src={star} className='star'></Image>
+        {this.renderWelcome('d')}
+        <View className="starBac" onClick={this.favorite.bind(this)}>
+          <Image src={star} className="star"></Image>
         </View>
         <View className="cover" style={coverStyle} onClick={this.toHide} />
         <View style={drawerStyle} className="drawer">
@@ -389,16 +410,16 @@ export default class Coursedetails extends Component {
             <View className="info_drawer">课堂信息</View>
             <View className="info_Eng_drawer">class message</View>
           </View>
-          {classes &&
-            classes.map(item => {
+          {classInfo.class_info &&
+            classInfo.class_info.map(item => {
               return (
                 <View className="classBox" key={item.id}>
-                  <View>{item.id + 1}课堂</View>
-                  {item &&
-                    item.map(index => {
+                  <View>{item.id}课堂</View>
+                  {item.list &&
+                    item.list.map(index => {
                       return (
-                        <View key={index.id}>
-                          {index.time}节 @ {index.place}
+                        <View key={index.Id}>
+                          {index.Time}节 @ {index.Place} {index.Week}
                         </View>
                       );
                     })}
@@ -408,24 +429,24 @@ export default class Coursedetails extends Component {
         </View>
         <View className="detailBox">
           <View className="name">课程名称：</View>
-          <View className="content">线性代数</View>
+          <View className="content">{classInfo.course_name}</View>
         </View>
         <View className="detailBox">
           <View className="name">课程教师：</View>
-          <View className="content">张俊</View>
+          <View className="content">{classInfo.teacher_name}</View>
         </View>
         <View className="detailBox">
           <View className="name">综合评分：</View>
           <View className="rate">
-            <MxRate commont={false} value={rate} />
+            <MxRate commont={false} value={classInfo.rate} />
           </View>
-          <View className="commentNumber">(共{starNumber}人评价)</View>
+          <View className="commentNumber">(共{classInfo.stars_num}人评价)</View>
         </View>
         <View className="detailBox">
           <View className="name">基本信息：</View>
           <View className="content">
             {courseCategory}
-            {courseCredit}
+            {classInfo.course_credit}
             学分
           </View>
         </View>
@@ -502,184 +523,44 @@ export default class Coursedetails extends Component {
         <View className="averageBox">
           <View className="averageSmallBox1">
             <View className="averageName">总平均分</View>
-            <View className="averageGrade">{this.state.totalGrade}</View>
+            <View className="averageGrade">{classInfo.total_score}</View>
           </View>
           <View className="averageSmallBox2">
             <View className="averageName">平时均分</View>
-            <View className="averageGrade">{this.state.ordinaryGrade}</View>
+            <View className="averageGrade">{classInfo.ordinary_score}</View>
           </View>
         </View>
         <View className="feature">课堂特点：</View>
         <View className="tagBox">
-          <MxTag
-            padding="10rpx 40rpx"
-            borderRadius="30rpx"
-            className="tag"
-            margin="5rpx 10rpx"
-          >
-            幽默风趣(10)
-          </MxTag>
-          <MxTag
-            padding="10rpx 40rpx"
-            borderRadius="30rpx"
-            className="tag"
-            margin="5rpx 10rpx"
-          >
-            干货满满(2)
-          </MxTag>
-          <MxTag
-            padding="10rpx 40rpx"
-            borderRadius="30rpx"
-            className="tag"
-            margin="5rpx 10rpx"
-          >
-            普通话标准了了(99100)
-          </MxTag>
-          <MxTag
-            padding="10rpx 40rpx"
-            borderRadius="30rpx"
-            className="tag"
-            margin="5rpx 10rpx"
-          >
-            作业量非常少了(97582)
-          </MxTag>
-          <MxTag
-            padding="10rpx 40rpx"
-            borderRadius="30rpx"
-            className="tag"
-            margin="5rpx 10rpx"
-          >
-            云课堂资料全(8)
-          </MxTag>
-          <MxTag
-            padding="10rpx 40rpx"
-            borderRadius="30rpx"
-            className="tag"
-            margin="5rpx 10rpx"
-          >
-            简单易学(0)
-          </MxTag>
-        </View>
-        <View className="List">热门评论</View>
-        <View className="cmtBigBox">
-          {hotList &&
-            hotList.map(item => {
+          {classInfo &&
+            classInfo.tag.map(item => {
               return (
-                <View key={item.id} className="commentCard">
-                  <View className="userInfo">
-                    {item.user_info.avatar ? (
-                      <Image
-                        src={item.user_info.avatar}
-                        className="avatar"
-                        style="width: 80rpx; height: 80rpx"
-                      />
-                    ) : (
-                      <MxIcon type="avatar" width="80rpx" height="80rpx" />
-                    )}
-                    <View className="infoDetail">
-                      <View className="username">
-                        {item.user_info.username
-                          ? item.user_info.username
-                          : '匿名用户'}
-                      </View>
-                      <View className="time">{this.normalTime(item.time)}</View>
-                    </View>
-                    <MxIcon
-                      type="arrowD"
-                      width="50"
-                      className="report"
-                    ></MxIcon>
-                  </View>
-                  <View className="courseInfo">
-                    <View className="courseName">
-                      #{item.course_name}({item.teacher})
-                    </View>
-                    <View className="cmtRateBox">
-                      <MxRate readOnly="true" value={item.rate} />
-                    </View>
-                  </View>
-                  <View className="cmtContent">{item.content}</View>
-                  <View className="cmtIconsBox">
-                    <View className="likeIconBox">
-                      <MxLike
-                        theid={item.id}
-                        islike={item.is_like}
-                        likenum={item.like_num}
-                      />
-                    </View>
-                    <View className="cmtIconBox">
-                      <MxIcon
-                        width="43"
-                        type="cmmtBtn"
-                        className="commentIcon"
-                        onClick={this.commentPage.bind(this, item)}
-                      />
-                      {item.comment_num}
-                    </View>
-                  </View>
-                </View>
+                <MxTag
+                  padding="10rpx 40rpx"
+                  borderRadius="30rpx"
+                  className="tag"
+                  margin="5rpx 10rpx"
+                  key={item.data.name}
+                >
+                  {item.data.name}({item.data.num})
+                </MxTag>
               );
             })}
         </View>
-        <View className="List">全部评论</View>
+        <View className="cmtimgBox">
+          <Image className="cmtimg" src={hotcmt} />
+        </View>
+        <View className="cmtBigBox">
+          {hotList &&
+            hotList.map(item => {
+              return <CmtCourseCard item={item} key={item.id}></CmtCourseCard>;
+            })}
+        </View>
+        <Image className="cmtimg" src={newcmt} />
         <View className="cmtBigBox">
           {normalList &&
             normalList.map(item => {
-              return (
-                <View key={item.id} className="commentCard">
-                  <View className="userInfo">
-                    {item.user_info.avatar ? (
-                      <Image
-                        src={item.user_info.avatar}
-                        className="avatar"
-                        style="width: 80rpx; height: 80rpx"
-                      />
-                    ) : (
-                      <MxIcon type="avatar" width="80rpx" height="80rpx" />
-                    )}
-                    <View className="infoDetail">
-                      <View className="username">
-                        {item.user_info.username
-                          ? item.user_info.username
-                          : '匿名用户'}
-                      </View>
-                      <View className="time">{this.normalTime(item.time)}</View>
-                    </View>
-                    <MxIcon
-                      type="arrowD"
-                      width="50"
-                      className="report"
-                    ></MxIcon>
-                  </View>
-                  <View className="courseInfo">
-                    <View className="courseName">
-                      #{item.course_name}({item.teacher})
-                    </View>
-                    <View className="cmtRateBox">
-                      <MxRate readOnly="true" value={item.rate} />
-                    </View>
-                  </View>
-                  <View className="cmtContent">{item.content}</View>
-                  <View className="cmtIconsBox">
-                    <View className="likeIconBox">
-                      <MxLike
-                        theid={item.id}
-                        islike={item.is_like}
-                        likenum={item.like_num}
-                      />
-                    </View>
-                    <View className="cmtIconBox">
-                      <MxIcon
-                        width="43"
-                        type="cmmtBtn"
-                        className="commentIcon"
-                        onClick={this.commentPage.bind(this, item)}
-                      />
-                      {item.comment_num}
-                    </View>
-                  </View>
-                </View>
-              );
+              return <CmtCourseCard item={item} key={item.id}></CmtCourseCard>;
             })}
         </View>
         {nomorecmt && (

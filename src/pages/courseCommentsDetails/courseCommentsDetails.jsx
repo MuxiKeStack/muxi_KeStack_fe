@@ -7,6 +7,7 @@ import MxTag from '../../components/common/MxTag/index';
 import Fetch from '../../service/fetch';
 import MxLike from '../../components/page/MxLike/MxLike';
 import CmtList from '../../components/page/CmtList/CmtList';
+import check from '../../assets/svg/annoy.svg';
 
 export default class Coursecommentsdetails extends Component {
   constructor() {
@@ -49,7 +50,7 @@ export default class Coursecommentsdetails extends Component {
           cmtList: data.data.parent_comment_list,
           page: data.data.page + 1
         });
-        // console.log(data.data);
+        console.log(data.data);
       }
     });
   }
@@ -115,9 +116,6 @@ export default class Coursecommentsdetails extends Component {
       // console.log(this.state.cmtList);
     }
   }
-  // deleteComments(type, value){
-
-  // }
 
   normalTime(timestamp) {
     var date = new Date(timestamp * 1000);
@@ -184,7 +182,7 @@ export default class Coursecommentsdetails extends Component {
             this.setState({
               replyContent: ''
             });
-            // console.log(data.data);
+            console.log(data.data);
           }
         });
       }
@@ -208,6 +206,11 @@ export default class Coursecommentsdetails extends Component {
       }
     });
   }
+  changeAnon(x) {
+    this.setState({
+      isAnonymous: !x
+    });
+  }
   render() {
     const {
       ancestor,
@@ -215,7 +218,8 @@ export default class Coursecommentsdetails extends Component {
       replyUser,
       replyContent,
       ancestorCmtNum,
-      nomorecmt
+      nomorecmt,
+      isAnonymous
     } = this.state;
     return (
       <View className="courseCommentsDetails">
@@ -248,7 +252,9 @@ export default class Coursecommentsdetails extends Component {
               #{ancestor.course_name} ({ancestor.teacher})
             </View>
             <View className="toRate">评价星级：</View>
-            <MxRate value={ancestor.rate} readOnly="true" className="rate" />
+            <View className="rateBox">
+              <MxRate value={ancestor.rate} readOnly="true" className="rate" />
+            </View>
           </View>
           <View className="tags">
             {ancestor.tags &&
@@ -269,7 +275,7 @@ export default class Coursecommentsdetails extends Component {
           </View>
           <View className="ancestorComment">{ancestor.content}</View>
           <View className="iconsBox">
-            <View className="like">
+            <View className="Like">
               {ancestor && (
                 <MxLike
                   theid={ancestor.id}
@@ -328,6 +334,7 @@ export default class Coursecommentsdetails extends Component {
                             likenum={item.like_num}
                             content="comment"
                             width="20"
+                            bottom="30rpx"
                           />
                         </View>
                       </View>
@@ -344,17 +351,33 @@ export default class Coursecommentsdetails extends Component {
             })}
         </View>
         <View className="inputBox">
-          <View>回复{replyUser}</View>
-          <View onClick={this.toReply.bind(this)}>发送</View>
-          <Textarea
-            maxlength={-1}
-            value={replyContent}
-            onInput={this.toWriteReplyContent.bind(this)}
-          />
+          {!isAnonymous && (
+            <View
+              className="notanon"
+              onClick={this.changeAnon.bind(this, isAnonymous)}
+            ></View>
+          )}
+          {isAnonymous && (
+            <Image
+              src={check}
+              onClick={this.changeAnon.bind(this, isAnonymous)}
+              className="isanon"
+            ></Image>
+          )}
+          <View className="anonWords">匿名</View>
+          <View className="replyCard">
+            <View className="toreply">回复{replyUser}</View>
+            <Textarea
+              className="replyFram"
+              maxlength={-1}
+              value={replyContent}
+              onInput={this.toWriteReplyContent.bind(this)}
+            />
+            <View onClick={this.toReply.bind(this)} className="replyWords">
+              发送
+            </View>
+          </View>
         </View>
-        {nomorecmt && (
-          <View className="nomore">已经到底啦，没有更多数据啦</View>
-        )}
       </View>
     );
   }
