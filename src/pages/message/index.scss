@@ -1,3 +1,7 @@
+Page {
+    background-color: rgba(241,240,245,1);
+    padding-top: 30px;
+}
 .avatar-image{
     display: inline-block;
     width: 100%;
@@ -6,13 +10,12 @@
 }
 .index{
     background-color: rgba(241,240,245,1);
-    border-top:1px solid rgba(151,151,151,1);
 }
 .card-container{
     background: white;
     border-radius: 20px;
     padding: 30px;
-    margin:30px 20px 0 20px;
+    margin:0 20px 30px 20px;
 }
 .user-info{
     display: flex;
@@ -41,15 +44,20 @@
     }
 }
 .message-text{
-    display: flex;
-    align-items: center;
+    line-height: 30px;
+    .icon{
+        display: inline-flex;
+        vertical-align: middle;
+    }
     .detail-text{
+        display: inline-block;
+        vertical-align: middle;
         padding-left:13px;
         font-size:27px;
         color:rgba(35,139,254,1);
-
     }
     .reply-text{
+        display: inline;
         padding-left:13px;
         font-size:24px;
         font-weight:300;
@@ -57,9 +65,9 @@
 }
 .course-container{
     background:rgba(241,240,245,1);
-    border-radius:20px;
+    border-radius:10px;
     margin-top:17px;
-    padding: 11px 37px 11px 5px;
+    padding: 11px ;
     font-size:24px;
     .course-name{
         color:rgba(35,139,254,1);
@@ -72,14 +80,6 @@
 }
 .input{
     margin-top:12px;
-    box-sizing: border-box;
-    padding-left:10px;
-    height:59px;
-    background:rgba(241,240,245,1);
-    opacity:1;
-    border-radius:20px;
-    font-size:27px;
-    line-height: 59px;
 }
 .message-content{
     display: inline;

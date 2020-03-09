@@ -43,7 +43,7 @@ export default class Index extends Component {
     ).then(res => {
       if (res) {
         console.log(res.data.list);
-        console.log(res.data.list[res.data.list.length - 1].id);
+        // console.log(res.data.list[res.data.list.length - 1].id);
         this.setState({
           list: res.data.list,
           last_id: res.data.list[res.data.list.length - 1].id
@@ -53,32 +53,45 @@ export default class Index extends Component {
   }
 
   componentWillUnmount() {}
-
-  componentDidHide() {}
-  onReachBottom() {
-    if (this.state.last_id) {
+  getData() {
+    if (!this.state.last_id) {
+      Taro.showToast({
+        title: '已经到底啦',
+        icon: 'none'
+      });
+    } else {
       Fetch(
         'api/v1/user/evaluations/',
         {
-          limit: '10',
+          limit: '20',
           last_id: this.state.last_id
         },
         'GET'
-      ).then(res => {
-        if (res) {
-          console.log(res.data.list);
-          this.setState({
-            list: res.data.list,
-            last_id: this.state.id
-          });
-          if (!res.data.list)
-            Taro.showToast({
-              title: '已经到底啦',
-              icon: 'none'
+      )
+        .then(res => {
+          if (res.data) {
+            // console.log(res.data);
+            this.setState({
+              list: this.state.list.concat(res.data.list),
+              last_id: this.state.id
             });
-        }
-      });
+          }
+        })
+        .catch(err => {
+          Taro.showToast({
+            title: '未知错误，稍后重试',
+            icon: 'none'
+          });
+        });
     }
+  }
+  componentDidHide() {}
+  onReachBottom() {
+    // if (this.state.last_id)
+    this.getData();
+  }
+  onPullDownRefresh() {
+    this.getData();
   }
 
   toNormalTime(timestamp) {
@@ -132,7 +145,9 @@ export default class Index extends Component {
                   // onClick={this.ChangeTodetails.bind(this, index)}
                   onClick={() =>
                     Taro.navigateTo({
-                      url: '/pages/postReview/index?id=' + course.id
+                      url:
+                        '/pages/courseDetails/courseDetails?courseId=' +
+                        course.course_id
                     })
                   }
                 >
@@ -144,7 +159,18 @@ export default class Index extends Component {
                     <MxRate value={course.rate}></MxRate>
                   </View>
                 </View>
-                <View className="course-comment">{course.content}</View>
+                <View
+                  className="course-comment"
+                  onClick={() =>
+                    Taro.navigateTo({
+                      url:
+                        '/pages/courseCommentsDetails/courseCommentsDetails?id=' +
+                        course.id
+                    })
+                  }
+                >
+                  {course.content}
+                </View>
               </View>
               <View className="like-and-comment">
                 <MxLike
@@ -152,7 +178,16 @@ export default class Index extends Component {
                   islike={course.is_like}
                   likenum={course.like_num}
                 ></MxLike>
-                <View className="icon-container">
+                <View
+                  className="icon-container"
+                  onClick={() =>
+                    Taro.navigateTo({
+                      url:
+                        '/pages/courseCommentsDetails/courseCommentsDetails?id=' +
+                        course.id
+                    })
+                  }
+                >
                   <MxIcon type="cmmtBtn" className="comment-icon"></MxIcon>
                 </View>
                 <View className="number">{course.comment_num}</View>

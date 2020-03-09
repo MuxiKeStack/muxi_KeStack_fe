@@ -7,6 +7,20 @@ import './app.scss';
 // if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
 //   require('nerv-devtools')
 // }
+// Array.prototype.remove = function(obj) {
+//   for (var i = 0; i < this.length; i++) {
+//     var temp = this[i];
+//     if (!isNaN(obj)) {
+//       temp = i;
+//     }
+//     if (temp == obj) {
+//       for (var j = i; j < this.length; j++) {
+//         this[j] = this[j + 1];
+//       }
+//       this.length = this.length - 1;
+//     }
+//   }
+// };
 
 class App extends Component {
   componentDidMount() {
@@ -17,7 +31,7 @@ class App extends Component {
           url: '/pages/commentSquare/index'
         });
       },
-      fail:function(res){
+      fail: function(res) {
         Taro.redirectTo({
           url: '/pages/login/index'
         });
@@ -26,6 +40,7 @@ class App extends Component {
   }
   config = {
     pages: [
+      // 'pages/homepage/index',
       'pages/login/index',
       'pages/commentSquare/index',
       'pages/search/index',
@@ -54,21 +69,21 @@ class App extends Component {
       list: [
         {
           pagePath: 'pages/commentSquare/index',
-          // iconPath: './assets/svg/cmmt-squaG.svg',
-          text: '1'
-          // selectedIconPath: './assets/svg/cmmt-squa.svg'
+          text: '评课广场',
+          iconPath: './assets/png/cmmt-squaG.png',
+          selectedIconPath: './assets/png/cmmt-squa.png'
         },
         {
           pagePath: 'pages/courseAssistant/index',
-          // iconPath: './assets/svg/shelperG.svg',
-          text: '2'
-          // selectedIconPath: './assets/svg/shelper.svg'
+          text: '选课助手',
+          iconPath: './assets/png/shelperG.png',
+          selectedIconPath: './assets/png/shelper.png'
         },
         {
           pagePath: 'pages/homepage/index',
-          // iconPath: './assets/svg/user-infoG.svg',
-          text: '3'
-          // selectedIconPath: './assets/svg/user-info.svg'
+          text: '个人主页',
+          iconPath: './assets/png/user-infoG.png',
+          selectedIconPath: './assets/png/user-info.png'
         }
       ],
       color: '#CACACA',

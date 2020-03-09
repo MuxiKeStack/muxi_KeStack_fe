@@ -18,15 +18,9 @@ export default class clickUpdiv extends Component {
   //    this.props.onClick(...args);
   // };
   handleIconClick() {
-    // console.log('已经点击啦');
-    // this.setState(prevState => ({
-    //   isOpen: !prevState.isOpen,
-    //   display: prevState.isOpen ? 'block' : 'none'
-    // }));
     this.setState(
       {
         isOpen: !this.state.isOpen
-        // dispaly: this.state.isOpen ? 'block' : 'none'
       },
       () => {
         this.setState({
@@ -34,14 +28,21 @@ export default class clickUpdiv extends Component {
         });
       }
     );
-    // console.log(this.state.isOpen + this.state.dispaly);
   }
   // handleTextClick = (...args) => {
   //   this.props.onClick(...args);
   // };
   handleTextClick = () => {
-    //console.log(id);//
-    console.log(this.props.courseId); //
+    this.setState(
+      {
+        isOpen: !this.state.isOpen
+      },
+      () => {
+        this.setState({
+          dispaly: this.state.isOpen ? 'block' : 'none'
+        });
+      }
+    );
     Fetch(
       // 'api/v1/evaluation/' + this.state.list[index].id + '/',
       // { id: this.state.list[index].id },
@@ -57,9 +58,6 @@ export default class clickUpdiv extends Component {
             icon: 'succese',
             duration: 2000
           });
-          this.setState({ isOpen: false });
-        } else {
-          Taro.showToast({ title: '删除成功' });
         }
       })
       .catch(err => {
@@ -68,20 +66,12 @@ export default class clickUpdiv extends Component {
   };
   render() {
     const { courseId, className } = this.props;
-    // const rootClass = classNames('list-item', this.props.className);
-    // /*const setIconCenter={
-    //         display: 'flex',
-    //         'align-items': 'center',
-    //     }*/
-    // const textstyle = {
-    //   dispaly: this.state.dispaly
-    // };
-    // const { courseId } = this.props;
     return (
       <View className={classNames('box', className)}>
         <View className="icon">
           <MxIcon
             width="60"
+            height="50"
             type="arrowD"
             className="arrow"
             onClick={this.handleIconClick.bind(this)}

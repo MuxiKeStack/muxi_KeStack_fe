@@ -15,10 +15,12 @@ export default class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {
+      lastTempLists: [],
       Lists: [],
       // eslint-disable-next-line react/no-unused-state
       sum: 0,
       lastId: 0,
+      lastTempId: 0
     };
   }
   state = {
@@ -34,6 +36,7 @@ export default class Index extends Component {
   handleClick() {}
 
   getLists() {
+    
     let newLists = this.state.Lists;
     console.log(this.state.lastId)
     Fetch(
@@ -45,8 +48,8 @@ export default class Index extends Component {
       'GET'
     ).then(data => {
       console.log(data)
-      if (data.data.list != null) {
-        if (this.state.lastId != 0) {
+      if (data.data.list != null) {  //判断是否没有数据了
+        if (this.state.lastId != 0) {  //之后增加数据
           console.log(data.data.list+ '新列表')
           newLists = newLists.concat(data.data.list);
           console.log(newLists)
@@ -58,7 +61,7 @@ export default class Index extends Component {
             sum: data.data.sum,
             lastId: data.data.list[data.data.sum - 1].id
           });
-        } else {
+        } else {   //第一次拉取数据
           Taro.stopPullDownRefresh();
           Taro.hideNavigationBarLoading();
           this.setState({
@@ -77,6 +80,20 @@ export default class Index extends Component {
         Taro.hideNavigationBarLoading();
       }
     });
+  }
+
+  
+  getListsAfterFavor(index) {
+    console.log('index为' + index)
+    let newLists = this.state.Lists
+    newLists.remove(index)
+    console.log('当前要删除id' + newLists[0])
+    console.log('当前要删除id' + newLists[1])
+    console.log('当前要删除id' + newLists[2])
+    console.log('当前要删除id' + newLists[3])
+    this.setState({
+      Lists: newLists
+    })
   }
 
   onPullDownRefresh() {
@@ -192,8 +209,12 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
-  collect() {
-    let id = '112d34testsvggase';
+  collect(thisIndex) {
+    // "2e154de56gyubdq" 高等程序语言设计
+    // "0s9uighvg121efe" java程序语言设计
+    //"28yy89dqube12d8"   面向对象程序设计
+    // "723fguib98y2e1h"  python程序语言设计
+    let id = '0s9uighvg121efe';
     Fetch(
       `api/v1/course/using/${id}/favorite`,
       {
@@ -206,9 +227,10 @@ export default class Index extends Component {
           // eslint-disable-next-line no-undef
           Taro.showToast({
             title: '取消收藏成功！',
-            icon: 'success'
+            icon: 'success',
           })
-          this.getLists()
+          console.log("当前index"+thisIndex)
+            this.getListsAfterFavor(thisIndex)
           break;
         case 20302:
           // eslint-disable-next-line no-undef
@@ -230,7 +252,7 @@ export default class Index extends Component {
     // }
     const content = (
       <View className="detailsBoxes">
-        {this.state.Lists.map(data => {
+        {this.state.Lists.map((data,index) => {
           return (
             // eslint-disable-next-line react/jsx-key
             <View className="mx-card">
@@ -266,7 +288,7 @@ export default class Index extends Component {
                   </View>
                 </MovableView>
               </MovableArea>
-              <View className="itemDelete right" onClick={this.collect.bind(this)}>
+              <View className="itemDelete right" onClick={this.collect.bind(this,index)}>
                 <Text>取消收藏</Text>
               </View>
             </View>

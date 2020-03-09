@@ -5,7 +5,7 @@
 }
 .select-year {
   width: 363px;
-  height: 120px;
+  height: 80px;
   border-right: 5px solid rgba(241, 240, 245, 1);
   padding-left: 47px;
   display: flex;
@@ -13,62 +13,45 @@
 }
 .select-term {
   width: 382px;
-  height: 120px;
+  height: 80px;
   padding-left: 59px;
   display: flex;
   align-items: center;
 }
 .mycourse_page-courselist-item {
-  width: 750px;
-  // height: 104px;
+  // width: 750px;
+  font-size: 30px;
+  margin: 0 40px;
+  padding: 30px 0;
   opacity: 0.84;
-  padding: 35px 75px 35px 47px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
   border-bottom: 2px solid #EBEDF5;
 }
+.left-icon {
+
+}
 .course-name{
-  font-size: 30px;
-  font-weight: 300;
-  line-height: 42px;
-  color: rgba(0, 0, 0, 1);
-  opacity: 1;
-  padding-right: 25px;
-  vertical-align: middle;
-  width:270px;
+   margin-left:27px;
+   width:240px;
+   overflow:hidden; //超出的文本隐藏
+   text-overflow:ellipsis; //溢出用省略号显示
+   white-space:nowrap; //溢出不换行
 }
 .teacher-name {
-  font-size: 30px;
-  font-weight: 300;
-  line-height: 42px;
-  color: rgba(0, 0, 0, 1);
-  opacity: 1;
-  padding-right: 25px;
-  vertical-align: middle;
+   width:120px;
+   margin-right:80px;
 }
-.teacher-name-color{
-  font-size: 30px;
-  font-weight: 400;
-  line-height: 42px;
-  color:#6E66EE;
-  opacity: 1;
-  padding-right: 25px;
-  vertical-align: middle;
+.text-normal{
+  color:rgba(169, 169, 169, 1)
 }
-.left-icon {
-  padding-right: 28px;
+.text-special{
+  color:rgba(110, 102, 238, 1)
 }
 .float-right {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-}
-.is-comment {
-    font-size: 30px;
-    color:#A9A9A9FF;
-    opacity: 1;
+  
 }
 .right-icon {
-    padding-left: 26px;
+  margin-left:27px;
 }

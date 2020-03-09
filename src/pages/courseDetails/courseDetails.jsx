@@ -1,13 +1,13 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Canvas, Image, ScrollView, CoverView } from '@tarojs/components';
+import { View, Canvas, Image, Text } from '@tarojs/components';
 import './courseDetails.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import Fetch from '../../service/fetch';
 import MxTag from '../../components/common/MxTag/index';
-import newcmt from '../../assets/png/newcmt.png';
+import star from '../../assets/png/star.png';
 import hotcmt from '../../assets/png/hotcmt.png';
+import newcmt from '../../assets/png/newcmt.png';
 import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
-import CourseDetailCard from '../../components/page/CourseDetailCard/CourseDetailCard';
 
 export default class Coursedetails extends Component {
   constructor() {
@@ -56,7 +56,6 @@ export default class Coursedetails extends Component {
       ],
       drawerWidth: '0px',
       cover: 'none',
-      courseCategory: '专业必修课',
       courseCredit: '2',
       rate: '4',
       starNumber: '23',
@@ -141,7 +140,7 @@ export default class Coursedetails extends Component {
     console.log(this.state.normalList);
   }
   componentWillMount() {
-    // console.log(this.$router.params);
+    console.log(this.$router.params.courseId); //前页面传过来的id
     var attendance1 = '30';
     var attendance2 = '60';
     var attendance3 = '10';
@@ -246,20 +245,22 @@ export default class Coursedetails extends Component {
         });
       }
     });
-    Taro.setStorageSync(
-      'token',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
-    );
-    Fetch('api/v1/course/using/info/5d4f786073f6e00ccef7406f95996548/', {}, 'GET').then(
-      data => {
-        if (data) {
-          this.setState({
-            classInfo: data.data
-          });
-          console.log(data.data);
-        }
+    // Taro.setStorageSync(
+    //   'token',
+    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
+    // );
+    Fetch(
+      'api/v1/course/using/info/9861750066dd7bc0698926e4c6986b80/',
+      {},
+      'GET'
+    ).then(data => {
+      if (data) {
+        this.setState({
+          classInfo: data.data
+        });
+        console.log(data.data);
       }
-    );
+    });
   }
 
   componentWillUnmount() {}
@@ -267,6 +268,39 @@ export default class Coursedetails extends Component {
   componentDidShow() {}
 
   componentDidHide() {}
+
+  favorite() {
+    // "2e154de56gyubdq"
+    // "0s9uighvg121efe"
+    //"28yy89dqube12d8"
+    // "723fguib98y2e1h"
+    let id = '2e154de56gyubdq'; //现在测试是 let id 后端好了改成前页面传过来id
+    Fetch(
+      `api/v1/course/using/${id}/favorite`,
+      {
+        like_state: false
+      },
+      'PUT'
+    ).then(res => {
+      console.log(res);
+      switch (res.code) {
+        case 0:
+          // eslint-disable-next-line no-undef
+          Taro.showToast({
+            title: '收藏成功！',
+            icon: 'success'
+          });
+          break;
+        case 20302:
+          // eslint-disable-next-line no-undef
+          Taro.showToast({
+            title: '收藏失败!'
+          });
+          break;
+      }
+    });
+  }
+
   toCover() {
     this.setState({
       drawerWidth: '448rpx',
@@ -307,15 +341,32 @@ export default class Coursedetails extends Component {
     });
   }
 
+  renderWelcome(e) {
+    return <View>Hello, {e}</View>;
+  }
+
   render() {
+    let courseCategory = null;
+    if (this.state.classInfo.course_category == 0) {
+      courseCategory = <Text>通识必修课</Text>;
+    } else if (this.state.classInfo.course_category == 1) {
+      courseCategory = <Text>专业必修课</Text>;
+    } else if (this.state.classInfo.course_category == 2) {
+      courseCategory = <Text>专业选修课</Text>;
+    } else if (this.state.classInfo.course_category == 3) {
+      courseCategory = <Text>通识选修课</Text>;
+    } else if (this.state.classInfo.course_category == 4) {
+      courseCategory = <Text>专业课</Text>;
+    } else if (this.state.classInfo.course_category == 5) {
+      courseCategory = <Text>通识核心课</Text>;
+    }
+
     const PALETTE = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
     const {
       classInfo,
       nomorecmt,
       hotList,
       normalList,
-      courseCategory,
-      courseCredit,
       attendance1,
       attendance2,
       attendance3,
@@ -349,21 +400,33 @@ export default class Coursedetails extends Component {
     const coverStyle = { display: this.state.cover };
     return (
       <View className="courseDetails">
-        <CoverView className="cover" style={coverStyle}>
-          <CoverView className="leftCover" onClick={this.toHide} />
-          <CoverView style={drawerStyle} className="drawer" scrollY>
-            <CoverView className="infobox_drawer">
-              <CoverView className="info_drawer">课堂信息</CoverView>
-              <CoverView className="info_Eng_drawer">class message</CoverView>
-            </CoverView>
-            <CoverView className="classMessageCard">
-              {classInfo.class_info &&
-                classInfo.class_info.map(item => {
-                  return <CourseDetailCard key={item.id} courseInfo={item} />;
-                })}
-            </CoverView>
-          </CoverView>
-        </CoverView>
+        {this.renderWelcome('d')}
+        <View className="starBac" onClick={this.favorite.bind(this)}>
+          <Image src={star} className="star"></Image>
+        </View>
+        <View className="cover" style={coverStyle} onClick={this.toHide} />
+        <View style={drawerStyle} className="drawer">
+          <View className="infobox_drawer">
+            <View className="info_drawer">课堂信息</View>
+            <View className="info_Eng_drawer">class message</View>
+          </View>
+          {classInfo.class_info &&
+            classInfo.class_info.map(item => {
+              return (
+                <View className="classBox" key={item.id}>
+                  <View>{item.id}课堂</View>
+                  {item.list &&
+                    item.list.map(index => {
+                      return (
+                        <View key={index.Id}>
+                          {index.Time}节 @ {index.Place} {index.Week}
+                        </View>
+                      );
+                    })}
+                </View>
+              );
+            })}
+        </View>
         <View className="detailBox">
           <View className="name">课程名称：</View>
           <View className="content">{classInfo.course_name}</View>
@@ -383,7 +446,7 @@ export default class Coursedetails extends Component {
           <View className="name">基本信息：</View>
           <View className="content">
             {courseCategory}
-            {courseCredit}
+            {classInfo.course_credit}
             学分
           </View>
         </View>
@@ -469,54 +532,20 @@ export default class Coursedetails extends Component {
         </View>
         <View className="feature">课堂特点：</View>
         <View className="tagBox">
-          <MxTag
-            padding="10rpx 40rpx"
-            borderRadius="30rpx"
-            className="tag"
-            margin="5rpx 10rpx"
-          >
-            幽默风趣(10)
-          </MxTag>
-          <MxTag
-            padding="10rpx 40rpx"
-            borderRadius="30rpx"
-            className="tag"
-            margin="5rpx 10rpx"
-          >
-            干货满满(2)
-          </MxTag>
-          <MxTag
-            padding="10rpx 40rpx"
-            borderRadius="30rpx"
-            className="tag"
-            margin="5rpx 10rpx"
-          >
-            普通话标准了了(99100)
-          </MxTag>
-          <MxTag
-            padding="10rpx 40rpx"
-            borderRadius="30rpx"
-            className="tag"
-            margin="5rpx 10rpx"
-          >
-            作业量非常少了(97582)
-          </MxTag>
-          <MxTag
-            padding="10rpx 40rpx"
-            borderRadius="30rpx"
-            className="tag"
-            margin="5rpx 10rpx"
-          >
-            云课堂资料全(8)
-          </MxTag>
-          <MxTag
-            padding="10rpx 40rpx"
-            borderRadius="30rpx"
-            className="tag"
-            margin="5rpx 10rpx"
-          >
-            简单易学(0)
-          </MxTag>
+          {classInfo &&
+            classInfo.tag.map(item => {
+              return (
+                <MxTag
+                  padding="10rpx 40rpx"
+                  borderRadius="30rpx"
+                  className="tag"
+                  margin="5rpx 10rpx"
+                  key={item.data.name}
+                >
+                  {item.data.name}({item.data.num})
+                </MxTag>
+              );
+            })}
         </View>
         <View className="cmtimgBox">
           <Image className="cmtimg" src={hotcmt} />
@@ -538,7 +567,6 @@ export default class Coursedetails extends Component {
           <View className="nomore">已经到底啦，没有更多数据啦</View>
         )}
       </View>
-      // [3-4#1, {place: 7102#}]
     );
   }
 }

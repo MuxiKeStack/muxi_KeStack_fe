@@ -41,26 +41,19 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 7,
 			"list": [
 				{
-					"id": 0,
-					"name": "评课详情sss",
-					"pathName": "pages/courseCommentsDetails/courseCommentsDetails",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": 1,
-					"name": "课程主页sss",
-					"pathName": "pages/courseDetails/courseDetails",
+					"id": -1,
+					"name": "homepage",
+					"pathName": "pages/homepage/index",
 					"query": "",
 					"scene": ""
 				},
 				{
 					"id": -1,
-					"name": "change",
-					"pathName": "pages/changeUserInfo/index",
+					"name": "message",
+					"pathName": "pages/message/index",
 					"query": "",
 					"scene": ""
 				},
@@ -68,6 +61,20 @@
 					"id": -1,
 					"name": "history",
 					"pathName": "pages/commentHistory/index",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "mycourse",
+					"pathName": "pages/mycourse/index",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "cmsq",
+					"pathName": "pages/commentSquare/index",
 					"query": "",
 					"scene": ""
 				},
@@ -81,6 +88,13 @@
 				{
 					"id": -1,
 					"name": "kechengzhuye",
+					"pathName": "pages/courseDetails/courseDetails",
+					"query": "",
+					"scene": ""
+				},
+				{
+					"id": -1,
+					"name": "课程详情",
 					"pathName": "pages/courseDetails/courseDetails",
 					"query": "",
 					"scene": ""

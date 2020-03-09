@@ -96,7 +96,7 @@ export default class Index extends Component {
     const { userid, password } = this.state;
     if (userid && password) {
       Fetch(
-        'api/v1/login',
+        'api/v1/login/',
         {
           sid: userid,
           password: password

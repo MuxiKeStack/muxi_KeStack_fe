@@ -1,4 +1,4 @@
-.index{
+Page {
     background-color: #F5F6FA;
 }
 .from{
@@ -44,31 +44,39 @@
     padding: 0 45px 0 45px;
 }
 .from-button{
-    margin-top: 28px;
-    display: flex;
-    align-items: center;
-    color: white;
-    font-size: 36px;
+    margin: 40px 60px ;
+    // display: flex;
+    // justify-content: center;
     .reset-button{
+        display: inline-block;
+        // padding: 21px 42px;
+        padding-left: 42px;
+        padding-right: 42px;
         box-sizing: border-box;
-        text-align: center;
+        // text-align: center;
         background-color: #CACACA;
         width: 240px;
         height: 92px;
         line-height: 92px;
         color: white;
-        border-radius: 42px;
+        font-size: 36px;
+        border-radius: 46px;
     }
     .submit-button{
+        display: inline-block;
+        // padding: 21px 144px;
+        padding-left: 144px;
+        padding-right: 144px;
         box-sizing: border-box;
         color: white;
+        font-size: 36px;
         width: 360px;
         height: 92px;
-        text-align: center;
+        // text-align: center;
         line-height: 92px;
-        padding-left: 30px;
+        margin-left: 30px;
         background-color: rgba(104, 104, 248, 1);
-        border-radius: 42px;
+        border-radius: 46px;
     }
 }
 .icon-right{
@@ -79,8 +87,12 @@
     padding-left: 32px;
 }
 .log-out{
-    margin-top: 454px;
-    text-align: center;
+    position: fixed;
+    top: 85%;
+    left: 20%;
+    right: 20%;
+    width: fit-content;
+    margin: 0 auto;
     color: #6868F8;
     font-size: 30px;
 }

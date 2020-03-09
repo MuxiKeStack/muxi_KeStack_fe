@@ -5,9 +5,6 @@ import { MxPicker } from '../../components/common/MxPicker';
 import { MxIcon } from '../../components/common/MxIcon';
 import './index.scss';
 import Fetch from '../../service/fetch';
-// import {isLogined} from 'utils/tools'
-// import { courseList} from 'sevices/course'
-// import { serverUrl } from  'utils/config'
 
 export default class Index extends Component {
   constructor(props) {
@@ -26,17 +23,6 @@ export default class Index extends Component {
   };
 
   componentDidMount() {
-    /*        courseList().then(res => {
-                console.log(res);
-                this.setState({
-                    course: res.info,
-                    });
-                });*/
-    // Fetch('api/v1/login/',{sid:'2018214877',password:'2yuhly0312'},'POST').then(
-    //   res =>{
-    //     console.log(res.data.token);
-    //   }
-    // );
     var sid = Taro.getStorageSync('sid');
     var newList = [];
     var firstYear = sid.slice(0,4);
@@ -46,20 +32,17 @@ export default class Index extends Component {
     newList.push(parseInt(parseInt(firstYear)+3)+'-'+parseInt(parseInt(firstYear)+4));
     this.setState({
       selectoryears: newList,
-    },()=>{
-      console.log(this.state.selectoryears);
-    })
+    });
   }
 
   componentWillUnmount() {}
 
   componentDidHide() {}
-  handleChangeY = e => {
-    this.setState({
-      selectorCheckedY: this.state.selectoryears[e.detail.value]
-    },()=>{
-      console.log('现在选择的学年'+this.state.selectorCheckedY);//还是上一个时刻的state，setState滞后了在此处；
-      var Y=0;
+
+  getData(){
+      // console.log('现在选择的学年'+this.state.selectorCheckedY);//还是上一个时刻的state，setState滞后了在此处；
+      Taro.showNavigationBarLoading();
+      var Y;
       var T;
       switch (this.state.selectorCheckedT) {
         case '第一学期':
@@ -93,7 +76,8 @@ export default class Index extends Component {
       Fetch(`api/v1/user/courses/?year=${Y}&term=${T}`, {sid:Taro.getStorageSync('sid'),password:Taro.getStorageSync('password')}, 'POST')
         .then(
           res =>{
-            console.log(res.data.data);
+            // console.log(res.data.data);
+            Taro.hideNavigationBarLoading()
             if(res.data.data){
               this.setState({
                 courses: res.data.data,
@@ -101,58 +85,20 @@ export default class Index extends Component {
             }
           }
         )
-        .catch(err => Taro.showToast({title: '已经到底了',icon: 'none'}));
-    });
-    
+        .catch(err => {
+          Taro.showToast({title: '查询失败，请稍后再试',icon: 'none'})
+          Taro.hideNavigationBarLoading()
+      }); 
+  }
+  handleChangeY = e => {
+    this.setState({
+      selectorCheckedY: this.state.selectoryears[e.detail.value]
+    },this.getData())
   };
   handleChangeT = e => {
     this.setState({
       selectorCheckedT: this.selectorterms[e.detail.value]
-    },()=>{
-      var Y=0;
-    var T;
-    switch (this.state.selectorCheckedT) {
-      case '第一学期':
-        T = 1;
-        break;
-      case '第二学期':
-        T = 2;
-        break;
-      case '第三学期':
-        T = 3;
-        break;
-      default:
-        T = 0;
-    }
-    switch (this.state.selectorCheckedY) {
-      case this.state.selectoryears[0]:
-        Y = this.state.selectoryears[0].slice(0,4);
-        break;
-      case this.state.selectoryears[1]:
-        Y = this.state.selectoryears[1].slice(0,4);
-        break;
-      case this.state.selectoryears[2]:
-        Y = this.state.selectoryears[2].slice(0,4);
-        break;
-      case this.state.selectoryears[3]:
-        Y = this.state.selectoryears[3].slice(0,4);
-        break;
-      default:
-        Y = '0';
-    }
-    Fetch(`api/v1/user/courses/?year=${Y}&term=${T}`, {sid: Taro.getStorageSync('sid'),password:Taro.getStorageSync('password')}, 'POST')
-      .then(
-        res =>{
-          console.log(res.data.data);
-          if(res.data.data){
-            this.setState({
-              courses: res.data.data,
-            })
-          }
-        }
-      )
-      .catch(err => console.error(err));
-    });  
+    },this.getData())
   };
 
   render() {
@@ -178,12 +124,10 @@ export default class Index extends Component {
           </View>
         </View>
         {courses.map(course => {
-          var leftIcon = course.is_evaluate ? 'solidC' : 'solidC';
-          var rightIcon = course.is_evaluate ? 'check' : 'arrowRM';
-          var hasComment = course.is_evaluate ? '已评课' : '未评课';
-          var teacher = course.is_evaluate
-            ? 'teacher-name'
-            : 'teacher-name-color';
+          var leftIcon = course.has_evaluated ? 'solidC' : 'solidC';
+          var rightIcon = course.has_evaluated ? 'check' : 'arrowRM';
+          var hasComment = course.has_evaluated ? '已评课' : '未评课';
+          var textClassName = course.has_evaluated? "text-normal":"text-special";
           return (
             <View
               onClick={() =>
@@ -201,16 +145,16 @@ export default class Index extends Component {
                 height="27"
               ></MxIcon>
               <Text className="course-name">{course.name}</Text>
-              <Text className="teacher-name">{course.teacher}</Text>
-              <View className="float-right">
-                <Text className={teacher}>{hasComment}</Text>
+              <Text className="teacher-name">{'('+course.teacher+')'}</Text>
+    
+                <Text className={textClassName}>{hasComment}</Text>
                 <MxIcon
                   className="right-icon"
                   type={rightIcon}
                   width="42"
                   height="42"
                 ></MxIcon>
-              </View>
+              
             </View>
           );
         })}
