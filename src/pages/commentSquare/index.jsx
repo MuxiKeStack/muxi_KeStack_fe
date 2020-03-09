@@ -157,8 +157,8 @@ export default class Index extends Component {
   }
 
   componentWillMount() {
-    Taro.showNavigationBarLoading()
-    this.getComments();
+    // Taro.showNavigationBarLoading()
+    // this.getComments();
   }
 
   normalTime(timestamp) {
