@@ -1,5 +1,5 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, MovableArea, MovableView } from '@tarojs/components';
+import Taro, {Component} from '@tarojs/taro';
+import {MovableArea, MovableView, View} from '@tarojs/components';
 import './index.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import Fetch from '../../service/fetch';
@@ -23,6 +23,7 @@ export default class Index extends Component {
       lastTempId: 0
     };
   }
+
   state = {
     // eslint-disable-next-line react/no-unused-state
     animation: '',
@@ -33,14 +34,15 @@ export default class Index extends Component {
     startY: 0
   };
 
-  handleClick() {}
+  handleClick() {
+  }
 
   getLists() {
-    
+
     let newLists = this.state.Lists;
     console.log(this.state.lastId)
     Fetch(
-      'api/v1/collection',
+      'api/v1/collection/',
       {
         limit: 4,
         last_id: this.state.lastId
@@ -50,7 +52,7 @@ export default class Index extends Component {
       console.log(data)
       if (data.data.list != null) {  //判断是否没有数据了
         if (this.state.lastId != 0) {  //之后增加数据
-          console.log(data.data.list+ '新列表')
+          console.log(data.data.list + '新列表')
           newLists = newLists.concat(data.data.list);
           console.log(newLists)
           Taro.stopPullDownRefresh();
@@ -82,11 +84,11 @@ export default class Index extends Component {
     });
   }
 
-  
+
   getListsAfterFavor(index) {
     console.log('index为' + index)
     let newLists = this.state.Lists
-    newLists.remove(index)
+    newLists.splice(index, 1)
     console.log('当前要删除id' + newLists[0])
     console.log('当前要删除id' + newLists[1])
     console.log('当前要删除id' + newLists[2])
@@ -118,6 +120,7 @@ export default class Index extends Component {
   componentWillMount() {
     this.getLists();
   }
+
   // 滑动开始
   touchstart(e) {
     this.setState({
@@ -140,8 +143,8 @@ export default class Index extends Component {
     // var isRight = _class.indexOf("rightMove") != -1;//往右滑的位置
     //获取滑动角度
     var angle = that.angle(
-      { X: startX, Y: startY },
-      { X: touchMoveX, Y: touchMoveY }
+      {X: startX, Y: startY},
+      {X: touchMoveX, Y: touchMoveY}
     );
     //滑动超过30度角 return
     if (Math.abs(angle) > 30) return;
@@ -203,20 +206,18 @@ export default class Index extends Component {
     });
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+  }
 
-  componentDidShow() {}
+  componentDidShow() {
+  }
 
-  componentDidHide() {}
+  componentDidHide() {
+  }
 
-  collect(thisIndex) {
-    // "2e154de56gyubdq" 高等程序语言设计
-    // "0s9uighvg121efe" java程序语言设计
-    //"28yy89dqube12d8"   面向对象程序设计
-    // "723fguib98y2e1h"  python程序语言设计
-    let id = '0s9uighvg121efe';
+  collect(thisIndex, course_id) {
     Fetch(
-      `api/v1/course/using/${id}/favorite`,
+      `api/v1/course/using/${course_id}/favorite/`,
       {
         like_state: true
       },
@@ -229,8 +230,8 @@ export default class Index extends Component {
             title: '取消收藏成功！',
             icon: 'success',
           })
-          console.log("当前index"+thisIndex)
-            this.getListsAfterFavor(thisIndex)
+          console.log("当前index" + thisIndex)
+          this.getListsAfterFavor(thisIndex)
           break;
         case 20302:
           // eslint-disable-next-line no-undef
@@ -241,6 +242,7 @@ export default class Index extends Component {
       }
     });
   }
+
   render() {
     // let status = null;
     // if (noCollect) {
@@ -252,7 +254,7 @@ export default class Index extends Component {
     // }
     const content = (
       <View className="detailsBoxes">
-        {this.state.Lists.map((data,index) => {
+        {this.state.Lists.map((data, index) => {
           return (
             // eslint-disable-next-line react/jsx-key
             <View className="mx-card">
@@ -288,7 +290,7 @@ export default class Index extends Component {
                   </View>
                 </MovableView>
               </MovableArea>
-              <View className="itemDelete right" onClick={this.collect.bind(this,index)}>
+              <View className="itemDelete right" onClick={this.collect.bind(this, index, data.course_id)}>
                 <Text>取消收藏</Text>
               </View>
             </View>

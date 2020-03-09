@@ -12,48 +12,23 @@ export default class Index extends Component {
     super(...arguments);
     this.state = {
       keyword: '',
+      history: [],
+      hidden: false,
       type: '',
       tagsState: [false, false, false, false, false],
-      datas: [
-        {
-          text: '线性代数B',
-          teacher: '张俊',
-          people: '84',
-          num: '2019347817462',
-          tag1: '偶尔点名',
-          tag2: '期末闭卷',
-          tag3: '期末闭卷',
-          tag4: '期末闭卷'
-        },
-        {
-          text: '线性代数B',
-          teacher: '张俊',
-          people: '84',
-          num: '2019347817462',
-          tag1: '偶尔点名',
-          tag2: '期末闭卷',
-          tag3: '暂无课程特点评价',
-          tag4: ''
-        },
-        {
-          text: '线性代数B',
-          teacher: '张俊',
-          people: '84',
-          num: '2019347817462',
-          tag1: '偶尔点名',
-          tag2: '期末闭卷',
-          tag3: '期末闭卷',
-          tag4: '期末闭卷'
-        }
-      ],
-      value: 4,
+      datas: [],
       // eslint-disable-next-line react/no-unused-state
-      checkable: false
+      checkable: false,
+      page: 1,
+      isCollect: true
+      // mask: 'mask',
+      // masklist: 'masklist'
     };
   }
   // eslint-disable-next-line react/sort-comp
   config = {
-    navigationBarTitleText: '木犀课栈'
+    navigationBarTitleText: '木犀课栈',
+    enablePullDownRefresh: true
   };
 
   state = {
@@ -66,30 +41,69 @@ export default class Index extends Component {
     startY: 0
   };
 
+  // handleSave() {
+  //   this.setState({
+  //     mask: 'unmask',
+  //     masklist: 'unmasklist'
+  //   });
+  // }
+
+  handleChange(value) {
+    this.setState({
+      // eslint-disable-next-line react/no-unused-state
+      value
+    });
+  }
+
   ChangeTodetails() {
     Taro.navigateTo({
       url: '/pages/courseDetails/courseDetails'
     });
   }
 
+  onPullDownRefresh() {
+    this.setState({
+      page: 1
+    });
+    Taro.showNavigationBarLoading();
+    this.getHistorySearch();
+  } //下拉事件
+
+  onReachBottom() {
+    this.setState({
+      page: this.state.page + 1
+    });
+    Taro.showNavigationBarLoading();
+    this.getHistorySearch();
+  }
+
   getHistorySearch() {
+    var that = this;
     Fetch(
-      'api/v1/search/historyCourse',
+      'api/v1/search/historyCourse/',
       {
         keyword: this.state.keyword,
         type: this.state.type,
-        page: '1',
+        page: this.state.page,
         limit: '10'
       },
       'GET'
     ).then(data => {
       console.log(data);
-    });
-  }
-
-  handleChange(value) {
-    this.setState({
-      value
+      let newdatas = data.data.courses;
+      if (newdatas != null) {
+        Taro.stopPullDownRefresh();
+        Taro.hideNavigationBarLoading();
+        that.setState({
+          datas: newdatas
+        });
+      } else {
+        Taro.showToast({
+          title: '到底了'
+        });
+        Taro.stopPullDownRefresh();
+        Taro.hideNavigationBarLoading();
+      }
     });
   }
 
@@ -192,36 +206,93 @@ export default class Index extends Component {
     });
     this.getHistorySearch();
   }
-  collect() {
-    let id = '112d34testsvggase';
+  collect(hash) {
     Fetch(
-      `api/v1/course/using/${id}/favorite`,
+      `api/v1/course/using/${hash}/favorite/`,
       {
         like_state: false
       },
       'PUT'
     ).then(res => {
+      console.log(res);
       switch (res.code) {
         case 0:
-          // eslint-disable-next-line no-undef
-          isCollect = true;
+          this.setState({
+            isCollect: false
+          });
+          Taro.showToast({
+            title: '已收藏',
+            icon: 'success',
+            duration: 2000
+          });
           break;
         case 20302:
-          // eslint-disable-next-line no-undef
-          isCollect = false;
+          Taro.showToast({
+            title: '收藏失败',
+            icon: 'none',
+            duration: 2000
+          });
           break;
       }
     });
   }
-
+  //input的onClick
   handleClickInput() {
+    this.setState({
+      hidden: false
+    });
     this.getHistorySearch();
   }
-
-  handleClickContent(event) {
+  //input的oninput
+  handleClickContent(e) {
     this.setState({
-      keyword: event.detail.value
+      keyword: e.detail.value
     });
+    if (e.detail.value == '') {
+      this.setState({
+        keyword: e.detail.value
+      });
+      this.getHistorySearch();
+    }
+  }
+  //input的onfocus
+  handleFocus() {
+    this.setState({
+      hidden: true
+    });
+  }
+  //input的onchange
+  onChhange(e) {
+    if (e.detail.value != '') {
+      let history = Taro.getStorageSync('history') || [];
+      if (history.length < 10) {
+        history.push({ id: history.length, title: e.detail.value });
+      } else {
+        history.pop();
+        history.push({ id: history.length, title: e.detail.value });
+      }
+      this.setState({
+        hidden: true,
+        history: history
+      });
+      Taro.setStorageSync('history', history);
+    }
+  }
+  //清除缓存历史并关闭历史搜索框
+  onClearHistory() {
+    this.setState({
+      history: [],
+      hidden: false
+    });
+    Taro.setStorageSync('history', []);
+  }
+  //input失去焦点
+  handleBlur(e) {
+    if (e.detail.value == '') {
+      this.setState({
+        hidden: false
+      });
+    }
   }
 
   onClickTags(num) {
@@ -243,6 +314,21 @@ export default class Index extends Component {
     );
   }
 
+  handleHistory(e) {
+    const that = this;
+    var text = e.currentTarget.dataset.title;
+    console.log(text);
+    that.setState(
+      {
+        keyword: text,
+        hidden: false
+      },
+      () => {
+        that.getHistorySearch();
+      }
+    );
+  }
+
   componentWillUnmount() {}
 
   componentDidShow() {}
@@ -251,13 +337,35 @@ export default class Index extends Component {
 
   render() {
     let tagState = this.state.tagsState;
-    const isCollect = this.props.isCollect;
+    const isCollect = this.state.isCollect;
     let status = null;
     if (isCollect) {
       status = <Text>收藏</Text>;
     } else {
       status = <Text>已收藏</Text>;
     }
+    const hidden = this.state.hidden;
+    const { history } = this.state;
+    const list = (
+      <View className="index">
+        <View className="history">历史记录</View>
+        {history.map(h => {
+          return (
+            <View
+              className="title"
+              key={h.id}
+              data-title={h.title}
+              onClick={this.handleHistory.bind(this)}
+            >
+              {h.title}
+            </View>
+          );
+        })}
+        <View className="clear" onClick={this.onClearHistory.bind(this)}>
+          清空
+        </View>
+      </View>
+    );
     const content = (
       <View className="detailsBoxes">
         {this.state.datas.map(data => {
@@ -276,50 +384,79 @@ export default class Index extends Component {
                   onClick={this.ChangeTodetails.bind(this)}
                 >
                   <View className="user-info">
-                    <View className="class">{data.text}</View>
+                    <View className="class">{data.name}</View>
                     <View className="teacher">{data.teacher}</View>
-                    <View className="num">{data.num}</View>
+                    <View className="num">{data.id}</View>
                   </View>
-                  <View>
+                  <View className="right">
                     <View className="blue">
                       <View className="star">
                         <MxRate
-                          value={this.state.value}
+                          value={data.rat}
                           onChange={this.handleChange.bind(this)}
                           readOnly
                         />
                       </View>
                       <View className="word">评价人数：</View>
-                      <View className="people">{data.people}</View>
+                      <View className="people">{data.stars_num}</View>
                     </View>
                     <View className="tag">
-                      <View className="tag1">
-                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
-                          {data.tag1}
-                        </MxTag>
-                      </View>
-                      <View className="tag2">
-                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
-                          {data.tag2}
-                        </MxTag>
-                      </View>
-                      <View className="tag3">
-                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
-                          {data.tag3}
-                        </MxTag>
-                      </View>
-                      <View className="tag4">
-                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
-                          {data.tag4}
-                        </MxTag>
-                      </View>
+                      {data.attendance == '' && (
+                        <View className="tag1">
+                          <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                            暂无评价
+                          </MxTag>
+                        </View>
+                      )}
+                      {data.attendance !== '' && (
+                        <View className="tag1">
+                          <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                            {data.attendance}
+                          </MxTag>
+                        </View>
+                      )}
+                      {data.exam == '' && (
+                        <View className="tag2">
+                          <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                            暂无评价
+                          </MxTag>
+                        </View>
+                      )}
+                      {data.exam !== '' && (
+                        <View className="tag2">
+                          <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                            {data.exam}
+                          </MxTag>
+                        </View>
+                      )}
+                      {data.tags == '' && (
+                        <View className="tag3">
+                          <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                            暂无课程特点评价
+                          </MxTag>
+                        </View>
+                      )}
+                      {data.tags != '' &&
+                        data.tags.map(t => {
+                          return (
+                            // eslint-disable-next-line react/jsx-key
+                            <View className="tag3">
+                              <MxTag
+                                check={false}
+                                padding="1rpx 28rpx 3rpx 28rpx"
+                              >
+                                {t}
+                              </MxTag>
+                            </View>
+                          );
+                        })}
                     </View>
                   </View>
                 </MovableView>
               </MovableArea>
               <View
-                className="itemDelete right"
-                onClick={this.collect.bind(this)}
+                className="itemDelete"
+                onClick={this.collect.bind(this, data.hash)}
               >
                 {status}
               </View>
@@ -335,44 +472,46 @@ export default class Index extends Component {
           <View className="search">
             <MxInput
               leftSrc="../../../assets/svg/searchicon.svg"
-              leftSize="20px"
+              leftSize="32rpx"
+              rightSize="32rpx"
               width="670rpx"
               height="72rpx"
               background="rgba(241,240,245,1)"
               radius="36rpx"
+              placeholder="搜索课程名/老师名"
               onClick={this.handleClickInput.bind(this)}
               onInput={this.handleClickContent.bind(this)}
+              onChange={this.onChhange.bind(this)}
+              onBlur={this.handleBlur.bind(this)}
+              onFocus={this.handleFocus.bind(this)}
             ></MxInput>
           </View>
-        </View>
-        <View className="label">
-          <View>
-            <View className="label1">
-              <MxTag
-                onClick={this.onClickTags.bind(this, 0)}
-                font="28rpx"
-                checkable={true}
-                checked={tagState[0]}
-                padding="1rpx 44rpx 1rpx 44rpx"
-                checkedControl={true}
-                border="2px solid rgba(110,102,238,1)"
-              >
-                专业必修课
-              </MxTag>
-            </View>
-            <View className="label2">
-              <MxTag
-                onClick={this.onClickTags.bind(this, 1)}
-                font="28rpx"
-                checkable={true}
-                checked={tagState[1]}
-                padding="1rpx 44rpx 1rpx 44rpx"
-                checkedControl={true}
-                border="2px solid rgba(110,102,238,1)"
-              >
-                专业选修课
-              </MxTag>
-            </View>
+          {hidden && list}
+          <View className="label1">
+            <MxTag
+              onClick={this.onClickTags.bind(this, 0)}
+              font="28rpx"
+              checkable={true}
+              checked={tagState[0]}
+              padding="1rpx 44rpx 1rpx 44rpx"
+              checkedControl={true}
+              border="2rpx solid rgba(110,102,238,1)"
+            >
+              专业必修课
+            </MxTag>
+          </View>
+          <View className="label2">
+            <MxTag
+              onClick={this.onClickTags.bind(this, 1)}
+              font="28rpx"
+              checkable={true}
+              checked={tagState[1]}
+              padding="1rpx 44rpx 1rpx 44rpx"
+              checkedControl={true}
+              border="2rpx solid rgba(110,102,238,1)"
+            >
+              专业选修课
+            </MxTag>
           </View>
           <View>
             <View className="label3">
@@ -383,7 +522,7 @@ export default class Index extends Component {
                 checked={tagState[2]}
                 padding="1rpx 44rpx 1rpx 44rpx"
                 checkedControl={true}
-                border="2px solid rgba(110,102,238,1)"
+                border="2rpx solid rgba(110,102,238,1)"
               >
                 通识核心课
               </MxTag>
@@ -396,7 +535,7 @@ export default class Index extends Component {
                 checked={tagState[3]}
                 padding="1rpx 44rpx 1rpx 44rpx"
                 checkedControl={true}
-                border="2px solid rgba(110,102,238,1)"
+                border="2rpx solid rgba(110,102,238,1)"
               >
                 通识选修课
               </MxTag>
@@ -409,7 +548,7 @@ export default class Index extends Component {
                 checked={tagState[4]}
                 padding="1rpx 44rpx 1rpx 44rpx"
                 checkedControl={true}
-                border="2px solid rgba(110,102,238,1)"
+                border="2rpx solid rgba(110,102,238,1)"
               >
                 公共课
               </MxTag>

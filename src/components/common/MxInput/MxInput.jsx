@@ -3,8 +3,6 @@ import { Input, View, Image } from '@tarojs/components';
 import './MxInput.scss';
 
 class MxInput extends Component {
-
-
   render() {
     const {
       leftSrc,
@@ -26,14 +24,14 @@ class MxInput extends Component {
       onFocus
     } = this.props;
 
-    var password=false
+    var password = false;
 
-    switch (type){
+    switch (type) {
       case 'password':
-      password = true
-      break
-    default:
-      break
+        password = true;
+        break;
+      default:
+        break;
     }
 
     var left = leftSrc ? true : false;
@@ -70,14 +68,14 @@ class MxInput extends Component {
           style={css.input}
           type={type}
           placeholder={placeholder}
+          placeholderClass="placeholderStyle"
           onInput={onInput}
           onFocus={onFocus}
           onBlur={onBlur}
           onConfirm={onConfirm}
+          onChange={onChange}
         />
-        {right && (                           
-          <Image style={css.right} src={rightSrc} onClick={onClick} /> 
-        )}
+        {right && <Image style={css.right} src={rightSrc} onClick={onClick} />}
       </View>
     );
   }
@@ -99,7 +97,7 @@ MxInput.defaultProps = {
   onBlur: () => {},
   onConfirm: () => {},
   onClick: () => {},
-  onInput: () => {},
+  onInput: () => {}
 };
 
 export default MxInput;

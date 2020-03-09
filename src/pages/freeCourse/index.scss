@@ -1,9 +1,14 @@
+body{
+    margin: 0;
+    padding: 0;
+}
 .timeS{
     width:98px;
     height:85px;
     border:2px solid rgba(110,102,238,1);
     text-align: center;
     opacity:1;
+    border-right: 0px;
 }
 .number{
     width:98px;
@@ -30,13 +35,13 @@
     top:-48px;
 }
 .course{
-    width: 1016px;
+    width: 1078px;
     display: flex;
     flex-direction: row;
     border:2px solid rgba(110,102,238,1);
 }
 .courseF{
-    width:128px;
+    width:136px;
     height: 172px;
     border:2px solid rgba(110,102,238,1);
     font-size:34px;
@@ -45,11 +50,15 @@
     line-height:48px;
     color:rgba(110,102,238,1);
     opacity:1;
+    border-right: 0px;
+    border-left: 4px solid rgba(110,102,238,1);
 }
 .week{
-    width:128px;
+    width:136px;
     height:85px;
     border:2px solid rgba(110,102,238,1);
+    border-right: 0px;
+    border-left: 4rpx solid rgba(110,102,238,1);
     font-size:34px;
     font-family:PingFang SC;
     font-weight:400;
@@ -113,7 +122,7 @@
 .card{
     width:120px;
     height:150px;
-    background:rgba(252,128,127,1);
+    // background:rgba(252,128,127,1);
     opacity:1;
     border-radius:20px;
     line-height:40px;
@@ -122,6 +131,7 @@
     box-shadow: 0;
     margin-left: 6px;
     display: inline-block;
+    vertical-align: top;
 }
 #card-content{
     display: -webkit-box;
@@ -137,6 +147,7 @@
     text-overflow: ellipsis;
     word-break: break-all;
     white-space: normal;
+    
 }
 .addtable{
     position: absolute;
@@ -158,8 +169,27 @@
 }
 .coursetime{
     display: flex;
-    margin-left: -20px;
 }
 .place{
     margin-left: 20px;
+}
+.detailText{
+    margin: 0 auto;
+    height: 48px;
+    font-size:34px;
+    font-family:PingFang SC;
+    font-weight:400;
+    line-height:42px;
+    color:rgba(112,112,112,1);
+    opacity:1;
+}
+.detailbox{
+    margin-top: 20px;
+}
+.checkbox-list__checkbox{
+    font-size:34px;
+    font-family:PingFang SC;
+    font-weight:400;
+    color:rgba(112,112,112,1);
+    opacity:1;
 }

@@ -11,55 +11,91 @@ export default class Course extends Component {
   constructor(props){
     super(props)
     this.state = {
-      colorArr: ['#FC807F','#FFCB7B','#94C8FA','#71D69D'],
       color:'',
       }
     }
-
-  componentWillMount () { 
+   // 专必红 专选蓝 公共黄 通选通核绿色 
+  componentWillMount() { 
     const course=this.props.course
+    switch (course.type) {
+      case 0:
+        this.setState({
+          color:'#71D69D'
+        })
+        break;
+      case 1:
+        this.setState({
+          color:'#FC807F'
+        })
+        break; 
+      case 2:
+        this.setState({
+          color:'#FC807F'
+        })
+        break; 
+      case 3:
+        this.setState({
+          color:'#71D69D'
+        })
+        break;
+      case 4:
+        this.setState({
+          color:'#FC807F'
+        })
+        break;
+      case 5:
+        this.setState({
+          color:'#71D69D'
+        })
+        break;
+      default:
+        break;
+    }
       this.props.course.times.map((item,i)=>{
+              timecfli[i]=0
               if(this.props.week==item.day){
                 this.setState({
-                  top:(item.start-1)*88+105
+                  top:(item.start-1)*87+105
                 })
-                timecfli[i]=0
                 this.props.COURSESData.map(e=>{
                   if(e.course_id!=course.course_id){
                       e.times.map(index=>{
-                        if(index.start==item.start){
+                        if(index.start==item.start&&index.day==item.day){
                           timecfli[i]=1
-                        }console.log(index)
-                        console.log(item)
+                          this.setState({
+                            imgPosition:(item.start-1)*88+97
+                          })
+                          this.props.onConflict(e)
+                        }
                       })
                   }
                 })
-                
-                // this.props.course.times.map((index,j)=>{
-                //   if(j>i){
-                //     if(index.start==item.start){
-                //       timecfli[i]=1
-                //     }
-                //   }
-                // })
-               
-                // for(var j=i;j++;j<=this.props.course.times.length){
-                //   if(this.props.course.times[j].start==item.start){
-                //     timecfli[i]=1
-                //   }
-                // }
-                if(timecfli[i]==1){
-                  this.setState({
-                    imgPosition:(item.start-1)*88+97
-                  })
-                }
               }
             }
           )
-          console.log(this.props.COURSESData)
-          console.log(timecfli)
   }
 
+  componentWillUpdate(){
+    const course=this.props.course
+    this.props.course.times.map((item,i)=>{
+            timecfli[i]=0
+            if(this.props.week==item.day){
+              this.props.COURSESData.map(e=>{
+                if(e.course_id!=course.course_id){
+                    e.times.map(index=>{
+                      if(index.start==item.start&&index.day==item.day){
+                        timecfli[i]=1
+                        this.setState({
+                          imgPosition:(item.start-1)*88+97
+                        })
+                      }
+                    })
+                }
+              })
+            }
+          }
+        )
+  }
   componentDidMount () { }
 
   componentWillUnmount () { }
@@ -74,7 +110,7 @@ export default class Course extends Component {
     const cardPosition={
       'top':`${this.state.top}rpx`,
       'background':`${
-        this.state.colorArr[Math.floor(Math.random()*4)]
+        this.state.color
       }`
     }
     const imgPosition={
@@ -86,8 +122,8 @@ export default class Course extends Component {
           <View className='content'>{this.props.children}</View>
         </View>
         {
-          timecfli.map(item=>{
-            if(item==1) return<Image style={imgPosition} className='conImg' src={conflict}></Image>
+          timecfli.map((item,i)=>{
+            if(item==1) return<Image key={i} style={imgPosition} className='conImg' src={conflict}></Image>
           })
         }
       </View>

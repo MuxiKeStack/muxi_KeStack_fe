@@ -16,9 +16,9 @@
 }
 
 .login{
-    margin-top:96rpx;
     margin-left:113rpx ;
     margin-right: 124rpx;
+    margin-top: 10rpx;
 }
 
 .visit{
@@ -34,12 +34,21 @@
 .privacy{
     width:600rpx;
     height:40rpx;
-    margin-left: 135rpx;
+    margin-left: 100rpx;
+    margin-top: 86rpx;
+    .icon{
+        display: inline-block;
+    }
+    .agree{
+        font-size:28rpx;
+        color:rgba(136,136,136,1);
+    }
+    .secret{
+        font-size:28rpx;
+        color: #6868F8;
+    }
 }
-.secret{
-    font-size:28rpx;
-    color: #6868F8;
-}
+
 
 .mask_bg_show{
     width: 100%;
@@ -70,7 +79,7 @@
 }
 .bottom{
     width:300px;
-    height:100px;
+    height:70px;
     font-size:36px;
     font-weight:600;
     color:rgba(110,102,238,1);
@@ -102,4 +111,45 @@
     color:rgba(136,136,136,1);
     opacity:1;
     padding-top: 18rpx;
+}
+.masklist{
+    position: absolute;
+    z-index: 1005;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+    opacity: 1;
+}
+.list{
+    background:#FFFFFF;
+    color:rgba(0,0,0,1);
+    font-size:35px;
+    width: 600rpx;
+    height: 1000rpx;
+    border-radius: 30px;
+    overflow-y:auto;
+    padding-top: 18rpx;
+    padding-left: 5rpx;
+    padding-right: 5rpx;
+}
+.maskshow{
+    width: 100%;
+    height: 100%;
+    background: rgb(7, 7, 7);
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+}
+.name{
+    text-align: center;
+    font-size: 40px;
+    font-weight: 600;
+}
+.unmasklist{
+    display: none;
+}
+.unmaskshow{
+    display: none;
 }

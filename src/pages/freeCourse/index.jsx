@@ -1,5 +1,5 @@
-import Taro, { Component, setBackgroundColor } from '@tarojs/taro'
-import { View, Image ,Form ,ScrollView,Button,  Swiper, SwiperItem,Label,RadioGroup,Radio,Text} from '@tarojs/components'
+import Taro, { Component } from '@tarojs/taro'
+import { View, ScrollView,Label,RadioGroup,Radio,Text} from '@tarojs/components'
 import MxButton from '../../components/common/MxButton' 
 import HeaderTab from '../../components/headerTab/header-tab'
 import FloatLayout from '../../components/layout'
@@ -8,10 +8,11 @@ import Course from '../../components/course'
 import add from '../../assets/svg/add1.svg'
 import Fetch from '../../service/fetch'
 import './index.scss'
+import Modal from '../../components/common/Modal'
 
-var COURSESData = new Array();
-var title,teacher;
-var times=new Array();
+var COURSESData = new Array(),conflictCourse=new Array(),coursedetail=new Array();
+var title,teacher,color;
+var times=new Array(),detailtimes=new Array();
 var table_id,course_id,index;  
 var table_num; 
 export default class Index extends Component {
@@ -195,8 +196,9 @@ export default class Index extends Component {
           favorite:{},
           showList1:false,
           open_coursedetail:false,
-          coursedetail:{},
-          colorArr: ['#FC807F','#FFCB7B','#94C8FA','#71D69D']
+          colorArr: ['#FC807F','#FFCB7B','#94C8FA','#71D69D'],
+          class_id:[],
+          
         }
       }
 
@@ -318,14 +320,14 @@ export default class Index extends Component {
                 const tablelist=data.data.table_list;
                 const list =data.data.table_list[0].class_list;
                 table_num=data.data.table_num;
-                tablelist.map((item)=>{
+                tablelist.map((item,i)=>{
                     this.state.navList.push({
                         key:item.table_id,
                         content:item.table_name,
                     })
                 })
                 if(list){
-                    list.map((item)=>{
+                    list.map((item,i)=>{
                         item.times.map((key)=>{
                                 if(key.day===1){
                                     COURSESData[0].push(item);
@@ -356,59 +358,15 @@ export default class Index extends Component {
                 })
             }
         })
+        console.log(COURSESData)
     }
 
     config = {
         navigationBarTitleText: "自由排课"
     };
-    onScrollToUpper(e){
-        console.log(e.detail)
-      }
-       
 
-    onScroll(e){
-        console.log(e.detail)
-    }  
     dividetable(index){
-        // for(var i=0;i<7;i++){       
-        //     COURSESData[i] = new Array();
-        // }
-        // console.log(this.state.data.table_list)
-        // var list;
-        // this.state.data.table_list.map(item=>{
-        //     if(item.table_id==index){
-        //         list=item.class_list
-        //     }
-        // })
-        // list.map((item)=>{
-        //     item.times.map((key)=>{
-        //             if(key.day===1){
-        //                 COURSESData[0].push(item);
-        //             }
-        //             if(key.day===2){
-        //                 COURSESData[1].push(item);
-        //             }
-        //             if(key.day===3){
-        //                 COURSESData[2].push(item);
-        //             }
-        //             if(key.day===4){
-        //                 COURSESData[3].push(item);
-        //             }
-        //             if(key.day===5){
-        //                 COURSESData[4].push(item);
-        //             }
-        //             if(key.day===6){
-        //                 COURSESData[5].push(item);
-        //             }
-        //             if(key.day===7){
-        //                 COURSESData[6].push(item);
-        //             }
-        //     })
-        // })
-        // this.setState({
-        //     COURSESData:COURSESData
-        // })
-        // console.log(COURSESData)
+        conflictCourse=new Array()
         Fetch(
             'api/v1/table/',
             {},
@@ -422,20 +380,14 @@ export default class Index extends Component {
                     COURSESData[i] = new Array()
                 }
                 var list;
-                data.data.table_list.map(item=>{
+                data.data.table_list.map((item,i)=>{
                     if(item.table_id==index){
                         list=item.class_list
                     }
                 })
-                // tablelist.map((item)=>{
-                //     this.state.navList.push({
-                //         key:item.table_id,
-                //         content:item.table_name,
-                //     })
-                // })
                 if(list){
-                    list.map((item)=>{
-                        item.times.map((key)=>{
+                    list.map((item,i)=>{
+                        item.times.map((key,i)=>{
                                 if(key.day===1){
                                     COURSESData[0].push(item);
                                 }
@@ -459,7 +411,6 @@ export default class Index extends Component {
                                 }
                             })
                     })
-                    console.log('kala')
                 }
                 this.setState({
                     COURSESData:COURSESData
@@ -522,7 +473,6 @@ export default class Index extends Component {
         this.setState({
           index:index
         })
-        console.log(index)
         this.state.data.table_list.map((table)=>{
             if(table.table_id==index){
                 this.getfavorite(index) 
@@ -533,7 +483,6 @@ export default class Index extends Component {
     }
 
     getfavorite(index){
-        console.log('lala');
         Fetch(
             `api/v1/collection/table/${index}/`,
             {},
@@ -544,7 +493,6 @@ export default class Index extends Component {
                     favorite:data.data,
                     favoritelist:data.data.course_list
                 })
-                console.log(data.data)
             }
         })
     }
@@ -559,12 +507,12 @@ export default class Index extends Component {
             {},
             'POST'
         ).then(res=>{
-            if(res) console.log(res) 
-            console.log(table_id)
+            if(res.message=="OK") {
             this.dividetable(table_id)
             this.getfavorite(table_id)
+        }
         })
-    }//通过for取得下标，得到下标找对应位置
+    }
 
     closeColloction(){
         this.setState({
@@ -589,21 +537,40 @@ export default class Index extends Component {
         console.log(title)
     }
     divideClass2(item){
-        var j=0;
+        var j=0,state;
         title=item.classes[0].class_name;
         teacher=item.classes[0].teacher;
         course_id=item.course_id;
-        item.classes.map(index=>{
-            var i=0;
-            index.times.map(p=>{
+        item.classes.map((index,a)=>{
+            var i=0,day;
+            index.times.map((p,a)=>{
+                if(p.week_state==1)  state='单'
+                if(p.week_state==2)  state='双'
+                if(p.week_state==0)  state='全'
+                switch (p.day) {
+                    case 1: day='一'  
+                    break;
+                    case 2: day='二'  
+                    break;
+                    case 3: day='三'  
+                    break;
+                    case 4: day='四'  
+                    break;
+                    case 5: day='五'  
+                    break;
+                    case 6: day='六'  
+                    break;
+                    case 7: day='日'  
+                    break;
+                }
                 times.push({
-                    text:`周${p.day} ${p.time}节@`,
+                    text:`周${day} ${p.time}节@`,
                     checked:false,
-                    class_id:index.class_id
+                    class_id:index.class_id,
+                    week_state:state
                 })
             })
-            times.map(p=>{
-                console.log(times[0].text.length)
+            times.map((p,a)=>{
                 if(j>=1){
                     if(p.text.length<times[0].text.length){
                         p.text+=index.places[i];
@@ -618,7 +585,7 @@ export default class Index extends Component {
             })
             j=j+1;  
         })
-    }//times点击第二个进行刷新
+    }
     showList(){
         this.setState({
             showList:!this.state.showList
@@ -645,7 +612,7 @@ export default class Index extends Component {
         })
        }
        else{
-           alert("课表数量不能多于三张")
+           
        }
     }      
 
@@ -659,6 +626,7 @@ export default class Index extends Component {
                 this.setState({
                     data:data.data
                 })
+                table_num=data.data.table_num
                 const tablelist=data.data.table_list;
                 this.state.navList=new Array();
                 tablelist.map((item)=>{
@@ -670,16 +638,89 @@ export default class Index extends Component {
             }
         })
     }
-      
-    coursedetail(item){
+    coursedetail(course,COURSESData){
+        conflictCourse=new Array()
+        this.state.class_id=new Array()
+        conflictCourse.push(course)
+        this.state.class_id.push(course.class_id+'(课堂号）')
+        course.times.map((p,i)=>{
+            COURSESData.map((e,j)=>{
+                if(e.course_id!=course.course_id){
+                    e.times.map(index=>{
+                      if(index.start==p.start&&index.day==p.day){
+                         conflictCourse.push(e)
+                         this.state.class_id.push(e.class_id+'(课堂号）')
+                      }
+                    }) 
+                }
+              })
+        })
         this.setState({
             open_coursedetail:!this.state.open_coursedetail,
-            coursedetail:item
         })
-        console.log(item)
+        // this.setState({
+        //     class_id:item.class_id+'(课堂号)'
+        // })
+        detailtimes=new Array()
+        
+        conflictCourse.map((item,k)=>{
+            var i=0,j=0,state,day;
+            coursedetail.push(item)
+            detailtimes[k]=new Array()
+            item.times.map((p,i)=>{
+                if(p.week_state==1)  state='单'
+                if(p.week_state==2)  state='双'
+                if(p.week_state==0)  state='全'
+                switch (p.day) {
+                    case 1: day='一'  
+                    break;
+                    case 2: day='二'  
+                    break;
+                    case 3: day='三'  
+                    break;
+                    case 4: day='四'  
+                    break;
+                    case 5: day='五'  
+                    break;
+                    case 6: day='六'  
+                    break;
+                    case 7: day='日'  
+                    break;
+                }
+                detailtimes[k].push({
+                    text:`周${day} ${p.start}-${p.start+p.duration-1}节@`,
+                    week_state:state
+                })
+            })
+            detailtimes[k].map((p,i)=>{
+                if(j>=1){
+                    console.log(times)
+                    if(p.text.length<times[0].text.length){
+                        p.text+=item.places[i];
+                        i=i+1;
+                    }
+                }
+                else 
+                   {
+                    p.text+=item.places[i];
+                    i=i+1;
+                   }
+            })
+            j=j+1;  
+        })
     }
 
-    deleteCourse(coursedetail){
+    conflictdetail(){
+        console.log(this.state.conflictCourse)
+        this.setState({
+            open_coursedetail:!this.state.open_coursedetail,
+        })
+        this.state.conflictCourse.map(item,i=>{
+            this.coursedetail(item,i)
+        })
+    }
+
+    deleteCourse(coursedetail,i){
         this.setState({
             open_coursedetail:!this.state.open_coursedetail,
         })
@@ -690,16 +731,44 @@ export default class Index extends Component {
         ).then(res=>{
             if(res.message=="OK"){
                 this.dividetable(table_id)
+                this.getfavorite(table_id)
+                conflictCourse.splice(i+1,1)
             }
         })
+        console.log(conflictCourse)
     }
     closedetail(){
         this.setState({
             open_coursedetail:!this.state.open_coursedetail,
         })
     }
+    divideConflict(e,){
+        conflictCourse.push(e)
+    }
+    courseColor(course){
+        switch (course) {
+            case 0:
+                return '#71D69D';
+                break;
+            case 1:
+                return '#FC807F';
+                break;
+            case 2:
+                return '#94C8FA';
+                break;
+            case 3:
+                return '#71D69D';
+                break;
+            case 4:
+                return '#FC807F';
+                break;
+            case 5:
+                return '#71D69D';
+                break;
+        }//第四位判断
+    }
     render() {
-        const {WEEKS,COURSES,COURSESData,coursedetail}=this.state;
+        const {WEEKS,COURSES,COURSESData}=this.state;
         const scrollStyle = {
             height: '100%',
             width:'100%'
@@ -707,6 +776,9 @@ export default class Index extends Component {
         const scrollLeft = 0
         const scrollTop = 0
         const Threshold = 20
+        const collectcolor={
+            background:this.state.color
+        }
         return (
             <View>
                 <HeaderTab navList={this.state.navList} onGetIndex={this.getIndex.bind(this)} OnGettable={this.gettable.bind(this)} ></HeaderTab> 
@@ -733,8 +805,6 @@ export default class Index extends Component {
                     style={scrollStyle}
                     lowerThreshold={Threshold}
                     upperThreshold={Threshold}
-                    onScrollToUpper={this.onScrollToUpper.bind(this)} // 使用箭头函数的时候 可以这样写 `onScrollToUpper={this.onScrollToUpper}`
-                    onScroll={this.onScroll}
                 >
                     <View className='course'>
                         <View className='left'>
@@ -806,17 +876,14 @@ export default class Index extends Component {
                             </View>
                         </View>
                         {WEEKS.map((week)=>{
-                            return   <View className='middle'>
+                            return   <View className='middle' key={i}>
                                 <View className='week'>{WEEKS[week-1]}</View>
-                                {COURSES.map(()=>
-                                    <View className="courseF"></View>
+                                {COURSES.map((i)=>
+                                    <View className="courseF" key={i}></View>
                                 )}
                                 
                                 {COURSESData[week-1].map((course)=>
-                                   <Course className="muxi-card" course={course} COURSESData={COURSESData[week-1]} week={week} onClick={this.coursedetail.bind(this,course)}>{course.class_name}</Course>
-                                    // COURSESData[week-1].map((item,j)={
-                                        
-                                    // }) 
+                                   <Course className="muxi-card" key={i} course={course} onConflict={this.divideConflict.bind(this)} COURSESData={COURSESData[week-1]} week={week} onClick={this.coursedetail.bind(this,course,COURSESData[week-1])}>{course.class_name}</Course>
                                 )
                                 }
                                 </View>
@@ -828,57 +895,115 @@ export default class Index extends Component {
                                 buttonWidth='120rpx'
                                 buttonHeight='120rpx'
                                 buttonBackground='#6E66EE'  
-                                onClick={this.showList.bind(this)}
-                                     
+                                onClick={this.showList.bind(this)}           
                     >
                         课
                     </MxButton>
                 </View>
-                <FloatLayout isOpened={this.state.showList} title='课程清单' >
-                        { 
-                            this.state.favoritelist.map((item)=>
-                                <View className='card' onClick={this.divideClass.bind(this,item)}>
+                <FloatLayout isOpened={this.state.showList} title='课程清单'  height='120'>
+                        { this.state.favoritelist ?
+                            this.state.favoritelist.map((item)=>{
+                                switch (item.type) {
+                                    case 0:
+                                        color='background:#71D69D'
+                                    break;
+                                    case 1:    
+                                        color='background:#94C8FA'
+                                    break; 
+                                    case 2:    
+                                        color='background:#FC807F'
+                                    break; 
+                                    case 3:   
+                                        color='background:#71D69D'
+                                    break;
+                                    case 4:
+                                        color='background:#FC807F'
+                                    break;
+                                    case 5:
+                                        color='background:#FFCB7B'
+                                    break;
+                                }
+                                return <View className='card' style={color} key={i} onClick={this.divideClass.bind(this,item)}>
                                     <View id='card-content'>{item.classes[0].class_name}</View>
                                 </View>
-                            )
+                            })
+                            :
+                            <View></View>
                         }
                 </FloatLayout>
-                <MxModal isOpened={this.state.showList1} title={title} teacher={teacher} onCancel={this.closeColloction.bind(this)} confirmText='加入课表' onConfirm={this.addfavorite.bind(this)}>
+                <MxModal isOpened={this.state.showList1} 
+                        top='50' 
+                        title={title} 
+                        teacher={teacher} 
+                        onCancel={this.closeColloction.bind(this)} 
+                        confirmText='加入课表' 
+                        onConfirm={this.addfavorite.bind(this)}
+                        >
                     <RadioGroup className='radioG'>
                         <ScrollView
                             scrollY
                             style={scrollStyle}
                             scrollTop={scrollTop}
                         >
-                            {this.state.list.map((item, i) => {
+                            {this.state.list.map((item, i) => { 
                                 return (
                                 <Label className='checkbox-list__label' for={i} key={i}>
-                                    <Radio className='checkbox-list__checkbox' color='#6E66EE' onClick={this.chooseCourse.bind(this,i)}	 value={item.value} checked={item.checked}>{item.text}</Radio>
+                                    <Radio className='checkbox-list__checkbox' color='#6E66EE' onClick={this.chooseCourse.bind(this,i)}	 value={item.value} checked={item.checked}>({item.class_id}){item.text}({item.week_state})</Radio>
                                 </Label>
                                 )
                             })}
                         </ScrollView>
                     </RadioGroup>
                 </MxModal>
-                <MxModal isOpened={this.state.open_coursedetail} cancelText='保留课程' height='560' contentHeight='315' confirmText='删除课程' onCancel={this.closedetail.bind(this)} onConfirm={this.deleteCourse.bind(this,this.state.coursedetail)} title={coursedetail.class_name} teacher={coursedetail.teacher}>
-                    <View className='maincourse'>
-                        <View className='coursedetail'>上课时间：
-                            <View>{coursedetail.times.map(item=>{
-                            return  <View >星期{item.day} {item.start}-{item.start+item.duration-1}节课</View>
-                            })}</View>
-                        </View>
-                        <View className='coursedetail'>上课地点：
-                            <View className='coursetime'>{coursedetail.places.map(item=>{
-                            return <View className='place'>{item}</View>
-                            })}</View>
-                        </View>
-                        <View className='coursedetail'>上课周数：
-                            <View className='coursetime'>{coursedetail.times.map(item=>{
-                            return <View className='place'>{item.weeks}周</View>
+                <MxModal 
+                   isOpened={this.state.open_coursedetail}
+                   top='-22'
+                //    width='0'
+                //    height='0'
+                >
+                <ScrollView
+                    scrollY={true}
+                    style='height: 100rpx;'
+                    scrollTop={scrollTop}
+                >    
+                {conflictCourse.map((item,i) =>{
+                 return <Modal key={i}
+                        isOpened={this.state.open_coursedetail} 
+                        cancelText='保留课程'
+                        height='472'
+                        contentHeight='315'
+                        titleHeight='140'
+                        confirmText='删除课程'
+                        onCancel={this.closedetail.bind(this)}
+                        onConfirm={this.deleteCourse.bind(this,item,i)}
+                        title={item.class_name}
+                        teacher={item.teacher}
+                        class_id={this.state.class_id[i]}
+                        top={100*(i+1)}  
+                        >
+                        <ScrollView
+                            scrollY={true}
+                            style='height: 178rpx;'
+                            scrollTop={scrollTop}
+                        >
+                    <View>
+                        <View className='coursedetail'>
+                            <View className='detailbox'>
+                                {detailtimes[i].map(p=>{
+                                    return  <View className='detailText'>{p.text}</View>
+                                    })}</View>
+                            </View>
+                        <View className='coursedetail'>
+                            <View >{item.times.map(p=>{
+                            return <View className='detailText'>{p.weeks}周 </View>
                             })}</View>
                         </View>
                     </View>
-                </MxModal>
+                    </ScrollView>
+                </Modal>
+                })}
+               </ScrollView>
+               </MxModal>
             </View>
         )
     }
@@ -891,3 +1016,5 @@ export default class Index extends Component {
 //1.12写了点击显示课程详情，改了收藏课程，明天调改好的接口，开始写课表操作
 //1.13日调了一下更名和添加，卡片颜色还有点问题，冲突判断还不ok
 //1.14关于课表改名、添加、删除都ok了，有个小bug待解决，冲突未完成
+
+//改好了课程详情循环显示，modal完成，剩余刷新

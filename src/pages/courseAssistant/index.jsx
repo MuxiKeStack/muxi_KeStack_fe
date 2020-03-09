@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View } from '@tarojs/components';
+import { View, Text } from '@tarojs/components';
 import './index.scss';
 import MxInput from '../../components/common/MxInput/MxInput';
 import MxPicker from '../../components/common/MxPicker';
@@ -8,9 +8,10 @@ import MxRate from '../../components/common/MxRate/MxRate';
 import Fetch from '../../service/fetch';
 
 export default class Index extends Component {
-  // eslint-disable-next-line react/sort-comp
   config = {
-    navigationBarTitleText: '选课助手'
+    navigationBarTitleText: '选课助手',
+    enablePullDownRefresh: true,
+    onReachBottomDistance: 80
   };
 
   constructor() {
@@ -66,45 +67,15 @@ export default class Index extends Component {
       ],
       placeChecked: '上课地点',
       checkPlace: ['全部地点', '本校区', '南湖'],
-      // eslint-disable-next-line react/no-unused-state
-      value: 5,
       keyword: '',
+      records: [],
+      hidden: false,
       type: '',
       academy: '',
       weekday: '',
       place: '',
-      datas: [
-        {
-          text: '马克思主义基本原理',
-          teacher: '张俊',
-          num: '2019347817462',
-          people: '23',
-          tag1: '课程简单易学',
-          tag2: '老师严谨负责',
-          tag3: '云课堂资料全',
-          tag4: '平时作业少'
-        },
-        {
-          text: '线性代数B',
-          teacher: '张俊',
-          num: '2019347817462',
-          people: '23',
-          tag1: '课程简单易学',
-          tag2: '老师严谨负责',
-          tag3: '云课堂资料全',
-          tag4: '平时作业少'
-        },
-        {
-          text: '线性代数B',
-          teacher: '张俊',
-          num: '2019347817462',
-          people: '23',
-          tag1: '课程简单易学',
-          tag2: '老师严谨负责',
-          tag3: '云课堂资料全',
-          tag4: '平时作业少'
-        }
-      ]
+      page: 1,
+      datas: []
     };
   }
 
@@ -127,25 +98,58 @@ export default class Index extends Component {
     });
   }
 
+  onPullDownRefresh() {
+    this.setState({
+      page: 1
+    });
+    Taro.showNavigationBarLoading();
+    this.getSearch();
+  } //下拉事件
+
+  onReachBottom() {
+    this.setState(
+      {
+        page: this.state.page + 1
+      },
+      () => Taro.showNavigationBarLoading(),
+      this.getSearch()
+    );
+  }
+
   getSearch() {
+    var that = this;
     Fetch(
-      'api/v1/search/course',
+      'api/v1/search/course/',
       {
         keyword: this.state.keyword,
         type: this.state.type,
         academy: this.state.academy,
         weekday: this.state.weekday,
         place: this.state.place,
-        page: 1,
-        limit: 15
+        page: this.state.page,
+        limit: 10
       },
       'GET'
     ).then(data => {
       console.log(data);
+      let newdatas = data.data.courses;
+      if (newdatas != null) {
+        Taro.stopPullDownRefresh();
+        Taro.hideNavigationBarLoading();
+        that.setState({
+          datas: newdatas
+        });
+      } else {
+        Taro.showToast({
+          title: '到底啦'
+        });
+        Taro.stopPullDownRefresh();
+        Taro.hideNavigationBarLoading();
+      }
     });
   }
 
-  handleChangeKind = e => {
+  handleChangeKind(e) {
     if (e.detail.value != 0) {
       this.setState(
         {
@@ -167,8 +171,8 @@ export default class Index extends Component {
         }
       );
     }
-  };
-  handleChangeColledge = e => {
+  }
+  handleChangeColledge(e) {
     if (e.detail.value != 0) {
       this.setState(
         {
@@ -190,8 +194,8 @@ export default class Index extends Component {
         }
       );
     }
-  };
-  handleChangeTime = e => {
+  }
+  handleChangeTime(e) {
     if (e.detail.value != 0) {
       this.setState(
         {
@@ -213,8 +217,8 @@ export default class Index extends Component {
         }
       );
     }
-  };
-  handleChangePlace = e => {
+  }
+  handleChangePlace(e) {
     if (e.detail.value != 0) {
       this.setState(
         {
@@ -236,7 +240,7 @@ export default class Index extends Component {
         }
       );
     }
-  };
+  }
 
   componentWillMount() {}
 
@@ -245,14 +249,79 @@ export default class Index extends Component {
   }
 
   handleClickInput() {
+    this.setState({
+      hidden: false
+    });
     this.getSearch();
   }
 
-  handleClickContent(event) {
+  handleClickContent(e) {
     this.setState({
-      keyword: event.detail.value
+      keyword: e.detail.value
+    });
+    if (e.detail.value == '') {
+      this.setState({
+        keyword: e.detail.value
+      });
+      this.getSearch();
+    }
+  }
+
+  //input的onfocus
+  handleFocus() {
+    this.setState({
+      hidden: true
     });
   }
+
+  onChhange(e) {
+    if (e.detail.value != '') {
+      let records = Taro.getStorageSync('records') || [];
+      if (records.length < 10) {
+        records.push({ id: records.length, title: e.detail.value });
+      } else {
+        records.pop();
+        records.push({ id: records.length, title: e.detail.value });
+      }
+      this.setState({
+        hidden: true,
+        records: records
+      });
+      Taro.setStorageSync('records', records);
+    }
+  }
+  //清除缓存历史并关闭历史搜索框
+  onClearHistory() {
+    this.setState({
+      records: [],
+      hidden: false
+    });
+    Taro.setStorageSync('records', []);
+  }
+
+  handleBlur(e) {
+    if (e.detail.value == '') {
+      this.setState({
+        hidden: false
+      });
+    }
+  }
+
+  handleHistory(e) {
+    const that = this;
+    var text = e.currentTarget.dataset.title;
+    console.log(text);
+    that.setState(
+      {
+        keyword: text,
+        hidden: false
+      },
+      () => {
+        that.getSearch();
+      }
+    );
+  }
+
   componentWillUnmount() {}
 
   componentDidShow() {}
@@ -260,6 +329,29 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
+    const hidden = this.state.hidden;
+    const { records } = this.state;
+    const list = (
+      <View className="index">
+        <Text className="history">历史记录</Text>
+        {records.map(record => {
+          // eslint-disable-next-line react/jsx-key
+          return (
+            <View
+              className="title"
+              key={record.id}
+              data-title={record.title}
+              onClick={this.handleHistory.bind(this)}
+            >
+              {record.title}
+            </View>
+          );
+        })}
+        <Text className="clear" onClick={this.onClearHistory.bind(this)}>
+          清空
+        </Text>
+      </View>
+    );
     const content = (
       <View className="detailsBoxes">
         <View onClick={this.ChangeTofree.bind(this)} className="fab">
@@ -274,39 +366,68 @@ export default class Index extends Component {
                 onClick={this.ChangeTodetails.bind(this)}
               >
                 <View className="user-info">
-                  <View className="class">{data.text}</View>
+                  <View className="class">{data.name}</View>
                   <View className="teacher">{data.teacher}</View>
-                  <View className="num">{data.num}</View>
+                  <View className="num">{data.course_id}</View>
                 </View>
                 <View>
                   <View className="rate">
                     <View className="star">
-                      <MxRate value={this.state.value} />
+                      <MxRate value={data.rate} />
                     </View>
                     <View className="word">评价人数：</View>
-                    <View className="people">{data.people}</View>
+                    <View className="people">{data.stars_num}</View>
                   </View>
                   <View className="tag">
-                    <View className="tag1">
-                      <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
-                        {data.tag1}
-                      </MxTag>
-                    </View>
-                    <View className="tag2">
-                      <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
-                        {data.tag2}
-                      </MxTag>
-                    </View>
-                    <View className="tag3">
-                      <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
-                        {data.tag3}
-                      </MxTag>
-                    </View>
-                    <View className="tag4">
-                      <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
-                        {data.tag4}
-                      </MxTag>
-                    </View>
+                    {data.attendance == '' && (
+                      <View className="tag1">
+                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          暂无评价
+                        </MxTag>
+                      </View>
+                    )}
+                    {data.attendance !== '' && (
+                      <View className="tag1">
+                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          {data.attendance}
+                        </MxTag>
+                      </View>
+                    )}
+                    {data.exam == '' && (
+                      <View className="tag2">
+                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          暂无评价
+                        </MxTag>
+                      </View>
+                    )}
+                    {data.exam !== '' && (
+                      <View className="tag2">
+                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          {data.exam}
+                        </MxTag>
+                      </View>
+                    )}
+                    {data.tags == '' && (
+                      <View className="tag3">
+                        <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          暂无课程特点评价
+                        </MxTag>
+                      </View>
+                    )}
+                    {data.tags != '' &&
+                      data.tags.map(t => {
+                        return (
+                          // eslint-disable-next-line react/jsx-key
+                          <View className="tag3">
+                            <MxTag
+                              check={false}
+                              padding="1rpx 28rpx 3rpx 28rpx"
+                            >
+                              {t}
+                            </MxTag>
+                          </View>
+                        );
+                      })}
                   </View>
                 </View>
               </View>
@@ -322,15 +443,21 @@ export default class Index extends Component {
           <View className="search">
             <MxInput
               leftSrc="../../../assets/svg/searchicon.svg"
-              leftSize="20px"
+              leftSize="32rpx"
+              rightSize="5rpx"
               width="670rpx"
               height="72rpx"
               background="rgba(241,240,245,1)"
               radius="36rpx"
+              placeholder="搜索课程名/老师名/课程序号"
               onClick={this.handleClickInput.bind(this)}
               onInput={this.handleClickContent.bind(this)}
+              onChange={this.onChhange.bind(this)}
+              onBlur={this.handleBlur.bind(this)}
+              onFocus={this.handleFocus.bind(this)}
             ></MxInput>
           </View>
+          {hidden && list}
           <View className="choicePicker">
             <View className="choicePicker1">
               <MxPicker

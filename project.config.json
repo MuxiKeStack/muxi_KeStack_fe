@@ -4,7 +4,7 @@
 	"description": "",
 	"appid": "touristappid",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": false,
 		"postcss": false,
 		"minified": false,
@@ -32,16 +32,8 @@
 		"game": {
 			"list": []
 		},
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
 		"miniprogram": {
-			"current": 7,
+			"current": 0,
 			"list": [
 				{
 					"id": -1,
@@ -80,22 +72,8 @@
 				},
 				{
 					"id": -1,
-					"name": "me",
-					"pathName": "pages/homepage/index",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": -1,
-					"name": "kechengzhuye",
-					"pathName": "pages/courseDetails/courseDetails",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": -1,
-					"name": "课程详情",
-					"pathName": "pages/courseDetails/courseDetails",
+					"name": "goDieavatar",
+					"pathName": "pages/changeUserInfo/index",
 					"query": "",
 					"scene": ""
 				}
