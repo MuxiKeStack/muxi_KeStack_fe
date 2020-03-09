@@ -112,7 +112,7 @@ export default class Index extends Component {
 
   ChangeTodetails(value) {
     Taro.navigateTo({
-      url: `/pages/courseDetails/courseDetails?courseId=123`
+      url: `/pages/courseDetails/courseDetails?courseId=${value}`
     });
   }
 
@@ -173,8 +173,7 @@ export default class Index extends Component {
   }
 
   render() {
-    var bottomFlag = this.state.bottomFlag
-    var isAnonymous = this.state.is_anonymous
+    const { bottomFlag } = this.state;
     const content = (
       <View
         className='detailsBoxes'
@@ -187,12 +186,12 @@ export default class Index extends Component {
                   <View className='detailsWrapper'>
                     <View className='detailsFirst'>
                       <View>
-                       {!isAnonymous && <Image src={comment.user_info.avatar} className='detailsAvatar'></Image> }
-                       {isAnonymous && <Image src={Octodex} className='detailsAvatar'></Image> }
+                       {!comment.is_anonymous && <Image src={comment.user_info.avatar} className='detailsAvatar'></Image> }
+                       {comment.is_anonymous && <Image src={Octodex} className='detailsAvatar'></Image> }
                       </View>
                       <View className='detailsFirstInfo'>
-                        {!isAnonymous && <View className='detailsFirstInfo1'>{comment.user_info.username}</View>}
-                        {isAnonymous && <View className='detailsFirstInfo1'>匿名用户</View>}
+                        {!comment.is_anonymous && <View className='detailsFirstInfo1'>{comment.user_info.username}</View>}
+                        {comment.is_anonymous && <View className='detailsFirstInfo1'>匿名用户</View>}
                         <View className='detailsFirstInfo2'>{this.normalTime(comment.time)}</View>
                       </View>
                       <View className='detailsFirstIcon'>
@@ -200,7 +199,7 @@ export default class Index extends Component {
                       </View>
                     </View>
                     <View className='detailsSecond'>
-                      <View className='detailsSecondInfo1' onClick={this.ChangeTodetails.bind(this,comment.id)}>#{comment.course_name}({comment.teacher})</View>
+                      <View className='detailsSecondInfo1' onClick={this.ChangeTodetails.bind(this,comment.course_id)}>#{comment.course_name}({comment.teacher})</View>
                         <View className='detailsSecondInfo2'>评价星级：</View>
                         <View className='detailsRate'>
                         <MxRate value={comment.rate}></MxRate>

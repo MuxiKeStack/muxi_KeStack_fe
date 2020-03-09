@@ -164,7 +164,7 @@ export default class Index extends Component {
           duration: 2000
         });
       } else {
-        Fetch('api/v1/evaluation/', post, 'POST').then(data => {
+        Fetch('api/v1/evaluation/', post, 'POST').then(() => {
           Taro.switchTab({
             url: '/pages/commentSquare/index'
           });
