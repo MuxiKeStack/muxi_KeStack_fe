@@ -275,7 +275,6 @@ export default class Index extends Component {
                   </View>
                 </View>
               </View>
-            </View>
           );
         })}
       </View>

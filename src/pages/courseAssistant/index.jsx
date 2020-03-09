@@ -139,6 +139,7 @@ export default class Index extends Component {
         that.setState({
           datas: newdatas
         });
+        console.log(newdatas);
       } else {
         Taro.showToast({
           title: '到底啦'
