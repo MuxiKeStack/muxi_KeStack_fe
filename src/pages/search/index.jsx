@@ -238,10 +238,14 @@ export default class Index extends Component {
   }
   //input的onClick
   handleClickInput() {
-    this.setState({
-      hidden: false
-    });
-    this.getHistorySearch();
+    this.setState(
+      {
+        hidden: false
+      },
+      () => {
+        this.getHistorySearch();
+      }
+    );
   }
   //input的oninput
   handleClickContent(e) {
@@ -272,7 +276,7 @@ export default class Index extends Component {
         history.push({ id: history.length, title: e.detail.value });
       }
       this.setState({
-        hidden: true,
+        // hidden: true,
         history: history
       });
       Taro.setStorageSync('history', history);
