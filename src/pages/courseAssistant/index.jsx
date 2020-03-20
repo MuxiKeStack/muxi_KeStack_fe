@@ -86,9 +86,9 @@ export default class Index extends Component {
     });
   }
 
-  ChangeTodetails() {
+  ChangeTodetails(value) {
     Taro.navigateTo({
-      url: '/pages/courseDetails/courseDetails'
+      url: `/pages/courseDetails/courseDetails?courseId=${value}`
     });
   }
 
@@ -364,7 +364,7 @@ export default class Index extends Component {
             <View className="detailsBox">
               <View
                 className="mx-card"
-                onClick={this.ChangeTodetails.bind(this)}
+                onClick={this.ChangeTodetails.bind(this, data.hash)}
               >
                 <View className="user-info">
                   <View className="class">{data.name}</View>

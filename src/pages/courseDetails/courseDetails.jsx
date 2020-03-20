@@ -8,76 +8,21 @@ import star from '../../assets/png/star.png';
 import hotcmt from '../../assets/png/hotcmt.png';
 import newcmt from '../../assets/png/newcmt.png';
 import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
+import ClassCard from '../../components/page/ClassCard/ClassCard';
 
 export default class Coursedetails extends Component {
   constructor() {
     super(...arguments);
     this.state = {
+      gradeInfo: { section_1: 0, section_2: 0, section_3: 0 },
       classInfo: '',
       hotList: '',
       normalList: '',
       lastID: 0,
       normalLimit: 10,
       nomorecmt: false,
-      token:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY',
-      sort: 'hot',
-      limit: 5,
-      sum: 10,
-      classes: [
-        [
-          { time: '周一7~8节', place: '7105', week: '2' },
-          { time: '周三5~6节', place: '7107', week: '1' },
-          { time: '周四5~6节', place: '7107', week: '1' }
-        ],
-        [
-          { time: '周一7~8节', place: '7105', week: '2' },
-          { time: '周三5~6节', place: '7107', week: '1' }
-        ],
-        [
-          { time: '周一7~8节', place: '7105', week: '2' },
-          { time: '周三5~6节', place: '7107', week: '1' },
-          { time: '周四5~6节', place: '7107', week: '1' }
-        ],
-        [
-          { time: '周一7~8节', place: '7105', week: '2' },
-          { time: '周三5~6节', place: '7107', week: '1' },
-          { time: '周四5~6节', place: '7107', week: '1' }
-        ],
-        [
-          { time: '周一7~8节', place: '7105', week: '2' },
-          { time: '周三5~6节', place: '7107', week: '1' }
-        ],
-        [
-          { time: '周一7~8节', place: '7105', week: '0' },
-          { time: '周三5~6节', place: '7107', week: '0' },
-          { time: '周四5~6节', place: '7107', week: '0' }
-        ]
-      ],
       drawerWidth: '0px',
-      cover: 'none',
-      courseCredit: '2',
-      rate: '4',
-      starNumber: '23',
-      attendance1: '30',
-      attendance2: '60',
-      attendance3: '10',
-      inspection1: '40',
-      inspection2: '20',
-      inspection3: '10',
-      inspection4: '10',
-      courseTime1: '',
-      courseTime2: '',
-      courseTime3: '',
-      coursePlace1: '',
-      coursePlace2: '',
-      coursePlace3: '',
-      courseGrade70: '11',
-      courseGrade7085: '76',
-      courseGrade85: '13',
-      courseGradeNumber: '89',
-      totalGrade: '78.69',
-      ordinaryGrade: '94.04'
+      cover: 'none'
     };
   }
   config = {
@@ -139,94 +84,11 @@ export default class Coursedetails extends Component {
 
     console.log(this.state.normalList);
   }
-  componentWillMount() {
-    console.log(this.$router.params.courseId); //前页面传过来的id
-    var attendance1 = '30';
-    var attendance2 = '60';
-    var attendance3 = '10';
-    var inspection1 = '40';
-    var inspection2 = '20';
-    var inspection3 = '10';
-    var inspection4 = '10';
-    var courseGrade70 = '11';
-    var courseGrade7085 = '76';
-    var courseGrade85 = '13';
-    const res = Taro.getSystemInfoSync();
-    const point = (res.screenWidth / 750) * 50;
-    const radiusOut = (res.screenWidth / 750) * 50;
-    const radiusIn = (res.screenWidth / 750) * 48;
-    const PALETTE = ['#6869F7', '#FD817E', '#D8D8D8', '#F9D57F'];
-
-    function toInt(percent) {
-      return parseInt(percent);
-    }
-    const ANGLE1 = [
-      toInt(courseGrade70),
-      toInt(courseGrade70) + toInt(courseGrade7085),
-      toInt(courseGrade70) + toInt(courseGrade7085) + toInt(courseGrade85)
-    ];
-    const ANGLE2 = [
-      toInt(attendance1),
-      toInt(attendance1) + toInt(attendance2),
-      toInt(attendance1) + toInt(attendance2) + toInt(attendance3)
-    ];
-    const ANGLE3 = [
-      toInt(inspection1),
-      toInt(inspection1) + toInt(inspection2),
-      toInt(inspection1) + toInt(inspection2) + toInt(inspection3),
-      toInt(inspection1) +
-        toInt(inspection2) +
-        toInt(inspection3) +
-        toInt(inspection4)
-    ];
-
-    function computeAngle(percent) {
-      return (Math.PI / 180) * 3.6 * percent + (Math.PI * 3) / 2;
-    }
-    function drawSector(beginAngle, finishAngle, color, ctx) {
-      ctx.beginPath();
-      ctx.arc(
-        point,
-        point,
-        radiusOut,
-        computeAngle(beginAngle),
-        computeAngle(finishAngle),
-        false
-      );
-      ctx.arc(
-        point,
-        point,
-        radiusIn,
-        computeAngle(finishAngle),
-        computeAngle(beginAngle),
-        true
-      );
-      ctx.closePath();
-      ctx.fillStyle = color;
-      ctx.fill();
-    }
-    function drawRing(ctx, ANGLE, type) {
-      drawSector(0, ANGLE[0], PALETTE[0], ctx);
-      drawSector(ANGLE[0], ANGLE[1], PALETTE[3], ctx);
-      drawSector(ANGLE[1], ANGLE[2], PALETTE[2], ctx);
-      if (ANGLE[3]) {
-        drawSector(ANGLE[2], ANGLE[3], PALETTE[1], ctx);
-      }
-      ctx.fillStyle = '#6869F7';
-      ctx.font = '23rpx';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(`${type}`, radiusOut, radiusOut);
-      ctx.draw();
-    }
-    drawRing(Taro.createCanvasContext('ring1'), ANGLE1, '成绩');
-    drawRing(Taro.createCanvasContext('ring2'), ANGLE2, '考勤');
-    drawRing(Taro.createCanvasContext('ring3'), ANGLE3, '考核');
-  }
+  componentWillMount() {}
 
   componentDidMount() {
     Fetch(
-      'api/v1/course/history/112d34testsvggase/evaluations/',
+      'api/v1/course/history/' + this.$router.params.courseId + '/evaluations/',
       {
         id: '112d34testsvggase',
         hot_limit: '5'
@@ -234,7 +96,6 @@ export default class Coursedetails extends Component {
       'GET'
     ).then(data => {
       if (data) {
-        // console.log(data.data);
         this.setState({
           hotList: data.data.hot_list,
           normalList: data.data.normal_list,
@@ -245,18 +106,27 @@ export default class Coursedetails extends Component {
         });
       }
     });
-    // Taro.setStorageSync(
-    //   'token',
-    //   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzQ5OTI1MDQsImlkIjoyLCJuYmYiOjE1NzQ5OTI1MDR9.TeG9DKVvzw-1j_e3wmQSdZsc1jlNPlUBOw0orUqhyGY'
-    // );
     Fetch(
-      'api/v1/course/using/info/9861750066dd7bc0698926e4c6986b80/',
+      'api/v1/course/using/info/' + this.$router.params.courseId + '/',
+      // 'api/v1/course/using/info/6c890e39a029da0cef4566907ed4e07e/',
       {},
       'GET'
     ).then(data => {
       if (data) {
         this.setState({
           classInfo: data.data
+        });
+        console.log(data.data);
+      }
+    });
+    Fetch(
+      'api/v1/grade/',
+      { course_id: this.$router.params.courseId },
+      'GET'
+    ).then(data => {
+      if (data) {
+        this.setState({
+          gradeInfo: data.data
         });
         console.log(data.data);
       }
@@ -341,11 +211,114 @@ export default class Coursedetails extends Component {
     });
   }
 
-  renderWelcome(e) {
-    return <View>Hello, {e}</View>;
-  }
-
   render() {
+    const { gradeInfo, classInfo, nomorecmt, hotList, normalList } = this.state;
+    const res = Taro.getSystemInfoSync();
+    const point = (res.screenWidth / 750) * 50;
+    const radiusOut = (res.screenWidth / 750) * 50;
+    const radiusIn = (res.screenWidth / 750) * 48;
+    var TOTAL = [
+      parseInt(gradeInfo.sample_size),
+      classInfo.attendance.Occasionally +
+        classInfo.attendance.Often +
+        classInfo.attendance.SignIn,
+      classInfo.exam.Close +
+        classInfo.exam.Eassay +
+        classInfo.exam.None +
+        classInfo.exam.Open
+    ];
+    var NUM1 = [
+      parseInt(gradeInfo.section_1),
+      parseInt(gradeInfo.section_1) + parseInt(gradeInfo.section_2),
+      parseInt(gradeInfo.section_1) +
+        parseInt(gradeInfo.section_2) +
+        parseInt(gradeInfo.section_3)
+    ];
+    var NUM2 = [
+      classInfo.attendance.Often,
+      classInfo.attendance.Often + classInfo.attendance.Occasionally,
+      classInfo.attendance.Often +
+        classInfo.attendance.Occasionally +
+        classInfo.attendance.SignIn
+    ];
+    var NUM3 = [
+      classInfo.exam.Close,
+      classInfo.exam.Close + classInfo.exam.Eassay,
+      classInfo.exam.Close + classInfo.exam.Eassay + classInfo.exam.None,
+      classInfo.exam.Close +
+        classInfo.exam.Eassay +
+        classInfo.exam.None +
+        classInfo.exam.Open
+    ];
+    var ANGLE1 =
+      TOTAL[0] != 0
+        ? [
+            (NUM1[0] * 100) / TOTAL[0],
+            (NUM1[1] * 100) / TOTAL[0],
+            (NUM1[2] * 100) / TOTAL[0]
+          ]
+        : [0, 0, 0];
+    var ANGLE2 =
+      TOTAL[1] != 0
+        ? [
+            (NUM2[0] * 100) / TOTAL[1],
+            (NUM2[1] * 100) / TOTAL[1],
+            (NUM2[2] * 100) / TOTAL[1]
+          ]
+        : [0, 0, 0];
+    var ANGLE3 =
+      TOTAL[2] != 0
+        ? [
+            (NUM3[0] * 100) / TOTAL[2],
+            (NUM3[1] * 100) / TOTAL[2],
+            (NUM3[2] * 100) / TOTAL[2],
+            (NUM3[3] * 100) / TOTAL[2]
+          ]
+        : [0, 0, 0, 0];
+
+    function computeAngle(percent) {
+      return (Math.PI / 180) * 3.6 * percent + (Math.PI * 3) / 2;
+    }
+    function drawSector(beginAngle, finishAngle, color, ctx) {
+      ctx.beginPath();
+      ctx.arc(
+        point,
+        point,
+        radiusOut,
+        computeAngle(beginAngle),
+        computeAngle(finishAngle),
+        false
+      );
+      ctx.arc(
+        point,
+        point,
+        radiusIn,
+        computeAngle(finishAngle),
+        computeAngle(beginAngle),
+        true
+      );
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+    function drawRing(ctx, ANGLE, type) {
+      drawSector(0, ANGLE[0], '#6869F7', ctx);
+      drawSector(ANGLE[0], ANGLE[1], '#F9D57F', ctx);
+      drawSector(ANGLE[1], ANGLE[2], '#D8D8D8', ctx);
+      if (ANGLE[3]) {
+        drawSector(ANGLE[2], ANGLE[3], '#FD817E', ctx);
+      }
+      ctx.fillStyle = '#6869F7';
+      ctx.font = '23rpx';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(`${type}`, radiusOut, radiusOut);
+      ctx.draw();
+    }
+    drawRing(Taro.createCanvasContext('ring1'), ANGLE1, '成绩');
+    drawRing(Taro.createCanvasContext('ring2'), ANGLE2, '考勤');
+    drawRing(Taro.createCanvasContext('ring3'), ANGLE3, '考核');
+
     let courseCategory = null;
     if (this.state.classInfo.course_category == 0) {
       courseCategory = <Text>通识必修课</Text>;
@@ -361,46 +334,13 @@ export default class Coursedetails extends Component {
       courseCategory = <Text>通识核心课</Text>;
     }
 
-    const PALETTE = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
-    const {
-      classInfo,
-      nomorecmt,
-      hotList,
-      normalList,
-      attendance1,
-      attendance2,
-      attendance3,
-      inspection1,
-      inspection2,
-      inspection3,
-      inspection4,
-      courseGrade70,
-      courseGrade7085,
-      courseGrade85,
-      courseGradeNumber
-    } = this.state;
-    function toInt(percent) {
-      return parseInt(percent);
-    }
-    const ANGLE1 = [
-      toInt(courseGrade70),
-      toInt(courseGrade7085),
-      toInt(courseGrade85)
-    ];
-    const ANGLE2 = [toInt(attendance1), toInt(attendance2), toInt(attendance3)];
-    const ANGLE3 = [
-      toInt(inspection1),
-      toInt(inspection2),
-      toInt(inspection3),
-      toInt(inspection4)
-    ];
     const drawerStyle = {
       width: this.state.drawerWidth
     };
     const coverStyle = { display: this.state.cover };
+    const CARDCOLOR = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
     return (
       <View className="courseDetails">
-        {this.renderWelcome('d')}
         <View className="starBac" onClick={this.favorite.bind(this)}>
           <Image src={star} className="star"></Image>
         </View>
@@ -413,16 +353,20 @@ export default class Coursedetails extends Component {
           {classInfo.class_info &&
             classInfo.class_info.map(item => {
               return (
-                <View className="classBox" key={item.id}>
-                  <View>{item.id}课堂</View>
-                  {item.list &&
-                    item.list.map(index => {
-                      return (
-                        <View key={index.Id}>
-                          {index.Time}节 @ {index.Place} {index.Week}
-                        </View>
-                      );
-                    })}
+                <View
+                  className="classBox"
+                  key={item.id}
+                  style={`background-color:${CARDCOLOR[item.id % 4]}`}
+                >
+                  <View className="classNum">{item.id}课堂</View>
+                  <View className="classWeek">
+                    {item.list[0].Week.substring(
+                      0,
+                      item.list[0].Week.length - 2
+                    )}
+                    周
+                  </View>
+                  {item.list && <ClassCard list={item.list} />}
                 </View>
               );
             })}
@@ -458,78 +402,149 @@ export default class Coursedetails extends Component {
         </View>
         <View className="ring">
           <View className="ringBox">
-            <View className="canvasBox">
-              <Canvas style="width: 100px; height: 100px;" canvasId="ring1" />
-            </View>
+            {classInfo.attendance && (
+              <View className="canvasBox">
+                <Canvas style="width: 100px; height: 100px;" canvasId="ring1" />
+              </View>
+            )}
             <View className="levels" style="font-size: 20rpx">
               <View className="item">
                 <View className="circle1"></View>
-                <View className="level">70以下：{ANGLE1[0]}%</View>
+                <View className="level">
+                  70以下：
+                  {TOTAL[0] != 0
+                    ? (parseInt(gradeInfo.section_1) * 100) / TOTAL[0]
+                    : 0}
+                  %
+                </View>
               </View>
               <View className="item">
                 <View className="circle2"></View>
-                <View className="level">70~85：{ANGLE1[1]}%</View>
+                <View className="level">
+                  70~85：
+                  {TOTAL[0] != 0
+                    ? (parseInt(gradeInfo.section_2) * 100) / TOTAL[0]
+                    : 0}
+                  %
+                </View>
               </View>
               <View className="item">
                 <View className="circle3"></View>
-                <View className="level">85以上：{ANGLE1[2]}%</View>
+                <View className="level">
+                  85以上：
+                  {TOTAL[0] != 0
+                    ? (parseInt(gradeInfo.section_3) * 100) / TOTAL[0]
+                    : 0}
+                  %
+                </View>
               </View>
             </View>
           </View>
           <View className="ringBox">
-            <View className="canvasBox">
-              <Canvas style="width: 100px; height: 100px;" canvasId="ring2" />
-            </View>
+            {classInfo.attendance && (
+              <View className="canvasBox">
+                <Canvas style="width: 100px; height: 100px;" canvasId="ring2" />
+              </View>
+            )}
             <View className="levels" style="font-size: 20rpx">
               <View className="item">
                 <View className="circle1"></View>
-                <View className="level">经常点名：{ANGLE2[0]}%</View>
+                <View className="level">
+                  经常点名：
+                  {TOTAL[1] != 0
+                    ? (classInfo.attendance.Often * 100) / TOTAL[1]
+                    : 0}
+                  %
+                </View>
               </View>
               <View className="item">
                 <View className="circle2"></View>
-                <View className="level">偶尔点名：{ANGLE2[1]}%</View>
+                <View className="level">
+                  偶尔点名：
+                  {TOTAL[1] != 0
+                    ? (classInfo.attendance.Occasionally * 100) / TOTAL[1]
+                    : 0}
+                  %
+                </View>
               </View>
               <View className="item">
                 <View className="circle3"></View>
-                <View className="level">从不点名：{ANGLE2[2]}%</View>
+                <View className="level">
+                  从不点名：
+                  {TOTAL[1] != 0
+                    ? (classInfo.attendance.SignIn * 100) / TOTAL[1]
+                    : 0}
+                  %
+                </View>
               </View>
             </View>
           </View>
           <View className="ringBox2">
-            <View className="canvasBox">
-              <Canvas style="width: 100px; height: 100px;" canvasId="ring3" />
-            </View>
+            {classInfo.attendance && (
+              <View className="canvasBox">
+                <Canvas style="width: 100px; height: 100px;" canvasId="ring3" />
+              </View>
+            )}
             <View className="levels" style="font-size: 20rpx">
               <View className="item">
                 <View className="circle1"></View>
-                <View className="level">闭卷考试：{ANGLE3[0]}%</View>
+                <View className="level">
+                  闭卷考试：
+                  {TOTAL[2] != 0 ? (classInfo.exam.Close * 100) / TOTAL[1] : 0}%
+                </View>
               </View>
               <View className="item">
                 <View className="circle2"></View>
-                <View className="level">开卷考试：{ANGLE3[1]}%</View>
+                <View className="level">
+                  论文考试：
+                  {TOTAL[2] != 0 ? (classInfo.exam.Eassay * 100) / TOTAL[1] : 0}
+                  %
+                </View>
               </View>
               <View className="item">
                 <View className="circle3"></View>
-                <View className="level">论文考试：{ANGLE3[2]}%</View>
+                <View className="level">
+                  无考试：
+                  {TOTAL[2] != 0 ? (classInfo.exam.None * 100) / TOTAL[1] : 0}%
+                </View>
               </View>
               <View className="item">
                 <View className="circle4"></View>
-                <View className="level">无考试：{ANGLE3[3]}%</View>
+                <View className="level">
+                  开卷考试：
+                  {TOTAL[2] != 0 ? (classInfo.exam.Open * 100) / TOTAL[1] : 0}%
+                </View>
               </View>
             </View>
           </View>
         </View>
-        <View className="sampleSize">(成绩样本量：{courseGradeNumber})</View>
-        <View className="averageBox">
-          <View className="averageSmallBox1">
-            <View className="averageName">总平均分</View>
-            <View className="averageGrade">{classInfo.total_score}</View>
-          </View>
-          <View className="averageSmallBox2">
-            <View className="averageName">平时均分</View>
-            <View className="averageGrade">{classInfo.ordinary_score}</View>
-          </View>
+        <View className="sampleSize">
+          (成绩样本量：{gradeInfo.sample_size})
         </View>
+        {gradeInfo.has_licence && (
+          <View className="averageBox">
+            <View className="averageSmallBox1">
+              <View className="averageName">总平均分</View>
+              <View className="averageGrade">{classInfo.total_score}</View>
+            </View>
+            <View className="averageSmallBox2">
+              <View className="averageName">平时均分</View>
+              <View className="averageGrade">{classInfo.ordinary_score}</View>
+            </View>
+          </View>
+        )}
+        {!gradeInfo.has_licence && (
+          <View className="averageBox">
+            <View className="averageSmallBox1">
+              <View className="averageName">总平均分</View>
+              <View className="averageGrade">**.**</View>
+            </View>
+            <View className="averageSmallBox2">
+              <View className="averageName">平时均分</View>
+              <View className="averageGrade">**.**</View>
+            </View>
+          </View>
+        )}
         <View className="feature">课堂特点：</View>
         <View className="tagBox">
           {classInfo &&
