@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
+import { View } from '@tarojs/components';
 import './index.scss';
 import MxInput from '../../components/common/MxInput/MxInput';
 import MxPicker from '../../components/common/MxPicker';
@@ -86,9 +86,9 @@ export default class Index extends Component {
     });
   }
 
-  ChangeTodetails() {
+  ChangeTodetails(value) {
     Taro.navigateTo({
-      url: '/pages/courseDetails/courseDetails'
+      url: `/pages/courseDetails/courseDetails?courseId=${value}`
     });
   }
 
@@ -139,6 +139,7 @@ export default class Index extends Component {
         that.setState({
           datas: newdatas
         });
+        console.log(newdatas);
       } else {
         Taro.showToast({
           title: '到底啦'
@@ -249,10 +250,14 @@ export default class Index extends Component {
   }
 
   handleClickInput() {
-    this.setState({
-      hidden: false
-    });
-    this.getSearch();
+    this.setState(
+      {
+        hidden: false
+      },
+      () => {
+        this.getSearch();
+      }
+    );
   }
 
   handleClickContent(e) {
@@ -284,7 +289,7 @@ export default class Index extends Component {
         records.push({ id: records.length, title: e.detail.value });
       }
       this.setState({
-        hidden: true,
+        // hidden: true,
         records: records
       });
       Taro.setStorageSync('records', records);
@@ -333,7 +338,7 @@ export default class Index extends Component {
     const { records } = this.state;
     const list = (
       <View className="index">
-        <Text className="history">历史记录</Text>
+        <View className="history">历史记录</View>
         {records.map(record => {
           // eslint-disable-next-line react/jsx-key
           return (
@@ -347,9 +352,9 @@ export default class Index extends Component {
             </View>
           );
         })}
-        <Text className="clear" onClick={this.onClearHistory.bind(this)}>
+        <View className="clear" onClick={this.onClearHistory.bind(this)}>
           清空
-        </Text>
+        </View>
       </View>
     );
     const content = (
@@ -363,7 +368,7 @@ export default class Index extends Component {
             <View className="detailsBox">
               <View
                 className="mx-card"
-                onClick={this.ChangeTodetails.bind(this)}
+                onClick={this.ChangeTodetails.bind(this, data.hash)}
               >
                 <View className="user-info">
                   <View className="class">{data.name}</View>
