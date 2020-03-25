@@ -1,13 +1,17 @@
 View {
     display: inline-block;
 }
+Page {
+  background-color: rgba(241,240,245,1);
+}
 .detailsBoxes {
-    height: 1200rpx;
+    height: 100%;
     width: 750px;
-    margin-top: 7rpx;
+    //margin-top: 7rpx;
     background-color: rgba(241,240,245,1);
     align-items: center;
     overflow: scroll;
+    display: block;
 }
 /*
 .detailsBox:last-child {
@@ -83,5 +87,5 @@ View {
 }
 .detailsText{
     width: 165rpx;
-    word-break:keep-all; 
+    word-break:keep-all;
 }
