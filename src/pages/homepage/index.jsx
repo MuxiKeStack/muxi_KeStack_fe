@@ -26,11 +26,11 @@ export default class Index extends Component {
   };
 
   componentDidMount() {
-    if (!Taro.getStorageSync('sid'))
-      Taro.showModal({
-        title: '提示',
-        content: '未登陆'
+    if (!Taro.getStorageSync('sid')) {
+      Taro.navigateTo({
+        url: '/pages/login/index'
       });
+    }
   }
 
   componentDidShow() {

@@ -32,7 +32,7 @@ export default class Index extends Component {
     newList.push(parseInt(parseInt(firstYear)+3)+'-'+parseInt(parseInt(firstYear)+4));
     this.setState({
       selectoryears: newList,
-    });
+    },this.getData());
   }
 
   componentWillUnmount() {}

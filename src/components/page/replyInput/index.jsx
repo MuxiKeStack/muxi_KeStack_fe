@@ -77,7 +77,7 @@ export default class replyInput extends Component {
           )}
         </View>
         <Text className="text">匿名</Text>
-        {/* <Input
+        <Input
           placeholder="回复："
           placeholderClass="placeholder"
           className="reply-input"
@@ -86,12 +86,12 @@ export default class replyInput extends Component {
           onConfirm={this.handleSubmit.bind(this)}
           value={this.state.content}
           onChange={this.handleChange.bind(this)}
-        /> */}
+        />
         {/* <Button className="send-button" formType="submit" size="2">
             发送
           </Button> */}
         {/* </Form> */}
-        <Textarea
+        {/* <Textarea
           placeholder="回复"
           placeholderClass="placeholder"
           className="reply-input"
@@ -102,7 +102,7 @@ export default class replyInput extends Component {
           onConfirm={this.handleSubmit.bind(this)}
           value={this.state.content}
           onInput={this.handleChange.bind(this)}
-        ></Textarea>
+        ></Textarea> */}
       </View>
     );
   }
