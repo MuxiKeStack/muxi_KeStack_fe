@@ -1,11 +1,10 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text, Block } from '@tarojs/components';
+import { View, Image, Text } from '@tarojs/components';
 import { List } from '../../components/page/List';
 import { Item } from '../../components/page/List/Item';
 import image from '../../assets/svg/avatar-img.svg';
 import './index.scss';
 import Fetch from '../../service/fetch';
-import MxButton from '../../components/common/MxButton';
 import MxIcon from '../../components/common/MxIcon';
 // import {isLogined} from 'utils/tools'
 // import { courseList} from 'sevices/course'

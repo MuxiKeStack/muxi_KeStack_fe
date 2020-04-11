@@ -109,12 +109,20 @@ export default class Index extends Component {
                   <View className="user-info">
                     <View className="avatar-container">
                       <Image
-                        src={message.user_info.avatar}
+                        src={
+                          message.user_info.avatar
+                            ? message.user_info.avatar
+                            : Img
+                        }
                         className="avatar-image"
                       ></Image>
                     </View>
                     <View className="name-time">
-                      <View className="name">{message.user_info.username}</View>
+                      <View className="name">
+                        {message.user_info.username
+                          ? message.user_info.username
+                          : '匿名'}
+                      </View>
                       <View className="time">
                         {this.toNormalTime(message.time)}
                       </View>
