@@ -34,12 +34,11 @@ export default class Index extends Component {
   }
 
   componentDidShow() {
-    /*       courseList().then(res => {
-                    console.log(res);
-                    this.setState({
-                        course: res.info,
-                    });
-                });*/
+    if (!Taro.getStorageSync('sid')) {
+      Taro.navigateTo({
+        url: '/pages/login/index'
+      });
+    }
     Fetch('api/v1/message/count/', {}, 'GET').then(res => {
       if (res) {
         // console.log(res.data);
