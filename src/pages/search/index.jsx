@@ -11,6 +11,7 @@ export default class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {
+      inputVal: '',
       keyword: '',
       history: [],
       hidden: false,
@@ -19,8 +20,8 @@ export default class Index extends Component {
       datas: [],
       // eslint-disable-next-line react/no-unused-state
       checkable: false,
-      page: 1,
-      isCollect: true
+      page: 1
+      // isCollect: true
       // mask: 'mask',
       // masklist: 'masklist'
     };
@@ -92,10 +93,12 @@ export default class Index extends Component {
       console.log(data);
       let newdatas = data.data.courses;
       if (newdatas != null) {
+        let ndatas = this.state.datas;
+        ndatas = ndatas.concat(newdatas);
         Taro.stopPullDownRefresh();
         Taro.hideNavigationBarLoading();
         that.setState({
-          datas: newdatas
+          datas: ndatas
         });
       } else {
         Taro.showToast({
@@ -217,20 +220,23 @@ export default class Index extends Component {
       console.log(res);
       switch (res.code) {
         case 0:
-          this.setState({
-            isCollect: false
-          });
+          // let inHash = Taro.getStorageSync('inHash') || [];
+          // inHash.push(hash);
+          // this.setState({
+          //   inHash: inHash
+          // });
+          // Taro.setStorageSync('inHash', inHash);
           Taro.showToast({
             title: '已收藏',
             icon: 'success',
-            duration: 2000
+            duration: 1000
           });
           break;
         case 20302:
           Taro.showToast({
             title: '收藏失败',
             icon: 'none',
-            duration: 2000
+            duration: 1000
           });
           break;
       }
@@ -240,24 +246,28 @@ export default class Index extends Component {
   handleClickInput() {
     this.setState(
       {
-        hidden: false
+        hidden: false,
+        datas: [],
+        page: 1
       },
       () => {
         this.getHistorySearch();
       }
     );
   }
-  //input的oninput
+  //input的onconfirm
   handleClickContent(e) {
-    this.setState({
-      keyword: e.detail.value
-    });
-    if (e.detail.value == '') {
-      this.setState({
-        keyword: e.detail.value
-      });
-      this.getHistorySearch();
-    }
+    this.setState(
+      {
+        keyword: e.detail.value,
+        datas: [],
+        page: 1,
+        hidden: false
+      },
+      () => {
+        this.getHistorySearch();
+      }
+    );
   }
   //input的onfocus
   handleFocus() {
@@ -269,7 +279,7 @@ export default class Index extends Component {
   onChhange(e) {
     if (e.detail.value != '') {
       let history = Taro.getStorageSync('history') || [];
-      if (history.length < 10) {
+      if (history.length < 8) {
         history.push({ id: history.length, title: e.detail.value });
       } else {
         history.pop();
@@ -290,16 +300,9 @@ export default class Index extends Component {
     });
     Taro.setStorageSync('history', []);
   }
-  //input失去焦点
-  handleBlur(e) {
-    if (e.detail.value == '') {
-      this.setState({
-        hidden: false
-      });
-    }
-  }
 
-  onClickTags(num) {
+  onClickTags(num, e) {
+    console.log(e);
     let state = [false, false, false, false, false];
     if (this.state.tagsState[num] != true) {
       state[num] = true;
@@ -308,7 +311,9 @@ export default class Index extends Component {
     this.setState(
       {
         type: num,
-        tagsState: state
+        tagsState: state,
+        datas: [],
+        page: 1
       },
       () => {
         console.log(this.state.type);
@@ -324,11 +329,28 @@ export default class Index extends Component {
     console.log(text);
     that.setState(
       {
+        inputVal: text,
         keyword: text,
-        hidden: false
+        hidden: false,
+        datas: [],
+        page: 1
       },
       () => {
         that.getHistorySearch();
+      }
+    );
+  }
+  handleCancel() {
+    this.setState(
+      {
+        inputVal: '',
+        hidden: false,
+        keyword: '',
+        datas: [],
+        page: 1
+      },
+      () => {
+        this.getHistorySearch();
       }
     );
   }
@@ -340,16 +362,19 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
+    let inputVal = this.state.inputVal;
     let tagState = this.state.tagsState;
-    const isCollect = this.state.isCollect;
+    // const isCollect = this.state.isCollect;
     let status = null;
-    if (isCollect) {
-      status = <Text>收藏</Text>;
-    } else {
-      status = <Text>已收藏</Text>;
-    }
+    status = <Text>收藏</Text>;
+    // if (isCollect) {
+    //   status = <Text>收藏</Text>;
+    // } else {
+    //   status = <Text>已收藏</Text>;
+    // }
     const hidden = this.state.hidden;
     const { history } = this.state;
+    // const { inHash } = this.state;
     const list = (
       <View className="index">
         <View className="history">历史记录</View>
@@ -373,6 +398,9 @@ export default class Index extends Component {
     const content = (
       <View className="detailsBoxes">
         {this.state.datas.map(data => {
+          // if (inHash.indexOf(data.hash)) {
+          //   status = <Text>已收藏</Text>;
+          // }
           return (
             // eslint-disable-next-line react/jsx-key
             <View className="mx-card">
@@ -475,18 +503,23 @@ export default class Index extends Component {
         <View className="chooseBox">
           <View className="search">
             <MxInput
+              value={inputVal}
+              confirmType="search"
               leftSrc="../../../assets/svg/searchicon.svg"
+              rightSrc="../../../assets/svg/cross.svg"
               leftSize="32rpx"
-              rightSize="32rpx"
+              rightSize="48rpx"
+              padding="5px"
               width="670rpx"
               height="72rpx"
               background="rgba(241,240,245,1)"
               radius="36rpx"
               placeholder="搜索课程名/老师名"
-              onClick={this.handleClickInput.bind(this)}
-              onInput={this.handleClickContent.bind(this)}
+              onClick1={this.handleClickInput.bind(this)}
+              onClick2={this.handleCancel.bind(this)}
+              // onInput={this.handleClickContent.bind(this)}
               onChange={this.onChhange.bind(this)}
-              onBlur={this.handleBlur.bind(this)}
+              onConfirm={this.handleClickContent.bind(this)}
               onFocus={this.handleFocus.bind(this)}
             ></MxInput>
           </View>

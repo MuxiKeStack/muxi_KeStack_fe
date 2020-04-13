@@ -16,12 +16,16 @@ class MxInput extends Component {
       border,
       background,
       radius,
-      onClick,
+      onClick1,
+      onClick2,
       onInput,
       onBlur,
       onChange,
       onConfirm,
-      onFocus
+      confirmType,
+      onFocus,
+      padding,
+      value
     } = this.props;
 
     var password = false;
@@ -46,7 +50,8 @@ class MxInput extends Component {
       right: {
         width: `${rightSize}`,
         height: `${rightSize}`,
-        float: 'right'
+        float: 'right',
+        padding: `${padding}`
       },
       input: {
         height: `${height}`
@@ -62,9 +67,11 @@ class MxInput extends Component {
     return (
       <View style={css.box} className="box">
         {left && (
-          <Image style={css.left} src={leftSrc} onClick={onClick}></Image>
+          <Image style={css.left} src={leftSrc} onClick={onClick1}></Image>
         )}
         <Input
+          value={value}
+          confirmType={confirmType}
           style={css.input}
           type={type}
           placeholder={placeholder}
@@ -75,13 +82,23 @@ class MxInput extends Component {
           onConfirm={onConfirm}
           onChange={onChange}
         />
-        {right && <Image style={css.right} src={rightSrc} onClick={onClick} />}
+        {right && (
+          <Image
+            style={css.right}
+            src={rightSrc}
+            onClick={onClick2}
+            padding={padding}
+          />
+        )}
       </View>
     );
   }
 }
 
 MxInput.defaultProps = {
+  value: '',
+  padding: '',
+  confirmType: '',
   leftSize: '30px',
   rightSize: '30px',
   leftSrc: '',
@@ -96,7 +113,8 @@ MxInput.defaultProps = {
   onFocus: () => {},
   onBlur: () => {},
   onConfirm: () => {},
-  onClick: () => {},
+  onClick1: () => {},
+  onClick2: () => {},
   onInput: () => {}
 };
 

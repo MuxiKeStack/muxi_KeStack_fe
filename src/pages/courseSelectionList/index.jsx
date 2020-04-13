@@ -101,7 +101,7 @@ export default class Index extends Component {
       },
       'GET'
     ).then(data => {
-      if(data.data.list == null) {
+      if (data.data.list == null) {
         this.setState({
           Lists: []
         });
