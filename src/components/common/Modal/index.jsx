@@ -1,9 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
-import { View, Button,ScrollView,Text } from '@tarojs/components'
+import { View, Button,Text } from '@tarojs/components'
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
 import MxComponent from '../../../common/component'
 import './index.scss'
-import PropTypes from 'prop-types'
+
 
 export default class Modal extends MxComponent{
   constructor (props){
