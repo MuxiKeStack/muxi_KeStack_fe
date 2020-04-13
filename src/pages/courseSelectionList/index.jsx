@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { MovableArea, MovableView, View } from '@tarojs/components';
+import { MovableArea, MovableView, View, Text } from '@tarojs/components';
 import './index.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import Fetch from '../../service/fetch';
@@ -21,7 +21,8 @@ export default class Index extends Component {
       sum: 0,
       lastId: 0,
       lastTempId: 0,
-      page: 0
+      page: 0,
+      X: 0
     };
   }
 
@@ -106,7 +107,8 @@ export default class Index extends Component {
         });
       } else {
         this.setState({
-          Lists: data.data.list
+          Lists: data.data.list,
+          X: Math.random()
         });
       }
     });
@@ -175,7 +177,7 @@ export default class Index extends Component {
         transformOrigin: 'left top 0'
       });
 
-      _animation.translateX(0).step();
+      // _animation.translateX(0).step();
       that.setState({
         //输出动画
         animation: _animation.export()
@@ -189,7 +191,7 @@ export default class Index extends Component {
         delay: 100,
         transformOrigin: 'left top 0'
       });
-      _animation.translateX(-80).step();
+      // _animation.translateX(-80).step();
       that.setState({
         //输出动画
         animation: _animation.export()
@@ -275,12 +277,11 @@ export default class Index extends Component {
               <MovableArea className="cardm">
                 <MovableView
                   damping="100"
-                  out-of-bounds="true"
+                  animation={false}
+                  outOfBounds
                   direction="horizontal"
                   className="card"
-                  onTouchStart={this.touchstart.bind(this)}
-                  onTouchEnd={this.touchmove.bind(this)}
-                  animation={this.state.animation}
+                  X={this.state.X}
                 >
                   <View className="detailsLeft">
                     <View>{data.course_name}</View>
