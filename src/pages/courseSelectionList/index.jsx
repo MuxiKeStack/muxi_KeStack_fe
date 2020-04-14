@@ -241,6 +241,7 @@ export default class Index extends Component {
     ).then(res => {
       switch (res.code) {
         case 0:
+          this.setCollect(course_id);
           // eslint-disable-next-line no-undef
           Taro.showToast({
             title: '取消收藏成功！',
@@ -258,7 +259,15 @@ export default class Index extends Component {
       }
     });
   }
-
+  setCollect(cid) {
+    let collectState = Taro.getStorageSync('_collect') || [];
+    for (let i = 0; i < collectState.length; i++) {
+      if (collectState[i].a === cid) {
+        collectState[i].b = false;
+      }
+    }
+    Taro.setStorageSync('_collect', collectState);
+  }
   render() {
     // let status = null;
     // if (noCollect) {

@@ -266,6 +266,7 @@ export default class Index extends Component {
         <Image className="head" src={ImageUrl}></Image>
 
         <MxInput
+          leftSize="0rpx"
           width="480rpx"
           placeholder="学号/昵称"
           border="true"
@@ -274,6 +275,7 @@ export default class Index extends Component {
         ></MxInput>
         <View className="input">
           <MxInput
+            leftSize="0rpx"
             width="480rpx"
             placeholder="密码"
             border="true"

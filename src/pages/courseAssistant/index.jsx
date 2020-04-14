@@ -296,8 +296,10 @@ export default class Index extends Component {
 
   //input的onfocus
   handleFocus() {
+    let records = Taro.getStorageSync('records') || [];
     this.setState({
-      hidden: true
+      hidden: true,
+      records: records
     });
   }
 
@@ -485,7 +487,8 @@ export default class Index extends Component {
               rightSrc="../../../assets/svg/cross.svg"
               leftSize="32rpx"
               rightSize="48rpx"
-              padding="5px"
+              padding1="20rpx"
+              padding2="10rpx"
               width="670rpx"
               height="72rpx"
               background="rgba(241,240,245,1)"

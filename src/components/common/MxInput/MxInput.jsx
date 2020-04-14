@@ -24,7 +24,8 @@ class MxInput extends Component {
       onConfirm,
       confirmType,
       onFocus,
-      padding,
+      padding1,
+      padding2,
       value
     } = this.props;
 
@@ -45,13 +46,14 @@ class MxInput extends Component {
     const css = {
       left: {
         width: `${leftSize}`,
-        height: `${leftSize}`
+        height: `${leftSize}`,
+        padding: `${padding1}`
       },
       right: {
         width: `${rightSize}`,
         height: `${rightSize}`,
         float: 'right',
-        padding: `${padding}`
+        padding: `${padding2}`
       },
       input: {
         height: `${height}`
@@ -67,7 +69,12 @@ class MxInput extends Component {
     return (
       <View style={css.box} className="box">
         {left && (
-          <Image style={css.left} src={leftSrc} onClick={onClick1}></Image>
+          <Image
+            style={css.left}
+            src={leftSrc}
+            onClick={onClick1}
+            padding-left={padding1}
+          ></Image>
         )}
         <Input
           value={value}
@@ -87,7 +94,7 @@ class MxInput extends Component {
             style={css.right}
             src={rightSrc}
             onClick={onClick2}
-            padding={padding}
+            padding-top={padding2}
           />
         )}
       </View>
@@ -97,7 +104,8 @@ class MxInput extends Component {
 
 MxInput.defaultProps = {
   value: '',
-  padding: '',
+  padding1: '',
+  padding2: '',
   confirmType: '',
   leftSize: '30px',
   rightSize: '30px',
