@@ -33,6 +33,16 @@ export default class Index extends Component {
   }
 
   handleSave() {
+    Taro.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          Taro.showToast({
+            icon: 'none',
+            title: '已授权'
+          });
+        }
+      }
+    });
     this.setState({
       mask_name: 'mask',
       mask_bg: 'mask_bg_none'

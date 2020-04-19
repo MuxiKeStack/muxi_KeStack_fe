@@ -165,9 +165,9 @@ export default class Index extends Component {
           <View className="modal-body">
             <View className="modal-title">反馈</View>
             <Text className="modal-content" selectable="true">
-              QQ群：799651462
-            </Text>
-            <Text className="modal-content" selectable="true">
+              QQ群：799651462\n
+            {/* </Text>
+            <Text className="modal-content" selectable="true"> */}
               邮箱：i@muxistudio.com
             </Text>
             <View

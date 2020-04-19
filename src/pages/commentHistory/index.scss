@@ -97,13 +97,12 @@ Page {
   display: flex;
   justify-content: flex-end;
   font-size:20px;
-  align-items: flex-end;
+  align-items: center;
 }
 .icon-container{
   margin-left:23px;
 }
 .number{
   font-size:24px;
-  margin-left: 10px;
-  margin-right: 23px;
+  margin: auto 23px 0 10px;
 }
