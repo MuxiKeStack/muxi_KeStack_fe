@@ -115,21 +115,22 @@ export default class Index extends Component {
   }
 
   ChangeToReport(id) {
-    Fetch(`api/v1/evaluation/${id}/report/`, {}, 'POST').then(data => {
-      if (data.data.fail === true) {
-        if (data.data.reason === 'You have been reported this evaluation!') {
-          Taro.showToast({
-            title: '不要重复举报哟!',
-            icon: 'none'
-          });
-        }
-      } else {
-        Taro.showToast({
-          title: '举报成功！',
-          icon: 'success'
-        });
-      }
-    });
+    console.log("id: " + id)
+    // Fetch(`api/v1/evaluation/${id}/report/`, {}, 'POST').then(data => {
+    //   if (data.data.fail === true) {
+    //     if (data.data.reason === 'You have been reported this evaluation!') {
+    //       Taro.showToast({
+    //         title: '不要重复举报哟!',
+    //         icon: 'none'
+    //       });
+    //     }
+    //   } else {
+    //     Taro.showToast({
+    //       title: '举报成功！',
+    //       icon: 'success'
+    //     });
+    //   }
+    // });
   }
 
   componentDidShow() {
@@ -209,7 +210,8 @@ export default class Index extends Component {
                     </View>
                     <View className="detailsFirstIcon">
                       <MxReport
-                        onClick={this.ChangeToReport.bind(this, comment.id)}
+                        ID={comment.id}
+                        // onClick={this.ChangeToReport.bind(this, comment.id)}
                       />
                     </View>
                   </View>
