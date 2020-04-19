@@ -66,6 +66,7 @@ View {
     margin-left: 30rpx;
     display: inline-block;
     width: 220rpx;
+    font-size: 0;
    .class{
     max-width: 300px;
     overflow: hidden;
@@ -82,7 +83,7 @@ View {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-      margin-top: 23rpx;
+      margin-top: 24rpx;
       margin-left: 30rpx;
       font-size:27px;
       color:rgba(104,105,247,1);
@@ -92,11 +93,12 @@ View {
        height:38px;
        font-size: 27px;
        color:#A1A4AE ;
+       margin-left: 10rpx;
        margin-top: 24rpx;
    }
 }
 .rate{
-    margin-top: 24rpx;
+    margin-top: 30rpx;
     width: 410px;
     display: inline-block;
     .people{
@@ -117,9 +119,10 @@ View {
     }
 }
 .tag{
+    font-size: 0;
     display: inline-block;
     margin-left: 20rpx;
-    margin-top:20rpx;
+    margin-top:34rpx;
     // .tag1{
     //     max-width: 150px;
     //     overflow: hidden;

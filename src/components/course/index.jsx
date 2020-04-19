@@ -11,11 +11,13 @@ export default class Course extends Component {
   constructor(props){
     super(props)
     this.state = {
-      color:'',
+        color:'',
+        top:'',
+        imgPosition:'',
       }
     }
-   // 专必红 专选蓝 公共黄 通选通核绿色 
   componentWillMount() { 
+    timecfli=new Array()
     const course=this.props.course
     switch (course.type) {
       case 0:
@@ -63,7 +65,7 @@ export default class Course extends Component {
                         if(index.start==item.start&&index.day==item.day){
                           timecfli[i]=1
                           this.setState({
-                            imgPosition:(item.start-1)*88+97
+                            imgPosition:(item.start-1)*88+92
                           })
                           this.props.onConflict(e)
                         }
@@ -75,8 +77,43 @@ export default class Course extends Component {
           )
   }
 
-  componentWillUpdate(){
+  shouldComponentUpdate(){
+    timecfli=new Array()
     const course=this.props.course
+    switch (course.type) {
+      case 0:
+        this.setState({
+          color:'#71D69D'
+        })
+        break;
+      case 1:
+        this.setState({
+          color:'#FC807F'
+        })
+        break; 
+      case 2:
+        this.setState({
+          color:'#FC807F'
+        })
+        break; 
+      case 3:
+        this.setState({
+          color:'#71D69D'
+        })
+        break;
+      case 4:
+        this.setState({
+          color:'#FC807F'
+        })
+        break;
+      case 5:
+        this.setState({
+          color:'#71D69D'
+        })
+        break;
+      default:
+        break;
+    }
     this.props.course.times.map((item,i)=>{
             timecfli[i]=0
             if(this.props.week==item.day){
@@ -86,7 +123,7 @@ export default class Course extends Component {
                       if(index.start==item.start&&index.day==item.day){
                         timecfli[i]=1
                         this.setState({
-                          imgPosition:(item.start-1)*88+97
+                          imgPosition:(item.start-1)*88+92
                         })
                       }
                     })
@@ -96,24 +133,15 @@ export default class Course extends Component {
           }
         )
   }
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
 
   render() {
-    var key;
-    const { top , course, week} = this.props;
     const cardPosition={
       'top':`${this.state.top}rpx`,
       'background':`${
         this.state.color
       }`
     }
-    const imgPosition={
+    const onimgPosition={
       'top':`${this.state.imgPosition}rpx`
     }
     return (
@@ -123,7 +151,7 @@ export default class Course extends Component {
         </View>
         {
           timecfli.map((item,i)=>{
-            if(item==1) return<Image key={i} style={imgPosition} className='conImg' src={conflict}></Image>
+            if(item==1&&this.state.imgPosition) return<Image key={i} style={onimgPosition} className='conImg' src={conflict}></Image>
           })
         }
       </View>

@@ -16,12 +16,17 @@ class MxInput extends Component {
       border,
       background,
       radius,
-      onClick,
+      onClick1,
+      onClick2,
       onInput,
       onBlur,
       onChange,
       onConfirm,
-      onFocus
+      confirmType,
+      onFocus,
+      padding1,
+      padding2,
+      value
     } = this.props;
 
     var password = false;
@@ -41,12 +46,14 @@ class MxInput extends Component {
     const css = {
       left: {
         width: `${leftSize}`,
-        height: `${leftSize}`
+        height: `${leftSize}`,
+        padding: `${padding1}`
       },
       right: {
         width: `${rightSize}`,
         height: `${rightSize}`,
-        float: 'right'
+        float: 'right',
+        padding: `${padding2}`
       },
       input: {
         height: `${height}`
@@ -62,9 +69,16 @@ class MxInput extends Component {
     return (
       <View style={css.box} className="box">
         {left && (
-          <Image style={css.left} src={leftSrc} onClick={onClick}></Image>
+          <Image
+            style={css.left}
+            src={leftSrc}
+            onClick={onClick1}
+            padding-left={padding1}
+          ></Image>
         )}
         <Input
+          value={value}
+          confirmType={confirmType}
           style={css.input}
           type={type}
           placeholder={placeholder}
@@ -75,13 +89,24 @@ class MxInput extends Component {
           onConfirm={onConfirm}
           onChange={onChange}
         />
-        {right && <Image style={css.right} src={rightSrc} onClick={onClick} />}
+        {right && (
+          <Image
+            style={css.right}
+            src={rightSrc}
+            onClick={onClick2}
+            padding-top={padding2}
+          />
+        )}
       </View>
     );
   }
 }
 
 MxInput.defaultProps = {
+  value: '',
+  padding1: '',
+  padding2: '',
+  confirmType: '',
   leftSize: '30px',
   rightSize: '30px',
   leftSrc: '',
@@ -96,7 +121,8 @@ MxInput.defaultProps = {
   onFocus: () => {},
   onBlur: () => {},
   onConfirm: () => {},
-  onClick: () => {},
+  onClick1: () => {},
+  onClick2: () => {},
   onInput: () => {}
 };
 

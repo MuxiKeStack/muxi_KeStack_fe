@@ -8,6 +8,7 @@ import MxRate from '../../components/common/MxRate/MxRate';
 import Fetch from '../../service/fetch';
 
 export default class Index extends Component {
+  // eslint-disable-next-line react/sort-comp
   config = {
     navigationBarTitleText: '选课助手',
     enablePullDownRefresh: true,
@@ -17,6 +18,7 @@ export default class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {
+      inputVal: '',
       kindChecked: '课程性质',
       checkKind: [
         '全部课程',
@@ -134,10 +136,12 @@ export default class Index extends Component {
       console.log(data);
       let newdatas = data.data.courses;
       if (newdatas != null) {
+        let ndatas = this.state.datas;
+        ndatas = ndatas.concat(newdatas);
         Taro.stopPullDownRefresh();
         Taro.hideNavigationBarLoading();
         that.setState({
-          datas: newdatas
+          datas: ndatas
         });
         console.log(newdatas);
       } else {
@@ -155,7 +159,9 @@ export default class Index extends Component {
       this.setState(
         {
           kindChecked: this.state.checkKind[e.detail.value],
-          type: e.detail.value - 1
+          type: e.detail.value - 1,
+          datas: [],
+          page: 1
         },
         () => {
           this.getSearch();
@@ -165,7 +171,9 @@ export default class Index extends Component {
       this.setState(
         {
           kindChecked: this.state.checkKind[e.detail.value],
-          type: ''
+          type: '',
+          datas: [],
+          page: 1
         },
         () => {
           this.getSearch();
@@ -178,7 +186,9 @@ export default class Index extends Component {
       this.setState(
         {
           colledgeChecked: this.state.checkColledge[e.detail.value],
-          academy: this.state.checkColledge[e.detail.value]
+          academy: this.state.checkColledge[e.detail.value],
+          datas: [],
+          page: 1
         },
         () => {
           this.getSearch();
@@ -188,7 +198,9 @@ export default class Index extends Component {
       this.setState(
         {
           colledgeChecked: this.state.checkColledge[e.detail.value],
-          academy: ''
+          academy: '',
+          datas: [],
+          page: 1
         },
         () => {
           this.getSearch();
@@ -201,7 +213,9 @@ export default class Index extends Component {
       this.setState(
         {
           timeChecked: this.state.checkTime[e.detail.value],
-          weekday: e.detail.value
+          weekday: e.detail.value,
+          datas: [],
+          page: 1
         },
         () => {
           this.getSearch();
@@ -211,7 +225,9 @@ export default class Index extends Component {
       this.setState(
         {
           timeChecked: this.state.checkTime[e.detail.value],
-          weekday: ''
+          weekday: '',
+          datas: [],
+          page: 1
         },
         () => {
           this.getSearch();
@@ -224,7 +240,9 @@ export default class Index extends Component {
       this.setState(
         {
           placeChecked: this.state.checkPlace[e.detail.value],
-          place: this.state.checkPlace[e.detail.value]
+          place: this.state.checkPlace[e.detail.value],
+          datas: [],
+          page: 1
         },
         () => {
           this.getSearch();
@@ -234,7 +252,9 @@ export default class Index extends Component {
       this.setState(
         {
           placeChecked: this.state.checkPlace[e.detail.value],
-          place: ''
+          place: '',
+          datas: [],
+          page: 1
         },
         () => {
           this.getSearch();
@@ -252,7 +272,8 @@ export default class Index extends Component {
   handleClickInput() {
     this.setState(
       {
-        hidden: false
+        hidden: false,
+        datas: []
       },
       () => {
         this.getSearch();
@@ -261,28 +282,31 @@ export default class Index extends Component {
   }
 
   handleClickContent(e) {
-    this.setState({
-      keyword: e.detail.value
-    });
-    if (e.detail.value == '') {
-      this.setState({
-        keyword: e.detail.value
-      });
-      this.getSearch();
-    }
+    this.setState(
+      {
+        keyword: e.detail.value,
+        datas: [],
+        hidden: false
+      },
+      () => {
+        this.getSearch();
+      }
+    );
   }
 
   //input的onfocus
   handleFocus() {
+    let records = Taro.getStorageSync('records') || [];
     this.setState({
-      hidden: true
+      hidden: true,
+      records: records
     });
   }
 
   onChhange(e) {
     if (e.detail.value != '') {
       let records = Taro.getStorageSync('records') || [];
-      if (records.length < 10) {
+      if (records.length < 8) {
         records.push({ id: records.length, title: e.detail.value });
       } else {
         records.pop();
@@ -304,25 +328,34 @@ export default class Index extends Component {
     Taro.setStorageSync('records', []);
   }
 
-  handleBlur(e) {
-    if (e.detail.value == '') {
-      this.setState({
-        hidden: false
-      });
-    }
-  }
-
   handleHistory(e) {
     const that = this;
     var text = e.currentTarget.dataset.title;
     console.log(text);
     that.setState(
       {
+        inputVal: text,
         keyword: text,
-        hidden: false
+        hidden: false,
+        datas: [],
+        page: 1
       },
       () => {
         that.getSearch();
+      }
+    );
+  }
+  handleCancel() {
+    this.setState(
+      {
+        inputVal: '',
+        hidden: false,
+        keyword: '',
+        datas: [],
+        page: 1
+      },
+      () => {
+        this.getSearch();
       }
     );
   }
@@ -334,6 +367,7 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
+    let inputVal = this.state.inputVal;
     const hidden = this.state.hidden;
     const { records } = this.state;
     const list = (
@@ -447,18 +481,23 @@ export default class Index extends Component {
         <View className="chooseBox">
           <View className="search">
             <MxInput
+              value={inputVal}
+              confirmType="search"
               leftSrc="../../../assets/svg/searchicon.svg"
+              rightSrc="../../../assets/svg/cross.svg"
               leftSize="32rpx"
-              rightSize="5rpx"
+              rightSize="48rpx"
+              padding1="20rpx"
+              padding2="10rpx"
               width="670rpx"
               height="72rpx"
               background="rgba(241,240,245,1)"
               radius="36rpx"
               placeholder="搜索课程名/老师名/课程序号"
-              onClick={this.handleClickInput.bind(this)}
-              onInput={this.handleClickContent.bind(this)}
+              onClick1={this.handleClickInput.bind(this)}
+              onClick2={this.handleCancel.bind(this)}
+              onConfirm={this.handleClickContent.bind(this)}
               onChange={this.onChhange.bind(this)}
-              onBlur={this.handleBlur.bind(this)}
               onFocus={this.handleFocus.bind(this)}
             ></MxInput>
           </View>

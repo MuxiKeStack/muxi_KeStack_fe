@@ -73,42 +73,43 @@ View {
 }
 
 .user-info{
+  font-size: 0;
   margin-top: 40rpx;
   margin-left: 40rpx;
   display: inline-block;
   width: 220rpx;
   .class{
-    max-width: 300px;
+    max-width: 300rpx;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size:34px;
+    font-size:34rpx;
     color:rgba(104,105,247,1);
-    line-height:48px;
+    line-height:48rpx;
     width:220rpx;
     height:48px;
   }
   .teacher{
-    max-width: 180px;
+    max-width: 180rpx;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-top: 23rpx;
+    margin-top: 24rpx;
     margin-left: 25rpx;
-    font-size:27px;
+    font-size:27rpx;
     color:rgba(104,105,247,1);
   }
   .num{
-    width:155px;
-    height:38px;
-    font-size: 27px;
+    width:155rpx;
+    height:38rpx;
+    font-size: 27rpx;
     color:#A1A4AE ;
     margin-top: 24rpx;
     margin-left: 25rpx;
   }
 }
 .blue{
-  margin-top: 24rpx;
+  margin-top: 30rpx;
   width: 410px;
   display: inline-block;
   .people{
@@ -129,9 +130,10 @@ View {
   }
 }
 .tag{
+  font-size: 0;
   display: inline-block;
   margin-left: 20rpx;
-  margin-top:20rpx;
+  margin-top:34rpx;
   // .tag1{
   //     max-width: 150px;
   //     overflow: hidden;
@@ -142,12 +144,12 @@ View {
     margin-left: 15rpx;
   }
   .tag3{
-    margin-top:20rpx ;
+    margin-top:21rpx ;
     display: inline-block;
     margin-right: 15rpx;
   }
   .tag4{
-    margin-top: 20rpx;
+    margin-top: 21rpx;
   }
 
 }

@@ -18,7 +18,7 @@
 .login{
     margin-left:113rpx ;
     margin-right: 124rpx;
-    margin-top: 10rpx;
+    margin-top: 30rpx;
 }
 
 .visit{
@@ -34,10 +34,12 @@
 .privacy{
     width:600rpx;
     height:40rpx;
-    margin-left: 100rpx;
-    margin-top: 86rpx;
+    margin-left: 95rpx;
+    margin-top: 80rpx;
     .icon{
+        vertical-align:middle;
         display: inline-block;
+        padding-right:10rpx ;
     }
     .agree{
         font-size:28rpx;
