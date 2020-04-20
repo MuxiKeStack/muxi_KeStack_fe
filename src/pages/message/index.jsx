@@ -27,7 +27,25 @@ export default class Index extends Component {
 
   //还有关于时间顺序和请求数量的问题
   componentDidMount() {
-    this.getData();
+    Fetch(
+      'api/v1/message/?page=' + this.state.page + '&limit=' + this.state.limit,
+      {},
+      'GET'
+    )
+      .then(res => {
+        if (res.data) {
+          // console.log(res.data),
+          this.setState({
+            messageList: this.state.messageList.concat(res.data),
+            page: this.state.page + 1
+          });
+        } else {
+          Taro.showToast({ title: '没有收到消息哦～', icon: 'none' });
+        }
+      })
+      .catch(err => {
+        Taro.showToast({ title: '没有消息哦～', icon: 'none' });
+      });
   }
   getData() {
     Fetch(
@@ -91,12 +109,20 @@ export default class Index extends Component {
                   <View className="user-info">
                     <View className="avatar-container">
                       <Image
-                        src={message.user_info.avatar}
+                        src={
+                          message.user_info.avatar
+                            ? message.user_info.avatar
+                            : Img
+                        }
                         className="avatar-image"
                       ></Image>
                     </View>
                     <View className="name-time">
-                      <View className="name">{message.user_info.username}</View>
+                      <View className="name">
+                        {message.user_info.username
+                          ? message.user_info.username
+                          : '匿名'}
+                      </View>
                       <View className="time">
                         {this.toNormalTime(message.time)}
                       </View>

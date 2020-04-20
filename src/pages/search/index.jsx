@@ -11,6 +11,9 @@ export default class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {
+      collectState: [],
+      status: false,
+      inputVal: '',
       keyword: '',
       history: [],
       hidden: false,
@@ -20,7 +23,7 @@ export default class Index extends Component {
       // eslint-disable-next-line react/no-unused-state
       checkable: false,
       page: 1,
-      isCollect: true
+      X: 0
       // mask: 'mask',
       // masklist: 'masklist'
     };
@@ -30,23 +33,6 @@ export default class Index extends Component {
     navigationBarTitleText: '木犀课栈',
     enablePullDownRefresh: true
   };
-
-  state = {
-    // eslint-disable-next-line react/no-unused-state
-    animation: '',
-
-    // eslint-disable-next-line react/no-unused-state
-    startX: 0, //开始坐标
-    // eslint-disable-next-line react/no-unused-state
-    startY: 0
-  };
-
-  // handleSave() {
-  //   this.setState({
-  //     mask: 'unmask',
-  //     masklist: 'unmasklist'
-  //   });
-  // }
 
   handleChange(value) {
     this.setState({
@@ -77,6 +63,13 @@ export default class Index extends Component {
     this.getHistorySearch();
   }
 
+  componentWillMount() {
+    console.log(this.$router.params);
+  }
+
+  componentDidMount() {
+    this.getHistorySearch();
+  }
   getHistorySearch() {
     var that = this;
     Fetch(
@@ -92,10 +85,16 @@ export default class Index extends Component {
       console.log(data);
       let newdatas = data.data.courses;
       if (newdatas != null) {
+        // newdatas.map(nd => {
+        //   console.log(nd.id);
+        //   this.setStatus(nd.id);
+        // });
+        let ndatas = this.state.datas;
+        ndatas = ndatas.concat(newdatas);
         Taro.stopPullDownRefresh();
         Taro.hideNavigationBarLoading();
         that.setState({
-          datas: newdatas
+          datas: ndatas
         });
       } else {
         Taro.showToast({
@@ -107,106 +106,8 @@ export default class Index extends Component {
     });
   }
 
-  // 滑动开始
-  touchstart(e) {
-    this.setState({
-      // eslint-disable-next-line react/no-unused-state
-      startX: e.changedTouches[0].clientX,
-      // eslint-disable-next-line react/no-unused-state
-      startY: e.changedTouches[0].clientY
-    });
-  }
-
-  //滑动事件处理 _index当前索引
-  touchmove(e) {
-    var that = this;
-
-    var startX = that.state.startX; //开始X坐标
-    var startY = that.state.startY; //开始Y坐标
-    var touchMoveX = e.changedTouches[0].clientX; //滑动变化坐标
-    var touchMoveY = e.changedTouches[0].clientY; //滑动变化坐标
-    // var isLeft = _class.indexOf("leftMove") != -1; //往左滑的位置
-    // var isRight = _class.indexOf("rightMove") != -1;//往右滑的位置
-    //获取滑动角度
-    var angle = that.angle(
-      { X: startX, Y: startY },
-      { X: touchMoveX, Y: touchMoveY }
-    );
-    //滑动超过30度角 return
-    if (Math.abs(angle) > 30) return;
-    //右滑
-    if (touchMoveX > startX) {
-      console.log('右滑');
-      //实例化一个动画
-      let _animation = Taro.createAnimation({
-        duration: 400,
-        timingFunction: 'linear',
-        delay: 100,
-        transformOrigin: 'left top 0',
-        success: function(res) {
-          console.log(res);
-        }
-      });
-
-      _animation.translateX(0).step();
-      that.setState({
-        //输出动画
-        animation: _animation.export()
-      });
-    } else if (touchMoveX - startX < -10) {
-      //左滑
-      console.log('左滑');
-      //实例化一个动画
-      let _animation = Taro.createAnimation({
-        duration: 400,
-        timingFunction: 'linear',
-        delay: 100,
-        transformOrigin: 'left top 0',
-        success: function(res) {
-          console.log(res);
-        }
-      });
-      _animation.translateX(-80).step();
-      that.setState({
-        //输出动画
-        animation: _animation.export()
-      });
-    }
-  }
-
-  /**
-   * 计算滑动角度
-   * @param {Object} start 起点坐标
-   * @param {Object} end 终点坐标
-   */
-  angle(start, end) {
-    var _X = end.X - start.X,
-      _Y = end.Y - start.Y;
-    //返回角度 /Math.atan()返回数字的反正切值
-    return (360 * Math.atan(_Y / _X)) / (2 * Math.PI);
-  }
-
-  componentWillMount() {
-    console.log(this.$router.params);
-  }
-
-  componentDidMount() {
-    let animation = Taro.createAnimation({
-      duration: 400,
-      timingFunction: 'linear',
-      delay: 100,
-      transformOrigin: 'left top 0',
-      success: function(res) {
-        console.log(res);
-      }
-    });
-    this.setState({
-      // eslint-disable-next-line react/no-unused-state
-      animation: animation
-    });
-    this.getHistorySearch();
-  }
-  collect(hash) {
+  collect(hash, thisIndex) {
+    console.log('index为' + thisIndex);
     Fetch(
       `api/v1/course/using/${hash}/favorite/`,
       {
@@ -214,32 +115,86 @@ export default class Index extends Component {
       },
       'PUT'
     ).then(res => {
+      this.setCollect(hash);
       console.log(res);
       switch (res.code) {
-        case 0:
-          this.setState({
-            isCollect: false
-          });
+        case 0: {
           Taro.showToast({
             title: '已收藏',
             icon: 'success',
-            duration: 2000
+            duration: 1000
           });
           break;
-        case 20302:
+        }
+        case 20302: {
           Taro.showToast({
-            title: '收藏失败',
-            icon: 'none',
-            duration: 2000
+            title: '已收藏',
+            duration: 1000
           });
           break;
+        }
       }
     });
   }
+  setCollect(h) {
+    let collectState = Taro.getStorageSync('_collect') || [];
+    for (let i = 0; i < collectState.length; i++) {
+      if (collectState[i].a === h) {
+        collectState[i].b = true;
+        let b = collectState[i].b;
+        this.setState({
+          status: b,
+          X: Math.random()
+          // collectState: collectState
+        });
+      }
+    }
+    Taro.setStorageSync('_collect', collectState);
+  }
+  judge(h) {
+    let collectState = Taro.getStorageSync('_collect') || [];
+    for (let i = 0; i < collectState.length; i++) {
+      if (collectState[i].a === h) {
+        let b = collectState[i].b;
+        this.setState({
+          status: b
+        });
+        return true;
+      }
+    }
+    return false;
+  }
+  touchstart(h) {
+    let collectState = Taro.getStorageSync('_collect') || [];
+    if (!this.judge(h)) {
+      collectState.push({ a: h, b: false });
+    }
+    this.setState({
+      // collectState: collectState
+    });
+    Taro.setStorageSync('_collect', collectState);
+  }
+
   //input的onClick
   handleClickInput() {
     this.setState(
       {
+        hidden: false,
+        datas: [],
+        page: 1
+      },
+      () => {
+        this.getHistorySearch();
+      }
+    );
+  }
+  //input的onconfirm
+  handleClickContent(e) {
+    this.setState(
+      {
+        keyword: e.detail.value,
+        datas: [],
+        page: 1,
         hidden: false
       },
       () => {
@@ -247,29 +202,19 @@ export default class Index extends Component {
       }
     );
   }
-  //input的oninput
-  handleClickContent(e) {
-    this.setState({
-      keyword: e.detail.value
-    });
-    if (e.detail.value == '') {
-      this.setState({
-        keyword: e.detail.value
-      });
-      this.getHistorySearch();
-    }
-  }
   //input的onfocus
   handleFocus() {
+    let history = Taro.getStorageSync('history') || [];
     this.setState({
-      hidden: true
+      hidden: true,
+      history: history
     });
   }
   //input的onchange
   onChhange(e) {
     if (e.detail.value != '') {
       let history = Taro.getStorageSync('history') || [];
-      if (history.length < 10) {
+      if (history.length < 8) {
         history.push({ id: history.length, title: e.detail.value });
       } else {
         history.pop();
@@ -290,16 +235,9 @@ export default class Index extends Component {
     });
     Taro.setStorageSync('history', []);
   }
-  //input失去焦点
-  handleBlur(e) {
-    if (e.detail.value == '') {
-      this.setState({
-        hidden: false
-      });
-    }
-  }
 
-  onClickTags(num) {
+  onClickTags(num, e) {
+    console.log(e);
     let state = [false, false, false, false, false];
     if (this.state.tagsState[num] != true) {
       state[num] = true;
@@ -308,7 +246,9 @@ export default class Index extends Component {
     this.setState(
       {
         type: num,
-        tagsState: state
+        tagsState: state,
+        datas: [],
+        page: 1
       },
       () => {
         console.log(this.state.type);
@@ -324,11 +264,28 @@ export default class Index extends Component {
     console.log(text);
     that.setState(
       {
+        inputVal: text,
         keyword: text,
-        hidden: false
+        hidden: false,
+        datas: [],
+        page: 1
       },
       () => {
         that.getHistorySearch();
+      }
+    );
+  }
+  handleCancel() {
+    this.setState(
+      {
+        inputVal: '',
+        hidden: false,
+        keyword: '',
+        datas: [],
+        page: 1
+      },
+      () => {
+        this.getHistorySearch();
       }
     );
   }
@@ -340,14 +297,9 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
+    let inputVal = this.state.inputVal;
+    let status = this.state.status;
     let tagState = this.state.tagsState;
-    const isCollect = this.state.isCollect;
-    let status = null;
-    if (isCollect) {
-      status = <Text>收藏</Text>;
-    } else {
-      status = <Text>已收藏</Text>;
-    }
     const hidden = this.state.hidden;
     const { history } = this.state;
     const list = (
@@ -372,19 +324,21 @@ export default class Index extends Component {
     );
     const content = (
       <View className="detailsBoxes">
-        {this.state.datas.map(data => {
+        {this.state.datas.map((data, index) => {
           return (
             // eslint-disable-next-line react/jsx-key
             <View className="mx-card">
               <MovableArea className="cardm">
                 <MovableView
                   damping="100"
-                  out-of-bounds="true"
+                  animation={false}
+                  outOfBounds
                   direction="horizontal"
                   className="card"
-                  onTouchStart={this.touchstart.bind(this)}
-                  onTouchEnd={this.touchmove.bind(this)}
-                  animation={this.state.animation}
+                  X={this.state.X}
+                  onTouchStart={this.touchstart.bind(this, data.hash)}
+                  onTouchEnd={this.touchstart.bind(this, data.hash)}
+                  // animation={this.state.animation}
                   onClick={this.ChangeTodetails.bind(this)}
                 >
                   <View className="user-info">
@@ -460,9 +414,10 @@ export default class Index extends Component {
               </MovableArea>
               <View
                 className="itemDelete"
-                onClick={this.collect.bind(this, data.hash)}
+                onClick={this.collect.bind(this, data.hash, index)}
               >
-                {status}
+                {status && <Text>已收藏</Text>}
+                {!status && <Text>收藏</Text>}
               </View>
             </View>
           );
@@ -475,18 +430,23 @@ export default class Index extends Component {
         <View className="chooseBox">
           <View className="search">
             <MxInput
+              value={inputVal}
+              confirmType="search"
               leftSrc="../../../assets/svg/searchicon.svg"
+              rightSrc="../../../assets/svg/cross.svg"
               leftSize="32rpx"
-              rightSize="32rpx"
+              rightSize="48rpx"
+              padding1="20rpx"
+              padding2="10rpx"
               width="670rpx"
               height="72rpx"
               background="rgba(241,240,245,1)"
               radius="36rpx"
               placeholder="搜索课程名/老师名"
-              onClick={this.handleClickInput.bind(this)}
-              onInput={this.handleClickContent.bind(this)}
+              onClick1={this.handleClickInput.bind(this)}
+              onClick2={this.handleCancel.bind(this)}
               onChange={this.onChhange.bind(this)}
-              onBlur={this.handleBlur.bind(this)}
+              onConfirm={this.handleClickContent.bind(this)}
               onFocus={this.handleFocus.bind(this)}
             ></MxInput>
           </View>

@@ -1,6 +1,3 @@
-Page {
-    background-color: rgba(241,240,245,1);
-}
 View {
     display: inline-block;
 }
@@ -16,18 +13,12 @@ View {
     font-weight: 700;
     font-family: 'PingFangSC-Regular, sans-serif';
 }
-.chooseAdd{
-    margin: 15rpx 0rpx 0rpx 38rpx;
-}
 .chooseBox{
-    display: block;
-    top: -1rpx;
-    position: fixed;
+    margin-top: 7rpx;
     height: 98rpx;
     width: 750rpx;
     background:rgba(255,255,255,1);
     box-shadow:0rpx 4rpx 7rpx rgba(0,0,0,0.16);
-    z-index: 100;
 }
 .chooseSearchBack{
     margin: 13rpx 0rpx 0rpx 32rpx;
@@ -35,28 +26,19 @@ View {
     height:72rpx;
     background:rgba(241,240,245,1);
     border-radius:36rpx;
-    z-index: 100;
-}
-.chooseInput{
-    margin-top:9rpx;
-    margin-left:32rpx;
-    position: absolute;
 }
 .chooseSearch{
     margin: 20rpx 0rpx 0rpx 16rpx;
 }
-.cho oseAdd{
-    // margin-top: 23rpx;
-    // margin-left: 6s50rpx;
+.chooseAdd{
     margin: 15rpx 0rpx 0rpx 38rpx;
 }
 
 .detailsBoxes {
-    background-color: rgba(241,240,245,1);
-    height: 100%;
     overflow: scroll;
-    padding-top: 110rpx;
-    z-index: 1;
+    height: 989rpx;
+    margin-top: 7rpx;
+    background-color: rgba(241,240,245,1);
 }
 .detailsBox:last-child {
     display: block;
@@ -73,8 +55,6 @@ View {
     width: 711rpx;
     margin-left: 21rpx;
     position: relative;
-    background:rgba(255,255,255,1);
-    border-radius: 20rpx;
 }
 .detailsWrapper {
     margin: 28rpx 0rpx 0rpx 35rpx;
@@ -87,7 +67,6 @@ View {
     vertical-align: top;
     width: 80rpx;
     height: 76rpx;
-    border-radius: 50%;
 }
 .detailsFirstInfo {
     vertical-align: top;
@@ -95,12 +74,12 @@ View {
     margin-left: 21rpx;
 }
 .detailsFirstInfo1 {
-    display: block;
-    font-size: 30rpx;
-    width: 350rpx;
+    max-width: 220px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: block;
+    font-size: 30rpx;
 }
 .detailsFirstInfo2 {
     display: block;
@@ -109,9 +88,8 @@ View {
 }
 .detailsFirstIcon {
     vertical-align: top;
-    margin-left: 67rpx;
     display: inline-block;
-    margin-top: -2rpx;
+    margin-left: 200rpx;
 }
 .detailsSecond {
     display: block;
@@ -120,10 +98,11 @@ View {
     width: inherit;
 }
 .detailsSecondInfo1 {
-    width: 200rpx;
+    max-width: 220px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    vertical-align: top;
     color: #6869F7;
     font-size: 27rpx;
     height: 38rpx;
@@ -136,32 +115,24 @@ View {
     color: #6869F7;
     font-weight: 700;
 }
-.detailsRate{
-    vertical-align: middle;
-    margin-top: -23rpx;
-}
 .detailsThird {
     display: block;
     margin-top: 24rpx;
 }
 .detailsThirdText {
-    display: -webkit-box;
-    font-size: 24rpx;
-    width: 491rpx;
-    height: 67rpx;
-    color: #070707;
-    font-family: 'PingFang SC';
+    max-width: 500px;
     overflow: hidden;
     text-overflow: ellipsis;
-    word-wrap: breka-word;
-    white-space: normal ! important;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+    white-space: nowrap;
+    font-size: 24rpx;
+    width: 528rpx;
+    color: #070707;
+    font-family: 'PingFang SC';
 }
 .detailsFourth {
     display: block;
     position: absolute;
-    bottom: 13rpx;
+    bottom: 3rpx;
     font-size: 22rpx;
 }
 .detailsFourthIcon1{
@@ -169,15 +140,4 @@ View {
 }
 .detailsFourthIcon2{
     margin-left: 25rpx;
-}
-
-.bottomBox{
-    display: block;
-    width: 100%;
-    background: rgba(241,240,245,1);
-    color: black;
-    font-size: 30rpx;
-    height: 80rpx;
-    line-height: 80rpx;
-    text-align:center
 }

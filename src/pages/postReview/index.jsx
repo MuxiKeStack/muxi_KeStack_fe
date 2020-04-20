@@ -280,7 +280,7 @@ export default class Index extends Component {
           </View>
         </View>
         <View className="featureBox">
-          <View className="nameText">选择课程：</View>
+          <View className="nameText">课程特点：</View>
         </View>
         <View className="tagsBox">
           <View>
@@ -302,26 +302,26 @@ export default class Index extends Component {
                 {this.state.tagsReceive[1].name}
               </MxTag>
             </View>
-            <View className="featureTagLev">
-              <MxTag
-                onClick={this.handleClickTag.bind(this, 2)}
-                font="28rpx"
-                checkable
-                width="200rpx"
-              >
-                {this.state.tagsReceive[2].name}
-              </MxTag>
-            </View>
           </View>
           <View>
             <MxTag
-              onClick={this.handleClickTag.bind(this, 3)}
+              onClick={this.handleClickTag.bind(this, 2)}
               font="28rpx"
               checkable
               width="200rpx"
             >
-              {this.state.tagsReceive[3].name}
+              {this.state.tagsReceive[2].name}
             </MxTag>
+            <View className="featureTagLev">
+              <MxTag
+                onClick={this.handleClickTag.bind(this, 3)}
+                font="28rpx"
+                checkable
+                width="200rpx"
+              >
+                {this.state.tagsReceive[3].name}
+              </MxTag>
+            </View>
             <View className="featureTagLev">
               <MxTag
                 onClick={this.handleClickTag.bind(this, 4)}
@@ -331,27 +331,27 @@ export default class Index extends Component {
               >
                 {this.state.tagsReceive[4].name}
               </MxTag>
-              <View className="featureTagLev">
-                <MxTag
-                  onClick={this.handleClickTag.bind(this, 5)}
-                  font="28rpx"
-                  checkable
-                  width="200rpx"
-                >
-                  {this.state.tagsReceive[5].name}
-                </MxTag>
-              </View>
             </View>
           </View>
           <View>
             <MxTag
-              onClick={this.handleClickTag.bind(this, 6)}
+              onClick={this.handleClickTag.bind(this, 5)}
               font="28rpx"
               checkable
               width="200rpx"
             >
-              {this.state.tagsReceive[6].name}
+              {this.state.tagsReceive[5].name}
             </MxTag>
+            <View className="featureTagLev">
+              <MxTag
+                onClick={this.handleClickTag.bind(this, 6)}
+                font="28rpx"
+                checkable
+                width="200rpx"
+              >
+                {this.state.tagsReceive[6].name}
+              </MxTag>
+            </View>
             <View className="featureTagLev">
               <MxTag
                 onClick={this.handleClickTag.bind(this, 7)}

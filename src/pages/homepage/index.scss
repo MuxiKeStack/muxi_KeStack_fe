@@ -74,10 +74,10 @@ Page {
 .modal-body{
     position: fixed;
     top:33%;
-    bottom:42%;
+    // bottom:42%;
     left:12.6%;
     right: 12.6%;
-    padding: 50px;
+    padding: 50px 0 25px 0;
     background-color: white;
     border-radius:20px;
 }
@@ -89,10 +89,14 @@ Page {
 }
 .modal-content{
     display: block;
+    margin: 18px 0;
     font-size:30px;
     color:rgba(136,136,136,1)
 }
 .confirm{
+    border-top: 1px solid rgba(229, 229, 229, 1);
+    padding-top: 25px;
     font-size: 36px;
+    font-weight: 500;
     color:rgba(110,102,238,1);
 }

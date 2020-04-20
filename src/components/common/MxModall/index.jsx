@@ -1,9 +1,10 @@
 import Taro, { Component } from '@tarojs/taro'
 import { View, Button,ScrollView,Text } from '@tarojs/components'
 import classNames from 'classnames'
+import PropTypes from 'prop-types'
 import MxComponent from '../../../common/component'
 import './index.scss'
-import PropTypes from 'prop-types'
+
 
 export default class MxModal extends MxComponent{
   constructor (props){
@@ -46,7 +47,7 @@ export default class MxModal extends MxComponent{
 
   render () {
     const {_isOpened} = this.state;
-    const {content,teacher,title,cancelText,confirmText,popup, animationType, width,height,class_id,contentHeight,titleHeight,top } = this.props;
+    const {teacher,title,cancelText,confirmText,popup, animationType, width,height,class_id,contentHeight,titleHeight,top } = this.props;
 
     const rootClass = classNames('mp-modal',{
       'mp-modal--active':_isOpened
@@ -101,9 +102,10 @@ export default class MxModal extends MxComponent{
                <Text className='mp-icon mp-icon-closemodal' style='position:absolute;top:-11px;right:-9px;'  onClick={this.onClose}></Text>
                <View className='mp-modal__content' style={Height}>
                  <ScrollView
-                  scrollY
-                  style={scrollStyle}
-                  scrollTop={scrollTop}>
+                   scrollY
+                   style={scrollStyle}
+                   scrollTop={scrollTop}
+                 >
                  { this.props.children }
                  </ScrollView>
                </View>

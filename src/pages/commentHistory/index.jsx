@@ -40,16 +40,22 @@ export default class Index extends Component {
         limit: '20'
       },
       'GET'
-    ).then(res => {
-      if (res) {
-        console.log(res.data.list);
-        // console.log(res.data.list[res.data.list.length - 1].id);
-        this.setState({
-          list: res.data.list,
-          last_id: res.data.list[res.data.list.length - 1].id
-        });
-      }
-    });
+    )
+      .then(res => {
+        if (res.data.list) {
+          // console.log(res.data.list);
+          // console.log(res.data.list[res.data.list.length - 1].id);
+          this.setState({
+            list: res.data.list,
+            last_id: res.data.list[res.data.list.length - 1].id
+          });
+        } else {
+          Taro.showToast({ title: '您还没有评课哦～', icon: 'none' });
+        }
+      })
+      .catch(err => {
+        Taro.showToast({ title: '您还没有评课哦～', icon: 'none' });
+      });
   }
 
   componentWillUnmount() {}

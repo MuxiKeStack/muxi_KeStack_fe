@@ -1,11 +1,10 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, Text, Block } from '@tarojs/components';
+import { View, Image, Text } from '@tarojs/components';
 import { List } from '../../components/page/List';
 import { Item } from '../../components/page/List/Item';
 import image from '../../assets/svg/avatar-img.svg';
 import './index.scss';
 import Fetch from '../../service/fetch';
-import MxButton from '../../components/common/MxButton';
 import MxIcon from '../../components/common/MxIcon';
 // import {isLogined} from 'utils/tools'
 // import { courseList} from 'sevices/course'
@@ -26,20 +25,19 @@ export default class Index extends Component {
   };
 
   componentDidMount() {
-    if (!Taro.getStorageSync('sid'))
-      Taro.showModal({
-        title: '提示',
-        content: '未登陆'
+    if (!Taro.getStorageSync('sid')) {
+      Taro.navigateTo({
+        url: '/pages/login/index'
       });
+    }
   }
 
   componentDidShow() {
-    /*       courseList().then(res => {
-                    console.log(res);
-                    this.setState({
-                        course: res.info,
-                    });
-                });*/
+    if (!Taro.getStorageSync('sid')) {
+      Taro.navigateTo({
+        url: '/pages/login/index'
+      });
+    }
     Fetch('api/v1/message/count/', {}, 'GET').then(res => {
       if (res) {
         // console.log(res.data);
@@ -167,9 +165,9 @@ export default class Index extends Component {
           <View className="modal-body">
             <View className="modal-title">反馈</View>
             <Text className="modal-content" selectable="true">
-              QQ群：799651462
-            </Text>
-            <Text className="modal-content" selectable="true">
+              QQ群：799651462\n
+            {/* </Text>
+            <Text className="modal-content" selectable="true"> */}
               邮箱：i@muxistudio.com
             </Text>
             <View

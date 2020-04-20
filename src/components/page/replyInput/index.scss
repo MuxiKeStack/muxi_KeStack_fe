@@ -15,11 +15,12 @@
 }
 
 .placeholder{
-
+    display: flex;
+    align-items: center;
 }
 .reply-input{
-    // display: flex;
-    // align-items: center;
+    display: flex;
+    align-items: center;
     box-sizing: border-box;
     padding:10px;
     font-size:27px;

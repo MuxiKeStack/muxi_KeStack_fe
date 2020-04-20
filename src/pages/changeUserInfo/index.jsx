@@ -181,7 +181,7 @@ export default class index extends Component {
                 onChange={this.toChangeName.bind(this)}
                 // onFocus={this.handleFocus.bind(this)}
                 // onBlur={this.handleUnFocus.bind(this)}
-                focus
+                // focus
               />
               {/* {!onfocus && <MxIcon type="cross"></MxIcon>} */}
               <View className="icon-right">

@@ -1,4 +1,4 @@
-import Taro, { onSocketClose } from '@tarojs/taro';
+import Taro from '@tarojs/taro';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { View, Text } from '@tarojs/components';

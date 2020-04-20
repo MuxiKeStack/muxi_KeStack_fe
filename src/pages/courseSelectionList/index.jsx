@@ -1,5 +1,5 @@
-import Taro, {Component} from '@tarojs/taro';
-import {MovableArea, MovableView, View} from '@tarojs/components';
+import Taro, { Component } from '@tarojs/taro';
+import { MovableArea, MovableView, View, Text } from '@tarojs/components';
 import './index.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import Fetch from '../../service/fetch';
@@ -20,7 +20,9 @@ export default class Index extends Component {
       // eslint-disable-next-line react/no-unused-state
       sum: 0,
       lastId: 0,
-      lastTempId: 0
+      lastTempId: 0,
+      page: 0,
+      X: 0
     };
   }
 
@@ -34,48 +36,51 @@ export default class Index extends Component {
     startY: 0
   };
 
-  handleClick() {
-  }
+  handleClick() {}
 
-  getLists() {
-
+  getLists(attention) {
     let newLists = this.state.Lists;
-    console.log(this.state.lastId)
+    console.log(this.state.lastId);
     Fetch(
       'api/v1/collection/',
       {
-        limit: 4,
+        limit: 5,
         last_id: this.state.lastId
       },
       'GET'
     ).then(data => {
-      console.log(data)
-      if (data.data.list != null) {  //判断是否没有数据了
-        if (this.state.lastId != 0) {  //之后增加数据
-          console.log(data.data.list + '新列表')
+      console.log(data);
+      if (data.data.list != null) {
+        //判断是否没有数据了
+        if (this.state.lastId != 0) {
+          //之后增加数据
+          console.log(data.data.list + '新列表');
           newLists = newLists.concat(data.data.list);
-          console.log(newLists)
+          console.log(newLists);
           Taro.stopPullDownRefresh();
           Taro.hideNavigationBarLoading();
           this.setState({
             Lists: newLists,
             // eslint-disable-next-line react/no-unused-state
             sum: data.data.sum,
-            lastId: data.data.list[data.data.sum - 1].id
+            lastId: data.data.list[data.data.sum - 1].id,
+            page: this.state.page + 1
           });
-        } else {   //第一次拉取数据
+        } else {
+          //第一次拉取数据
           Taro.stopPullDownRefresh();
           Taro.hideNavigationBarLoading();
           this.setState({
             Lists: data.data.list,
             // eslint-disable-next-line react/no-unused-state
             sum: data.data.sum,
-            lastId: data.data.list[data.data.sum - 1].id
+            lastId: data.data.list[data.data.sum - 1].id,
+            page: this.state.page + 1
           });
         }
       } else {
         Taro.showToast({
-          title: '到底啦！',
+          title: attention,
           duration: 2000
         });
         Taro.stopPullDownRefresh();
@@ -84,18 +89,32 @@ export default class Index extends Component {
     });
   }
 
-
   getListsAfterFavor(index) {
-    console.log('index为' + index)
-    let newLists = this.state.Lists
-    newLists.splice(index, 1)
-    console.log('当前要删除id' + newLists[0])
-    console.log('当前要删除id' + newLists[1])
-    console.log('当前要删除id' + newLists[2])
-    console.log('当前要删除id' + newLists[3])
-    this.setState({
-      Lists: newLists
-    })
+    console.log('index为' + index);
+    // let newLists = this.state.Lists;
+    // newLists.splice(index, 1);
+    Fetch(
+      'api/v1/collection/',
+      {
+        limit: 5 * this.state.page,
+        last_id: 0
+      },
+      'GET'
+    ).then(data => {
+      if (data.data.list == null) {
+        this.setState({
+          Lists: []
+        });
+      } else {
+        this.setState({
+          Lists: data.data.list,
+          X: Math.random()
+        });
+      }
+    });
+    // this.setState({
+    //   Lists: newLists
+    // });
   }
 
   onPullDownRefresh() {
@@ -107,18 +126,18 @@ export default class Index extends Component {
       },
       () => {
         Taro.showNavigationBarLoading();
-        this.getLists();
+        this.getLists('没有更多数据啦');
       }
     );
   }
 
   onReachBottom() {
     Taro.showNavigationBarLoading();
-    this.getLists();
+    this.getLists('到底啦');
   }
 
   componentWillMount() {
-    this.getLists();
+    this.getLists('您还没有收藏课程哦！');
   }
 
   // 滑动开始
@@ -143,8 +162,8 @@ export default class Index extends Component {
     // var isRight = _class.indexOf("rightMove") != -1;//往右滑的位置
     //获取滑动角度
     var angle = that.angle(
-      {X: startX, Y: startY},
-      {X: touchMoveX, Y: touchMoveY}
+      { X: startX, Y: startY },
+      { X: touchMoveX, Y: touchMoveY }
     );
     //滑动超过30度角 return
     if (Math.abs(angle) > 30) return;
@@ -155,10 +174,10 @@ export default class Index extends Component {
         duration: 400,
         timingFunction: 'linear',
         delay: 100,
-        transformOrigin: 'left top 0',
+        transformOrigin: 'left top 0'
       });
 
-      _animation.translateX(0).step();
+      // _animation.translateX(0).step();
       that.setState({
         //输出动画
         animation: _animation.export()
@@ -170,9 +189,9 @@ export default class Index extends Component {
         duration: 400,
         timingFunction: 'linear',
         delay: 100,
-        transformOrigin: 'left top 0',
+        transformOrigin: 'left top 0'
       });
-      _animation.translateX(-80).step();
+      // _animation.translateX(-80).step();
       that.setState({
         //输出动画
         animation: _animation.export()
@@ -197,7 +216,7 @@ export default class Index extends Component {
       duration: 400,
       timingFunction: 'linear',
       delay: 100,
-      transformOrigin: 'left top 0',
+      transformOrigin: 'left top 0'
     });
 
     this.setState({
@@ -206,14 +225,11 @@ export default class Index extends Component {
     });
   }
 
-  componentWillUnmount() {
-  }
+  componentWillUnmount() {}
 
-  componentDidShow() {
-  }
+  componentDidShow() {}
 
-  componentDidHide() {
-  }
+  componentDidHide() {}
 
   collect(thisIndex, course_id) {
     Fetch(
@@ -225,24 +241,33 @@ export default class Index extends Component {
     ).then(res => {
       switch (res.code) {
         case 0:
+          this.setCollect(course_id);
           // eslint-disable-next-line no-undef
           Taro.showToast({
             title: '取消收藏成功！',
-            icon: 'success',
-          })
-          console.log("当前index" + thisIndex)
-          this.getListsAfterFavor(thisIndex)
+            icon: 'success'
+          });
+          console.log('当前index' + thisIndex);
+          this.getListsAfterFavor(thisIndex);
           break;
         case 20302:
           // eslint-disable-next-line no-undef
           Taro.showToast({
             title: '取消收藏失败!'
-          })
+          });
           break;
       }
     });
   }
-
+  setCollect(cid) {
+    let collectState = Taro.getStorageSync('_collect') || [];
+    for (let i = 0; i < collectState.length; i++) {
+      if (collectState[i].a === cid) {
+        collectState[i].b = false;
+      }
+    }
+    Taro.setStorageSync('_collect', collectState);
+  }
   render() {
     // let status = null;
     // if (noCollect) {
@@ -252,7 +277,7 @@ export default class Index extends Component {
     //   // eslint-disable-next-line react/jsx-no-undef
     //   status = <Text>取消收藏</Text>;
     // }
-    const content = (
+    return (
       <View className="detailsBoxes">
         {this.state.Lists.map((data, index) => {
           return (
@@ -261,12 +286,11 @@ export default class Index extends Component {
               <MovableArea className="cardm">
                 <MovableView
                   damping="100"
-                  out-of-bounds="true"
+                  animation={false}
+                  outOfBounds
                   direction="horizontal"
                   className="card"
-                  onTouchStart={this.touchstart.bind(this)}
-                  onTouchEnd={this.touchmove.bind(this)}
-                  animation={this.state.animation}
+                  X={this.state.X}
                 >
                   <View className="detailsLeft">
                     <View>{data.course_name}</View>
@@ -290,7 +314,10 @@ export default class Index extends Component {
                   </View>
                 </MovableView>
               </MovableArea>
-              <View className="itemDelete right" onClick={this.collect.bind(this, index, data.course_id)}>
+              <View
+                className="itemDelete right"
+                onClick={this.collect.bind(this, index, data.course_id)}
+              >
                 <Text>取消收藏</Text>
               </View>
             </View>
@@ -299,6 +326,6 @@ export default class Index extends Component {
       </View>
     );
 
-    return <View style="display:block">{content}</View>;
+    // <View className="detailsBoxes">{content}</View>;
   }
 }
