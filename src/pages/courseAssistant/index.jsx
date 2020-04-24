@@ -306,7 +306,7 @@ export default class Index extends Component {
   onChhange(e) {
     if (e.detail.value != '') {
       let records = Taro.getStorageSync('records') || [];
-      if (records.length < 8) {
+      if (records.length < 6) {
         records.push({ id: records.length, title: e.detail.value });
       } else {
         records.pop();
@@ -372,7 +372,6 @@ export default class Index extends Component {
     const { records } = this.state;
     const list = (
       <View className="index">
-        <View className="history">历史记录</View>
         {records.map(record => {
           // eslint-disable-next-line react/jsx-key
           return (
@@ -387,7 +386,7 @@ export default class Index extends Component {
           );
         })}
         <View className="clear" onClick={this.onClearHistory.bind(this)}>
-          清空
+          清除全部
         </View>
       </View>
     );
@@ -507,7 +506,7 @@ export default class Index extends Component {
               <MxPicker
                 selectorChecked={this.state.kindChecked}
                 selector={this.state.checkKind}
-                width="183rpx"
+                width="170rpx"
                 onChange={this.handleChangeKind.bind(this)}
               />
             </View>
@@ -515,7 +514,7 @@ export default class Index extends Component {
               <MxPicker
                 selectorChecked={this.state.colledgeChecked}
                 selector={this.state.checkColledge}
-                width="183rpx"
+                width="170rpx"
                 onChange={this.handleChangeColledge.bind(this)}
               />
             </View>
@@ -523,7 +522,7 @@ export default class Index extends Component {
               <MxPicker
                 selectorChecked={this.state.timeChecked}
                 selector={this.state.checkTime}
-                width="183rpx"
+                width="170rpx"
                 onChange={this.handleChangeTime.bind(this)}
               />
             </View>
@@ -531,7 +530,7 @@ export default class Index extends Component {
               <MxPicker
                 selectorChecked={this.state.placeChecked}
                 selector={this.state.checkPlace}
-                width="183rpx"
+                width="180rpx"
                 onChange={this.handleChangePlace.bind(this)}
               />
             </View>
