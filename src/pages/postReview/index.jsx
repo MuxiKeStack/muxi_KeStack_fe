@@ -165,6 +165,10 @@ export default class Index extends Component {
         });
       } else {
         Fetch('api/v1/evaluation/', post, 'POST').then(() => {
+          Taro.setStorage({
+            key: 'contentSaved',
+            data: ''
+          });
           Taro.switchTab({
             url: '/pages/commentSquare/index'
           });

@@ -39,8 +39,15 @@ export default class MxReport extends MxComponent {
       },
       'POST'
     ).then(data => {
-      if (data) {
-        console.log(data.data);
+      if (data.data.fail) {
+        Taro.showToast({
+          title: '已经举报',
+          icon: 'none'
+        });
+      } else {
+        Taro.showToast({
+          title: '举报成功'
+        });
       }
     });
   }
