@@ -27,20 +27,33 @@ export default class Index extends Component {
   componentWillUnmount() {}
 
   componentDidHide() {}
-  onItemChange(item) {
-    this.setState({
-      value: item
-    });
-    console.log('传值成功啦');
-    console.log(this.state.value);
-  }
-  toTop() {
-    Taro.pageScrollTo({
-      scrollTop: 0,
-      duration: 300
-    })
-  }
   render() {
+    const res = Taro.getSystemInfoSync();
+    const point = (res.screenWidth / 750) * 50;
+    const radiusOut = (res.screenWidth / 750) * 50;
+    const radiusIn = (res.screenWidth / 750) * 48;
+    function drawSector(beginAngle, finishAngle, color, ctx) {
+      ctx.beginPath();
+      ctx.arc(
+        point,
+        point,
+        radiusOut,
+        computeAngle(beginAngle),
+        computeAngle(finishAngle),
+        false
+      );
+      ctx.arc(
+        point,
+        point,
+        radiusIn,
+        computeAngle(finishAngle),
+        computeAngle(beginAngle),
+        true
+      );
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
     return (
       <View>
         <View className="test"></View>

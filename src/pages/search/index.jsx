@@ -11,7 +11,6 @@ export default class Index extends Component {
   constructor() {
     super(...arguments);
     this.state = {
-      collectState: [],
       status: false,
       inputVal: '',
       keyword: '',
@@ -107,6 +106,11 @@ export default class Index extends Component {
   }
 
   collect(hash, thisIndex) {
+    if (!Taro.getStorageSync('sid')) {
+      Taro.navigateTo({
+        url: '/pages/login/index'
+      });
+    }
     console.log('index为' + thisIndex);
     Fetch(
       `api/v1/course/using/${hash}/favorite/`,
@@ -214,7 +218,7 @@ export default class Index extends Component {
   onChhange(e) {
     if (e.detail.value != '') {
       let history = Taro.getStorageSync('history') || [];
-      if (history.length < 8) {
+      if (history.length < 6) {
         history.push({ id: history.length, title: e.detail.value });
       } else {
         history.pop();
@@ -304,7 +308,6 @@ export default class Index extends Component {
     const { history } = this.state;
     const list = (
       <View className="index">
-        <View className="history">历史记录</View>
         {history.map(h => {
           return (
             <View
@@ -318,7 +321,7 @@ export default class Index extends Component {
           );
         })}
         <View className="clear" onClick={this.onClearHistory.bind(this)}>
-          清空
+          清除全部
         </View>
       </View>
     );

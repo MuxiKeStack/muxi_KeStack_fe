@@ -1,15 +1,11 @@
 .index{
     width: 750rpx;
-    height: 1196rpx;
 }
 .head{
-    width: 190rpx;
-    height: 190rpx;
-    border: 4rpx solid#6868F8;
-    border-radius: 190rpx;
+    width: 300rpx;
+    height: 300rpx;
     margin-top: 140rpx;
-    margin-left: 280rpx;
-    margin-bottom:85rpx;
+    margin-left: 230rpx;
 }
 .input{
     margin-top: 40rpx;
@@ -23,7 +19,7 @@
 
 .visit{
     margin-top: 25rpx;
-    margin-left:292rpx;
+    margin-left:298rpx;
     width:144rpx;
     height:50rpx;
 }
@@ -32,7 +28,7 @@
     color: #6868F8;
 }
 .privacy{
-    width:600rpx;
+    width:620rpx;
     height:40rpx;
     margin-left: 95rpx;
     margin-top: 80rpx;
@@ -95,7 +91,7 @@
     border-radius: 30px;
 }
 .affirm{
-    width:250px;
+    width:270px;
     height:50px;
     font-size:36px;
     font-weight:400;
@@ -127,12 +123,9 @@
     color:rgba(0,0,0,1);
     font-size:35px;
     width: 600rpx;
-    height: 1000rpx;
-    border-radius: 30px;
+    height: 1078rpx;
+    border-radius: 20px;
     overflow-y:auto;
-    padding-top: 18rpx;
-    padding-left: 5rpx;
-    padding-right: 5rpx;
 }
 .maskshow{
     width: 100%;
@@ -145,13 +138,28 @@
     opacity: 0.6;
 }
 .name{
+    width: 600rpx;
+    border-radius:20px 20px 0px 0px;
+    position: absolute;
+    line-height:80px;
+    color:rgba(255,255,255,1);
+    height: 79rpx;
     text-align: center;
-    font-size: 40px;
-    font-weight: 600;
+    font-size: 32rpx;
+    font-weight: 400;
+    background-color:#6868F8 ;
 }
 .unmasklist{
     display: none;
 }
 .unmaskshow{
     display: none;
+}
+.indent{
+    text-indent: 2em;
+}
+.text{
+    font-size: 20rpx;
+    color:rgba(112,112,112,1);
+    margin: 85rpx 20rpx 10rpx 20rpx;
 }

@@ -173,47 +173,42 @@ View {
   margin-top: 36rpx;
   margin-left: 20rpx;
 }
-.history{
-  border:3px solid rgba(112,112,112,1);
-  border-radius: 34rpx;
-  font-size: 34rpx;
-  margin-left: 20rpx;
-  margin-top: 10rpx;
-  padding:0rpx 5rpx 0rpx 5rpx
-}
 .clear{
-  border-top:3px solid #6868F8;
-  margin-left: 20rpx;
+  margin-left: 39rpx;
   margin-top: 10rpx;
-  width: 600rpx;
-  font-size: 34rpx;
-  bottom: 10rpx;
+  width: 534rpx;
+  font-size: 24rpx;
+  bottom: 5rpx;
   left: 0;
   position:absolute;
   display: inline-block;
   text-align: center;
   color: #6868F8;
+  line-height:40rpx;
 }
 .index{
   background-color: rgba(255,255,255,1);
   border-left:1px solid rgba(112,112,112,1);
   border-right:1px solid rgba(112,112,112,1);
   border-bottom:1px solid rgba(112,112,112,1);
-  width: 650rpx;
-  height: 600rpx;
+  width: 612rpx;
+  height: 363rpx;
   position: absolute;
     z-index: 1005;
-    top: 128%;
-    left: 51%;
+    top: 88%;
+    left: 49%;
     transform:translate(-50%, -50%);
     opacity: 1;
   display: inline-block;
+  border-radius:0px 0px 20px 20px;
 }
 .title{
+  color: rgba(112,112,112,1);
   border-bottom:2px solid rgba(112,112,112,1);
-  font-size: 34rpx;
-  width: 600rpx;
-  margin-left: 20rpx;
+  font-size: 24rpx;
+  width: 534rpx;
+  margin-left: 39rpx;
   margin-top: 10rpx;
+  line-height:40rpx;
 }
 
