@@ -22,9 +22,10 @@ export default class Index extends Component {
       // eslint-disable-next-line react/no-unused-state
       checkable: false,
       page: 1,
-      X: 0
+      X: 0,
       // mask: 'mask',
-      // masklist: 'masklist'
+      // masklist: 'masklist',
+      courseCollected: []
     };
   }
   // eslint-disable-next-line react/sort-comp
@@ -68,6 +69,7 @@ export default class Index extends Component {
 
   componentDidMount() {
     this.getHistorySearch();
+    this.getCollected();
   }
   getHistorySearch() {
     var that = this;
@@ -105,6 +107,24 @@ export default class Index extends Component {
     });
   }
 
+  getCollected() {
+    Fetch(
+      'api/v1/collection/',
+      {
+        limit: 100,
+        last_id: 0
+      },
+      'GET'
+    ).then(data => {
+      let courseCollected = data.data.list.map(a => a.course_id);
+      console.log(courseCollected);
+      this.setState({
+        courseCollected: courseCollected
+      });
+    });
+  }
+
+
   collect(hash, thisIndex) {
     if (!Taro.getStorageSync('sid')) {
       Taro.navigateTo({
@@ -141,19 +161,24 @@ export default class Index extends Component {
     });
   }
   setCollect(h) {
-    let collectState = Taro.getStorageSync('_collect') || [];
-    for (let i = 0; i < collectState.length; i++) {
-      if (collectState[i].a === h) {
-        collectState[i].b = true;
-        let b = collectState[i].b;
-        this.setState({
-          status: b,
-          X: Math.random()
-          // collectState: collectState
-        });
-      }
-    }
-    Taro.setStorageSync('_collect', collectState);
+    // let collectState = Taro.getStorageSync('_collect') || [];
+    // for (let i = 0; i < collectState.length; i++) {
+    //   if (collectState[i].a === h) {
+    //     collectState[i].b = true;
+    //     let b = collectState[i].b;
+    //     this.setState({
+    //       status: b,
+    //       X: Math.random()
+    //       // collectState: collectState
+    //     });
+    //   }
+    // }
+    // Taro.setStorageSync('_collect', collectState);
+    let newCollected = this.state.courseCollected;
+    newCollected.push(h);
+    this.setState({
+      courseCollected: newCollected
+    });
   }
   judge(h) {
     let collectState = Taro.getStorageSync('_collect') || [];
@@ -303,6 +328,7 @@ export default class Index extends Component {
   render() {
     let inputVal = this.state.inputVal;
     let status = this.state.status;
+    let collected = this.state.courseCollected;
     let tagState = this.state.tagsState;
     const hidden = this.state.hidden;
     const { history } = this.state;
@@ -419,8 +445,13 @@ export default class Index extends Component {
                 className="itemDelete"
                 onClick={this.collect.bind(this, data.hash, index)}
               >
-                {status && <Text>已收藏</Text>}
-                {!status && <Text>收藏</Text>}
+                {collected.indexOf(data.hash) === -1 ? (
+                  <Text>收藏</Text>
+                ) : (
+                  <Text>已收藏</Text>
+                )}
+                {/*{status && <Text>已收藏</Text>}*/}
+                {/*{!status && <Text>收藏</Text>}*/}
               </View>
             </View>
           );
