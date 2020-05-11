@@ -7,6 +7,7 @@ import Fetch from '../../service/fetch';
 import MxReport from '../../components/common/MxReport';
 import MxLike from '../../components/page/MxLike/MxLike';
 import Octodex from '../../assets/png/octodex.jpg';
+import MxLoading from '../../components/common/MxLoading'
 
 export default class Index extends Component {
   // eslint-disable-next-line react/sort-comp
@@ -24,6 +25,7 @@ export default class Index extends Component {
       sum: 0,
       lastId: 0,
       bottomFlag: false,
+      isStar: false,
       dragStyle: {
         //下拉框的样式
         top: 0 + 'px'
@@ -197,6 +199,7 @@ export default class Index extends Component {
     });
     setTimeout(() => {
       this.setState({
+        isStar: false,
         dragStyle: {
           top: 0 + 'px'
         },
@@ -234,7 +237,7 @@ export default class Index extends Component {
       if (move_y - start_y > 0) {
         //下拉操作
         if (pY >= deviationY) {
-          this.setState({ dragState: 1, downText: '释放刷新' });
+          this.setState({ isStar: true, dragState: 1, downText: '释放刷新' });
         } else {
           this.setState({ dragState: 0, downText: '下拉刷新' });
         }
@@ -246,7 +249,8 @@ export default class Index extends Component {
             top: pY + 'px'
           },
           downDragStyle: {
-            height: pY + 'px'
+            height: pY + 'px',
+            transform: `scale(${1 * Math.abs(pY/maxY)})`
           },
           scrollY: false //拖动的时候禁用
         });
@@ -345,11 +349,13 @@ export default class Index extends Component {
     let dragStyle = this.state.dragStyle;
     let downDragStyle = this.state.downDragStyle;
     let upDragStyle = this.state.upDragStyle;
+    let isStar = this.state.isStar;
     const { bottomFlag } = this.state;
     const content = (
       <View className="dragUpdataPage" style={{height: Taro.getSystemInfoSync().windowHeight *2 - 100 + 'rpx'}}>
         <View className="downDragBox" style={downDragStyle}>
-          <Text className="downText">{this.state.downText}</Text>
+          <MxLoading isStar={isStar}></MxLoading>
+          {/*<Text className="downText">{this.state.downText}</Text>*/}
         </View>
         <ScrollView
           style={dragStyle}
