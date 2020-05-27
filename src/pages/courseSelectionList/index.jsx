@@ -2,6 +2,7 @@ import Taro, { Component } from '@tarojs/taro';
 import { MovableArea, MovableView, View, Text } from '@tarojs/components';
 import './index.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
+import MxTag from '../../components/common/MxTag/index';
 import Fetch from '../../service/fetch';
 
 export default class Index extends Component {
@@ -302,14 +303,58 @@ export default class Index extends Component {
                       <View>评价人数：{data.evaluation_num}</View>
                     </View>
                     <View className="detailsRightDown">
-                      <View style="display:block">
-                        <View className="detailsText">{data.tags[0]}</View>
-                        <View className="detailsText">{data.tags[1]}</View>
-                      </View>
-                      <View style="display:block">
-                        <View className="detailsText">{data.tags[2]}</View>
-                        <View className="detailsText">{data.tags[3]}</View>
-                      </View>
+                      {data.tags == null && (
+                        <View>
+                          <View className="tag1">
+                            <MxTag
+                              check={false}
+                              padding="5rpx 32rpx 5rpx 32rpx"
+                            >
+                              暂无课程评价
+                            </MxTag>
+                          </View>
+                        </View>
+                      )}
+                      {data.tags !== null && (
+                        <View>
+                          <View className="tag1">
+                            <MxTag
+                              check={false}
+                              font="24rpx"
+                              padding="3rpx 28rpx 3rpx 28rpx"
+                            >
+                              {data.tags[0]}
+                            </MxTag>
+                          </View>
+                          <View className="tag2">
+                            <MxTag
+                              check={false}
+                              font="24rpx"
+                              padding="3rpx 28rpx 3rpx 28rpx"
+                            >
+                              {data.tags[1]}
+                            </MxTag>
+                          </View>
+                          <View className="tag3">
+                            <MxTag
+                              check={false}
+                              font="24rpx"
+                              padding="3rpx 28rpx 3rpx 28rpx"
+                            >
+                              {data.tags[2]}
+                            </MxTag>
+                          </View>
+                          <View className="tag4">
+                            <MxTag
+                              check={false}
+                              font="24rpx"
+                              padding="3rpx 28rpx 3rpx 28rpx"
+                            >
+                              {data.tags[3]}
+                            </MxTag>
+                          </View>
+                        </View>
+                      )}
                     </View>
                   </View>
                 </MovableView>

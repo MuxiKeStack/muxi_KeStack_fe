@@ -389,53 +389,81 @@ export default class Index extends Component {
                     <View className="tag">
                       {data.attendance == '' && (
                         <View className="tag1">
-                          <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          <MxTag
+                            check={false}
+                            font="24rpx"
+                            padding="3rpx 28rpx 3rpx 28rpx"
+                          >
                             暂无评价
                           </MxTag>
                         </View>
                       )}
                       {data.attendance !== '' && (
                         <View className="tag1">
-                          <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          <MxTag
+                            check={false}
+                            font="24rpx"
+                            padding="3rpx 28rpx 3rpx 28rpx"
+                          >
                             {data.attendance}
                           </MxTag>
                         </View>
                       )}
                       {data.exam == '' && (
                         <View className="tag2">
-                          <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          <MxTag
+                            check={false}
+                            font="24rpx"
+                            padding="3rpx 28rpx 3rpx 28rpx"
+                          >
                             暂无评价
                           </MxTag>
                         </View>
                       )}
                       {data.exam !== '' && (
                         <View className="tag2">
-                          <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          <MxTag
+                            check={false}
+                            font="24rpx"
+                            padding="3rpx 28rpx 3rpx 28rpx"
+                          >
                             {data.exam}
                           </MxTag>
                         </View>
                       )}
                       {data.tags == '' && (
                         <View className="tag3">
-                          <MxTag check={false} padding="1rpx 28rpx 3rpx 28rpx">
+                          <MxTag
+                            check={false}
+                            font="24rpx"
+                            padding="3rpx 28rpx 3rpx 28rpx"
+                          >
                             暂无课程特点评价
                           </MxTag>
                         </View>
                       )}
-                      {data.tags != '' &&
-                        data.tags.map(t => {
-                          return (
-                            // eslint-disable-next-line react/jsx-key
-                            <View className="tag3">
-                              <MxTag
-                                check={false}
-                                padding="1rpx 28rpx 3rpx 28rpx"
-                              >
-                                {t}
-                              </MxTag>
-                            </View>
-                          );
-                        })}
+                      {data.tags != '' && (
+                        <View>
+                          <View className="tag3">
+                            <MxTag
+                              check={false}
+                              font="24rpx"
+                              padding="3rpx 28rpx 3rpx 28rpx"
+                            >
+                              {data.tags[0]}
+                            </MxTag>
+                          </View>
+                          <View className="tag4">
+                            <MxTag
+                              check={false}
+                              font="24rpx"
+                              padding="3rpx 28rpx 3rpx 28rpx"
+                            >
+                              {data.tags[1]}
+                            </MxTag>
+                          </View>
+                        </View>
+                      )}
                     </View>
                   </View>
                 </MovableView>

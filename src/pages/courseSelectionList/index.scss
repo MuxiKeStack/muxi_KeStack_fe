@@ -60,6 +60,8 @@ Page {
     font-size: 40rpx;
     text-align: center;
     line-height: 201rpx;
+    writing-mode:vertical-rl;
+    text-orientation:upright;
 }
 .detailsLeft {
     max-width: 220rpx;
@@ -74,16 +76,28 @@ Page {
     width: 200px;
 }
 .detailsRight {
+    margin-left: 50rpx;
+    margin-top: 30rpx;
+    width: 410px;
     display: inline-block;
-    margin-top: 63rpx;
-    margin-left: 45rpx;
-    vertical-align: top;
 }
 .detailsRightDown {
-    display: block;
-    margin-top: 12rpx;
-    color: rgb(173, 188, 230);
-    font-size: 35rpx;
+    font-size: 0;
+    display: inline-block;
+    margin-top:34rpx;
+    .tag2{
+        margin-left: 15rpx;
+      }
+      .tag3{
+        margin-top:15rpx ;
+        display: inline-block;
+        margin-bottom: 45rpx;
+      }
+      .tag4{
+        margin-top: 15rpx;
+        margin-left: 15rpx;
+        margin-bottom: 45rpx;
+      }
 }
 .detailsText{
     width: 165rpx;
