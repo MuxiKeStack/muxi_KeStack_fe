@@ -13,15 +13,15 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 72px;
-  height: 72px;
+  width: 60rpx;
+  height: 60rpx;
 
   &__ring {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 72px;
-    height: 72px;
+    width: 60rpx;
+    height: 60rpx;
     margin: 1PX;
     border-width: 2PX;
     border-style: solid;
@@ -48,12 +48,81 @@
   position: absolute;
   left: 0;
   top: 0;
-  width: 72px;
-  height: 72px;
+  width: 60rpx;
+  height: 60rpx;
 }
 
 .loading-body{
   position: relative;
-  width: 72px;
-  height: 72px;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.pacman{
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-right: 20rpx solid transparent;
+  border-top: 20rpx solid #FFFF00;
+  border-left: 20rpx solid #FFFF00;
+  border-bottom: 20rpx solid #FFFF00;
+  border-top-left-radius: 20rpx;
+  border-top-right-radius: 20rpx;
+  border-bottom-left-radius: 20rpx;
+  border-bottom-right-radius: 20rpx;
+  position: absolute;
+  top: 0;
+  left: 4rpx;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+
+.heart {
+  position: absolute;
+  width: 54px;
+  height: 48px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.heart:before,.heart:after {
+  content: "";
+  width: 30px;
+  height: 50px;
+  position: absolute;
+  background: red;
+  left: 30px;
+  top: 0;
+  -webkit-border-radius: 16px 16px 0 0;
+  -moz-border-radius: 16px 16px 0 0;
+  border-radius: 16px 16px 0 0;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transform-origin: 0 100%;
+  -moz-transform-origin: 0 100%;
+  -ms-transform-origin: 0 100%;
+  -o-transform-origin: 0 100%;
+  transform-origin: 0 100%;
+}
+
+.heart:after {
+  left: 0;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-transform-origin: 100% 100%;
+  -moz-transform-origin: 100% 100%;
+  -ms-transform-origin: 100% 100%;
+  -o-transform-origin: 100% 100%;
+  transform-origin: 100% 100%;
 }

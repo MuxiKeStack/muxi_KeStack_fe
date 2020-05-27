@@ -1,12 +1,13 @@
+import classNames from "classnames";
 import { View, Image} from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import MxComponent from '../../../common/component'
-import fourStar from '../../../assets/png/fourStar.jpg'
+import AtComponent from '../../../common/component'
+import './index.scss'
 
 
 
 
-export default class MxLoading extends MxComponent {
+export default class MxLoading extends AtComponent {
 
   render() {
     // const canvas = Taro.createCanvasContext('myCanvas',this)
@@ -14,7 +15,7 @@ export default class MxLoading extends MxComponent {
     //   'https://static.fotor.com.cn/assets/stickers/basic%20shapes_ccd29220-1d5d-4a62-a6f7-65dd67ba848f/bd18f93c-6e53-43e5-af8e-499e97fcd93c_medium_thumb.jpg'
     // ,0,0,30,30)
     // canvas.draw()
-    const { color, size, isStar } = this.props
+    const { color, size, isShow } = this.props
     const loadingSize = typeof size === 'string' ? size : String(size)
     const sizeStyle = {
       width: size ? `${Taro.pxTransform(parseInt(loadingSize))}` : '',
@@ -27,11 +28,13 @@ export default class MxLoading extends MxComponent {
         : ''
     }
     const ringStyle = Object.assign({}, colorStyle, sizeStyle)
+    const {className} = this.props
 
     return (
-      <View className='loading-body'>
-        {isStar && <Image src={fourStar} className='fourStar'></Image>}
-      {/*<Canvas type={'2d'} canvasId={'myCanvas'}></Canvas>*/}
+      <View className={classNames('loading-body', className)}>
+      {/*<Image src={fourStar} className='fourStar' style={isShow ? 'visibility: visiable': 'visibility: hidden'}></Image>*/}
+        <View className='pacman' style={isShow ? 'visibility: visiable': 'visibility: hidden'}></View>
+        {/*<View className='heart' style={!isShow ? 'visibility: visiable': 'visibility: hidden'}></View>*/}
       <View className='at-loading' style={sizeStyle}>
         <View className='at-loading__ring' style={ringStyle}></View>
         <View className='at-loading__ring' style={ringStyle}></View>
@@ -45,6 +48,7 @@ export default class MxLoading extends MxComponent {
 MxLoading.defaultProps = {
   size: 0,
   color: '',
-  isStar: false
+  isShow: false,
+  className: ''
 }
 

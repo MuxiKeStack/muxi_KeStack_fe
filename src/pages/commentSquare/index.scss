@@ -1,5 +1,6 @@
 Page {
     background-color: rgba(241,240,245,1);
+    height: 100%
 }
 View {
     display: inline-block;
@@ -212,4 +213,17 @@ View {
     height: 80rpx;
     line-height: 80rpx;
     text-align:center
+}
+
+.MxLoading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90rpx;
+  width: 100%
+}
+
+
+.downLoading{
+  margin-top: 20rpx;
 }

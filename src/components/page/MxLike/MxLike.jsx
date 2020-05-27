@@ -29,10 +29,13 @@ class MxLike extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      islike: nextProps.islike,
-      likenum: nextProps.likenum
-    });
+    let { likenum } = this.state;
+    if(likenum != nextProps.likenum+1 && likenum != nextProps.likenum - 1){
+      this.setState({
+        islike: nextProps.islike,
+        likenum: nextProps.likenum
+      });
+    }
   }
 
   tolike() {

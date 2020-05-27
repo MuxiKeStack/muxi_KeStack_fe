@@ -1,5 +1,11 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, ScrollView } from '@tarojs/components';
+import {
+  View,
+  Image,
+  ScrollView,
+  MovableArea,
+  MovableView
+} from '@tarojs/components';
 import './index.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxIcon from '../../components/common/MxIcon';
@@ -7,13 +13,13 @@ import Fetch from '../../service/fetch';
 import MxReport from '../../components/common/MxReport';
 import MxLike from '../../components/page/MxLike/MxLike';
 import Octodex from '../../assets/png/octodex.jpg';
-import MxLoading from '../../components/common/MxLoading'
+import MxLoading from '../../components/common/MxLoading';
 
 export default class Index extends Component {
   // eslint-disable-next-line react/sort-comp
   config = {
     navigationBarTitleText: '评课广场',
-    navigationBarTextStyle: 'black',
+    navigationBarTextStyle: 'black'
     // enablePullDownRefresh: true
     // onReachBottomDistance: 80
   };
@@ -24,6 +30,8 @@ export default class Index extends Component {
       comments: [],
       sum: 0,
       lastId: 0,
+      x: 0,
+      y: 43,
       bottomFlag: false,
       isStar: false,
       dragStyle: {
@@ -53,6 +61,7 @@ export default class Index extends Component {
   }
 
   onPullDownRefresh() {
+    console.log(123);
     this.setState(
       {
         sum: 0,
@@ -72,6 +81,7 @@ export default class Index extends Component {
   // }
 
   getComments() {
+    console.log(123);
     var that = this;
     let newComments = this.state.comments;
     Fetch(
@@ -250,7 +260,7 @@ export default class Index extends Component {
           },
           downDragStyle: {
             height: pY + 'px',
-            transform: `scale(${1 * Math.abs(pY/maxY)})`
+            transform: `scale(${1 * Math.abs(pY / maxY)})`
           },
           scrollY: false //拖动的时候禁用
         });
@@ -323,9 +333,68 @@ export default class Index extends Component {
     console.log('滚动到底部事件');
     // this.props.Lower()
   }
-  // componentWillMount() {
-  //
-  // }
+  componentWillMount() {
+    // Taro.hideTabBar().then(() => {
+    //   console.log(123);
+    // });
+  }
+
+  toEdge(e) {
+    let windowHeight = Taro.getSystemInfoSync().windowHeight
+    if (e.detail.y != 43) {
+      this.setState(
+        {
+          back: true
+        },
+        () => {
+          if (e.detail.y >= windowHeight * 0.15) {
+            this.setState(
+              {
+                sum: 0,
+                lastId: 0,
+                bottomFlag: false,
+                isStar: true
+              },
+              () => {
+                Taro.showNavigationBarLoading();
+                this.getComments();
+                console.log(132)
+              }
+            );
+          } else if (e.detail.y == 0) {
+            this.setState(
+              {
+                isStar: true
+              },
+              () => {
+                Taro.showNavigationBarLoading();
+                this.getComments();
+                console.log(132)
+              }
+            );
+          }
+        }
+      );
+    }
+  }
+  scroll(e) {
+    if (e.detail.scrollTop === 0 || e.detail.scrollTop === 216) {
+      this.setState({
+        scrollY: false
+      });
+    }
+  }
+  end() {
+    if (this.state.back === true) {
+      this.setState({
+        y: Math.random() + 43,
+        scrollY: true,
+        isStar: false
+      },()=>{
+        console.log(456)
+      });
+    }
+  }
 
   normalTime(timestamp) {
     var date = new Date(timestamp * 1000); //如果date为13位不需要乘1000
@@ -351,10 +420,150 @@ export default class Index extends Component {
     let upDragStyle = this.state.upDragStyle;
     let isStar = this.state.isStar;
     const { bottomFlag } = this.state;
+    const cardMap = (
+      <View>
+        {this.state.comments.map(comment => {
+          return (
+            // eslint-disable-next-line react/jsx-key
+            <View className="detailsBox">
+              <View className="detailsCard">
+                <View className="detailsWrapper">
+                  <View className="detailsFirst">
+                    <View>
+                      {!comment.is_anonymous && (
+                        <Image
+                          src={comment.user_info.avatar}
+                          className="detailsAvatar"
+                        />
+                      )}
+                      {comment.is_anonymous && (
+                        <Image src={Octodex} className="detailsAvatar" />
+                      )}
+                    </View>
+                    <View className="detailsFirstInfo">
+                      {!comment.is_anonymous && (
+                        <View className="detailsFirstInfo1">
+                          {comment.user_info.username}
+                        </View>
+                      )}
+                      {comment.is_anonymous && (
+                        <View className="detailsFirstInfo1">匿名用户</View>
+                      )}
+                      <View className="detailsFirstInfo2">
+                        {this.normalTime(comment.time)}
+                      </View>
+                    </View>
+                    <View className="detailsFirstIcon">
+                      <MxReport
+                        ID={comment.id}
+                        // onClick={this.ChangeToReport.bind(this, comment.id)}
+                      />
+                    </View>
+                  </View>
+                  <View className="detailsSecond">
+                    <View
+                      className="detailsSecondInfo1"
+                      onClick={this.ChangeTodetails.bind(
+                        this,
+                        comment.course_id
+                      )}
+                    >
+                      #{comment.course_name}({comment.teacher})
+                    </View>
+                    <View className="detailsSecondInfo2">评价星级：</View>
+                    <View className="detailsRate">
+                      <MxRate value={comment.rate} />
+                    </View>
+                  </View>
+                  <View className="detailsThird">
+                    {comment.content != '' && (
+                      <View
+                        className="detailsThirdText"
+                        onClick={this.ChangeToCommentsDetails.bind(
+                          this,
+                          comment.id
+                        )}
+                      >
+                        {comment.content}
+                      </View>
+                    )}
+                    {comment.content == '' && (
+                      <View
+                        className="detailsThirdText"
+                        onClick={this.ChangeToCommentsDetails.bind(
+                          this,
+                          comment.id
+                        )}
+                      >
+                        该用户没有评论
+                      </View>
+                    )}
+                  </View>
+                  <View className="detailsFourth">
+                    <View className="detailsFourthIcon1">
+                      <MxLike
+                        theid={comment.id}
+                        islike={comment.is_like}
+                        likenum={comment.like_num}
+                      />
+                    </View>
+                    <View
+                      onClick={this.ChangeToCommentsDetails.bind(
+                        this,
+                        comment.id
+                      )}
+                    >
+                      <MxIcon type="cmmtBtn" className="detailsFourthIcon2" />
+                      <View>{comment.comment_num}</View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+          );
+        })}
+      </View>
+    );
+    const content2 = (
+      <View style="width: 100%;height: 100%;">
+        <MovableArea style="width: 100%; height: 100%;">
+          {/*<View style='background: lightgreen;z-index: 299; width:100%;height:50px; position: fixed; top: 50px'></View>*/}
+          <MovableView
+            damping={20}
+            onTouchEnd={this.end}
+            x={this.state.x}
+            y={this.state.y}
+            onChange={this.toEdge}
+            direction="vertical"
+            style=" width: 100%; height: 85%;"
+          >
+            <ScrollView
+              scrollTop={this.state.scrollTop}
+              scrollY={this.state.scrollY}
+              style="height: 117%; width: 100%; margin-top: -75rpx;"
+              onScroll={this.scroll}
+            >
+              <View className="MxLoading">
+                <MxLoading isShow={this.state.isStar} />
+              </View>
+              {cardMap}
+            </ScrollView>
+            <View className="MxLoading">
+              <MxLoading isShow={this.state.isStar} />
+            </View>
+          </MovableView>
+        </MovableArea>
+      </View>
+    );
     const content = (
-      <View className="dragUpdataPage" style={{height: Taro.getSystemInfoSync().windowHeight *2 - 100 + 'rpx'}}>
+      <View
+        className="dragUpdataPage"
+        style={{
+          height: Taro.getSystemInfoSync().windowHeight * 2 - 100 + 'rpx'
+        }}
+      >
         <View className="downDragBox" style={downDragStyle}>
-          <MxLoading isStar={isStar}></MxLoading>
+          <MxLoading isShow={isStar}></MxLoading>
           {/*<Text className="downText">{this.state.downText}</Text>*/}
         </View>
         <ScrollView
@@ -369,114 +578,16 @@ export default class Index extends Component {
           scrollY={this.state.scrollY}
           // scrollWithAnimation
         >
-          {this.state.comments.map(comment => {
-            return (
-              // eslint-disable-next-line react/jsx-key
-              <View className="detailsBox">
-                <View className="detailsCard">
-                  <View className="detailsWrapper">
-                    <View className="detailsFirst">
-                      <View>
-                        {!comment.is_anonymous && (
-                          <Image
-                            src={comment.user_info.avatar}
-                            className="detailsAvatar"
-                          />
-                        )}
-                        {comment.is_anonymous && (
-                          <Image src={Octodex} className="detailsAvatar" />
-                        )}
-                      </View>
-                      <View className="detailsFirstInfo">
-                        {!comment.is_anonymous && (
-                          <View className="detailsFirstInfo1">
-                            {comment.user_info.username}
-                          </View>
-                        )}
-                        {comment.is_anonymous && (
-                          <View className="detailsFirstInfo1">匿名用户</View>
-                        )}
-                        <View className="detailsFirstInfo2">
-                          {this.normalTime(comment.time)}
-                        </View>
-                      </View>
-                      <View className="detailsFirstIcon">
-                        <MxReport
-                          ID={comment.id}
-                          // onClick={this.ChangeToReport.bind(this, comment.id)}
-                        />
-                      </View>
-                    </View>
-                    <View className="detailsSecond">
-                      <View
-                        className="detailsSecondInfo1"
-                        onClick={this.ChangeTodetails.bind(
-                          this,
-                          comment.course_id
-                        )}
-                      >
-                        #{comment.course_name}({comment.teacher})
-                      </View>
-                      <View className="detailsSecondInfo2">评价星级：</View>
-                      <View className="detailsRate">
-                        <MxRate value={comment.rate} />
-                      </View>
-                    </View>
-                    <View className="detailsThird">
-                      {comment.content != '' && (
-                        <View
-                          className="detailsThirdText"
-                          onClick={this.ChangeToCommentsDetails.bind(
-                            this,
-                            comment.id
-                          )}
-                        >
-                          {comment.content}
-                        </View>
-                      )}
-                      {comment.content == '' && (
-                        <View
-                          className="detailsThirdText"
-                          onClick={this.ChangeToCommentsDetails.bind(
-                            this,
-                            comment.id
-                          )}
-                        >
-                          该用户没有评论
-                        </View>
-                      )}
-                    </View>
-                    <View className="detailsFourth">
-                      <View className="detailsFourthIcon1">
-                        <MxLike
-                          theid={comment.id}
-                          islike={comment.is_like}
-                          likenum={comment.like_num}
-                        />
-                      </View>
-                      <View
-                        onClick={this.ChangeToCommentsDetails.bind(
-                          this,
-                          comment.id
-                        )}
-                      >
-                        <MxIcon type="cmmtBtn" className="detailsFourthIcon2" />
-                        <View>{comment.comment_num}</View>
-                      </View>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            );
-          })}
+          {cardMap}
         </ScrollView>
         <View className="upDragBox" style={upDragStyle}>
           <Text className="downText">{this.state.pullText}</Text>
         </View>
       </View>
     );
+
     return (
-      <View style="display: block">
+      <View style="display: block; height: 100%">
         <View className="chooseBox">
           <View
             className="chooseSearchBack"
@@ -493,7 +604,7 @@ export default class Index extends Component {
             <MxIcon type="add" className="chooseAdd" width="42px" />
           </View>
         </View>
-        {content}
+        {content2}
         {bottomFlag && <View className="bottomBox">到底啦！</View>}
       </View>
     );
