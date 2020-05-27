@@ -124,7 +124,6 @@ export default class Index extends Component {
     });
   }
 
-
   collect(hash, thisIndex) {
     if (!Taro.getStorageSync('sid')) {
       Taro.navigateTo({
@@ -450,8 +449,6 @@ export default class Index extends Component {
                 ) : (
                   <Text>已收藏</Text>
                 )}
-                {/*{status && <Text>已收藏</Text>}*/}
-                {/*{!status && <Text>收藏</Text>}*/}
               </View>
             </View>
           );

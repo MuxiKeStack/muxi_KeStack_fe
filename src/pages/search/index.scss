@@ -69,7 +69,8 @@ View {
   font-size: 50rpx;
   text-align: center;
   line-height: 201rpx;
-  writing-mode:tb-rl
+  writing-mode:vertical-rl;
+  text-orientation:upright;
 }
 
 .user-info{
@@ -109,6 +110,7 @@ View {
   }
 }
 .blue{
+  margin-left: 50rpx;
   margin-top: 30rpx;
   width: 410px;
   display: inline-block;
@@ -130,9 +132,9 @@ View {
   }
 }
 .tag{
+  margin-left: 50rpx;
   font-size: 0;
   display: inline-block;
-  margin-left: 20rpx;
   margin-top:34rpx;
   // .tag1{
   //     max-width: 150px;
@@ -144,12 +146,12 @@ View {
     margin-left: 15rpx;
   }
   .tag3{
-    margin-top:21rpx ;
+    margin-top:15rpx ;
     display: inline-block;
     margin-right: 15rpx;
   }
   .tag4{
-    margin-top: 21rpx;
+    margin-top: 15rpx;
   }
 
 }
