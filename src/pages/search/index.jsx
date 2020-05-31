@@ -30,7 +30,7 @@ export default class Index extends Component {
   }
   // eslint-disable-next-line react/sort-comp
   config = {
-    navigationBarTitleText: '木犀课栈',
+    navigationBarTitleText: '搜索查询',
     enablePullDownRefresh: true
   };
 
@@ -516,7 +516,8 @@ export default class Index extends Component {
               font="28rpx"
               checkable={true}
               checked={tagState[0]}
-              padding="1rpx 44rpx 1rpx 44rpx"
+              // padding="1rpx 44rpx 1rpx 44rpx"
+              width="200rpx"
               checkedControl={true}
               border="2rpx solid rgba(110,102,238,1)"
             >
@@ -529,7 +530,8 @@ export default class Index extends Component {
               font="28rpx"
               checkable={true}
               checked={tagState[1]}
-              padding="1rpx 44rpx 1rpx 44rpx"
+              // padding="1rpx 44rpx 1rpx 44rpx"
+              width="200rpx"
               checkedControl={true}
               border="2rpx solid rgba(110,102,238,1)"
             >
@@ -543,7 +545,8 @@ export default class Index extends Component {
                 font="28rpx"
                 checkable={true}
                 checked={tagState[2]}
-                padding="1rpx 44rpx 1rpx 44rpx"
+                // padding="1rpx 44rpx 1rpx 44rpx"
+                width="200rpx"
                 checkedControl={true}
                 border="2rpx solid rgba(110,102,238,1)"
               >
@@ -556,7 +559,8 @@ export default class Index extends Component {
                 font="28rpx"
                 checkable={true}
                 checked={tagState[3]}
-                padding="1rpx 44rpx 1rpx 44rpx"
+                // padding="1rpx 44rpx 1rpx 44rpx"
+                width="200rpx"
                 checkedControl={true}
                 border="2rpx solid rgba(110,102,238,1)"
               >
@@ -569,7 +573,8 @@ export default class Index extends Component {
                 font="28rpx"
                 checkable={true}
                 checked={tagState[4]}
-                padding="1rpx 44rpx 1rpx 44rpx"
+                // padding="1rpx 44rpx 1rpx 44rpx"
+                width="200rpx"
                 checkedControl={true}
                 border="2rpx solid rgba(110,102,238,1)"
               >
