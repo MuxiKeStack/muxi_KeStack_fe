@@ -5,6 +5,7 @@ import './index.scss';
 import MxTag from '../../components/common/MxTag/index';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxInput from '../../components/common/MxInput/MxInput';
+import MxGuide from '../../components/common/MxGuide/index';
 import Fetch from '../../service/fetch';
 
 export default class Index extends Component {
@@ -325,6 +326,7 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
+    let isFir = Taro.getStorageSync('isFir');
     let inputVal = this.state.inputVal;
     let status = this.state.status;
     let collected = this.state.courseCollected;
@@ -486,6 +488,7 @@ export default class Index extends Component {
 
     return (
       <View style="display: block">
+        {isFir && <MxGuide type="search"></MxGuide>}
         <View className="chooseBox">
           <View className="search">
             <MxInput

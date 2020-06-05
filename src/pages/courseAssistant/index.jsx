@@ -5,6 +5,7 @@ import MxInput from '../../components/common/MxInput/MxInput';
 import MxPicker from '../../components/common/MxPicker';
 import MxTag from '../../components/common/MxTag/index';
 import MxRate from '../../components/common/MxRate/MxRate';
+import MxGuide from '../../components/common/MxGuide/index';
 import Fetch from '../../service/fetch';
 
 export default class Index extends Component {
@@ -367,6 +368,7 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
+    let isFir = Taro.getStorageSync('isFir');
     let inputVal = this.state.inputVal;
     const hidden = this.state.hidden;
     const { records } = this.state;
@@ -498,6 +500,8 @@ export default class Index extends Component {
 
     return (
       <View style="display: block">
+        {isFir && <MxGuide type="helper1"></MxGuide>}
+        {isFir && <MxGuide type="helper2"></MxGuide>}
         <View className="chooseBox">
           <View className="search">
             <MxInput

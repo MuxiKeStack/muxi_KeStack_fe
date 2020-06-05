@@ -6,6 +6,7 @@ import image from '../../assets/svg/avatar-img.svg';
 import './index.scss';
 import Fetch from '../../service/fetch';
 import MxIcon from '../../components/common/MxIcon';
+import MxGuide from '../../components/common/MxGuide/index';
 // import {isLogined} from 'utils/tools'
 // import { courseList} from 'sevices/course'
 // import { serverUrl } from  'utils/config'
@@ -91,6 +92,7 @@ export default class Index extends Component {
 
   componentDidHide() {}
   render() {
+    let isFir = Taro.getStorageSync('isFir');
     const { user, readAll, openModal } = this.state;
     const rootStyle = {
       // width: `${Taro.pxTransform(164)}`,
@@ -99,6 +101,8 @@ export default class Index extends Component {
     const modalStyle = openModal ? { display: 'block' } : { display: 'none' };
     return (
       <View>
+        {isFir && <MxGuide type="home1"></MxGuide>}
+        {isFir && <MxGuide type="home2"></MxGuide>}
         <View className="home-page-user-info">
           <View className="user-avatar">
             <Image
