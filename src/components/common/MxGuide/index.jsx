@@ -1,18 +1,34 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
 import './index.scss';
-import square1 from '../../../assets/png/square1.png';
-import square2 from '../../../assets/png/square2.png';
-import square3 from '../../../assets/png/square3.png';
-import square4 from '../../../assets/png/square4.png';
-import helper1 from '../../../assets/png/helper1.png';
-import helper2 from '../../../assets/png/helper2.png';
-import home1 from '../../../assets/png/home1.png';
-import home2 from '../../../assets/png/home2.png';
-import free1 from '../../../assets/png/free1.png';
-import free2 from '../../../assets/png/free2.png';
-import detail from '../../../assets/png/detail.png';
-import search from '../../../assets/png/search.png';
+// import square1 from '../../../assets/png/square1.png';
+// import square2 from '../../../assets/png/square2.png';
+// import square3 from '../../../assets/png/square3.png';
+// import square4 from '../../../assets/png/square4.png';
+// import helper1 from '../../../assets/png/helper1.png';
+// import helper2 from '../../../assets/png/helper2.png';
+// import home1 from '../../../assets/png/home1.png';
+// import home2 from '../../../assets/png/home2.png';
+// import free1 from '../../../assets/png/free1.png';
+// import free2 from '../../../assets/png/free2.png';
+// import detail from '../../../assets/png/detail.png';
+// import search from '../../../assets/png/search.png';
+
+const square1 = "http://kestackoss.muxixyz.com/guidance/square1.png"
+const square2 = "http://kestackoss.muxixyz.com/guidance/square2.png"
+const square3 = "http://kestackoss.muxixyz.com/guidance/square3.png"
+const square4 = "http://kestackoss.muxixyz.com/guidance/square4.png"
+const helper1 = "http://kestackoss.muxixyz.com/guidance/helper1.png"
+const helper2 = "http://kestackoss.muxixyz.com/guidance/helper2.png"
+const home1 = "http://kestackoss.muxixyz.com/guidance/home1.png"
+const home2 = "http://kestackoss.muxixyz.com/guidance/home2.png"
+const free1 = "http://kestackoss.muxixyz.com/guidance/free1.png"
+const free2 = "http://kestackoss.muxixyz.com/guidance/free2.png"
+const detail = "http://kestackoss.muxixyz.com/guidance/detail.png"
+const search = "http://kestackoss.muxixyz.com/guidance/search.png"
+
+
+
 
 export default class MxGuide extends Component {
   constructor() {
@@ -45,13 +61,13 @@ export default class MxGuide extends Component {
       ['detail', detail]
     ]);
     const res = Taro.getSystemInfoSync();
-    this.setState({
-      height: res.windowHeight,
-      width: res.windowWidth
-    });
+    // this.setState({
+    //   height: res.windowHeight,
+    //   width: res.windowWidth
+    // });
     const root = {
-      height: this.state.height + 'px',
-      width: this.state.width + 'px'
+      height: res.windowHeight + 'px',
+      width: res.windowWidth + 'px'
     };
     const show = this.state.show;
     return (

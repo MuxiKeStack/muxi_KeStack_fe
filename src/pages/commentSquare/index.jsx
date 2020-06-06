@@ -12,7 +12,6 @@ import MxIcon from '../../components/common/MxIcon';
 import Fetch from '../../service/fetch';
 import MxReport from '../../components/common/MxReport';
 import MxLike from '../../components/page/MxLike/MxLike';
-import Octodex from '../../assets/png/octodex.jpg';
 import MxLoading from '../../components/common/MxLoading';
 import MxGuide from '../../components/common/MxGuide/index';
 
@@ -35,7 +34,8 @@ export default class Index extends Component {
       bottomFlag: false,
       isStar: false,
       scrollY: true,
-      scrollTop: 0
+      scrollTop: 0,
+      guide: true
     };
   }
 
@@ -52,7 +52,6 @@ export default class Index extends Component {
       }
     );
   }
-
 
 
   getComments() {
@@ -125,6 +124,7 @@ export default class Index extends Component {
 
 
 
+
   componentDidShow() {
     this.setState(
       {
@@ -139,9 +139,6 @@ export default class Index extends Component {
       }
     );
   }
-
-
-
 
 
   toEdge(e) {
@@ -163,10 +160,6 @@ export default class Index extends Component {
               () => {
                 Taro.showNavigationBarLoading();
                 this.getComments();
-<<<<<<< HEAD
-=======
-                console.log(132);
->>>>>>> c0106bc1b479c21cbcbf65c75fce84d38c60dd6b
               }
             );
           } else if (e.detail.y == 0) {
@@ -177,10 +170,6 @@ export default class Index extends Component {
               () => {
                 Taro.showNavigationBarLoading();
                 this.getComments();
-<<<<<<< HEAD
-=======
-                console.log(132);
->>>>>>> c0106bc1b479c21cbcbf65c75fce84d38c60dd6b
               }
             );
           }
@@ -197,24 +186,13 @@ export default class Index extends Component {
   }
   end() {
     if (this.state.back === true) {
-<<<<<<< HEAD
-      this.setState({
-        y: Math.random() + 43,
-        scrollY: true,
-        isStar: false
-      });
-=======
       this.setState(
         {
           y: Math.random() + 43,
           scrollY: true,
           isStar: false
-        },
-        () => {
-          console.log(456);
         }
       );
->>>>>>> c0106bc1b479c21cbcbf65c75fce84d38c60dd6b
     }
   }
 
@@ -237,15 +215,9 @@ export default class Index extends Component {
   }
 
   render() {
-<<<<<<< HEAD
-=======
     let isFir = Taro.getStorageSync('isFir');
-    let dragStyle = this.state.dragStyle;
-    let downDragStyle = this.state.downDragStyle;
-    let upDragStyle = this.state.upDragStyle;
-    let isStar = this.state.isStar;
->>>>>>> c0106bc1b479c21cbcbf65c75fce84d38c60dd6b
     const { bottomFlag } = this.state;
+    const avatar = "http://kestackoss.muxixyz.com/guidance/avatar.png"
     const cardMap = (
       <View>
         {this.state.comments.map(comment => {
@@ -263,7 +235,7 @@ export default class Index extends Component {
                         />
                       )}
                       {comment.is_anonymous && (
-                        <Image src={Octodex} className="detailsAvatar" />
+                        <Image src={avatar} className="detailsAvatar" />
                       )}
                     </View>
                     <View className="detailsFirstInfo">
@@ -373,7 +345,6 @@ export default class Index extends Component {
                 <MxLoading isShow={this.state.isStar} />
               </View>
               {cardMap}
-              {bottomFlag && <View className="bottomBox">到底啦！</View>}
             </ScrollView>
             <View className="MxLoading">
               <MxLoading isShow={this.state.isStar} />
@@ -406,7 +377,7 @@ export default class Index extends Component {
           </View>
         </View>
         {content2}
-
+        {bottomFlag && <View className="bottomBox">到底啦！</View>}
       </View>
     );
   }

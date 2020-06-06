@@ -33,7 +33,7 @@ export default class Index extends Component {
       checkColledge: [
         '全部学院',
         '城市与环境科学学院',
-        '历史社会学院',
+        '历史文化学院',
         '社会学院',
         '生命科学学院',
         '公共管理学院',
@@ -134,7 +134,7 @@ export default class Index extends Component {
       },
       'GET'
     ).then(data => {
-      console.log(data);
+      // console.log(data);
       let newdatas = data.data.courses;
       if (newdatas != null) {
         let ndatas = this.state.datas;
@@ -144,7 +144,7 @@ export default class Index extends Component {
         that.setState({
           datas: ndatas
         });
-        console.log(newdatas);
+        // console.log(newdatas);
       } else {
         Taro.showToast({
           title: '到底啦'
@@ -332,7 +332,7 @@ export default class Index extends Component {
   handleHistory(e) {
     const that = this;
     var text = e.currentTarget.dataset.title;
-    console.log(text);
+    // console.log(text);
     that.setState(
       {
         inputVal: text,
