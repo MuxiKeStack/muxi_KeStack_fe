@@ -41,9 +41,9 @@ export default class Index extends Component {
     });
   }
 
-  ChangeTodetails() {
+  ChangeTodetails(value) {
     Taro.navigateTo({
-      url: '/pages/courseDetails/courseDetails'
+      url: `/pages/courseDetails/courseDetails?courseId=${value}`
     });
   }
 
@@ -83,7 +83,6 @@ export default class Index extends Component {
       },
       'GET'
     ).then(data => {
-      console.log(data);
       let newdatas = data.data.courses;
       if (newdatas != null) {
         // newdatas.map(nd => {
@@ -353,6 +352,7 @@ export default class Index extends Component {
     const content = (
       <View className="detailsBoxes">
         {this.state.datas.map((data, index) => {
+          console.log(data)
           return (
             // eslint-disable-next-line react/jsx-key
             <View className="mx-card">
@@ -367,7 +367,10 @@ export default class Index extends Component {
                   onTouchStart={this.touchstart.bind(this, data.hash)}
                   onTouchEnd={this.touchstart.bind(this, data.hash)}
                   // animation={this.state.animation}
-                  onClick={this.ChangeTodetails.bind(this)}
+                  onClick={this.ChangeTodetails.bind(
+                    this,
+                    data.hash
+                  )}
                 >
                   <View className="user-info">
                     <View className="class">{data.name}</View>
