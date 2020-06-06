@@ -14,6 +14,7 @@ import MxReport from '../../components/common/MxReport';
 import MxLike from '../../components/page/MxLike/MxLike';
 import Octodex from '../../assets/png/octodex.jpg';
 import MxLoading from '../../components/common/MxLoading';
+import MxGuide from '../../components/common/MxGuide/index';
 
 export default class Index extends Component {
   // eslint-disable-next-line react/sort-comp
@@ -144,7 +145,7 @@ export default class Index extends Component {
 
 
   toEdge(e) {
-    let windowHeight = Taro.getSystemInfoSync().windowHeight
+    let windowHeight = Taro.getSystemInfoSync().windowHeight;
     if (e.detail.y != 43) {
       this.setState(
         {
@@ -162,6 +163,10 @@ export default class Index extends Component {
               () => {
                 Taro.showNavigationBarLoading();
                 this.getComments();
+<<<<<<< HEAD
+=======
+                console.log(132);
+>>>>>>> c0106bc1b479c21cbcbf65c75fce84d38c60dd6b
               }
             );
           } else if (e.detail.y == 0) {
@@ -172,6 +177,10 @@ export default class Index extends Component {
               () => {
                 Taro.showNavigationBarLoading();
                 this.getComments();
+<<<<<<< HEAD
+=======
+                console.log(132);
+>>>>>>> c0106bc1b479c21cbcbf65c75fce84d38c60dd6b
               }
             );
           }
@@ -188,11 +197,24 @@ export default class Index extends Component {
   }
   end() {
     if (this.state.back === true) {
+<<<<<<< HEAD
       this.setState({
         y: Math.random() + 43,
         scrollY: true,
         isStar: false
       });
+=======
+      this.setState(
+        {
+          y: Math.random() + 43,
+          scrollY: true,
+          isStar: false
+        },
+        () => {
+          console.log(456);
+        }
+      );
+>>>>>>> c0106bc1b479c21cbcbf65c75fce84d38c60dd6b
     }
   }
 
@@ -215,6 +237,14 @@ export default class Index extends Component {
   }
 
   render() {
+<<<<<<< HEAD
+=======
+    let isFir = Taro.getStorageSync('isFir');
+    let dragStyle = this.state.dragStyle;
+    let downDragStyle = this.state.downDragStyle;
+    let upDragStyle = this.state.upDragStyle;
+    let isStar = this.state.isStar;
+>>>>>>> c0106bc1b479c21cbcbf65c75fce84d38c60dd6b
     const { bottomFlag } = this.state;
     const cardMap = (
       <View>
@@ -355,6 +385,10 @@ export default class Index extends Component {
 
     return (
       <View style="display: block; height: 100%">
+        {isFir && <MxGuide type="square4"></MxGuide>}
+        {isFir && <MxGuide type="square3"></MxGuide>}
+        {isFir && <MxGuide type="square2"></MxGuide>}
+        {isFir && <MxGuide type="square1"></MxGuide>}
         <View className="chooseBox">
           <View
             className="chooseSearchBack"

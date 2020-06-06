@@ -78,10 +78,15 @@ export default class Index extends Component {
           res =>{
             // console.log(res.data.data);
             Taro.hideNavigationBarLoading()
-            if(res.data.data){
+            if(res.data.sum > 0){
               this.setState({
                 courses: res.data.data,
               })
+            } else if(res.data.sum == 0){
+              this.setState({
+                courses: [],
+              });
+              Taro.showToast({title: '无数据',icon: 'none'})
             }
           }
         )
@@ -93,12 +98,12 @@ export default class Index extends Component {
   handleChangeY = e => {
     this.setState({
       selectorCheckedY: this.state.selectoryears[e.detail.value]
-    },this.getData())
+    },() => this.getData())
   };
   handleChangeT = e => {
     this.setState({
       selectorCheckedT: this.selectorterms[e.detail.value]
-    },this.getData())
+    },() => this.getData())
   };
 
   render() {
