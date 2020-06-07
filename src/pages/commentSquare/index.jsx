@@ -6,6 +6,7 @@ import MxIcon from '../../components/common/MxIcon';
 import Fetch from '../../service/fetch';
 import MxReport from '../../components/common/MxReport';
 import MxLike from '../../components/page/MxLike/MxLike';
+import MxGuide from '../../components/common/MxGuide';
 
 export default class Index extends Component {
   // eslint-disable-next-line react/sort-comp
@@ -173,6 +174,7 @@ export default class Index extends Component {
   }
 
   render() {
+    let isFir = Taro.getStorageSync('isFir');
     const avatar = "http://kestackoss.muxixyz.com/guidance/avatar.png"
     const { bottomFlag } = this.state;
     const content = (
@@ -282,6 +284,10 @@ export default class Index extends Component {
 
     return (
       <View style="display: block">
+        {isFir && <MxGuide type="square4"></MxGuide>}
+        {isFir && <MxGuide type="square3"></MxGuide>}
+        {isFir && <MxGuide type="square2"></MxGuide>}
+        {isFir && <MxGuide type="square1"></MxGuide>}
         <View className="chooseBox">
           <View
             className="chooseSearchBack"
