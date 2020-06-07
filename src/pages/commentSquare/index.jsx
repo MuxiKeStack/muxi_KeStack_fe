@@ -12,8 +12,8 @@ import MxIcon from '../../components/common/MxIcon';
 import Fetch from '../../service/fetch';
 import MxReport from '../../components/common/MxReport';
 import MxLike from '../../components/page/MxLike/MxLike';
-import Octodex from '../../assets/png/octodex.jpg';
 import MxLoading from '../../components/common/MxLoading';
+import MxGuide from '../../components/common/MxGuide/index';
 
 export default class Index extends Component {
   // eslint-disable-next-line react/sort-comp
@@ -28,40 +28,18 @@ export default class Index extends Component {
     super(...arguments);
     this.state = {
       comments: [],
-      sum: 0,
       lastId: 0,
       x: 0,
       y: 43,
       bottomFlag: false,
       isStar: false,
-      dragStyle: {
-        //下拉框的样式
-        top: 0 + 'px'
-      },
-      downDragStyle: {
-        //下拉图标的样式
-        height: 0 + 'px'
-      },
-      downText: '下拉刷新',
-      upDragStyle: {
-        //上拉图标样式
-        height: 0 + 'px'
-      },
-      pullText: '上拉加载更多',
-      start_p: {},
       scrollY: true,
-      dragState: 0, //刷新状态 0不做操作 1刷新 -1加载更多
-      scrollTop: 0
+      scrollTop: 0,
+      guide: true
     };
-    this.touchEnd = this.touchEnd.bind(this);
-    this.touchStart = this.touchStart.bind(this);
-    this.touchmove = this.touchmove.bind(this);
-    this.ScrollToUpper = this.ScrollToUpper.bind(this);
-    this.ScrollToLower = this.ScrollToLower.bind(this);
   }
 
   onPullDownRefresh() {
-    console.log(123);
     this.setState(
       {
         sum: 0,
@@ -75,13 +53,8 @@ export default class Index extends Component {
     );
   }
 
-  // onReachBottom() {
-  //   Taro.showNavigationBarLoading();
-  //   this.getComments();
-  // }
 
   getComments() {
-    console.log(123);
     var that = this;
     let newComments = this.state.comments;
     Fetch(
@@ -149,24 +122,8 @@ export default class Index extends Component {
     });
   }
 
-  ChangeToReport(id) {
-    console.log('id: ' + id);
-    // Fetch(`api/v1/evaluation/${id}/report/`, {}, 'POST').then(data => {
-    //   if (data.data.fail === true) {
-    //     if (data.data.reason === 'You have been reported this evaluation!') {
-    //       Taro.showToast({
-    //         title: '不要重复举报哟!',
-    //         icon: 'none'
-    //       });
-    //     }
-    //   } else {
-    //     Taro.showToast({
-    //       title: '举报成功！',
-    //       icon: 'success'
-    //     });
-    //   }
-    // });
-  }
+
+
 
   componentDidShow() {
     this.setState(
@@ -177,170 +134,15 @@ export default class Index extends Component {
         scrollTop: Math.random()
       },
       () => {
-        // Taro.pageScrollTo({
-        //   scrollTop: 0,
-        //   duration: 0
-        // });
         Taro.showNavigationBarLoading();
         this.getComments();
       }
     );
   }
 
-  reduction() {
-    //还原初始设置
-    const time = 0.5;
-    this.setState({
-      upDragStyle: {
-        //上拉图标样式
-        height: 0 + 'px',
-        transition: `all ${time}s`
-      },
-      dragState: 0,
-      dragStyle: {
-        top: 0 + 'px',
-        transition: `all ${time}s`
-      },
-      downDragStyle: {
-        height: 0 + 'px',
-        transition: `all ${time}s`
-      },
-      scrollY: true
-    });
-    setTimeout(() => {
-      this.setState({
-        isStar: false,
-        dragStyle: {
-          top: 0 + 'px'
-        },
-        upDragStyle: {
-          //上拉图标样式
-          height: 0 + 'px'
-        },
-        pullText: '上拉加载更多',
-        downText: '下拉刷新'
-      });
-    }, time * 1000);
-  }
-  touchStart(e) {
-    this.setState({
-      start_p: e.touches[0]
-    });
-  }
-  touchmove(e) {
-    let that = this;
-    let move_p = e.touches[0], //移动时的位置
-      deviationX = 0.3, //左右偏移量(超过这个偏移量不执行下拉操作)
-      deviationY = 70, //拉动长度（低于这个值的时候不执行）
-      maxY = 50; //拉动的最大高度
-
-    let start_x = this.state.start_p.clientX,
-      start_y = this.state.start_p.clientY,
-      move_x = move_p.clientX,
-      move_y = move_p.clientY;
-
-    //得到偏移数值
-    let dev = Math.abs(move_x - start_x) / Math.abs(move_y - start_y);
-    if (dev < deviationX) {
-      //当偏移数值大于设置的偏移数值时则不执行操作
-      let pY = Math.abs(move_y - start_y) / 3.5; //拖动倍率（使拖动的时候有粘滞的感觉--试了很多次 这个倍率刚好）
-      if (move_y - start_y > 0) {
-        //下拉操作
-        if (pY >= deviationY) {
-          this.setState({ isStar: true, dragState: 1, downText: '释放刷新' });
-        } else {
-          this.setState({ dragState: 0, downText: '下拉刷新' });
-        }
-        if (pY >= maxY) {
-          pY = maxY;
-        }
-        this.setState({
-          dragStyle: {
-            top: pY + 'px'
-          },
-          downDragStyle: {
-            height: pY + 'px',
-            transform: `scale(${1 * Math.abs(pY / maxY)})`
-          },
-          scrollY: false //拖动的时候禁用
-        });
-      }
-      if (start_y - move_y > 0) {
-        //上拉操作
-        // console.log('上拉操作');
-        if (pY >= deviationY) {
-          this.setState({ dragState: -1, pullText: '释放加载更多' });
-        } else {
-          this.setState({ dragState: 0, pullText: '上拉加载更多' });
-        }
-        if (pY >= maxY) {
-          pY = maxY;
-        }
-        this.setState({
-          dragStyle: {
-            top: -pY + 'px'
-          },
-          upDragStyle: {
-            height: pY + 'px'
-          },
-          scrollY: false //拖动的时候禁用
-        });
-      }
-    }
-  }
-  touchEnd(e) {
-    if (this.state.dragState === 1) {
-      this.down();
-    } else if (this.state.dragState === -1) {
-      this.pull();
-    }
-    setTimeout(() => {
-      this.reduction();
-    }, 1000);
-    // this.reduction()
-  }
-
-  pull() {
-    //上拉
-    Taro.showNavigationBarLoading();
-    this.getComments();
-    console.log('上拉');
-    // this.props.onPull()
-  }
-  down() {
-    //下拉
-    this.setState(
-      {
-        sum: 0,
-        lastId: 0,
-        bottomFlag: false
-      },
-      () => {
-        Taro.showNavigationBarLoading();
-        this.getComments();
-      }
-    );
-    console.log('下拉');
-    // this.props.onDown()
-  }
-  ScrollToUpper() {
-    //滚动到顶部事件
-    console.log('滚动到顶部事件');
-    // this.props.Upper()
-  }
-  ScrollToLower() {
-    //滚动到底部事件
-    console.log('滚动到底部事件');
-    // this.props.Lower()
-  }
-  componentWillMount() {
-    // Taro.hideTabBar().then(() => {
-    //   console.log(123);
-    // });
-  }
 
   toEdge(e) {
-    let windowHeight = Taro.getSystemInfoSync().windowHeight
+    let windowHeight = Taro.getSystemInfoSync().windowHeight;
     if (e.detail.y != 43) {
       this.setState(
         {
@@ -358,7 +160,6 @@ export default class Index extends Component {
               () => {
                 Taro.showNavigationBarLoading();
                 this.getComments();
-                console.log(132)
               }
             );
           } else if (e.detail.y == 0) {
@@ -369,7 +170,6 @@ export default class Index extends Component {
               () => {
                 Taro.showNavigationBarLoading();
                 this.getComments();
-                console.log(132)
               }
             );
           }
@@ -386,13 +186,13 @@ export default class Index extends Component {
   }
   end() {
     if (this.state.back === true) {
-      this.setState({
-        y: Math.random() + 43,
-        scrollY: true,
-        isStar: false
-      },()=>{
-        console.log(456)
-      });
+      this.setState(
+        {
+          y: Math.random() + 43,
+          scrollY: true,
+          isStar: false
+        }
+      );
     }
   }
 
@@ -415,11 +215,9 @@ export default class Index extends Component {
   }
 
   render() {
-    let dragStyle = this.state.dragStyle;
-    let downDragStyle = this.state.downDragStyle;
-    let upDragStyle = this.state.upDragStyle;
-    let isStar = this.state.isStar;
+    let isFir = Taro.getStorageSync('isFir');
     const { bottomFlag } = this.state;
+    const avatar = "http://kestackoss.muxixyz.com/guidance/avatar.png"
     const cardMap = (
       <View>
         {this.state.comments.map(comment => {
@@ -437,7 +235,7 @@ export default class Index extends Component {
                         />
                       )}
                       {comment.is_anonymous && (
-                        <Image src={Octodex} className="detailsAvatar" />
+                        <Image src={avatar} className="detailsAvatar" />
                       )}
                     </View>
                     <View className="detailsFirstInfo">
@@ -555,39 +353,13 @@ export default class Index extends Component {
         </MovableArea>
       </View>
     );
-    const content = (
-      <View
-        className="dragUpdataPage"
-        style={{
-          height: Taro.getSystemInfoSync().windowHeight * 2 - 100 + 'rpx'
-        }}
-      >
-        <View className="downDragBox" style={downDragStyle}>
-          <MxLoading isShow={isStar}></MxLoading>
-          {/*<Text className="downText">{this.state.downText}</Text>*/}
-        </View>
-        <ScrollView
-          style={dragStyle}
-          onTouchMove={this.touchmove}
-          onTouchEnd={this.touchEnd}
-          onTouchStart={this.touchStart}
-          onScrollToUpper={this.ScrollToUpper}
-          onScrollToLower={this.ScrollToLower}
-          className="detailsBoxes"
-          scrollTop={this.state.scrollTop}
-          scrollY={this.state.scrollY}
-          // scrollWithAnimation
-        >
-          {cardMap}
-        </ScrollView>
-        <View className="upDragBox" style={upDragStyle}>
-          <Text className="downText">{this.state.pullText}</Text>
-        </View>
-      </View>
-    );
 
     return (
       <View style="display: block; height: 100%">
+        {isFir && <MxGuide type="square4"></MxGuide>}
+        {isFir && <MxGuide type="square3"></MxGuide>}
+        {isFir && <MxGuide type="square2"></MxGuide>}
+        {isFir && <MxGuide type="square1"></MxGuide>}
         <View className="chooseBox">
           <View
             className="chooseSearchBack"

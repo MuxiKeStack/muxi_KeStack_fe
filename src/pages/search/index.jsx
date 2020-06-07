@@ -5,6 +5,7 @@ import './index.scss';
 import MxTag from '../../components/common/MxTag/index';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxInput from '../../components/common/MxInput/MxInput';
+import MxGuide from '../../components/common/MxGuide/index';
 import Fetch from '../../service/fetch';
 
 export default class Index extends Component {
@@ -30,7 +31,7 @@ export default class Index extends Component {
   }
   // eslint-disable-next-line react/sort-comp
   config = {
-    navigationBarTitleText: '木犀课栈',
+    navigationBarTitleText: '搜索查询',
     enablePullDownRefresh: true
   };
 
@@ -41,9 +42,9 @@ export default class Index extends Component {
     });
   }
 
-  ChangeTodetails() {
+  ChangeTodetails(value) {
     Taro.navigateTo({
-      url: '/pages/courseDetails/courseDetails'
+      url: `/pages/courseDetails/courseDetails?courseId=${value}`
     });
   }
 
@@ -83,7 +84,6 @@ export default class Index extends Component {
       },
       'GET'
     ).then(data => {
-      console.log(data);
       let newdatas = data.data.courses;
       if (newdatas != null) {
         // newdatas.map(nd => {
@@ -325,6 +325,7 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
+    let isFir = Taro.getStorageSync('isFir');
     let inputVal = this.state.inputVal;
     let status = this.state.status;
     let collected = this.state.courseCollected;
@@ -353,6 +354,7 @@ export default class Index extends Component {
     const content = (
       <View className="detailsBoxes">
         {this.state.datas.map((data, index) => {
+          console.log(data)
           return (
             // eslint-disable-next-line react/jsx-key
             <View className="mx-card">
@@ -367,7 +369,10 @@ export default class Index extends Component {
                   onTouchStart={this.touchstart.bind(this, data.hash)}
                   onTouchEnd={this.touchstart.bind(this, data.hash)}
                   // animation={this.state.animation}
-                  onClick={this.ChangeTodetails.bind(this)}
+                  onClick={this.ChangeTodetails.bind(
+                    this,
+                    data.hash
+                  )}
                 >
                   <View className="user-info">
                     <View className="class">{data.name}</View>
@@ -486,6 +491,7 @@ export default class Index extends Component {
 
     return (
       <View style="display: block">
+        {isFir && <MxGuide type="search"></MxGuide>}
         <View className="chooseBox">
           <View className="search">
             <MxInput
@@ -516,7 +522,8 @@ export default class Index extends Component {
               font="28rpx"
               checkable={true}
               checked={tagState[0]}
-              padding="1rpx 44rpx 1rpx 44rpx"
+              // padding="1rpx 44rpx 1rpx 44rpx"
+              width="200rpx"
               checkedControl={true}
               border="2rpx solid rgba(110,102,238,1)"
             >
@@ -529,7 +536,8 @@ export default class Index extends Component {
               font="28rpx"
               checkable={true}
               checked={tagState[1]}
-              padding="1rpx 44rpx 1rpx 44rpx"
+              // padding="1rpx 44rpx 1rpx 44rpx"
+              width="200rpx"
               checkedControl={true}
               border="2rpx solid rgba(110,102,238,1)"
             >
@@ -543,7 +551,8 @@ export default class Index extends Component {
                 font="28rpx"
                 checkable={true}
                 checked={tagState[2]}
-                padding="1rpx 44rpx 1rpx 44rpx"
+                // padding="1rpx 44rpx 1rpx 44rpx"
+                width="200rpx"
                 checkedControl={true}
                 border="2rpx solid rgba(110,102,238,1)"
               >
@@ -556,7 +565,8 @@ export default class Index extends Component {
                 font="28rpx"
                 checkable={true}
                 checked={tagState[3]}
-                padding="1rpx 44rpx 1rpx 44rpx"
+                // padding="1rpx 44rpx 1rpx 44rpx"
+                width="200rpx"
                 checkedControl={true}
                 border="2rpx solid rgba(110,102,238,1)"
               >
@@ -569,7 +579,8 @@ export default class Index extends Component {
                 font="28rpx"
                 checkable={true}
                 checked={tagState[4]}
-                padding="1rpx 44rpx 1rpx 44rpx"
+                // padding="1rpx 44rpx 1rpx 44rpx"
+                width="200rpx"
                 checkedControl={true}
                 border="2rpx solid rgba(110,102,238,1)"
               >

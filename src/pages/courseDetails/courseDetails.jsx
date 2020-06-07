@@ -10,6 +10,7 @@ import hotcmt from '../../assets/png/hotcmt.png';
 import newcmt from '../../assets/png/newcmt.png';
 import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
 import ClassCard from '../../components/page/ClassCard/ClassCard';
+import MxGuide from '../../components/common/MxGuide/index';
 
 export default class Coursedetails extends Component {
   constructor() {
@@ -376,9 +377,10 @@ export default class Coursedetails extends Component {
     };
     const coverStyle = { display: this.state.cover };
     const CARDCOLOR = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
-
+    let isFir = Taro.getStorageSync('isFir');
     return (
       <View className="courseDetails">
+        {isFir && <MxGuide type="detail"></MxGuide>}
         <View className="starBac" onClick={this.favorite.bind(this)}>
           {!collect && <Image src={star} className="star"></Image>}
           {collect && <Image src={starFill} className="star"></Image>}

@@ -5,6 +5,7 @@ import MxInput from '../../components/common/MxInput/MxInput';
 import MxPicker from '../../components/common/MxPicker';
 import MxTag from '../../components/common/MxTag/index';
 import MxRate from '../../components/common/MxRate/MxRate';
+import MxGuide from '../../components/common/MxGuide/index';
 import Fetch from '../../service/fetch';
 
 export default class Index extends Component {
@@ -32,7 +33,7 @@ export default class Index extends Component {
       checkColledge: [
         '全部学院',
         '城市与环境科学学院',
-        '历史社会学院',
+        '历史文化学院',
         '社会学院',
         '生命科学学院',
         '公共管理学院',
@@ -133,7 +134,7 @@ export default class Index extends Component {
       },
       'GET'
     ).then(data => {
-      console.log(data);
+      // console.log(data);
       let newdatas = data.data.courses;
       if (newdatas != null) {
         let ndatas = this.state.datas;
@@ -143,7 +144,7 @@ export default class Index extends Component {
         that.setState({
           datas: ndatas
         });
-        console.log(newdatas);
+        // console.log(newdatas);
       } else {
         Taro.showToast({
           title: '到底啦'
@@ -331,7 +332,7 @@ export default class Index extends Component {
   handleHistory(e) {
     const that = this;
     var text = e.currentTarget.dataset.title;
-    console.log(text);
+    // console.log(text);
     that.setState(
       {
         inputVal: text,
@@ -367,6 +368,7 @@ export default class Index extends Component {
   componentDidHide() {}
 
   render() {
+    let isFir = Taro.getStorageSync('isFir');
     let inputVal = this.state.inputVal;
     const hidden = this.state.hidden;
     const { records } = this.state;
@@ -498,6 +500,8 @@ export default class Index extends Component {
 
     return (
       <View style="display: block">
+        {isFir && <MxGuide type="helper1"></MxGuide>}
+        {isFir && <MxGuide type="helper2"></MxGuide>}
         <View className="chooseBox">
           <View className="search">
             <MxInput
