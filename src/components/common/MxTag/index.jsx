@@ -63,9 +63,9 @@ export default class MxTag extends Component {
             style={tag.tagStyle}
             onClick={this.onClick.bind(this)}
             className={classNames({
-              'tag-checked': checked && this.props.checkable,
-              'tag-uncheck': !checked && this.props.checkable,
-              'tag-uncheckable': !this.props.checkable,
+              'tag-checked': checked && this.props.checkable && this.props.check,
+              'tag-uncheck': !checked && this.props.checkable && this.props.check,
+              'tag-uncheckable': !this.props.checkable && this.props.check,
               tag: !this.props.check
             })}
           >
@@ -78,9 +78,10 @@ export default class MxTag extends Component {
             style={tag.tagStyle}
             onClick={this.onClick.bind(this)}
             className={classNames({
-              'tag-checked': this.state.ifChecked && this.props.checkable,
-              'tag-unchecked': !this.state.ifChecked && this.props.checkable,
-              'tag-uncheckable': !this.props.checkable,
+              
+              'tag-checked': this.state.ifChecked && this.props.checkable && this.props.check,
+              'tag-unchecked': !this.state.ifChecked && this.props.checkable && this.props.check,
+              'tag-uncheckable': !this.props.checkable && this.props.check,
               tag: !this.props.check
             })}
           >

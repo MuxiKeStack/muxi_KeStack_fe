@@ -5,6 +5,7 @@ import MxRate from '../../components/common/MxRate/MxRate';
 import Fetch from '../../service/fetch';
 import MxTag from '../../components/common/MxTag/index';
 import star from '../../assets/png/star.png';
+import starFill from '../../assets/png/starFill.png';
 import hotcmt from '../../assets/png/hotcmt.png';
 import newcmt from '../../assets/png/newcmt.png';
 import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
@@ -22,7 +23,8 @@ export default class Coursedetails extends Component {
       normalLimit: 10,
       nomorecmt: false,
       drawerWidth: '0px',
-      cover: 'none'
+      cover: 'none',
+      collect: false
     };
   }
   config = {
@@ -114,7 +116,8 @@ export default class Coursedetails extends Component {
     ).then(data => {
       if (data) {
         this.setState({
-          classInfo: data.data
+          classInfo: data.data,
+          collect: data.data.like_state
         });
         console.log(data.data);
       }
@@ -140,35 +143,48 @@ export default class Coursedetails extends Component {
   componentDidHide() {}
 
   favorite() {
-    // "2e154de56gyubdq"
-    // "0s9uighvg121efe"
-    //"28yy89dqube12d8"
-    // "723fguib98y2e1h"
-    let id = '2e154de56gyubdq'; //现在测试是 let id 后端好了改成前页面传过来id
-    Fetch(
-      `api/v1/course/using/${id}/favorite`,
-      {
-        like_state: false
-      },
-      'PUT'
-    ).then(res => {
-      console.log(res);
-      switch (res.code) {
-        case 0:
-          // eslint-disable-next-line no-undef
-          Taro.showToast({
-            title: '收藏成功！',
-            icon: 'success'
-          });
-          break;
-        case 20302:
-          // eslint-disable-next-line no-undef
-          Taro.showToast({
-            title: '收藏失败!'
-          });
-          break;
-      }
-    });
+    if (!Taro.getStorageSync('token')) {
+      Taro.showToast({
+        title: '收藏失败!请先登录'
+      });
+      Taro.navigateTo({
+        url: '/pages/login/index'
+      });
+    } else {
+      Fetch(
+        `api/v1/course/using/${this.$router.params.courseId}/favorite`,
+        {
+          like_state: this.state.collect
+        },
+        'PUT'
+      ).then(res => {
+        console.log(res);
+        switch (res.code) {
+          case 0:
+            if (this.state.collect == false) {
+              Taro.showToast({
+                title: '收藏成功！',
+                icon: 'success'
+              });
+            } else {
+              Taro.showToast({
+                title: '取消收藏成功！',
+                icon: 'success'
+              });
+            }
+            this.setState({
+              collect: !this.state.collect
+            });
+            break;
+          case 20302:
+            // eslint-disable-next-line no-undef
+            Taro.showToast({
+              title: '收藏失败!'
+            });
+            break;
+        }
+      });
+    }
   }
 
   toCover() {
@@ -211,12 +227,25 @@ export default class Coursedetails extends Component {
     });
   }
 
+  toTest() {
+    Taro.navigateTo({
+      url: '/pages/test/test'
+    });
+  }
+
   render() {
-    const { gradeInfo, classInfo, nomorecmt, hotList, normalList } = this.state;
+    const {
+      gradeInfo,
+      classInfo,
+      nomorecmt,
+      hotList,
+      normalList,
+      collect
+    } = this.state;
     const res = Taro.getSystemInfoSync();
     const point = (res.screenWidth / 750) * 50;
     const radiusOut = (res.screenWidth / 750) * 50;
-    const radiusIn = (res.screenWidth / 750) * 48;
+    const radiusIn = (res.screenWidth / 750) * 40;
     var TOTAL = [
       parseInt(gradeInfo.sample_size),
       classInfo.attendance.Occasionally +
@@ -277,29 +306,31 @@ export default class Coursedetails extends Component {
         : [0, 0, 0, 0];
 
     function computeAngle(percent) {
+      // if (percent != 0) {
+      //   return (Math.PI / 180) * 3.6 * percent + (Math.PI * 3) / 2;
+      // } else {
+      //   return 0;
+      // }
       return (Math.PI / 180) * 3.6 * percent + (Math.PI * 3) / 2;
     }
     function drawSector(beginAngle, finishAngle, color, ctx) {
-      ctx.beginPath();
-      ctx.arc(
-        point,
-        point,
-        radiusOut,
-        computeAngle(beginAngle),
-        computeAngle(finishAngle),
-        false
-      );
-      ctx.arc(
-        point,
-        point,
-        radiusIn,
-        computeAngle(finishAngle),
-        computeAngle(beginAngle),
-        true
-      );
-      ctx.closePath();
-      ctx.fillStyle = color;
-      ctx.fill();
+      if (beginAngle != finishAngle) {
+        ctx.beginPath();
+        ctx.moveTo(point, point);
+        // 绘制圆弧
+        ctx.arc(
+          point,
+          point,
+          radiusOut,
+          computeAngle(beginAngle),
+          computeAngle(finishAngle),
+          false
+        );
+        // 闭合路径
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
     }
     function drawRing(ctx, ANGLE, type) {
       drawSector(0, ANGLE[0], '#6869F7', ctx);
@@ -308,8 +339,14 @@ export default class Coursedetails extends Component {
       if (ANGLE[3]) {
         drawSector(ANGLE[2], ANGLE[3], '#FD817E', ctx);
       }
+      ctx.beginPath();
+      ctx.moveTo(point, point);
+      ctx.arc(point, point, radiusIn, 0, 2 * Math.PI, true);
+      ctx.closePath();
+      ctx.fillStyle = 'white';
+      ctx.fill();
       ctx.fillStyle = '#6869F7';
-      ctx.font = '23rpx';
+      ctx.font = '18rpx Arial';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(`${type}`, radiusOut, radiusOut);
@@ -339,10 +376,12 @@ export default class Coursedetails extends Component {
     };
     const coverStyle = { display: this.state.cover };
     const CARDCOLOR = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
+
     return (
       <View className="courseDetails">
         <View className="starBac" onClick={this.favorite.bind(this)}>
-          <Image src={star} className="star"></Image>
+          {!collect && <Image src={star} className="star"></Image>}
+          {collect && <Image src={starFill} className="star"></Image>}
         </View>
         <View className="cover" style={coverStyle} onClick={this.toHide} />
         <View style={drawerStyle} className="drawer">
@@ -372,7 +411,9 @@ export default class Coursedetails extends Component {
             })}
         </View>
         <View className="detailBox">
-          <View className="name">课程名称：</View>
+          <View className="name" onClick={this.toTest}>
+            课程名称：
+          </View>
           <View className="content">{classInfo.course_name}</View>
         </View>
         <View className="detailBox">

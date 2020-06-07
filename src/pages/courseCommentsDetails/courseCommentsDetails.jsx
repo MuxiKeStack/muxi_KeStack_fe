@@ -25,6 +25,7 @@ export default class Coursecommentsdetails extends Component {
     };
   }
   componentWillMount() {
+    Fetch()
     // console.log('this.$router.params');
     // console.log(this.$router.params);
     Fetch('api/v1/evaluation/' + this.$router.params.id + '/', 'GET').then(
@@ -266,7 +267,7 @@ export default class Coursecommentsdetails extends Component {
                     borderRadius="30rpx"
                     className="tag"
                     margin="5rpx 10rpx"
-                    background="red"
+                    check="false"
                   >
                     {item}
                   </MxTag>

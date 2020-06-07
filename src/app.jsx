@@ -57,7 +57,9 @@ class App extends Component {
       'pages/message/index',
       'pages/changeUserInfo/index',
       'pages/courseSelectionList/index',
-      'pages/index/index'
+      'pages/index/index',
+
+      'pages/test/test'
     ],
     window: {
       backgroundTextStyle: 'light',
