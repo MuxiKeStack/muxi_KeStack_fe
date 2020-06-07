@@ -24,12 +24,6 @@ import './app.scss';
 
 class App extends Component {
   componentDidMount() {
-    // let judge = Taro.getStorageSync('judge');
-    // if (judge) {
-    //   Taro.setStorageSync('isFir', false);
-    // } else {
-    //   Taro.setStorageSync('isFir', true);
-    // }
     Taro.getStorage({
       key: 'token',
       success: function(res) {

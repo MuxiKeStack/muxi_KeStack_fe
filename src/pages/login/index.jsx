@@ -151,7 +151,6 @@ export default class Index extends Component {
                       Taro.getUserInfo({
                         // eslint-disable-next-line no-shadow
                         success: function(res) {
-                          //Taro.setStorageSync('judge', res.userInfo);
                           Fetch(
                             'api/v1/user/info/',
                             {
