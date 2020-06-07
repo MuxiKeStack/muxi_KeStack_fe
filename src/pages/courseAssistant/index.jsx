@@ -78,7 +78,8 @@ export default class Index extends Component {
       weekday: '',
       place: '',
       page: 1,
-      datas: []
+      datas: [],
+      isFir: true
     };
   }
 
@@ -363,12 +364,19 @@ export default class Index extends Component {
 
   componentWillUnmount() {}
 
-  componentDidShow() {}
+  componentDidShow() {
+    let isFir = Taro.getStorageSync('isnew');
+    if (isFir == 0) {
+      this.setState({
+        isFir: false
+      });
+    }
+  }
 
   componentDidHide() {}
 
   render() {
-    let isFir = Taro.getStorageSync('isFir');
+    const isFir = this.state.isFir;
     let inputVal = this.state.inputVal;
     const hidden = this.state.hidden;
     const { records } = this.state;

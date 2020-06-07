@@ -26,7 +26,8 @@ export default class Index extends Component {
       X: 0,
       // mask: 'mask',
       // masklist: 'masklist',
-      courseCollected: []
+      courseCollected: [],
+      isFir: true
     };
   }
   // eslint-disable-next-line react/sort-comp
@@ -320,12 +321,19 @@ export default class Index extends Component {
 
   componentWillUnmount() {}
 
-  componentDidShow() {}
+  componentDidShow() {
+    let isFir = Taro.getStorageSync('isnew');
+    if (isFir == 0) {
+      this.setState({
+        isFir: false
+      });
+    }
+  }
 
   componentDidHide() {}
 
   render() {
-    let isFir = Taro.getStorageSync('isFir');
+    const isFir = this.state.isFir;
     let inputVal = this.state.inputVal;
     let status = this.state.status;
     let collected = this.state.courseCollected;

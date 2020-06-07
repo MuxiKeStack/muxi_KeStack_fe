@@ -44,11 +44,18 @@ export default class Index extends Component {
       favoritelist: [],
       showList1: false,
       open_coursedetail: false,
-      class_id: []
+      class_id: [],
+      isFir: true
     };
   }
 
   componentDidShow() {
+    let isFir = Taro.getStorageSync('isnew');
+    if (isFir == 0) {
+      this.setState({
+        isFir: false
+      });
+    }
     Fetch('api/v1/table/', {}, 'GET').then(data => {
       if (data) {
         this.setState({
@@ -467,7 +474,7 @@ export default class Index extends Component {
     } //第四位判断
   }
   render() {
-    let isFir = Taro.getStorageSync('isFir');
+    const isFir = this.state.isFir;
     // eslint-disable-next-line no-shadow
     const { WEEKS, COURSES, COURSESData } = this.state;
     const scrollStyle = {

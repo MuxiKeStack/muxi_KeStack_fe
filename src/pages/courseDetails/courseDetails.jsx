@@ -25,7 +25,8 @@ export default class Coursedetails extends Component {
       nomorecmt: false,
       drawerWidth: '0px',
       cover: 'none',
-      collect: false
+      collect: false,
+      isFir: true
     };
   }
   config = {
@@ -139,7 +140,14 @@ export default class Coursedetails extends Component {
 
   componentWillUnmount() {}
 
-  componentDidShow() {}
+  componentDidShow() {
+    let isFir = Taro.getStorageSync('isnew');
+    if (isFir == 0) {
+      this.setState({
+        isFir: false
+      });
+    }
+  }
 
   componentDidHide() {}
 
@@ -377,7 +385,7 @@ export default class Coursedetails extends Component {
     };
     const coverStyle = { display: this.state.cover };
     const CARDCOLOR = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
-    let isFir = Taro.getStorageSync('isFir');
+    const isFir = this.state.isFir;
     return (
       <View className="courseDetails">
         {isFir && <MxGuide type="detail"></MxGuide>}

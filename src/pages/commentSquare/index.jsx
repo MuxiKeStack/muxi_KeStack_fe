@@ -23,7 +23,8 @@ export default class Index extends Component {
       comments: [],
       sum: 0,
       lastId: 0,
-      bottomFlag: false
+      bottomFlag: false,
+      isFir: true
     };
   }
 
@@ -134,6 +135,12 @@ export default class Index extends Component {
   }
 
   componentDidShow() {
+    let isFir = Taro.getStorageSync('isnew');
+    if (isFir == 0) {
+      this.setState({
+        isFir: false
+      });
+    }
     this.setState(
       {
         bottomFlag: false,
@@ -174,7 +181,7 @@ export default class Index extends Component {
   }
 
   render() {
-    let isFir = Taro.getStorageSync('isFir');
+    const isFir = this.state.isFir;
     const avatar = "http://kestackoss.muxixyz.com/guidance/avatar.png"
     const { bottomFlag } = this.state;
     const content = (
