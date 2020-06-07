@@ -1,41 +1,28 @@
 import Taro, { Component } from '@tarojs/taro';
-import {
-  View,
-  Image,
-  ScrollView,
-  MovableArea,
-  MovableView
-} from '@tarojs/components';
+import { View, Image, ScrollView } from '@tarojs/components';
 import './index.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxIcon from '../../components/common/MxIcon';
 import Fetch from '../../service/fetch';
 import MxReport from '../../components/common/MxReport';
 import MxLike from '../../components/page/MxLike/MxLike';
-import MxLoading from '../../components/common/MxLoading';
-import MxGuide from '../../components/common/MxGuide/index';
 
 export default class Index extends Component {
   // eslint-disable-next-line react/sort-comp
   config = {
     navigationBarTitleText: '评课广场',
-    navigationBarTextStyle: 'black'
-    // enablePullDownRefresh: true
-    // onReachBottomDistance: 80
+    navigationBarTextStyle: 'black',
+    enablePullDownRefresh: true,
+    onReachBottomDistance: 80
   };
 
   constructor() {
     super(...arguments);
     this.state = {
       comments: [],
+      sum: 0,
       lastId: 0,
-      x: 0,
-      y: 43,
-      bottomFlag: false,
-      isStar: false,
-      scrollY: true,
-      scrollTop: 0,
-      guide: true
+      bottomFlag: false
     };
   }
 
@@ -53,6 +40,10 @@ export default class Index extends Component {
     );
   }
 
+  onReachBottom() {
+    Taro.showNavigationBarLoading();
+    this.getComments();
+  }
 
   getComments() {
     var that = this;
@@ -122,79 +113,46 @@ export default class Index extends Component {
     });
   }
 
-
-
+  ChangeToReport(id) {
+    console.log(id)
+    Fetch(`api/v1/evaluation/${id}/report/`, {}, 'POST').then(data => {
+      if (data.data.fail === true) {
+        if (data.data.reason === 'You have been reported this evaluation!') {
+          Taro.showToast({
+            title: '不要重复举报哟!',
+            icon: 'none'
+          });
+        }
+      } else {
+        Taro.showToast({
+          title: '举报成功！',
+          icon: 'success'
+        });
+      }
+    });
+  }
 
   componentDidShow() {
     this.setState(
       {
         bottomFlag: false,
         sum: 0,
-        lastId: 0,
-        scrollTop: Math.random()
+        lastId: 0
       },
       () => {
+        Taro.pageScrollTo({
+          scrollTop: 0 + Math.random(),
+          duration: 0
+        });
         Taro.showNavigationBarLoading();
         this.getComments();
       }
     );
   }
 
-
-  toEdge(e) {
-    let windowHeight = Taro.getSystemInfoSync().windowHeight;
-    if (e.detail.y != 43) {
-      this.setState(
-        {
-          back: true
-        },
-        () => {
-          if (e.detail.y >= windowHeight * 0.15) {
-            this.setState(
-              {
-                sum: 0,
-                lastId: 0,
-                bottomFlag: false,
-                isStar: true
-              },
-              () => {
-                Taro.showNavigationBarLoading();
-                this.getComments();
-              }
-            );
-          } else if (e.detail.y == 0) {
-            this.setState(
-              {
-                isStar: true
-              },
-              () => {
-                Taro.showNavigationBarLoading();
-                this.getComments();
-              }
-            );
-          }
-        }
-      );
-    }
-  }
-  scroll(e) {
-    if (e.detail.scrollTop === 0 || e.detail.scrollTop === 216) {
-      this.setState({
-        scrollY: false
-      });
-    }
-  }
-  end() {
-    if (this.state.back === true) {
-      this.setState(
-        {
-          y: Math.random() + 43,
-          scrollY: true,
-          isStar: false
-        }
-      );
-    }
-  }
+  // componentWillMount() {
+  //
+  // }
 
   normalTime(timestamp) {
     var date = new Date(timestamp * 1000); //如果date为13位不需要乘1000
@@ -215,15 +173,14 @@ export default class Index extends Component {
   }
 
   render() {
-    let isFir = Taro.getStorageSync('isFir');
-    const { bottomFlag } = this.state;
     const avatar = "http://kestackoss.muxixyz.com/guidance/avatar.png"
-    const cardMap = (
-      <View>
+    const { bottomFlag } = this.state;
+    const content = (
+      <View className="detailsBoxes">
         {this.state.comments.map(comment => {
           return (
             // eslint-disable-next-line react/jsx-key
-            <View className="detailsBox">
+            <View className="detailsBox" >
               <View className="detailsCard">
                 <View className="detailsWrapper">
                   <View className="detailsFirst">
@@ -322,44 +279,9 @@ export default class Index extends Component {
         })}
       </View>
     );
-    const content2 = (
-      <View style="width: 100%;height: 100%;">
-        <MovableArea style="width: 100%; height: 100%;">
-          {/*<View style='background: lightgreen;z-index: 299; width:100%;height:50px; position: fixed; top: 50px'></View>*/}
-          <MovableView
-            damping={20}
-            onTouchEnd={this.end}
-            x={this.state.x}
-            y={this.state.y}
-            onChange={this.toEdge}
-            direction="vertical"
-            style=" width: 100%; height: 85%;"
-          >
-            <ScrollView
-              scrollTop={this.state.scrollTop}
-              scrollY={this.state.scrollY}
-              style="height: 117%; width: 100%; margin-top: -75rpx;"
-              onScroll={this.scroll}
-            >
-              <View className="MxLoading">
-                <MxLoading isShow={this.state.isStar} />
-              </View>
-              {cardMap}
-            </ScrollView>
-            <View className="MxLoading">
-              <MxLoading isShow={this.state.isStar} />
-            </View>
-          </MovableView>
-        </MovableArea>
-      </View>
-    );
 
     return (
-      <View style="display: block; height: 100%">
-        {isFir && <MxGuide type="square4"></MxGuide>}
-        {isFir && <MxGuide type="square3"></MxGuide>}
-        {isFir && <MxGuide type="square2"></MxGuide>}
-        {isFir && <MxGuide type="square1"></MxGuide>}
+      <View style="display: block">
         <View className="chooseBox">
           <View
             className="chooseSearchBack"
@@ -376,7 +298,7 @@ export default class Index extends Component {
             <MxIcon type="add" className="chooseAdd" width="42px" />
           </View>
         </View>
-        {content2}
+        {content}
         {bottomFlag && <View className="bottomBox">到底啦！</View>}
       </View>
     );

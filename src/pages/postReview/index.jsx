@@ -14,11 +14,14 @@ export default class Index extends Component {
     navigationBarTitleText: '首页'
   };
 
+
+
+
   constructor() {
     super(...arguments);
     this.state = {
-      courseCheckedName: '(只能评价自己上过的课程哦)',
-      courseCheckedId: '',
+      courseCheckedName: this.$router.params.name || '(只能评价自己上过的课程哦)',
+      courseCheckedId: this.$router.params.id,
       courseCheckedState: false,
       filterAChecked: '(考勤方式)',
       filterBChecked: '(考核方式)',
@@ -72,9 +75,6 @@ export default class Index extends Component {
       this.setState({
         tags: lists,
         tagsState: States
-      },()=>{
-        console.log(this.state.tagsState)
-        console.log(this.state.tags)
       });
     } else {
       States[num] = -1;
@@ -82,9 +82,6 @@ export default class Index extends Component {
       this.setState({
         tags: lists,
         tagsState: States
-      },() => {
-        console.log(this.state.tagsState)
-        console.log(this.state.tags)
       });
     }
   }
@@ -98,13 +95,10 @@ export default class Index extends Component {
   handleClickContent(event) {
     this.setState({
       content: event.detail.value
-    },()=>{
-      console.log(this.state.content)
     });
   }
 
   handleFinishContent(event) {
-    console.log(event.detail.value)
     Taro.setStorage({
       key: 'contentSaved',
       data: event.detail.value
@@ -202,7 +196,6 @@ export default class Index extends Component {
       password: upassword
     };
     Fetch('api/v1/user/courses/?year=0&term=0/', data, 'POST').then(data => {
-      console.log(data);
       Taro.hideLoading();
       let datas = data.data.data;
       let newCourse = [];
