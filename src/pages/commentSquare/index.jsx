@@ -224,19 +224,38 @@ export default class Index extends Component {
                       />
                     </View>
                   </View>
-                  <View className="detailsSecond">
+
+                  {/*<View className="detailsSecond">*/}
+                  {/*  <View*/}
+                  {/*    className="detailsSecondInfo1"*/}
+                  {/*    onClick={this.ChangeTodetails.bind(*/}
+                  {/*      this,*/}
+                  {/*      comment.course_id*/}
+                  {/*    )}*/}
+                  {/*  >*/}
+                  {/*    #{comment.course_name}({comment.teacher})*/}
+                  {/*  </View>*/}
+                  {/*  <View className="detailsSecondInfo2">评价星级：</View>*/}
+                  {/*  <View className="detailsRate">*/}
+                  {/*    <MxRate value={comment.rate} />*/}
+                  {/*  </View>*/}
+                  {/*</View>*/}
+                  <View className="course-container">
                     <View
-                      className="detailsSecondInfo1"
+                      className="course-name"
+                      // onClick={this.ChangeTodetails.bind(this, index)}
                       onClick={this.ChangeTodetails.bind(
                         this,
                         comment.course_id
                       )}
                     >
-                      #{comment.course_name}({comment.teacher})
+                      {'#' + comment.course_name} {'(' + comment.teacher + ')'}{' '}
                     </View>
-                    <View className="detailsSecondInfo2">评价星级：</View>
-                    <View className="detailsRate">
-                      <MxRate value={comment.rate} />
+                    <View className="course-rate">
+                      <View className="rate-text">评价星级:</View>
+                      <View className="rate-icon">
+                        <MxRate value={comment.rate}></MxRate>
+                      </View>
                     </View>
                   </View>
                   <View className="detailsThird">

@@ -181,3 +181,33 @@ View {
   line-height: 80rpx;
   text-align:center
 }
+.course-container{
+  margin-top:24px;
+  padding: 11px 37px 11px 5px;
+  font-size:24px;
+  .course-name{
+    display: inline-block;
+    vertical-align: middle;
+    font-size:27px;
+    font-weight:400;
+    color:rgba(104,105,247,1);
+    width:270px;
+    overflow:hidden; //超出的文本隐藏
+    text-overflow:ellipsis; //溢出用省略号显示
+    white-space:nowrap; //溢出不换行
+  }
+  .course-rate{
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    .rate-text{
+      font-size:27px;
+      color:rgba(104,105,247,1);
+      padding-left:31px;
+      padding-right:24px;
+    }
+  }
+  .course-comment{
+    margin-top:20px;
+  }
+}
