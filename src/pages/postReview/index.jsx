@@ -178,40 +178,50 @@ export default class Index extends Component {
   }
 
   componentWillMount() {
-    let userid = Taro.getStorageSync('sid');
-    let upassword = Taro.getStorageSync('password');
-    Taro.showLoading({
-      title: '收集课程中....'
-    });
-    Fetch('api/v1/tags/', {}, 'GET').then(data => {
-      if (data) {
-        this.setState({
-          tagsReceive: data.data.list,
-          content: Taro.getStorageSync('contentSaved')
-        });
-      }
-    });
-    let data = {
-      sid: userid,
-      password: upassword
-    };
-    Fetch('api/v1/user/courses/?year=0&term=0/', data, 'POST').then(data => {
-      Taro.hideLoading();
-      let datas = data.data.data;
-      let newCourse = [];
-      let newId = [];
-      let newEvaluateState = [];
-      for (let i = 0; i < datas.length; i++) {
-        newCourse = newCourse.concat(datas[i].name);
-        newId = newId.concat(datas[i].course_id);
-        newEvaluateState = newEvaluateState.concat(datas[i].has_evaluated);
-      }
-      this.setState({
-        myCourse: newCourse,
-        myId: newId,
-        myEvaState: newEvaluateState
+    if(Taro.getStorageSync('token') === '') {
+      Taro.showToast({
+        title: '请先登陆!'
       });
-    });
+      Taro.redirectTo({
+        url: '/pages/login/index'
+      });
+    } else {
+      let userid = Taro.getStorageSync('sid');
+      let upassword = Taro.getStorageSync('password');
+      Taro.showLoading({
+        title: '收集课程中....'
+      });
+      Fetch('api/v1/tags/', {}, 'GET').then(data => {
+        if (data) {
+          this.setState({
+            tagsReceive: data.data.list,
+            content: Taro.getStorageSync('contentSaved')
+          });
+        }
+      });
+      let data = {
+        sid: userid,
+        password: upassword
+      };
+      Fetch('api/v1/user/courses/?year=0&term=0/', data, 'POST').then(data => {
+        Taro.hideLoading();
+        let datas = data.data.data;
+        let newCourse = [];
+        let newId = [];
+        let newEvaluateState = [];
+        for (let i = 0; i < datas.length; i++) {
+          newCourse = newCourse.concat(datas[i].name);
+          newId = newId.concat(datas[i].course_id);
+          newEvaluateState = newEvaluateState.concat(datas[i].has_evaluated);
+        }
+        this.setState({
+          myCourse: newCourse,
+          myId: newId,
+          myEvaState: newEvaluateState
+        });
+      });
+    }
+
   }
 
   componentDidMount() {}
