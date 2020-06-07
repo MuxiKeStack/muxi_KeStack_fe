@@ -25,7 +25,7 @@ export default class Coursecommentsdetails extends Component {
     };
   }
   componentWillMount() {
-    Fetch()
+    Fetch();
     // console.log('this.$router.params');
     // console.log(this.$router.params);
     Fetch('api/v1/evaluation/' + this.$router.params.id + '/', 'GET').then(
@@ -150,48 +150,57 @@ export default class Coursecommentsdetails extends Component {
     });
   }
   toReply() {
-    const { replyID, replyContent, isAnonymous, replySID } = this.state;
-    if (replyContent) {
-      if (replyID == this.$router.params.id) {
-        Fetch(
-          'api/v1/evaluation/' + replyID + '/comment/',
-          {
-            content: replyContent,
-            is_anonymous: isAnonymous
-          },
-          'POST'
-        ).then(data => {
-          if (data) {
-            this.setState({
-              cmtList: this.state.cmtList.concat(data.data),
-              ancestorCmtNum: this.state.ancestorCmtNum + 1,
-              replyContent: ''
-            });
-            // console.log(this.state.cmtList);
-          }
-        });
+    if (!Taro.getStorageSync('token')) {
+      Taro.showToast({
+        title: '评论失败!请先登录'
+      });
+      Taro.navigateTo({
+        url: '/pages/login/index'
+      });
+    } else {
+      const { replyID, replyContent, isAnonymous, replySID } = this.state;
+      if (replyContent) {
+        if (replyID == this.$router.params.id) {
+          Fetch(
+            'api/v1/evaluation/' + replyID + '/comment/',
+            {
+              content: replyContent,
+              is_anonymous: isAnonymous
+            },
+            'POST'
+          ).then(data => {
+            if (data) {
+              this.setState({
+                cmtList: this.state.cmtList.concat(data.data),
+                ancestorCmtNum: this.state.ancestorCmtNum + 1,
+                replyContent: ''
+              });
+              // console.log(this.state.cmtList);
+            }
+          });
+        } else {
+          Fetch(
+            'api/v1/comment/' + replyID + '/' + '?sid=' + `${replySID}`,
+            {
+              content: replyContent,
+              is_anonymous: isAnonymous
+            },
+            'POST'
+          ).then(data => {
+            if (data) {
+              this.setState({
+                replyContent: ''
+              });
+              console.log(data.data);
+            }
+          });
+        }
       } else {
-        Fetch(
-          'api/v1/comment/' + replyID + '/' + '?sid=' + `${replySID}`,
-          {
-            content: replyContent,
-            is_anonymous: isAnonymous
-          },
-          'POST'
-        ).then(data => {
-          if (data) {
-            this.setState({
-              replyContent: ''
-            });
-            console.log(data.data);
-          }
+        Taro.showToast({
+          title: '评论不能为空',
+          icon: 'none'
         });
       }
-    } else {
-      Taro.showToast({
-        title: '评论不能为空',
-        icon: 'none'
-      });
     }
   }
   toReport(content, id) {
@@ -267,7 +276,7 @@ export default class Coursecommentsdetails extends Component {
                     borderRadius="30rpx"
                     className="tag"
                     margin="5rpx 10rpx"
-                    check="false"
+                    check={false}
                   >
                     {item}
                   </MxTag>

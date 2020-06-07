@@ -30,7 +30,7 @@ class MxLike extends Component {
   }
   componentWillReceiveProps(nextProps) {
     let { likenum } = this.state;
-    if(likenum != nextProps.likenum+1 && likenum != nextProps.likenum - 1){
+    if (likenum != nextProps.likenum + 1 && likenum != nextProps.likenum - 1) {
       this.setState({
         islike: nextProps.islike,
         likenum: nextProps.likenum
@@ -41,32 +41,42 @@ class MxLike extends Component {
   tolike() {
     // console.log('tolikes like_state:');
     // console.log(this.state.islike);
-    var { theid, content } = this.props;
-    Fetch(
-      'api/v1/' + content + '/' + theid + '/like/',
-      {
-        like_state: this.state.islike
-      },
-      'PUT'
-    ).then(data => {
-      if (data) {
-        this.setState({
-          islike: data.data.like_state,
-          likenum: data.data.like_num
-        });
-        if (this.state.islike) {
-          Taro.showToast({
-            title: '取消点赞成功',
-            icon: 'success'
+    if (!Taro.getStorageSync('token')) {
+      Taro.showToast({
+        title: '点赞失败!请先登录'
+      });
+      Taro.navigateTo({
+        url: '/pages/login/index'
+      });
+    }
+    {
+      var { theid, content } = this.props;
+      Fetch(
+        'api/v1/' + content + '/' + theid + '/like/',
+        {
+          like_state: this.state.islike
+        },
+        'PUT'
+      ).then(data => {
+        if (data) {
+          this.setState({
+            islike: data.data.like_state,
+            likenum: data.data.like_num
           });
-        } else {
-          Taro.showToast({
-            title: '点赞成功',
-            icon: 'success'
-          });
+          if (this.state.islike) {
+            Taro.showToast({
+              title: '取消点赞成功',
+              icon: 'success'
+            });
+          } else {
+            Taro.showToast({
+              title: '点赞成功',
+              icon: 'success'
+            });
+          }
         }
-      }
-    });
+      });
+    }
   }
   render() {
     const likeNumStyle = {
