@@ -385,7 +385,7 @@ export default class Index extends Component {
                   <View className="user-info">
                     <View className="class">{data.name}</View>
                     <View className="teacher">{data.teacher}</View>
-                    <View className="num">{data.id}</View>
+                    <View className="num">{data.course_id}</View>
                   </View>
                   <View className="right">
                     <View className="blue">
