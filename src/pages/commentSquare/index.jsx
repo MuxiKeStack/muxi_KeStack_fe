@@ -53,11 +53,12 @@ export default class Index extends Component {
     Fetch(
       'api/v1/evaluation/',
       {
-        limit: 4,
+        limit: 8,
         last_id: this.state.lastId
       },
       'GET'
     ).then(data => {
+      console.log(data)
       if (data.data.list != null) {
         if (this.state.lastId != 0) {
           newComments = newComments.concat(data.data.list);
@@ -214,7 +215,7 @@ export default class Index extends Component {
                         <View className="detailsFirstInfo1">匿名用户</View>
                       )}
                       <View className="detailsFirstInfo2">
-                        {this.normalTime(comment.time)}
+                        {/*{this.normalTime(comment.time)}*/} {comment.date} {comment.time}
                       </View>
                     </View>
                     <View className="detailsFirstIcon">

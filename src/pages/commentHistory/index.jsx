@@ -133,7 +133,7 @@ export default class Index extends Component {
                 </View>
                 <View className="name-time">
                   <View className="name">{course.user_info.username}</View>
-                  <View className="time">{this.toNormalTime(course.time)}</View>
+                  <View className="time">{course.date} {course.time}</View>
                 </View>
                 <View className="delete-cmmt">
                   {/* key={this.state.list[index].id} */}
