@@ -33,7 +33,8 @@ export default class Index extends Component {
   // eslint-disable-next-line react/sort-comp
   config = {
     navigationBarTitleText: '搜索查询',
-    enablePullDownRefresh: true
+    enablePullDownRefresh: true,
+    onReachBottomDistance: 80
   };
 
   handleChange(value) {
@@ -50,24 +51,32 @@ export default class Index extends Component {
   }
 
   onPullDownRefresh() {
-    this.setState({
-      page: 1
-    });
-    Taro.showNavigationBarLoading();
-    this.getHistorySearch();
+    this.setState(
+      {
+        page: this.state.page + 1
+      },
+      () => {
+        console.log(this.state.page);
+        Taro.showNavigationBarLoading();
+        this.getHistorySearch();
+      }
+    );
   } //下拉事件
 
   onReachBottom() {
-    this.setState({
-      page: this.state.page + 1
-    });
-    Taro.showNavigationBarLoading();
-    this.getHistorySearch();
+    this.setState(
+      {
+        page: this.state.page + 1
+      },
+      () => {
+        console.log(this.state.page);
+        Taro.showNavigationBarLoading();
+        this.getHistorySearch();
+      }
+    );
   }
 
-  componentWillMount() {
-    console.log(this.$router.params);
-  }
+  componentWillMount() {}
 
   componentDidMount() {
     this.getHistorySearch();
@@ -85,12 +94,9 @@ export default class Index extends Component {
       },
       'GET'
     ).then(data => {
+      console.log(data);
       let newdatas = data.data.courses;
-      if (newdatas != null) {
-        // newdatas.map(nd => {
-        //   console.log(nd.id);
-        //   this.setStatus(nd.id);
-        // });
+      if (newdatas != '') {
         let ndatas = this.state.datas;
         ndatas = ndatas.concat(newdatas);
         Taro.stopPullDownRefresh();
@@ -118,20 +124,18 @@ export default class Index extends Component {
       'GET'
     ).then(data => {
       let courseCollected = data.data.list.map(a => a.course_id);
-      console.log(courseCollected);
       this.setState({
         courseCollected: courseCollected
       });
     });
   }
 
-  collect(hash, thisIndex) {
+  collect(hash) {
     if (!Taro.getStorageSync('sid')) {
       Taro.navigateTo({
         url: '/pages/login/index'
       });
     }
-    console.log('index为' + thisIndex);
     Fetch(
       `api/v1/course/using/${hash}/favorite/`,
       {
@@ -140,7 +144,6 @@ export default class Index extends Component {
       'PUT'
     ).then(res => {
       this.setCollect(hash);
-      console.log(res);
       switch (res.code) {
         case 0: {
           Taro.showToast({
@@ -161,19 +164,6 @@ export default class Index extends Component {
     });
   }
   setCollect(h) {
-    // let collectState = Taro.getStorageSync('_collect') || [];
-    // for (let i = 0; i < collectState.length; i++) {
-    //   if (collectState[i].a === h) {
-    //     collectState[i].b = true;
-    //     let b = collectState[i].b;
-    //     this.setState({
-    //       status: b,
-    //       X: Math.random()
-    //       // collectState: collectState
-    //     });
-    //   }
-    // }
-    // Taro.setStorageSync('_collect', collectState);
     let newCollected = this.state.courseCollected;
     newCollected.push(h);
     this.setState({
@@ -362,7 +352,6 @@ export default class Index extends Component {
     const content = (
       <View className="detailsBoxes">
         {this.state.datas.map((data, index) => {
-          console.log(data)
           return (
             // eslint-disable-next-line react/jsx-key
             <View className="mx-card">
@@ -377,10 +366,7 @@ export default class Index extends Component {
                   onTouchStart={this.touchstart.bind(this, data.hash)}
                   onTouchEnd={this.touchstart.bind(this, data.hash)}
                   // animation={this.state.animation}
-                  onClick={this.ChangeTodetails.bind(
-                    this,
-                    data.hash
-                  )}
+                  onClick={this.ChangeTodetails.bind(this, data.hash)}
                 >
                   <View className="user-info">
                     <View className="class">{data.name}</View>

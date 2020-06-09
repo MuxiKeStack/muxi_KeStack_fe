@@ -103,11 +103,15 @@ export default class Index extends Component {
   }
 
   onPullDownRefresh() {
-    this.setState({
-      page: 1
-    });
-    Taro.showNavigationBarLoading();
-    this.getSearch();
+    this.setState(
+      {
+        page: this.state.page + 1
+      },
+      () => {
+        Taro.showNavigationBarLoading();
+        this.getSearch();
+      }
+    );
   } //下拉事件
 
   onReachBottom() {
@@ -115,9 +119,16 @@ export default class Index extends Component {
       {
         page: this.state.page + 1
       },
-      () => Taro.showNavigationBarLoading(),
-      this.getSearch()
+      () => {
+        Taro.showNavigationBarLoading();
+        this.getSearch();
+      }
     );
+  }
+  componentWillMount() {}
+
+  componentDidMount() {
+    this.getSearch();
   }
 
   getSearch() {
@@ -135,9 +146,9 @@ export default class Index extends Component {
       },
       'GET'
     ).then(data => {
-      // console.log(data);
+      console.log(data);
       let newdatas = data.data.courses;
-      if (newdatas != null) {
+      if (newdatas != '') {
         let ndatas = this.state.datas;
         ndatas = ndatas.concat(newdatas);
         Taro.stopPullDownRefresh();
@@ -145,7 +156,6 @@ export default class Index extends Component {
         that.setState({
           datas: ndatas
         });
-        // console.log(newdatas);
       } else {
         Taro.showToast({
           title: '到底啦'
@@ -263,12 +273,6 @@ export default class Index extends Component {
         }
       );
     }
-  }
-
-  componentWillMount() {}
-
-  componentDidMount() {
-    this.getSearch();
   }
 
   handleClickInput() {
