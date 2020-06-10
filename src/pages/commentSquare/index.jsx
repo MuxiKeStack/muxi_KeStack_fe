@@ -57,39 +57,46 @@ export default class Index extends Component {
         last_id: this.state.lastId
       },
       'GET'
-    ).then(data => {
-      console.log(data)
-      if (data.data.list != null) {
-        if (this.state.lastId != 0) {
-          newComments = newComments.concat(data.data.list);
-          Taro.stopPullDownRefresh();
-          Taro.hideNavigationBarLoading();
-          that.setState({
-            comments: newComments,
-            sum: data.data.sum,
-            lastId: data.data.list[data.data.sum - 1].id
-          });
+    )
+      .then(data => {
+        if (data.data.list != null) {
+          if (this.state.lastId != 0) {
+            newComments = newComments.concat(data.data.list);
+            Taro.stopPullDownRefresh();
+            Taro.hideNavigationBarLoading();
+            that.setState({
+              comments: newComments,
+              sum: data.data.sum,
+              lastId: data.data.list[data.data.sum - 1].id
+            });
+          } else {
+            Taro.stopPullDownRefresh();
+            Taro.hideNavigationBarLoading();
+            that.setState({
+              comments: data.data.list,
+              sum: data.data.sum,
+              lastId: data.data.list[data.data.sum - 1].id
+            });
+          }
         } else {
+          Taro.showToast({
+            title: '到底啦！',
+            duration: 2000
+          });
           Taro.stopPullDownRefresh();
           Taro.hideNavigationBarLoading();
-          that.setState({
-            comments: data.data.list,
-            sum: data.data.sum,
-            lastId: data.data.list[data.data.sum - 1].id
+          this.setState({
+            bottomFlag: true
           });
         }
-      } else {
+      })
+      .catch(error => {
+        console.log(error);
         Taro.showToast({
-          title: '到底啦！',
-          duration: 2000
+          title: '刷新失败!',
+          icon: 'none'
         });
-        Taro.stopPullDownRefresh();
-        Taro.hideNavigationBarLoading();
-        this.setState({
-          bottomFlag: true
-        });
-      }
-    });
+      });
   }
 
   ChangeTosearch() {
@@ -117,7 +124,7 @@ export default class Index extends Component {
   }
 
   ChangeToReport(id) {
-    console.log(id)
+    console.log(id);
     Fetch(`api/v1/evaluation/${id}/report/`, {}, 'POST').then(data => {
       if (data.data.fail === true) {
         if (data.data.reason === 'You have been reported this evaluation!') {
@@ -183,14 +190,14 @@ export default class Index extends Component {
 
   render() {
     const isFir = this.state.isFir;
-    const avatar = "http://kestackoss.muxixyz.com/guidance/avatar.png"
+    const avatar = 'http://kestackoss.muxixyz.com/guidance/avatar.png';
     const { bottomFlag } = this.state;
     const content = (
       <View className="detailsBoxes">
         {this.state.comments.map(comment => {
           return (
             // eslint-disable-next-line react/jsx-key
-            <View className="detailsBox" >
+            <View className="detailsBox">
               <View className="detailsCard">
                 <View className="detailsWrapper">
                   <View className="detailsFirst">
@@ -215,7 +222,8 @@ export default class Index extends Component {
                         <View className="detailsFirstInfo1">匿名用户</View>
                       )}
                       <View className="detailsFirstInfo2">
-                        {/*{this.normalTime(comment.time)}*/} {comment.date} {comment.time}
+                        {/*{this.normalTime(comment.time)}*/} {comment.date}{' '}
+                        {comment.time}
                       </View>
                     </View>
                     <View className="detailsFirstIcon">
