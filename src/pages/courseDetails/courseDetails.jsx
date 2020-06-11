@@ -1,5 +1,12 @@
 import Taro, { Component, hideTabBarRedDot } from '@tarojs/taro';
-import { View, Canvas, Image, Text, CoverView } from '@tarojs/components';
+import {
+  View,
+  Canvas,
+  Image,
+  Text,
+  CoverView,
+  CoverImage
+} from '@tarojs/components';
 import './courseDetails.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import Fetch from '../../service/fetch';
@@ -10,7 +17,6 @@ import hotcmt from '../../assets/png/hotcmt.png';
 import newcmt from '../../assets/png/newcmt.png';
 import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
 import ClassCard from '../../components/page/ClassCard/ClassCard';
-import MxGuide from '../../components/common/MxGuide/index';
 
 export default class Coursedetails extends Component {
   constructor() {
@@ -29,7 +35,11 @@ export default class Coursedetails extends Component {
       getGrade: false,
       getGradeCover: 'none',
       password: '',
-      sid: ''
+      sid: '',
+      isFir: true,
+      show: true,
+      height: 1,
+      width: 1
     };
   }
   config = {
@@ -148,7 +158,14 @@ export default class Coursedetails extends Component {
 
   componentWillUnmount() {}
 
-  componentDidShow() {}
+  componentDidShow() {
+    let isFir = Taro.getStorageSync('isnew');
+    if (isFir == 0) {
+      this.setState({
+        isFir: false
+      });
+    }
+  }
 
   componentDidHide() {}
 
@@ -287,6 +304,12 @@ export default class Coursedetails extends Component {
   toTest() {
     Taro.navigateTo({
       url: '/pages/test/test'
+    });
+  }
+
+  onClick() {
+    this.setState({
+      show: false
     });
   }
 
@@ -435,10 +458,23 @@ export default class Coursedetails extends Component {
     const coverStyle = { display: this.state.cover };
     const getGradeStyle = { display: this.state.getGradeCover };
     const CARDCOLOR = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
-    let isFir = Taro.getStorageSync('isFir');
+    const isFir = this.state.isFir;
+    const r = Taro.getSystemInfoSync();
+    const root = {
+      height: r.windowHeight + 'px',
+      width: r.windowWidth + 'px'
+    };
+    const show = this.state.show;
     return (
       <View className="courseDetails">
-        {isFir && <MxGuide type="detail"></MxGuide>}
+        {isFir && show && (
+          <CoverView className="guide" onClick={this.onClick.bind(this)}>
+            <CoverImage
+              style={root}
+              src="http://kestackoss.muxixyz.com/guidance/detail.png"
+            />
+          </CoverView>
+        )}
         <View className="starBac" onClick={this.favorite.bind(this)}>
           {!collect && <Image src={star} className="star"></Image>}
           {collect && <Image src={starFill} className="star"></Image>}
