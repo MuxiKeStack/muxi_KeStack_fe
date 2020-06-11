@@ -1,5 +1,5 @@
-import Taro, { Component } from '@tarojs/taro';
-import { View, Canvas, Image, Text } from '@tarojs/components';
+import Taro, { Component, hideTabBarRedDot } from '@tarojs/taro';
+import { View, Canvas, Image, Text, CoverView } from '@tarojs/components';
 import './courseDetails.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import Fetch from '../../service/fetch';
@@ -26,7 +26,10 @@ export default class Coursedetails extends Component {
       drawerWidth: '0px',
       cover: 'none',
       collect: false,
-      isFir: true
+      getGrade: false,
+      getGradeCover: 'none',
+      password: '',
+      sid: ''
     };
   }
   config = {
@@ -91,6 +94,10 @@ export default class Coursedetails extends Component {
   componentWillMount() {}
 
   componentDidMount() {
+    this.setState({
+      password: Taro.getStorageSync('password'),
+      sid: Taro.getStorageSync('sid')
+    });
     Fetch(
       'api/v1/course/history/' + this.$router.params.courseId + '/evaluations/',
       {
@@ -121,7 +128,7 @@ export default class Coursedetails extends Component {
           classInfo: data.data,
           collect: data.data.like_state
         });
-        console.log(data.data);
+        console.log(data);
       }
     });
     Fetch(
@@ -129,32 +136,27 @@ export default class Coursedetails extends Component {
       { course_id: this.$router.params.courseId },
       'GET'
     ).then(data => {
-      if (data) {
+      if (data.code == 0) {
         this.setState({
+          getGrade: data.data.has_licence,
           gradeInfo: data.data
         });
-        console.log(data.data);
       }
+      console.log(data.data);
     });
   }
 
   componentWillUnmount() {}
 
-  componentDidShow() {
-    let isFir = Taro.getStorageSync('isnew');
-    if (isFir == 0) {
-      this.setState({
-        isFir: false
-      });
-    }
-  }
+  componentDidShow() {}
 
   componentDidHide() {}
 
   favorite() {
     if (!Taro.getStorageSync('token')) {
       Taro.showToast({
-        title: '收藏失败!请先登录'
+        title: '收藏失败!',
+        icon: 'none'
       });
       Taro.navigateTo({
         url: '/pages/login/index'
@@ -188,7 +190,8 @@ export default class Coursedetails extends Component {
           case 20302:
             // eslint-disable-next-line no-undef
             Taro.showToast({
-              title: '收藏失败!'
+              title: '收藏失败!',
+              icon: 'none'
             });
             break;
         }
@@ -207,6 +210,51 @@ export default class Coursedetails extends Component {
       drawerWidth: '0px',
       cover: 'none'
     });
+  }
+  toHideGetGrade() {
+    this.setState({
+      getGradeCover: 'none'
+    });
+  }
+  toShowGetGrade() {
+    this.setState({
+      getGradeCover: 'block'
+    });
+  }
+  toJoin() {
+    if (!Taro.getStorageSync('token')) {
+      Taro.showToast({
+        title: '请先登陆',
+        icon: 'none'
+      });
+    } else {
+      if (this.state.sid == '') {
+        Taro.showToast({
+          title: '登录信息已过期',
+          icon: 'none'
+        });
+        Taro.navigateTo({
+          url: '/pages/login/index'
+        });
+      } else {
+        Fetch(
+          'api/v1/user/licence',
+          {
+            password: this.state.password,
+            sid: this.state.sid
+          },
+          'POST'
+        ).then(data => {
+          if (data) {
+            Taro.showToast({
+              title: '加入成绩共享计划成功',
+              icon: 'success'
+            });
+            this.toHideGetGrade();
+          }
+        });
+      }
+    }
   }
   normalTime(timestamp) {
     var date = new Date(timestamp * 1000);
@@ -249,7 +297,8 @@ export default class Coursedetails extends Component {
       nomorecmt,
       hotList,
       normalList,
-      collect
+      collect,
+      getGrade
     } = this.state;
     const res = Taro.getSystemInfoSync();
     const point = (res.screenWidth / 750) * 50;
@@ -355,7 +404,7 @@ export default class Coursedetails extends Component {
       ctx.fillStyle = 'white';
       ctx.fill();
       ctx.fillStyle = '#6869F7';
-      ctx.font = '14rpx Arial';
+      ctx.font = '14corpx Arial';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(`${type}`, radiusOut, radiusOut);
@@ -384,8 +433,9 @@ export default class Coursedetails extends Component {
       width: this.state.drawerWidth
     };
     const coverStyle = { display: this.state.cover };
+    const getGradeStyle = { display: this.state.getGradeCover };
     const CARDCOLOR = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
-    const isFir = this.state.isFir;
+    let isFir = Taro.getStorageSync('isFir');
     return (
       <View className="courseDetails">
         {isFir && <MxGuide type="detail"></MxGuide>}
@@ -393,33 +443,49 @@ export default class Coursedetails extends Component {
           {!collect && <Image src={star} className="star"></Image>}
           {collect && <Image src={starFill} className="star"></Image>}
         </View>
-        <View className="cover" style={coverStyle} onClick={this.toHide} />
-        <View style={drawerStyle} className="drawer">
-          <View className="infobox_drawer">
-            <View className="info_drawer">课堂信息</View>
-            <View className="info_Eng_drawer">class message</View>
-          </View>
+        <CoverView className="cover" style={coverStyle} onClick={this.toHide} />
+        <CoverView style={drawerStyle} className="drawer">
+          <CoverView className="infobox_drawer">
+            <CoverView className="info_drawer">课堂信息</CoverView>
+            <CoverView className="info_Eng_drawer">class message</CoverView>
+          </CoverView>
           {classInfo.class_info &&
             classInfo.class_info.map(item => {
               return (
-                <View
+                <CoverView
                   className="classBox"
                   key={item.id}
                   style={`background-color:${CARDCOLOR[item.id % 4]}`}
                 >
-                  <View className="classNum">{item.id}课堂</View>
-                  <View className="classWeek">
+                  <CoverView className="classNum">{item.id}课堂</CoverView>
+                  <CoverView className="classWeek">
                     {item.list[0].Week.substring(
                       0,
                       item.list[0].Week.length - 2
                     )}
                     周
-                  </View>
+                  </CoverView>
                   {item.list && <ClassCard list={item.list} />}
-                </View>
+                </CoverView>
               );
             })}
-        </View>
+        </CoverView>
+        <CoverView className="getGrade" style={getGradeStyle}>
+          <CoverView className="getGradeCon">
+            <CoverView className="joinTitle">加入成绩共享计划</CoverView>
+            <CoverView className="joinCon">
+              该部分的课程成绩信息是我们在征得用户同意后，匿名收集用户成绩数据所得到的统计结果。查看该信息需要您加入我们的课程成绩共享计划，提供自己的过往成绩信息作为数据分析的一部分。我们将根据隐私条例中的内容，保证您的个人信息受到安全保护。
+            </CoverView>
+            <CoverView className="joinButton">
+              <CoverView onClick={this.toHideGetGrade} className="unjoin">
+                再想想
+              </CoverView>
+              <CoverView className="tojoin" onClick={this.toJoin}>
+                同意
+              </CoverView>
+            </CoverView>
+          </CoverView>
+        </CoverView>
         <View className="detailBox">
           <View className="name" onClick={this.toTest}>
             课程名称：
@@ -572,27 +638,31 @@ export default class Coursedetails extends Component {
         <View className="sampleSize">
           (成绩样本量：{gradeInfo.sample_size})
         </View>
-        {gradeInfo.has_licence && (
+        {getGrade && (
           <View className="averageBox">
             <View className="averageSmallBox1">
               <View className="averageName">总平均分</View>
-              <View className="averageGrade">{classInfo.total_score}</View>
+              <View className="averageGrade">{gradeInfo.total_score}</View>
             </View>
             <View className="averageSmallBox2">
               <View className="averageName">平时均分</View>
-              <View className="averageGrade">{classInfo.ordinary_score}</View>
+              <View className="averageGrade">{gradeInfo.usual_score}</View>
             </View>
           </View>
         )}
-        {!gradeInfo.has_licence && (
+        {!getGrade && (
           <View className="averageBox">
             <View className="averageSmallBox1">
               <View className="averageName">总平均分</View>
-              <View className="averageGrade">**.**</View>
+              <View className="averageGrade" onClick={this.toShowGetGrade}>
+                **.**
+              </View>
             </View>
             <View className="averageSmallBox2">
               <View className="averageName">平时均分</View>
-              <View className="averageGrade">**.**</View>
+              <View className="averageGrade" onClick={this.toShowGetGrade}>
+                **.**
+              </View>
             </View>
           </View>
         )}
@@ -605,7 +675,7 @@ export default class Coursedetails extends Component {
                   padding="10rpx 40rpx"
                   borderRadius="30rpx"
                   className="tag"
-                  margin="5rpx 10rpx"
+                  margin="15rpx 10rpx"
                   key={item.data.name}
                 >
                   {item.data.name}({item.data.num})
@@ -614,7 +684,7 @@ export default class Coursedetails extends Component {
             })}
         </View>
         <View className="cmtimgBox">
-          <Image className="cmtimg" src={hotcmt} />
+          {hotList && <Image className="cmtimg" src={hotcmt} />}
         </View>
         <View className="cmtBigBox">
           {hotList &&

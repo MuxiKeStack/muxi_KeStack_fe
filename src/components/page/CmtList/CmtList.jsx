@@ -15,19 +15,19 @@ class CmtList extends Component {
           : this.props.item.sub_comments_list
     };
   }
-  normalTime(timestamp) {
-    var date = new Date(timestamp * 1000);
-    let Y = date.getFullYear() + '-';
-    let M =
-      (date.getMonth() + 1 < 10
-        ? '0' + (date.getMonth() + 1)
-        : date.getMonth() + 1) + '-';
-    let D = date.getDate() + ' ';
-    let h = date.getHours() + ':';
-    let m = date.getMinutes();
-    if (m % 10 == 0) return Y + M + D + h + m + 0;
-    else return Y + M + D + h + m;
-  }
+  // normalTime(timestamp) {
+  //   var date = new Date(timestamp * 1000);
+  //   let Y = date.getFullYear() + '-';
+  //   let M =
+  //     (date.getMonth() + 1 < 10
+  //       ? '0' + (date.getMonth() + 1)
+  //       : date.getMonth() + 1) + '-';
+  //   let D = date.getDate() + ' ';
+  //   let h = date.getHours() + ':';
+  //   let m = date.getMinutes();
+  //   if (m % 10 == 0) return Y + M + D + h + m + 0;
+  //   else return Y + M + D + h + m;
+  // }
   toShow() {
     this.setState({
       cmtList: this.props.item.sub_comments_list
@@ -76,7 +76,7 @@ class CmtList extends Component {
                     </View>
                   </View>
                   <View className="sonDetail">
-                    <View className="time">{this.normalTime(x.time)}</View>
+                    <View className="time">{x.data + '  ' + x.time}</View>
                     <View
                       className="reply"
                       onClick={this.onChange.bind(this, item, x)}

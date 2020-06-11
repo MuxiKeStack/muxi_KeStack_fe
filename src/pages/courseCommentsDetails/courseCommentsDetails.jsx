@@ -247,7 +247,7 @@ export default class Coursecommentsdetails extends Component {
                 {ancestor.user_info.username}
               </View>
               <View className="ancestorTime">
-                {this.normalTime(ancestor.time)}
+                {ancestor.date + ' ' + ancestor.time}
               </View>
             </View>
             <View
@@ -329,7 +329,7 @@ export default class Coursecommentsdetails extends Component {
                       </View>
                       <View className="parentDetail">
                         <View className="time">
-                          {this.normalTime(item.time)}
+                          {item.date + ' ' + item.time}
                         </View>
                         <View
                           className="reply"

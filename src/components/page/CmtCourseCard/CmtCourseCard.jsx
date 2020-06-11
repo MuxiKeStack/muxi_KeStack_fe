@@ -69,7 +69,7 @@ class CmtCourseCard extends Component {
             <View className="username">
               {item.user_info.username ? item.user_info.username : '匿名用户'}
             </View>
-            <View className="time">{this.normalTime(item.time)}</View>
+            <View className="time">{item.date + '  ' + item.time}</View>
           </View>
           <MxReport ID={item.id} />
         </View>

@@ -1,6 +1,6 @@
 /* eslint-disable taro/duplicate-name-of-state-and-props */
 import Taro, { Component } from '@tarojs/taro';
-import { View } from '@tarojs/components';
+import { CoverView } from '@tarojs/components';
 import './ClassCard.scss';
 
 class ClassCard extends Component {
@@ -17,49 +17,70 @@ class ClassCard extends Component {
       case '1':
         {
           return (
-            <View className="time">{`周一${time.replace(/-/, '~')}节`}</View>
+            <CoverView className="time">{`周一${time.replace(
+              /-/,
+              '~'
+            )}节`}</CoverView>
           );
         }
         break;
       case '2':
         {
           return (
-            <View className="time">{`周二${time.replace(/-/, '~')}节`}</View>
+            <CoverView className="time">{`周二${time.replace(
+              /-/,
+              '~'
+            )}节`}</CoverView>
           );
         }
         break;
       case '3':
         {
           return (
-            <View className="time">{`周三${time.replace(/-/, '~')}节`}</View>
+            <CoverView className="time">{`周三${time.replace(
+              /-/,
+              '~'
+            )}节`}</CoverView>
           );
         }
         break;
       case '4':
         {
           return (
-            <View className="time">{`周四${time.replace(/-/, '~')}节`}</View>
+            <CoverView className="time">{`周四${time.replace(
+              /-/,
+              '~'
+            )}节`}</CoverView>
           );
         }
         break;
       case '5':
         {
           return (
-            <View className="time">{`周五${time.replace(/-/, '~')}节`}</View>
+            <CoverView className="time">{`周五${time.replace(
+              /-/,
+              '~'
+            )}节`}</CoverView>
           );
         }
         break;
       case '6':
         {
           return (
-            <View className="time">{`周六${time.replace(/-/, '~')}节`}</View>
+            <CoverView className="time">{`周六${time.replace(
+              /-/,
+              '~'
+            )}节`}</CoverView>
           );
         }
         break;
       case '7':
         {
           return (
-            <View className="time">{`周一${time.replace(/-/, '~')}节`}</View>
+            <CoverView className="time">{`周一${time.replace(
+              /-/,
+              '~'
+            )}节`}</CoverView>
           );
         }
         break;
@@ -71,31 +92,31 @@ class ClassCard extends Component {
       this.state.list[0].Week.length - 2
     );
     if (spanWeek != value) {
-      return <View className="classWeek">{value}周</View>;
+      return <CoverView className="classWeek">{value}周</CoverView>;
     }
   }
 
   render() {
     return (
-      <View className="classCard">
+      <CoverView className="classCard">
         {this.state.list.map(item => {
           return (
-            <View key={item.id} className="row">
+            <CoverView key={item.id} className="row">
               {this.renderSpanWeek(
                 item.Week.substring(0, this.state.list[0].Week.length - 2)
               )}
               {this.renderTime(item.Time)}
-              <View className="place"> @ {item.Place}</View>
+              <CoverView className="place"> @ {item.Place}</CoverView>
               {item.Week.substr(item.Week.length - 1, 1) == '1' && (
-                <View className="week">(单)</View>
+                <CoverView className="week">(单)</CoverView>
               )}
               {item.Week.substr(item.Week.length - 1, 1) == '2' && (
-                <View className="week">(双)</View>
+                <CoverView className="week">(双)</CoverView>
               )}
-            </View>
+            </CoverView>
           );
         })}
-      </View>
+      </CoverView>
     );
   }
 }
