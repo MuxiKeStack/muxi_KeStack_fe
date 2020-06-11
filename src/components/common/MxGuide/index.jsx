@@ -14,21 +14,18 @@ import './index.scss';
 // import detail from '../../../assets/png/detail.png';
 // import search from '../../../assets/png/search.png';
 
-const square1 = "http://kestackoss.muxixyz.com/guidance/square1.png"
-const square2 = "http://kestackoss.muxixyz.com/guidance/square2.png"
-const square3 = "http://kestackoss.muxixyz.com/guidance/square3.png"
-const square4 = "http://kestackoss.muxixyz.com/guidance/square4.png"
-const helper1 = "http://kestackoss.muxixyz.com/guidance/helper1.png"
-const helper2 = "http://kestackoss.muxixyz.com/guidance/helper2.png"
-const home1 = "http://kestackoss.muxixyz.com/guidance/home1.png"
-const home2 = "http://kestackoss.muxixyz.com/guidance/home2.png"
-const free1 = "http://kestackoss.muxixyz.com/guidance/free1.png"
-const free2 = "http://kestackoss.muxixyz.com/guidance/free2.png"
-const detail = "http://kestackoss.muxixyz.com/guidance/detail.png"
-const search = "http://kestackoss.muxixyz.com/guidance/search.png"
-
-
-
+const square1 = 'http://kestackoss.muxixyz.com/guidance/square1.png';
+const square2 = 'http://kestackoss.muxixyz.com/guidance/square2.png';
+const square3 = 'http://kestackoss.muxixyz.com/guidance/square3.png';
+const square4 = 'http://kestackoss.muxixyz.com/guidance/square4.png';
+const helper1 = 'http://kestackoss.muxixyz.com/guidance/helper1.png';
+const helper2 = 'http://kestackoss.muxixyz.com/guidance/helper2.png';
+const home1 = 'http://kestackoss.muxixyz.com/guidance/home1.png';
+const home2 = 'http://kestackoss.muxixyz.com/guidance/home2.png';
+const free1 = 'http://kestackoss.muxixyz.com/guidance/free1.png';
+const free2 = 'http://kestackoss.muxixyz.com/guidance/free2.png';
+const detail = 'http://kestackoss.muxixyz.com/guidance/detail.png';
+const search = 'http://kestackoss.muxixyz.com/guidance/search.png';
 
 export default class MxGuide extends Component {
   constructor() {

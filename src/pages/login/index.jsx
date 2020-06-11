@@ -137,6 +137,10 @@ export default class Index extends Component {
               data: password
             });
             Taro.setStorage({
+              key: 'isnew',
+              data: res.data.is_new
+            });
+            Taro.setStorage({
               key: 'token',
               data: res.data.token,
               success: function() {
@@ -147,7 +151,6 @@ export default class Index extends Component {
                       Taro.getUserInfo({
                         // eslint-disable-next-line no-shadow
                         success: function(res) {
-                          Taro.setStorageSync('judge', res.userInfo);
                           Fetch(
                             'api/v1/user/info/',
                             {

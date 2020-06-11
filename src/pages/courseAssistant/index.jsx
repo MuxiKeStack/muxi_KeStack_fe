@@ -78,7 +78,8 @@ export default class Index extends Component {
       weekday: '',
       place: '',
       page: 1,
-      datas: []
+      datas: [],
+      isFir: true
     };
   }
 
@@ -102,11 +103,15 @@ export default class Index extends Component {
   }
 
   onPullDownRefresh() {
-    this.setState({
-      page: 1
-    });
-    Taro.showNavigationBarLoading();
-    this.getSearch();
+    this.setState(
+      {
+        page: this.state.page + 1
+      },
+      () => {
+        Taro.showNavigationBarLoading();
+        this.getSearch();
+      }
+    );
   } //下拉事件
 
   onReachBottom() {
@@ -114,9 +119,16 @@ export default class Index extends Component {
       {
         page: this.state.page + 1
       },
-      () => Taro.showNavigationBarLoading(),
-      this.getSearch()
+      () => {
+        Taro.showNavigationBarLoading();
+        this.getSearch();
+      }
     );
+  }
+  componentWillMount() {}
+
+  componentDidMount() {
+    this.getSearch();
   }
 
   getSearch() {
@@ -134,9 +146,9 @@ export default class Index extends Component {
       },
       'GET'
     ).then(data => {
-      // console.log(data);
+      console.log(data);
       let newdatas = data.data.courses;
-      if (newdatas != null) {
+      if (newdatas != '') {
         let ndatas = this.state.datas;
         ndatas = ndatas.concat(newdatas);
         Taro.stopPullDownRefresh();
@@ -144,7 +156,6 @@ export default class Index extends Component {
         that.setState({
           datas: ndatas
         });
-        // console.log(newdatas);
       } else {
         Taro.showToast({
           title: '到底啦'
@@ -264,12 +275,6 @@ export default class Index extends Component {
     }
   }
 
-  componentWillMount() {}
-
-  componentDidMount() {
-    this.getSearch();
-  }
-
   handleClickInput() {
     this.setState(
       {
@@ -363,12 +368,19 @@ export default class Index extends Component {
 
   componentWillUnmount() {}
 
-  componentDidShow() {}
+  componentDidShow() {
+    let isFir = Taro.getStorageSync('isnew');
+    if (isFir == 0) {
+      this.setState({
+        isFir: false
+      });
+    }
+  }
 
   componentDidHide() {}
 
   render() {
-    let isFir = Taro.getStorageSync('isFir');
+    const isFir = this.state.isFir;
     let inputVal = this.state.inputVal;
     const hidden = this.state.hidden;
     const { records } = this.state;

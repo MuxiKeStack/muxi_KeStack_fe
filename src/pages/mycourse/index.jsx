@@ -93,7 +93,7 @@ export default class Index extends Component {
         .catch(err => {
           Taro.showToast({title: '查询失败，请稍后再试',icon: 'none'})
           Taro.hideNavigationBarLoading()
-      }); 
+      });
   }
   handleChangeY = e => {
     this.setState({
@@ -137,7 +137,7 @@ export default class Index extends Component {
             <View
               onClick={() =>
                 Taro.navigateTo({
-                  url: '/pages/postReview/index?id=' + course.course_id
+                  url: '/pages/postReview/index?name=' + course.name + '&' + 'id=' + course.course_id
                 })
               }
               key={course.id}
@@ -151,7 +151,7 @@ export default class Index extends Component {
               ></MxIcon>
               <Text className="course-name">{course.name}</Text>
               <Text className="teacher-name">{'('+course.teacher+')'}</Text>
-    
+
                 <Text className={textClassName}>{hasComment}</Text>
                 <MxIcon
                   className="right-icon"
@@ -159,7 +159,7 @@ export default class Index extends Component {
                   width="42"
                   height="42"
                 ></MxIcon>
-              
+
             </View>
           );
         })}

@@ -14,11 +14,14 @@ export default class Index extends Component {
     navigationBarTitleText: '首页'
   };
 
+
+
+
   constructor() {
     super(...arguments);
     this.state = {
-      courseCheckedName: '(只能评价自己上过的课程哦)',
-      courseCheckedId: '',
+      courseCheckedName: this.$router.params.name || '(只能评价自己上过的课程哦)',
+      courseCheckedId: this.$router.params.id,
       courseCheckedState: false,
       filterAChecked: '(考勤方式)',
       filterBChecked: '(考核方式)',
@@ -72,9 +75,6 @@ export default class Index extends Component {
       this.setState({
         tags: lists,
         tagsState: States
-      },()=>{
-        console.log(this.state.tagsState)
-        console.log(this.state.tags)
       });
     } else {
       States[num] = -1;
@@ -82,9 +82,6 @@ export default class Index extends Component {
       this.setState({
         tags: lists,
         tagsState: States
-      },() => {
-        console.log(this.state.tagsState)
-        console.log(this.state.tags)
       });
     }
   }
@@ -98,13 +95,10 @@ export default class Index extends Component {
   handleClickContent(event) {
     this.setState({
       content: event.detail.value
-    },()=>{
-      console.log(this.state.content)
     });
   }
 
   handleFinishContent(event) {
-    console.log(event.detail.value)
     Taro.setStorage({
       key: 'contentSaved',
       data: event.detail.value
@@ -184,41 +178,50 @@ export default class Index extends Component {
   }
 
   componentWillMount() {
-    let userid = Taro.getStorageSync('sid');
-    let upassword = Taro.getStorageSync('password');
-    Taro.showLoading({
-      title: '收集课程中....'
-    });
-    Fetch('api/v1/tags/', {}, 'GET').then(data => {
-      if (data) {
-        this.setState({
-          tagsReceive: data.data.list,
-          content: Taro.getStorageSync('contentSaved')
-        });
-      }
-    });
-    let data = {
-      sid: userid,
-      password: upassword
-    };
-    Fetch('api/v1/user/courses/?year=0&term=0/', data, 'POST').then(data => {
-      console.log(data);
-      Taro.hideLoading();
-      let datas = data.data.data;
-      let newCourse = [];
-      let newId = [];
-      let newEvaluateState = [];
-      for (let i = 0; i < datas.length; i++) {
-        newCourse = newCourse.concat(datas[i].name);
-        newId = newId.concat(datas[i].course_id);
-        newEvaluateState = newEvaluateState.concat(datas[i].has_evaluated);
-      }
-      this.setState({
-        myCourse: newCourse,
-        myId: newId,
-        myEvaState: newEvaluateState
+    if(Taro.getStorageSync('token') === '') {
+      Taro.showToast({
+        title: '请先登陆!'
       });
-    });
+      Taro.redirectTo({
+        url: '/pages/login/index'
+      });
+    } else {
+      let userid = Taro.getStorageSync('sid');
+      let upassword = Taro.getStorageSync('password');
+      Taro.showLoading({
+        title: '收集课程中....'
+      });
+      Fetch('api/v1/tags/', {}, 'GET').then(data => {
+        if (data) {
+          this.setState({
+            tagsReceive: data.data.list,
+            content: Taro.getStorageSync('contentSaved')
+          });
+        }
+      });
+      let data = {
+        sid: userid,
+        password: upassword
+      };
+      Fetch('api/v1/user/courses/?year=0&term=0/', data, 'POST').then(data => {
+        Taro.hideLoading();
+        let datas = data.data.data;
+        let newCourse = [];
+        let newId = [];
+        let newEvaluateState = [];
+        for (let i = 0; i < datas.length; i++) {
+          newCourse = newCourse.concat(datas[i].name);
+          newId = newId.concat(datas[i].course_id);
+          newEvaluateState = newEvaluateState.concat(datas[i].has_evaluated);
+        }
+        this.setState({
+          myCourse: newCourse,
+          myId: newId,
+          myEvaState: newEvaluateState
+        });
+      });
+    }
+
   }
 
   componentDidMount() {}
