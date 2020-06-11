@@ -347,7 +347,7 @@ export default class Coursedetails extends Component {
       ctx.fillStyle = 'white';
       ctx.fill();
       ctx.fillStyle = '#6869F7';
-      ctx.font = '18rpx Arial';
+      ctx.font = '14rpx Arial';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(`${type}`, radiusOut, radiusOut);
