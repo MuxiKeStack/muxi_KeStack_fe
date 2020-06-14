@@ -72,15 +72,17 @@ export default class HeaderTab extends Component {
     })
   }
   newtable(id){
-    Fetch(
-      `api/v1/table/?id=${id}`,
-      {},
-      'POST'
-    ).then(res=>{
-      if(res.message=="OK"){
-        this.props.onGettable()
-      }
-    })
+    if(this.props.table_num<3){
+      Fetch(
+        `api/v1/table/?id=${id}`,
+        {},
+        'POST'
+      ).then(res=>{
+        if(res.message=="OK"){
+          this.props.onGettable()
+        }
+      })
+    }
   }
   deletetable(id){
     Fetch(

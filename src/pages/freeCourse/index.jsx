@@ -490,6 +490,7 @@ export default class Index extends Component {
         {isFir && <MxGuide type="free2"></MxGuide>}
         <HeaderTab
           navList={this.state.navList}
+          table_num={table_num}
           onGetIndex={this.getIndex.bind(this)}
           onGettable={this.gettable.bind(this)}
         ></HeaderTab>
