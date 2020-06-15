@@ -17,6 +17,7 @@ export default class Index extends Component {
     onReachBottomDistance: 80
   };
 
+
   constructor() {
     super(...arguments);
     this.state = {
