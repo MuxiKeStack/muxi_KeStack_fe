@@ -6,8 +6,44 @@ import MxRate from '../../components/common/MxRate/MxRate';
 import MxIcon from '../../components/common/MxIcon';
 import MxPicker from '../../components/common/MxPicker';
 import MxTag from '../../components/common/MxTag';
-import Fetch from '../../service/fetch';
 import MxCheckbox from '../../components/common/MxCheckbox';
+
+const preHttp = 'https://kstack.test.muxixyz.com/';
+const Fetch = (url, data = {}, method = 'GET') => {
+  const header = {
+    'content-type': 'application/json',
+    token: Taro.getStorageSync('token')
+  };
+  return Taro.request({
+    url: preHttp + url,
+    data,
+    method,
+    header
+  }).then(res => {
+    switch (res.statusCode) {
+      case 200:
+        if (res.data) {
+          return res.data;
+        } else {
+          return res.data.code; // 业务逻辑错误，返回业务错误码
+        }
+      case 400:
+        if (res.data.code === 20007) {
+          Taro.showToast({
+            title: '评论含敏感内容!',
+            icon: 'none'
+          })
+        }
+        throw new Error('没有权限访问');
+      case 401:
+        throw new Error('未授权');
+      case 404:
+        throw new Error('not found');
+      case 500:
+        throw new Error('服务器错误');
+    }
+  });
+};
 
 export default class Index extends Component {
   config = {
