@@ -33,6 +33,11 @@ export default class Index extends Component {
   config = {
     navigationBarTitleText: '评课广场'
   };
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
 
   handleChange(value) {
     this.setState({

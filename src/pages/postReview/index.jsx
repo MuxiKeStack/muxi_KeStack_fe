@@ -64,7 +64,11 @@ export default class Index extends Component {
       });
     }
   }
-
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
   handleClickTag(num) {
     var local = this.state.tagsState[num];
     var States = this.state.tagsState;

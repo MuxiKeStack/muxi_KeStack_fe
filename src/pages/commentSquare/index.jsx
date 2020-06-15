@@ -27,7 +27,11 @@ export default class Index extends Component {
       isFir: true
     };
   }
-
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
   onPullDownRefresh() {
     this.setState(
       {

@@ -82,7 +82,11 @@ export default class Index extends Component {
       isFir: true
     };
   }
-
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
   handleChange(value) {
     this.setState({
       // eslint-disable-next-line react/no-unused-state

@@ -31,7 +31,11 @@ export default class Index extends Component {
       masklist: 'masklist'
     };
   }
-
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
   handleSave() {
     Taro.getSetting({
       success: res => {

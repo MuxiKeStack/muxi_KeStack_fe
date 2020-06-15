@@ -14,6 +14,11 @@ export default class Index extends Component {
     navigationBarTextStyle: 'black',
     disableScroll: true,
   }
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
 
   constructor() {
     super(...arguments);

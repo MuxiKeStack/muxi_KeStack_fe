@@ -25,7 +25,11 @@ export default class Index extends Component {
   config = {
     navigationBarTitleText: '个人主页'
   };
-
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
   componentDidMount() {
     if (!Taro.getStorageSync('sid')) {
       Taro.navigateTo({

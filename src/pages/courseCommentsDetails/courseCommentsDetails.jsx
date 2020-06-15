@@ -24,6 +24,11 @@ export default class Coursecommentsdetails extends Component {
       cmtList: []
     };
   }
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
   componentWillMount() {
     Fetch();
     // console.log('this.$router.params');

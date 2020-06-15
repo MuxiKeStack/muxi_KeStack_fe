@@ -129,7 +129,11 @@ export default class Index extends Component {
       });
     });
   }
-
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
   collect(hash) {
     if (!Taro.getStorageSync('sid')) {
       Taro.navigateTo({

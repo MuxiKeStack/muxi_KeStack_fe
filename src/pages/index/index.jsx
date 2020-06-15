@@ -16,6 +16,11 @@ export default class Index extends Component {
     enablePullDownRefresh: true,
     onReachBottomDistance: 50
   };
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
 
   componentDidMount() {}
   onPullDownRefresh() {

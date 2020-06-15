@@ -13,7 +13,11 @@ export default class Test extends Component {
   config = {
     navigationBarTitleText: '首页'
   };
-
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
   componentWillMount() {}
 
   componentDidMount() {

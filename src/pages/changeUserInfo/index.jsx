@@ -8,7 +8,11 @@ export default class index extends Component {
   config = {
     navigationBarTitleText: '个人信息'
   };
-
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
   constructor(props) {
     super(props);
     this.state = {

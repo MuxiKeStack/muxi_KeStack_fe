@@ -25,7 +25,11 @@ export default class Index extends Component {
     navigationBarTitleText: '评课历史',
     onReachBottomDistance: 50
   };
-
+  onShareAppMessage() {
+    Taro.showShareMenu({
+      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
+    });
+  }
   componentDidMount() {
     /*        courseList().then(res => {
                 console.log(res);
