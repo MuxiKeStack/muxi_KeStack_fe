@@ -121,9 +121,13 @@ export default class Index extends Component {
     });
   }
 
-  ChangeToCommentsDetails(value) {
+  ChangeToCommentsDetails(value, name) {
     Taro.navigateTo({
-      url: '/pages/courseCommentsDetails/courseCommentsDetails?id=' + value
+      url:
+        '/pages/courseCommentsDetails/courseCommentsDetails?id=' +
+        value +
+        '&ancestorName=' +
+        name
     });
   }
 
@@ -306,7 +310,8 @@ export default class Index extends Component {
                     <View
                       onClick={this.ChangeToCommentsDetails.bind(
                         this,
-                        comment.id
+                        comment.id,
+                        comment.user_info.username
                       )}
                     >
                       <MxIcon type="cmmtBtn" className="detailsFourthIcon2" />

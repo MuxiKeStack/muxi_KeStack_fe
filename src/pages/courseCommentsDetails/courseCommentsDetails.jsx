@@ -30,9 +30,6 @@ export default class Coursecommentsdetails extends Component {
     });
   }
   componentWillMount() {
-    Fetch();
-    // console.log('this.$router.params');
-    // console.log(this.$router.params);
     Fetch('api/v1/evaluation/' + this.$router.params.id + '/', 'GET').then(
       data => {
         if (data) {
@@ -40,9 +37,7 @@ export default class Coursecommentsdetails extends Component {
             ancestor: data.data,
             ancestorCmtNum: data.data.comment_num
           });
-          // console.log(data.data.is_like);
-          // console.log(data.data.like_num);
-          console.log(data.data);
+          // console.log(data.data);
         }
       }
     );
@@ -56,7 +51,7 @@ export default class Coursecommentsdetails extends Component {
           cmtList: data.data.parent_comment_list,
           page: data.data.page + 1
         });
-        console.log(data.data);
+        // console.log(data.data);
       }
     });
   }
@@ -91,7 +86,6 @@ export default class Coursecommentsdetails extends Component {
     // console.log('下拉加载更多');
   }
   getComments() {
-    // console.log(this.state.page);
     if (!this.state.nomorecmt) {
       Fetch(
         'api/v1/evaluation/' + this.$router.params.id + '/comments/',
@@ -137,16 +131,12 @@ export default class Coursecommentsdetails extends Component {
     else return Y + M + D + h + m;
   }
   onChangeReply(user, x) {
-    // console.log('onChangeReply:');
-    // console.log(user);
-    // console.log(x);
     this.setState({
       replyID: user.id,
       replyUser: x.is_anonymous ? '匿名用户 ：' : x.user_info.username + ' ：',
       isAnonymous: x.user_info ? false : true,
       replySID: x.is_anonymous ? '0' : x.user_info.sid
     });
-    // console.log(user);
   }
   toWriteReplyContent(e) {
     let value = e.detail.value;
@@ -166,37 +156,123 @@ export default class Coursecommentsdetails extends Component {
       const { replyID, replyContent, isAnonymous, replySID } = this.state;
       if (replyContent) {
         if (replyID == this.$router.params.id) {
-          Fetch(
-            'api/v1/evaluation/' + replyID + '/comment/',
-            {
+          // Fetch(
+          //   'api/v1/evaluation/' + replyID + '/comment/',
+          //   {
+          //     content: replyContent,
+          //     is_anonymous: isAnonymous
+          //   },
+          //   'POST'
+          // ).then(data => {
+          //   console.log(data);
+          //   if (data.code == 20007) {
+          //     Taro.showToast({
+          //       title: '评论含敏感信息',
+          //       icon: 'none'
+          //     });
+          //   } else if (data.code == 0) {
+          //     this.setState({
+          //       cmtList: this.state.cmtList.concat(data.data),
+          //       ancestorCmtNum: this.state.ancestorCmtNum + 1,
+          //       replyContent: ''
+          //     });
+          //     Taro.showToast({
+          //       title: '评论成功',
+          //       icon: 'success'
+          //     });
+          //   }
+          // });
+          Taro.request({
+            url:
+              'https://kstack.test.muxixyz.com/api/v1/evaluation/' +
+              replyID +
+              '/comment/',
+            data: {
               content: replyContent,
               is_anonymous: isAnonymous
             },
-            'POST'
-          ).then(data => {
-            if (data) {
+            method: 'POST',
+            header: {
+              'content-type': 'application/json',
+              token: Taro.getStorageSync('token')
+            }
+          }).then(res => {
+            console.log(res);
+            if (res.statusCode == 400) {
+              Taro.showToast({
+                title: '评论含敏感信息',
+                icon: 'none'
+              });
+            } else if (res.statusCode == 200) {
+              console.log(this);
               this.setState({
-                cmtList: this.state.cmtList.concat(data.data),
+                cmtList: this.state.cmtList.concat(res.data.data),
                 ancestorCmtNum: this.state.ancestorCmtNum + 1,
                 replyContent: ''
               });
-              // console.log(this.state.cmtList);
+              Taro.showToast({
+                title: '评论成功',
+                icon: 'success'
+              });
             }
           });
         } else {
-          Fetch(
-            'api/v1/comment/' + replyID + '/' + '?sid=' + `${replySID}`,
-            {
+          // Fetch(
+          //   'api/v1/comment/' + replyID + '/' + '?sid=' + `${replySID}`,
+          //   {
+          //     content: replyContent,
+          //     is_anonymous: isAnonymous
+          //   },
+          //   'POST'
+          // ).then(data => {
+          //   console.log(data);
+          //   if (data.code == 20007) {
+          //     Taro.showToast({
+          //       title: '评论含敏感信息',
+          //       icon: 'none'
+          //     });
+          //   } else if (data.code == 0) {
+          //     this.setState({
+          //       replyContent: ''
+          //     });
+          //     Taro.showToast({
+          //       title: '评论成功',
+          //       icon: 'success'
+          //     });
+          //   }
+          // });
+          Taro.request({
+            url:
+              'https://kstack.test.muxixyz.com/api/v1/comment/' +
+              replyID +
+              '/' +
+              '?sid=' +
+              `${replySID}`,
+            data: {
               content: replyContent,
               is_anonymous: isAnonymous
             },
-            'POST'
-          ).then(data => {
-            if (data) {
+            method: 'POST',
+            header: {
+              'content-type': 'application/json',
+              token: Taro.getStorageSync('token')
+            }
+          }).then(res => {
+            console.log(res);
+            if (res.statusCode == 400) {
+              Taro.showToast({
+                title: '评论含敏感信息',
+                icon: 'none'
+              });
+            } else if (res.statusCode == 200) {
+              console.log(this);
               this.setState({
                 replyContent: ''
               });
-              console.log(data.data);
+              Taro.showToast({
+                title: '评论成功',
+                icon: 'success'
+              });
             }
           });
         }
