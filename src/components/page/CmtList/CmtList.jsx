@@ -76,7 +76,7 @@ class CmtList extends Component {
                     </View>
                   </View>
                   <View className="sonDetail">
-                    <View className="time">{x.data + '  ' + x.time}</View>
+                    <View className="time">{x.date + '  ' + x.time}</View>
                     <View
                       className="reply"
                       onClick={this.onChange.bind(this, item, x)}
