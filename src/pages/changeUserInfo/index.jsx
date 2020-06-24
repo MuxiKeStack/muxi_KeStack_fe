@@ -22,6 +22,7 @@ export default class index extends Component {
     };
     this.targetUrl = '';
     this.token = '';
+    this.hasChangeAvatar = false;
   }
 
   componentWillMount() {}
@@ -78,6 +79,7 @@ export default class index extends Component {
           avatar: res.tempFilePaths[0],
           username: this.state.username //本地临时路径,
         });
+        this.hasChangeAvatar = true;
       })
       .catch(error => {
         console.error(error);
@@ -118,24 +120,43 @@ export default class index extends Component {
       });
       return;
     }
-    this.upload()
-      .then(url => {
-        Fetch(
-          'api/v1/user/info/',
-          {
-            username: this.state.username,
-            avatar: url
-          },
-          'POST'
-        ).then(ress => {
+    if (this.hasChangeAvatar) {
+      this.upload()
+        .then(url => {
+          Fetch(
+            'api/v1/user/info/',
+            {
+              username: this.state.username,
+              avatar: url
+            },
+            'POST'
+          ).then(ress => {
+            if (ress.message == 'OK')
+              Taro.showToast({ title: '修改成功', icon: 'success' });
+          });
+        })
+        .catch(err => {
+          console.error(err);
+          Taro.showToast({ title: '修改失败，请稍后重试', icon: 'fail' });
+        });
+    } else {
+      Fetch(
+        'api/v1/user/info/',
+        {
+          username: this.state.username,
+          avatar: this.state.avatar
+        },
+        'POST'
+      )
+        .then(ress => {
           if (ress.message == 'OK')
             Taro.showToast({ title: '修改成功', icon: 'success' });
+        })
+        .catch(err => {
+          console.error(err);
+          Taro.showToast({ title: '修改失败，请稍后重试', icon: 'fail' });
         });
-      })
-      .catch(err => {
-        console.error(err);
-        Taro.showToast({ title: '修改失败，请稍后重试', icon: 'fail' });
-      });
+    }
   }
   onReset() {
     Fetch('api/v1/user/info/', {}, 'GET').then(res => {
