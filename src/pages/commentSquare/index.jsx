@@ -175,9 +175,6 @@ export default class Index extends Component {
     );
   }
 
-  // componentWillMount() {
-  //
-  // }
 
   normalTime(timestamp) {
     var date = new Date(timestamp * 1000); //如果date为13位不需要乘1000

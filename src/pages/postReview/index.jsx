@@ -32,7 +32,7 @@ const Fetch = (url, data = {}, method = 'GET') => {
           Taro.showToast({
             title: '评论含敏感内容!',
             icon: 'none'
-          })
+          });
         }
         throw new Error('没有权限访问');
       case 401:
@@ -50,13 +50,11 @@ export default class Index extends Component {
     navigationBarTitleText: '首页'
   };
 
-
-
-
   constructor() {
     super(...arguments);
     this.state = {
-      courseCheckedName: this.$router.params.name || '(只能评价自己上过的课程哦)',
+      courseCheckedName:
+        this.$router.params.name || '(只能评价自己上过的课程哦)',
       courseCheckedId: this.$router.params.id,
       courseCheckedState: false,
       filterAChecked: '(考勤方式)',
@@ -75,7 +73,7 @@ export default class Index extends Component {
       exam_check_type: 0,
       tags: [],
       content: '',
-      is_anonymous: false,
+      is_anonymous: false
     };
     this.filterA = ['经常点名', '偶尔点名', '手机签到'];
     this.filterB = ['闭卷考试', '开卷考试', '论文考核', '无考核'];
@@ -142,7 +140,7 @@ export default class Index extends Component {
     Taro.setStorage({
       key: 'contentSaved',
       data: event.detail.value
-    })
+    });
   }
   onClickCheckbox(event) {
     if (event.detail.value == 'true') {
@@ -191,22 +189,36 @@ export default class Index extends Component {
       tags: this.state.tags
     };
     if (this.state.courseCheckedState == false) {
-      if (post.course_name == '(只能评价自己上过的课程哦)' || post.rate == 0) {
+      if (false) {
         Taro.showToast({
           title: '课程名与星级为必选哦！',
           icon: 'none',
           duration: 2000
         });
       } else {
-        Fetch('api/v1/evaluation/', post, 'POST').then(() => {
-          Taro.setStorage({
-            key: 'contentSaved',
-            data: ''
+        Fetch('api/v1/evaluation/', post, 'POST')
+          .then(res => {
+            if (res.code === 0) {
+              Taro.setStorage({
+                key: 'contentSaved',
+                data: ''
+              });
+              Taro.switchTab({
+                url: '/pages/commentSquare/index'
+              });
+            } else {
+              Taro.showToast({
+                title: '发布失败',
+                icon: 'none'
+              });
+            }
+          })
+          .catch(error => {
+            Taro.showToast({
+              title: '发布失败',
+              icon: 'none'
+            });
           });
-          Taro.switchTab({
-            url: '/pages/commentSquare/index'
-          });
-        });
       }
     } else {
       Taro.showToast({
@@ -218,7 +230,7 @@ export default class Index extends Component {
   }
 
   componentWillMount() {
-    if(Taro.getStorageSync('token') === '') {
+    if (Taro.getStorageSync('token') === '') {
       Taro.showToast({
         title: '请先登陆!'
       });
@@ -261,12 +273,13 @@ export default class Index extends Component {
         });
       });
     }
-
   }
 
   componentDidMount() {}
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    Taro.hideLoading();
+  }
 
   componentDidShow() {}
 
@@ -287,7 +300,7 @@ export default class Index extends Component {
               width="430"
               onChange={this.handleChangeCourse.bind(this)}
               className="choicePicker"
-              color='white'
+              color="white"
             />
           </View>
         </View>
@@ -413,15 +426,14 @@ export default class Index extends Component {
         </View>
         <View className="evaluateBox">
           <Textarea
-            autoFocus
             placeholder="输入课程评价："
             placeholderClass="evalutatePlaceholder"
             className="evaluateTextarea"
             onInput={this.handleClickContent.bind(this)}
             onBlur={this.handleFinishContent.bind(this)}
             value={this.state.content}
-            autoFocus={false}
-          ></Textarea>
+            maxlength={450}
+          />
           <MxCheckbox
             options={this.checkboxOption}
             selectedList={this.state.checkedList}

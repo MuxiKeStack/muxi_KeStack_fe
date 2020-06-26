@@ -49,6 +49,9 @@ export default class MxReport extends MxComponent {
           title: '举报成功'
         });
       }
+      this.setState({
+        open: false
+      });
     });
   }
 
