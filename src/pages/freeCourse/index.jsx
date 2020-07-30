@@ -45,6 +45,7 @@ export default class Index extends Component {
       showList1: false,
       open_coursedetail: false,
       class_id: [],
+      isclick: true,
       isFir: true
     };
   }
@@ -310,14 +311,22 @@ export default class Index extends Component {
   }
 
   addtable() {
-    if (table_num < 3) {
-      Fetch(`api/v1/table/?id=${0}`, {}, 'POST').then(res => {
-        console.log(res);
-        if (res.message == 'OK') {
-          this.gettable();
-        }
+    if (this.state.isclick) {
+      this.setState({
+        isclick: false
       });
-    } else {
+      if (table_num < 3) {
+        Fetch(`api/v1/table/?id=${0}`, {}, 'POST').then(res => {
+          if (res.message == 'OK') {
+            this.gettable();
+          }
+        });
+      }
+      setTimeout(() => {
+        this.setState({
+          isclick: true
+        });
+      }, 500);
     }
   }
 
@@ -406,7 +415,7 @@ export default class Index extends Component {
       });
       detailtimes[k].map((p, i) => {
         if (j >= 1) {
-          console.log(times);
+          // console.log(times);
           if (p.text.length < times[0].text.length) {
             p.text += item.places[i];
             i = i + 1;
