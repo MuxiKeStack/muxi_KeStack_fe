@@ -8,6 +8,7 @@ import Fetch from '../../service/fetch';
 import MxLike from '../../components/page/MxLike/MxLike';
 import CmtList from '../../components/page/CmtList/CmtList';
 import check from '../../assets/svg/annoy.svg';
+import MxReport from '../../components/common/MxReport/index';
 
 export default class Coursecommentsdetails extends Component {
   constructor() {
@@ -302,6 +303,11 @@ export default class Coursecommentsdetails extends Component {
       isAnonymous: !x
     });
   }
+  toCourseDetail(id) {
+    Taro.navigateTo({
+      url: `/pages/courseDetails/courseDetails?courseId=${id}`
+    });
+  }
   render() {
     const {
       ancestor,
@@ -331,15 +337,19 @@ export default class Coursecommentsdetails extends Component {
                 {ancestor.date + ' ' + ancestor.time}
               </View>
             </View>
-            <View
+            <MxReport ID={ancestor.id} />
+            {/* <View
               className="report"
               onClick={this.toReport.bind(this, ancestor.content, ancestor.id)}
             >
               <MxIcon type="arrowD" width="50" />
-            </View>
+            </View> */}
           </View>
           <View className="courseInformationBox">
-            <View className="courseInformation">
+            <View
+              className="courseInformation"
+              onClick={this.toCourseDetail.bind(this, ancestor.course_id)}
+            >
               #{ancestor.course_name} ({ancestor.teacher})
             </View>
             <View className="toRate">评价星级：</View>

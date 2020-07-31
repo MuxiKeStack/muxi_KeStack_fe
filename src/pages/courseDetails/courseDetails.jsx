@@ -186,7 +186,7 @@ export default class Coursedetails extends Component {
       });
     } else {
       Fetch(
-        `api/v1/course/using/${this.$router.params.courseId}/favorite`,
+        `api/v1/course/using/${this.$router.params.courseId}/favorite/`,
         {
           like_state: this.state.collect
         },
@@ -261,7 +261,7 @@ export default class Coursedetails extends Component {
         });
       } else {
         Fetch(
-          'api/v1/user/licence',
+          'api/v1/user/licence/',
           {
             password: this.state.password,
             sid: this.state.sid
@@ -269,11 +269,11 @@ export default class Coursedetails extends Component {
           'POST'
         ).then(data => {
           if (data) {
+            this.toHideGetGrade()
             Taro.showToast({
               title: '加入成绩共享计划成功',
               icon: 'success'
             });
-            this.toHideGetGrade();
           }
         });
       }
@@ -734,7 +734,8 @@ export default class Coursedetails extends Component {
               return <CmtCourseCard item={item} key={item.id}></CmtCourseCard>;
             })}
         </View>
-        <Image className="cmtimg" src={newcmt} />
+          {normalList && <Image className="cmtimg" src={newcmt} />}
+          {!normalList && <View className="noMoreCmt">暂无更多评论</View>}
         <View className="cmtBigBox">
           {normalList &&
             normalList.map(item => {

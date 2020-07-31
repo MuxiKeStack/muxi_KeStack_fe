@@ -9,6 +9,10 @@ View{
     display: inline-block;
     font-size: 32px;
 }
+.courseDetails{
+    display: block;
+    margin: 0 auto;
+}
 @mixin one_line_ellipsis($width_ellipsis){
     width: $width_ellipsis;
     overflow: hidden;
@@ -414,4 +418,8 @@ View{
 .guide{
     position: fixed;
     z-index: 1000;
+}
+.noMoreCmt{
+    display: block;
+    text-align: center;
 }
