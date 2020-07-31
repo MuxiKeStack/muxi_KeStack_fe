@@ -77,6 +77,7 @@ export default class Index extends Component {
         tablelist.map((item, i) => {
           this.state.navList.push({
             key: item.table_id,
+            id: i,
             content: item.table_name
           });
         });
@@ -339,9 +340,10 @@ export default class Index extends Component {
         table_num = data.data.table_num;
         const tablelist = data.data.table_list;
         this.state.navList = new Array();
-        tablelist.map(item => {
+        tablelist.map((item,i) => {
           this.state.navList.push({
             key: item.table_id,
+            id: i,
             content: item.table_name
           });
         });
@@ -434,7 +436,7 @@ export default class Index extends Component {
     this.setState({
       open_coursedetail: !this.state.open_coursedetail
     });
-    this.state.conflictCourse.map(item, i => {
+    this.state.conflictCourse.map((item, i) => {
       this.coursedetail(item, i);
     });
   }

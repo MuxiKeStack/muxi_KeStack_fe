@@ -19,10 +19,10 @@ export default class HeaderTab extends Component {
 
   componentWillMount() {
     this.setState({
-      currentTab: this.props.navList[0].key
+      currentTab: this.props.navList[0].id
     });
     this.props.navList.map(nav => {
-      this.state.open[nav.key] = false;
+      this.state.open[nav.id] = false;
     });
   }
   config = {
@@ -30,17 +30,21 @@ export default class HeaderTab extends Component {
   };
   switchNav(value, e) {
     this.props.navList.map(nav => {
-      this.state.open[nav.key] = false;
+      this.state.open[nav.id] = false;
     });
-    var cur = e.target.dataset.current;
+    var cur = e;
     if (this.state.currentTab === cur) {
-      this.state.open[cur] = !this.state.open[cur];
+      const open = [...this.state.open];
+      open[cur] = !open[cur];
+      this.setState({
+        open: open
+      });
     } else {
       this.setState({
         currentTab: cur
       });
+      this.props.onGetIndex(value);
     }
-    this.props.onGetIndex(value);
   }
   newName(content) {
     this.setState({
@@ -79,10 +83,11 @@ export default class HeaderTab extends Component {
       });
     }
   }
-  deletetable(id) {
-    Fetch(`api/v1/table/${id}`, {}, 'DELETE').then(res => {
+  deletetable(id, key) {
+    Fetch(`api/v1/table/${id}/`, {}, 'DELETE').then(res => {
       if (res.message == 'OK') {
         this.props.onGettable();
+        this.state.open[key] = false;
       }
     });
   }
@@ -91,9 +96,9 @@ export default class HeaderTab extends Component {
       <View className="wrapper">
         {this.props.navList.map(nav => (
           <View
-            className={this.state.currentTab === nav.key ? 'active' : 'normal'}
+            className={this.state.currentTab === nav.id ? 'active' : 'normal'}
             data-current={nav.key}
-            onClick={this.switchNav.bind(this, nav.key)}
+            onClick={this.switchNav.bind(this, nav.key, nav.id)}
             key="0"
           >
             {!this.state.caninput ? (
@@ -110,29 +115,27 @@ export default class HeaderTab extends Component {
             )}
             <View
               className={
-                this.state.open[nav.key] ? 'menu_active' : 'menu_normal'
+                this.state.open[nav.id] ? 'menu_active' : 'menu_normal'
               }
             >
-              <View>
-                <Button
-                  className="menuButton"
-                  onClick={this.newName.bind(this, nav.content)}
-                >
-                  重命名
-                </Button>
-                <Button
-                  className="menuButton"
-                  onClick={this.newtable.bind(this, nav.key)}
-                >
-                  创建副本
-                </Button>
-                <Button
-                  className="menuButton"
-                  onClick={this.deletetable.bind(this, nav.key)}
-                >
-                  删除课表
-                </Button>
-              </View>
+              <Button
+                className="menuButton"
+                onClick={this.newName.bind(this, nav.content)}
+              >
+                重命名
+              </Button>
+              <Button
+                className="menuButton"
+                onClick={this.newtable.bind(this, nav.key)}
+              >
+                创建副本
+              </Button>
+              <Button
+                className="menuButton"
+                onClick={this.deletetable.bind(this, nav.key, nav.id)}
+              >
+                删除课表
+              </Button>
             </View>
           </View>
         ))}
