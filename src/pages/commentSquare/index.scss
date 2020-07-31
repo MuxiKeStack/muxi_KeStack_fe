@@ -233,3 +233,48 @@ View {
 .swiper {
   width: 270px;
 }
+.mask{
+  width: 100%;
+  height: 100%;
+  background: rgb(7, 7, 7);
+  position: absolute;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  opacity: 0.6;
+}
+.img1{
+  position: absolute;
+  z-index: 2000;
+  background: #FFFFFF;
+  top:1%;
+  height: 35%;
+  opacity: 1;
+}
+.img2{
+  position: absolute;
+  z-index: 2000;
+  background: #FFFFFF;
+  top: 1%;
+  left: 30%;
+  width: 70%;
+  height: 25%;
+  opacity: 1;
+}
+.img3{
+  position: absolute;
+  z-index: 2000;
+  background: #FFFFFF;
+  top:24%;
+  width: 70%;
+  height: 28%;
+  opacity: 1;
+}
+.img4{
+  position: absolute;
+  z-index: 2000;
+  background: #FFFFFF;
+  top: 45%;
+  height: 33%;
+  opacity: 1;
+}

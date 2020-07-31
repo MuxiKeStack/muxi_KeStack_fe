@@ -6,7 +6,10 @@ import MxIcon from '../../components/common/MxIcon';
 import Fetch from '../../service/fetch';
 import MxReport from '../../components/common/MxReport';
 import MxLike from '../../components/page/MxLike/MxLike';
-import MxGuide from '../../components/common/MxGuide';
+import image1 from '../../assets/png/s1.png';
+import image2 from '../../assets/png/s2.png';
+import image3 from '../../assets/png/s3.png';
+import image4 from '../../assets/png/s4.png';
 
 export default class Index extends Component {
   // eslint-disable-next-line react/sort-comp
@@ -25,7 +28,11 @@ export default class Index extends Component {
       sum: 0,
       lastId: 0,
       bottomFlag: false,
-      isFir: true
+      isFir: false,
+      to1: true,
+      to2:false,
+      to3:false,
+      to4:false
     };
   }
   onShareAppMessage() {
@@ -155,7 +162,7 @@ export default class Index extends Component {
     let isFir = Taro.getStorageSync('isnew');
     if (isFir == 0) {
       this.setState({
-        isFir: false
+        isFir: true
       });
     }
     this.setState(
@@ -173,6 +180,30 @@ export default class Index extends Component {
         this.getComments();
       }
     );
+  }
+
+  onClick1() {
+    this.setState({
+      to1: false,
+      to2: true
+    })
+  }
+  onClick2() {
+    this.setState({
+      to2:false,
+      to3:true
+    })
+  }
+  onClick3() {
+    this.setState({
+      to3: false,
+      to4: true
+    })
+  }
+  onClick4() {
+    this.setState({
+      isFir: true
+    })
   }
 
 
@@ -196,6 +227,14 @@ export default class Index extends Component {
 
   render() {
     const isFir = this.state.isFir;
+    const to1 = this.state.to1;
+    const to2 = this.state.to2;
+    const to3 = this.state.to3;
+    const to4 = this.state.to4;
+    const ImageUrl1 = image1;
+    const ImageUrl2 = image2;
+    const ImageUrl3 = image3;
+    const ImageUrl4 = image4;
     const avatar = 'http://kestackoss.muxixyz.com/guidance/avatar.png';
     const { bottomFlag } = this.state;
     const content = (
@@ -328,10 +367,23 @@ export default class Index extends Component {
 
     return (
       <View style="display: block">
-        {isFir && <MxGuide type="square4"></MxGuide>}
-        {isFir && <MxGuide type="square3"></MxGuide>}
-        {isFir && <MxGuide type="square2"></MxGuide>}
-        {isFir && <MxGuide type="square1"></MxGuide>}
+        {!isFir && <View className="mask"></View>}
+        {!isFir && to1 &&(
+        <View>
+          <Image className="img1" src={ImageUrl1} onClick={this.onClick1.bind(this)}></Image>
+        </View>)}
+        {!isFir && to2 &&(
+        <View>
+          <Image className="img2" src={ImageUrl2} onClick={this.onClick2.bind(this)}></Image>
+        </View>)}
+        {!isFir && to3 &&(
+        <View>
+          <Image className="img3" src={ImageUrl3} onClick={this.onClick3.bind(this)}></Image>
+        </View>)}
+        {!isFir && to4 &&(
+        <View>
+          <Image className="img4" src={ImageUrl4} onClick={this.onClick4.bind(this)}></Image>
+        </View>)}
         <View className="chooseBox">
           <View
             className="chooseSearchBack"

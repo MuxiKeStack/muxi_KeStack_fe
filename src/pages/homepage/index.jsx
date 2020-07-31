@@ -6,7 +6,8 @@ import image from '../../assets/svg/avatar-img.svg';
 import './index.scss';
 import Fetch from '../../service/fetch';
 import MxIcon from '../../components/common/MxIcon';
-import MxGuide from '../../components/common/MxGuide/index';
+import image1 from '../../assets/png/home1.png';
+import image2 from '../../assets/png/home2.png';
 // import {isLogined} from 'utils/tools'
 // import { courseList} from 'sevices/course'
 // import { serverUrl } from  'utils/config'
@@ -18,18 +19,16 @@ export default class Index extends Component {
       user: { avatar: image, username: 'null', sid: 'null' },
       readAll: true,
       openModal: false,
-      isFir: true
+      isFir: false,
+      to1: true,
+      to2: false
     };
   }
 
   config = {
     navigationBarTitleText: '个人主页'
   };
-  onShareAppMessage() {
-    Taro.showShareMenu({
-      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
-    });
-  }
+
   componentDidMount() {
     if (!Taro.getStorageSync('sid')) {
       Taro.navigateTo({
@@ -42,7 +41,7 @@ export default class Index extends Component {
     let isFir = Taro.getStorageSync('isnew');
     if (isFir == 0) {
       this.setState({
-        isFir: false
+        isFir: true
       });
     }
     if (!Taro.getStorageSync('sid')) {
@@ -102,8 +101,25 @@ export default class Index extends Component {
   componentWillUnmount() {}
 
   componentDidHide() {}
+
+  onClick1() {
+    this.setState({
+      to1: false,
+      to2: true
+    })
+  }
+  onClick2() {
+    this.setState({
+      isFir: true
+    })
+  }
+
   render() {
     const isFir = this.state.isFir;
+    const to1 = this.state.to1;
+    const to2 = this.state.to2;
+    const ImageUrl1 = image1;
+    const ImageUrl2 = image2;
     const { user, readAll, openModal } = this.state;
     const rootStyle = {
       // width: `${Taro.pxTransform(164)}`,
@@ -112,8 +128,15 @@ export default class Index extends Component {
     const modalStyle = openModal ? { display: 'block' } : { display: 'none' };
     return (
       <View>
-        {isFir && <MxGuide type="home1"></MxGuide>}
-        {isFir && <MxGuide type="home2"></MxGuide>}
+        {!isFir && <View className="mask"></View>}
+        {!isFir && to1 &&(
+        <View>
+          <Image className="img1" src={ImageUrl1} onClick={this.onClick1.bind(this)}></Image>
+        </View>)}
+        {!isFir && to2 &&(
+        <View>
+          <Image className="img2" src={ImageUrl2} onClick={this.onClick2.bind(this)}></Image>
+        </View>)}
         <View className="home-page-user-info">
           <View className="user-avatar">
             <Image

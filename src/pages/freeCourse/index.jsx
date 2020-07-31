@@ -19,7 +19,8 @@ import add from '../../assets/svg/add1.svg';
 import Fetch from '../../service/fetch';
 import './index.scss';
 import Modal from '../../components/common/Modal';
-import MxGuide from '../../components/common/MxGuide/index';
+import image1 from '../../assets/png/free1.png';
+import image2 from '../../assets/png/free2.png';
 
 var COURSESData = new Array(),
   conflictCourse = new Array(),
@@ -46,7 +47,9 @@ export default class Index extends Component {
       open_coursedetail: false,
       class_id: [],
       isclick: true,
-      isFir: true
+      isFir: false,
+      to1: true,
+      to2: false
     };
   }
   onShareAppMessage() {
@@ -56,9 +59,13 @@ export default class Index extends Component {
   }
   componentDidShow() {
     let isFir = Taro.getStorageSync('isnew');
+    let isshow = Taro.getStorageSync('isShow');
+    this.setState({
+      isFir: isshow
+    })
     if (isFir == 0) {
       this.setState({
-        isFir: false
+        isFir: true
       });
     }
     Fetch('api/v1/table/', {}, 'GET').then(data => {
@@ -488,8 +495,27 @@ export default class Index extends Component {
         break;
     } //第四位判断
   }
+
+  onClick1() {
+    this.setState({
+      to1: false,
+      to2: true
+    })
+  }
+  onClick2() {
+    this.setState({
+      isFir: true
+    },
+    ()=>{
+      Taro.setStorageSync('isShow', this.state.isFir);
+    })
+  }
   render() {
     const isFir = this.state.isFir;
+    let to1 = this.state.to1;
+    let to2 = this.state.to2;
+    const ImageUrl1 = image1;
+    const ImageUrl2 = image2;
     // eslint-disable-next-line no-shadow
     const { WEEKS, COURSES, COURSESData } = this.state;
     const scrollStyle = {
@@ -501,8 +527,15 @@ export default class Index extends Component {
     const Threshold = 20;
     return (
       <View>
-        {isFir && <MxGuide type="free1"></MxGuide>}
-        {isFir && <MxGuide type="free2"></MxGuide>}
+        {!isFir && <View className="mask"></View>}
+        {!isFir && to1 &&(
+        <View>
+          <Image className="img1" src={ImageUrl1} onClick={this.onClick1.bind(this)}></Image>
+        </View>)}
+        {!isFir && to2 &&(
+        <View>
+          <Image className="img2" src={ImageUrl2} onClick={this.onClick2.bind(this)}></Image>
+        </View>)}
         <HeaderTab
           navList={this.state.navList}
           table_num={table_num}
