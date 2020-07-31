@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Image, Input, Text } from '@tarojs/components';
 import { MxIcon } from '../../components/common/MxIcon';
-import Img from '../../assets/svg/avatar-img.svg';
+import Img from '../../assets/png/avatar.png';
 import './index.scss';
 // import {isLogined} from 'utils/tools'
 // import { courseList} from 'sevices/course'
@@ -80,17 +80,21 @@ export default class Index extends Component {
   }
 
   toNormalTime(timestamp) {
-    var date = new Date(timestamp * 1000);
-    let Y = date.getFullYear() + '-';
-    let M =
+    var date = new Date(timestamp * 1000); //如果date为13位不需要乘1000
+    var Y = date.getFullYear() + '-';
+    var M =
       (date.getMonth() + 1 < 10
         ? '0' + (date.getMonth() + 1)
         : date.getMonth() + 1) + '-';
-    let D = date.getDate() + ' ';
-    let h = date.getHours() + ':';
-    let m = date.getMinutes();
-    if (m % 10 == 0) return Y + M + D + h + m + 0;
-    else return Y + M + D + h + m;
+    var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+    var h =
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var m =
+      (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+      ':';
+    var s =
+      date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    return Y + M + D + h + m + s;
   }
 
   componentWillUnmount() {}

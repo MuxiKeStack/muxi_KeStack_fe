@@ -3,7 +3,7 @@ import { View, Image, Input } from '@tarojs/components';
 import { MxIcon } from '../../components/common/MxIcon';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxLike from '../../components/page/MxLike/MxLike';
-import Img from '../../assets/svg/avatar-img.svg';
+import Img from '../../assets/png/avatar.png';
 import ClickUpdiv from '../../components/page/clickUpdiv';
 import './index.scss';
 import Fetch from '../../service/fetch';
@@ -105,17 +105,21 @@ export default class Index extends Component {
   }
 
   toNormalTime(timestamp) {
-    var date = new Date(timestamp * 1000);
-    let Y = date.getFullYear() + '-';
-    let M =
+    var date = new Date(timestamp * 1000); //如果date为13位不需要乘1000
+    var Y = date.getFullYear() + '-';
+    var M =
       (date.getMonth() + 1 < 10
         ? '0' + (date.getMonth() + 1)
         : date.getMonth() + 1) + '-';
-    let D = date.getDate() + ' ';
-    let h = date.getHours() + ':';
-    let m = date.getMinutes();
-    if (m % 10 == 0) return Y + M + D + h + m + 0;
-    else return Y + M + D + h + m;
+    var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+    var h =
+      (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var m =
+      (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) +
+      ':';
+    var s =
+      date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    return Y + M + D + h + m + s;
   }
 
   render() {
@@ -131,13 +135,21 @@ export default class Index extends Component {
               <View className="user-info">
                 <View className="avatar-container">
                   <Image
-                    src={course.user_info.avatar}
+                    src={
+                      course.user_info.avatar ? course.user_info.avatar : Img
+                    }
                     className="avatar-image"
                   ></Image>
                 </View>
                 <View className="name-time">
-                  <View className="name">{course.user_info.username}</View>
-                  <View className="time">{course.date} {course.time}</View>
+                  <View className="name">
+                    {course.user_info.username
+                      ? course.user_info.username
+                      : '匿名'}
+                  </View>
+                  <View className="time">
+                    {course.date + ' ' + course.time}
+                  </View>
                 </View>
                 <View className="delete-cmmt">
                   {/* key={this.state.list[index].id} */}

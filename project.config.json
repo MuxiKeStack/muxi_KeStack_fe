@@ -33,22 +33,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 3,
 			"list": [
-				{
-					"id": -1,
-					"name": "homepage",
-					"pathName": "pages/homepage/index",
-					"query": "",
-					"scene": ""
-				},
-				{
-					"id": -1,
-					"name": "message",
-					"pathName": "pages/message/index",
-					"query": "",
-					"scene": ""
-				},
 				{
 					"id": -1,
 					"name": "history",
@@ -65,15 +51,15 @@
 				},
 				{
 					"id": -1,
-					"name": "cmsq",
-					"pathName": "pages/commentSquare/index",
+					"name": "goDieavatar",
+					"pathName": "pages/changeUserInfo/index",
 					"query": "",
 					"scene": ""
 				},
 				{
 					"id": -1,
-					"name": "goDieavatar",
-					"pathName": "pages/changeUserInfo/index",
+					"name": "home",
+					"pathName": "pages/homepage/index",
 					"query": "",
 					"scene": ""
 				}
