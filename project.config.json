@@ -4,10 +4,10 @@
 	"description": "",
 	"appid": "touristappid",
 	"setting": {
-		"urlCheck": true,
-		"es6": false,
+		"urlCheck": false,
+		"es6": true,
 		"postcss": false,
-		"minified": false,
+		"minified": true,
 		"newFeature": true,
 		"remoteDebugLogEnable": false,
 		"sourcemapDisabled": true,

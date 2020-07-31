@@ -1,5 +1,5 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, ScrollView } from '@tarojs/components';
+import { View, Image, ScrollView, Swiper,SwiperItem, Navigator, Block } from '@tarojs/components';
 import './index.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxIcon from '../../components/common/MxIcon';
@@ -279,7 +279,8 @@ export default class Index extends Component {
                         className="detailsThirdText"
                         onClick={this.ChangeToCommentsDetails.bind(
                           this,
-                          comment.id
+                          comment.id,
+                          comment.user_info.username
                         )}
                       >
                         {comment.content}
@@ -305,6 +306,7 @@ export default class Index extends Component {
                         likenum={comment.like_num}
                       />
                     </View>
+
                     <View
                       onClick={this.ChangeToCommentsDetails.bind(
                         this,

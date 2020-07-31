@@ -178,6 +178,9 @@ export default class Index extends Component {
   };
 
   ChangeTosquare() {
+    Taro.showLoading({
+      title: '正在发布....'
+    });
     var post = {
       attendance_check_type: this.state.attendance_check_type,
       content: this.state.content,
@@ -203,10 +206,12 @@ export default class Index extends Component {
                 key: 'contentSaved',
                 data: ''
               });
+              Taro.hideLoading();
               Taro.switchTab({
                 url: '/pages/commentSquare/index'
               });
             } else {
+              Taro.hideLoading();
               Taro.showToast({
                 title: '发布失败',
                 icon: 'none'
@@ -214,6 +219,7 @@ export default class Index extends Component {
             }
           })
           .catch(error => {
+            Taro.hideLoading();
             Taro.showToast({
               title: '发布失败',
               icon: 'none'
