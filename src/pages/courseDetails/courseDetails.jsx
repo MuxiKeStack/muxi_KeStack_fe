@@ -37,7 +37,6 @@ export default class Coursedetails extends Component {
       password: '',
       sid: '',
       isFir: true,
-      show: true,
       height: 1,
       width: 1
     };
@@ -315,7 +314,7 @@ export default class Coursedetails extends Component {
 
   onClick() {
     this.setState({
-      show: false
+      isFir: false
     });
   }
 
@@ -470,10 +469,9 @@ export default class Coursedetails extends Component {
       height: r.windowHeight + 'px',
       width: r.windowWidth + 'px'
     };
-    const show = this.state.show;
     return (
       <View className="courseDetails">
-        {isFir && show && (
+        {isFir && (
           <CoverView className="guide" onClick={this.onClick.bind(this)}>
             <CoverImage
               style={root}
