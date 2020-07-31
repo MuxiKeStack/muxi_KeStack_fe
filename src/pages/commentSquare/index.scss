@@ -193,7 +193,6 @@ View {
     color:rgba(104,105,247,1);
     width:270px;
     overflow:hidden; //超出的文本隐藏
-    text-overflow:ellipsis; //溢出用省略号显示
     white-space:nowrap; //溢出不换行
   }
   .course-rate{
@@ -218,4 +217,19 @@ View {
   line-height: 0;
   /* elements */
   display: block;
+}
+
+
+.swiper_container {
+  height: 50rpx;
+  width: 100%;
+}
+.swiper_item {
+  font-size: 30rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.swiper {
+  width: 270px;
 }
