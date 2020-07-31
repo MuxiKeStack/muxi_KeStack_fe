@@ -32,7 +32,7 @@ export default class Coursedetails extends Component {
       drawerWidth: '0px',
       cover: 'none',
       collect: false,
-      getGrade: false,
+      getGrade: '',
       getGradeCover: 'none',
       password: '',
       sid: '',
@@ -269,10 +269,13 @@ export default class Coursedetails extends Component {
           'POST'
         ).then(data => {
           if (data) {
-            this.toHideGetGrade()
+            this.toHideGetGrade();
             Taro.showToast({
               title: '加入成绩共享计划成功',
               icon: 'success'
+            });
+            this.setState({
+              getGrade: true
             });
           }
         });
@@ -481,7 +484,7 @@ export default class Coursedetails extends Component {
             />
           </CoverView>
         )}
-        <View className="starBac" onClick={this.favorite.bind(this)}>
+        <View className="starBac" onClick={this.favorite}>
           {!collect && <Image src={star} className="star"></Image>}
           {collect && <Image src={starFill} className="star"></Image>}
         </View>
@@ -570,7 +573,7 @@ export default class Coursedetails extends Component {
               <View className="item">
                 <View className="circle1"></View>
                 <View className="level">
-                  70以下：
+                  85以上：
                   {TOTAL[0] != 0
                     ? (parseInt(gradeInfo.section_1) * 100) / TOTAL[0]
                     : 0}
@@ -590,7 +593,7 @@ export default class Coursedetails extends Component {
               <View className="item">
                 <View className="circle3"></View>
                 <View className="level">
-                  85以上：
+                  70以下：
                   {TOTAL[0] != 0
                     ? (parseInt(gradeInfo.section_3) * 100) / TOTAL[0]
                     : 0}
