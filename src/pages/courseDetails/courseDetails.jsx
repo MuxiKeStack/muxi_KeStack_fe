@@ -650,14 +650,14 @@ export default class Coursedetails extends Component {
                 <View className="circle1"></View>
                 <View className="level">
                   闭卷考试：
-                  {TOTAL[2] != 0 ? (classInfo.exam.Close * 100) / TOTAL[1] : 0}%
+                  {TOTAL[2] != 0 ? (classInfo.exam.Close * 100) / TOTAL[2] : 0}%
                 </View>
               </View>
               <View className="item">
                 <View className="circle2"></View>
                 <View className="level">
                   论文考试：
-                  {TOTAL[2] != 0 ? (classInfo.exam.Eassay * 100) / TOTAL[1] : 0}
+                  {TOTAL[2] != 0 ? (classInfo.exam.Eassay * 100) / TOTAL[2] : 0}
                   %
                 </View>
               </View>
@@ -665,14 +665,14 @@ export default class Coursedetails extends Component {
                 <View className="circle3"></View>
                 <View className="level">
                   无考试：
-                  {TOTAL[2] != 0 ? (classInfo.exam.None * 100) / TOTAL[1] : 0}%
+                  {TOTAL[2] != 0 ? (classInfo.exam.None * 100) / TOTAL[2] : 0}%
                 </View>
               </View>
               <View className="item">
                 <View className="circle4"></View>
                 <View className="level">
                   开卷考试：
-                  {TOTAL[2] != 0 ? (classInfo.exam.Open * 100) / TOTAL[1] : 0}%
+                  {TOTAL[2] != 0 ? (classInfo.exam.Open * 100) / TOTAL[2] : 0}%
                 </View>
               </View>
             </View>

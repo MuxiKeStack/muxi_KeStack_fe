@@ -246,9 +246,6 @@ page{
 .cmtRateBox{
     font-weight: bold;
 }
-.cmtContent{
-    @include mult_line_ellipsis(580px, 2);
-}
 .cmtIconsBox{
     width: 200px;
     margin-left: 400px;
