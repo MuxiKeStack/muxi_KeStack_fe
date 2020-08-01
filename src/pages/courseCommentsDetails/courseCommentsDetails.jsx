@@ -22,7 +22,8 @@ export default class Coursecommentsdetails extends Component {
       replyContent: '',
       replySID: this.$router.params.sid,
       isAnonymous: false,
-      cmtList: []
+      cmtList: [],
+      valueLen: 0
     };
   }
   onShareAppMessage() {
@@ -142,7 +143,8 @@ export default class Coursecommentsdetails extends Component {
   toWriteReplyContent(e) {
     let value = e.detail.value;
     this.setState({
-      replyContent: value
+      replyContent: value,
+      valueLen: value.length
     });
   }
   toReply() {
@@ -316,7 +318,8 @@ export default class Coursecommentsdetails extends Component {
       replyContent,
       ancestorCmtNum,
       nomorecmt,
-      isAnonymous
+      isAnonymous,
+      valueLen
     } = this.state;
     return (
       <View className="courseCommentsDetails">
@@ -467,7 +470,7 @@ export default class Coursecommentsdetails extends Component {
           )}
           <View className="anonWords">匿名</View>
           <View className="replyCard">
-            <View className="toreply">回复{replyUser}</View>
+          <View className="toreply">回复{replyUser}已评{valueLen}字(限300字)</View>
             <Textarea
               className="replyFram"
               maxlength={-1}
