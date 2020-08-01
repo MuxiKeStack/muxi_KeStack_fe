@@ -22,11 +22,7 @@ export default class Index extends Component {
   config = {
     navigationBarTitleText: '木犀课栈'
   };
-  onShareAppMessage() {
-    Taro.showShareMenu({
-      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
-    });
-  }
+
   ChangeTodetails() {
     Taro.navigateTo({
         url: '/pages/courseDetails/courseDetails'

@@ -17,6 +17,7 @@ import hotcmt from '../../assets/png/hotcmt.png';
 import newcmt from '../../assets/png/newcmt.png';
 import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
 import ClassCard from '../../components/page/ClassCard/ClassCard';
+import image from '../../assets/png/detail.png';
 
 export default class Coursedetails extends Component {
   constructor() {
@@ -36,7 +37,7 @@ export default class Coursedetails extends Component {
       getGradeCover: 'none',
       password: '',
       sid: '',
-      isFir: true,
+      isFir: false,
       height: 1,
       width: 1
     };
@@ -164,10 +165,14 @@ export default class Coursedetails extends Component {
   componentWillUnmount() {}
 
   componentDidShow() {
+    let show = Taro.getStorageSync('isShow3');
     let isFir = Taro.getStorageSync('isnew');
+    this.setState({
+      isFir: show
+    })
     if (isFir == 0) {
       this.setState({
-        isFir: false
+        isFir: true
       });
     }
   }
@@ -317,8 +322,11 @@ export default class Coursedetails extends Component {
 
   onClick() {
     this.setState({
-      isFir: false
-    });
+      isFir: true
+    },
+    ()=>{
+      Taro.setStorageSync('isShow3', this.state.isFir);
+    })
   }
 
   render() {
@@ -467,18 +475,16 @@ export default class Coursedetails extends Component {
     const getGradeStyle = { display: this.state.getGradeCover };
     const CARDCOLOR = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
     const isFir = this.state.isFir;
-    const r = Taro.getSystemInfoSync();
-    const root = {
-      height: r.windowHeight + 'px',
-      width: r.windowWidth + 'px'
-    };
+    const ImgeUrl = image;
     return (
       <View className="courseDetails">
-        {isFir && (
-          <CoverView className="guide" onClick={this.onClick.bind(this)}>
+        {!isFir && <CoverView className="mask"></CoverView>}
+        {!isFir &&(
+          <CoverView>
             <CoverImage
-              style={root}
-              src="http://kestackoss.muxixyz.com/guidance/detail.png"
+              className="img"
+              src={ImgeUrl}
+              onClick={this.onClick.bind(this)}
             />
           </CoverView>
         )}

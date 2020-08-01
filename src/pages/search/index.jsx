@@ -1,10 +1,11 @@
 /* eslint-disable react/jsx-boolean-value */
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, MovableArea, MovableView } from '@tarojs/components';
+import { View, Text, MovableArea, MovableView, Image } from '@tarojs/components';
 import './index.scss';
 import MxTag from '../../components/common/MxTag/index';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxInput from '../../components/common/MxInput/MxInput';
+import image from '../../assets/png/search.png';
 import MxGuide from '../../components/common/MxGuide/index';
 import Fetch from '../../service/fetch';
 
@@ -27,7 +28,7 @@ export default class Index extends Component {
       // mask: 'mask',
       // masklist: 'masklist',
       courseCollected: [],
-      isFir: true
+      isFir: false
     };
   }
   // eslint-disable-next-line react/sort-comp
@@ -129,11 +130,7 @@ export default class Index extends Component {
       });
     });
   }
-  onShareAppMessage() {
-    Taro.showShareMenu({
-      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
-    });
-  }
+
   collect(hash) {
     if (!Taro.getStorageSync('sid')) {
       Taro.navigateTo({
@@ -317,15 +314,28 @@ export default class Index extends Component {
 
   componentDidShow() {
     let isFir = Taro.getStorageSync('isnew');
+    let isshow2 = Taro.getStorageSync('isShow2');
+    this.setState({
+      isFir: isshow2
+    })
     if (isFir == 0) {
       this.setState({
-        isFir: false
+        isFir: true
       });
     }
+    console.log(this.state.isFir);
   }
 
   componentDidHide() {}
 
+  onClick() {
+    this.setState({
+      isFir: true
+    },
+    ()=>{
+      Taro.setStorageSync('isShow2', this.state.isFir);
+    })
+  }
   render() {
     const isFir = this.state.isFir;
     let inputVal = this.state.inputVal;
@@ -334,6 +344,7 @@ export default class Index extends Component {
     let tagState = this.state.tagsState;
     const hidden = this.state.hidden;
     const { history } = this.state;
+    const ImageUrl = image;
     const list = (
       <View className="index">
         {history.map(h => {
@@ -489,7 +500,11 @@ export default class Index extends Component {
 
     return (
       <View style="display: block">
-        {isFir && <MxGuide type="search"></MxGuide>}
+        {!isFir && <View className="mask"></View>}
+        {!isFir && 
+        <View>
+          <Image className="img" src={ImageUrl} onClick={this.onClick.bind(this)}></Image>
+        </View>}
         <View className="chooseBox">
           <View className="search">
             <MxInput

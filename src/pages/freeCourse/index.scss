@@ -201,6 +201,33 @@ body{
     height: 100%;
     background: rgba($color: #000000, $alpha: 0.3);
 }
+.mask{
+    width: 100%;
+    height: 100%;
+    background: rgb(7, 7, 7);
+    position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+  }
+.img1{
+    position: absolute;
+    z-index: 2000;
+    background: #FFFFFF;
+    top:66%;
+    left: 45%;
+    width: 50%;
+    height: 20%;
+    opacity: 1;
+  }
+  .img2{
+    position: absolute;
+    z-index: 2000;
+    background: #FFFFFF;
+    height: 35%;
+    opacity: 1;
+  }
 // .scroll{
 //     height: 1000px;
 //     margin-top:338px

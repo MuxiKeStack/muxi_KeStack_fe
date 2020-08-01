@@ -15,7 +15,7 @@ export default class Index extends Component {
       selectorCheckedT: '选择学期',
       selectoryears: [],
     };
-    this.selectorterms = ['第一学期', '第二学期', '第三学期'];
+    this.selectorterms = ['第一学期', '第二学期', '第三学期', '全部学期'];
   }
   componentWillUnmount() {}
   config = {
@@ -34,6 +34,7 @@ export default class Index extends Component {
     newList.push(parseInt(parseInt(firstYear)+1)+'-'+parseInt(parseInt(firstYear)+2));
     newList.push(parseInt(parseInt(firstYear)+2)+'-'+parseInt(parseInt(firstYear)+3));
     newList.push(parseInt(parseInt(firstYear)+3)+'-'+parseInt(parseInt(firstYear)+4));
+    newList.push('全部学年');
     this.setState({
       selectoryears: newList,
     },this.getData());

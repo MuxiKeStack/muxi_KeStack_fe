@@ -5,7 +5,8 @@ import MxInput from '../../components/common/MxInput/MxInput';
 import MxPicker from '../../components/common/MxPicker';
 import MxTag from '../../components/common/MxTag/index';
 import MxRate from '../../components/common/MxRate/MxRate';
-import MxGuide from '../../components/common/MxGuide/index';
+import image1 from '../../assets/png/aide1.png';
+import image2 from '../../assets/png/aide2.png';
 import Fetch from '../../service/fetch';
 
 export default class Index extends Component {
@@ -79,14 +80,12 @@ export default class Index extends Component {
       place: '',
       page: 1,
       datas: [],
-      isFir: true
+      isFir: false,
+      to1: true,
+      to2: false
     };
   }
-  onShareAppMessage() {
-    Taro.showShareMenu({
-      showShareItems: ['qq', 'qzone', 'wechatFriends', 'wechatMoment']
-    });
-  }
+
   handleChange(value) {
     this.setState({
       // eslint-disable-next-line react/no-unused-state
@@ -376,18 +375,34 @@ export default class Index extends Component {
     let isFir = Taro.getStorageSync('isnew');
     if (isFir == 0) {
       this.setState({
-        isFir: false
+        isFir: true
       });
     }
   }
 
   componentDidHide() {}
 
+  onClick1() {
+    this.setState({
+      to1: false,
+      to2: true
+    })
+  }
+  onClick2() {
+    this.setState({
+      isFir: true
+    })
+  }
+
   render() {
     const isFir = this.state.isFir;
+    const to1 = this.state.to1;
+    const to2 = this.state.to2;
     let inputVal = this.state.inputVal;
     const hidden = this.state.hidden;
     const { records } = this.state;
+    const ImageUrl1 = image1;
+    const ImageUrl2 = image2;
     const list = (
       <View className="index">
         {records.map(record => {
@@ -516,8 +531,15 @@ export default class Index extends Component {
 
     return (
       <View style="display: block">
-        {isFir && <MxGuide type="helper1"></MxGuide>}
-        {isFir && <MxGuide type="helper2"></MxGuide>}
+        {!isFir && <View className="mask"></View>}
+        {!isFir && to1 &&(
+        <View>
+          <Image className="img1" src={ImageUrl1} onClick={this.onClick1.bind(this)}></Image>
+        </View>)}
+        {!isFir && to2 &&(
+        <View>
+          <Image className="img2" src={ImageUrl2} onClick={this.onClick2.bind(this)}></Image>
+        </View>)}
         <View className="chooseBox">
           <View className="search">
             <MxInput
