@@ -303,6 +303,13 @@ export default class Index extends Component {
     );
   }
 
+  handleInput(e){
+    this.setState({
+      inputVal: e.detail.value,
+      keyword: e.detail.value
+    })
+  }
+
   //input的onfocus
   handleFocus() {
     let records = Taro.getStorageSync('records') || [];
@@ -561,6 +568,7 @@ export default class Index extends Component {
               onConfirm={this.handleClickContent.bind(this)}
               onChange={this.onChhange.bind(this)}
               onFocus={this.handleFocus.bind(this)}
+              onInput={this.handleInput.bind(this)}
             ></MxInput>
           </View>
           {hidden && list}
