@@ -242,6 +242,7 @@ page{
     margin-right: 30px;
     @include one_line_ellipsis(360px);
     vertical-align: bottom;
+    z-index: 10;
 }
 .cmtRateBox{
     font-weight: bold;
