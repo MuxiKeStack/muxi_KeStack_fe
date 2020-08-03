@@ -142,7 +142,7 @@ export default class Index extends Component {
             });
             Taro.setStorage({
               key: 'isnew',
-              data: 1
+              data: res.data.is_new
             });
             Taro.setStorage({
               key: 'token',
