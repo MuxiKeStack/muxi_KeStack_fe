@@ -169,7 +169,7 @@ export default class Coursedetails extends Component {
     let isFir = Taro.getStorageSync('isnew');
     this.setState({
       isFir: show
-    })
+    });
     if (isFir == 0) {
       this.setState({
         isFir: true
@@ -313,7 +313,7 @@ export default class Coursedetails extends Component {
         SID
     });
   }
-// Test:
+  // Test:
   // toTest() {
   //   Taro.navigateTo({
   //     url: '/pages/test/test'
@@ -321,12 +321,14 @@ export default class Coursedetails extends Component {
   // }
 
   onClick() {
-    this.setState({
-      isFir: true
-    },
-    ()=>{
-      Taro.setStorageSync('isShow3', this.state.isFir);
-    })
+    this.setState(
+      {
+        isFir: true
+      },
+      () => {
+        Taro.setStorageSync('isShow3', this.state.isFir);
+      }
+    );
   }
 
   render() {
@@ -479,7 +481,7 @@ export default class Coursedetails extends Component {
     return (
       <View className="courseDetails">
         {!isFir && <CoverView className="mask"></CoverView>}
-        {!isFir &&(
+        {!isFir && (
           <CoverView>
             <CoverImage
               className="img"
@@ -579,8 +581,11 @@ export default class Coursedetails extends Component {
                 <View className="level">
                   85以上：
                   {TOTAL[0] != 0
-                    ? (parseInt(gradeInfo.section_1) * 100) / TOTAL[0]
-                    : 0}
+                    ? (
+                        (parseInt(gradeInfo.section_1) * 100) /
+                        TOTAL[0]
+                      ).toFixed(1)
+                    : 0.0}
                   %
                 </View>
               </View>
@@ -589,8 +594,11 @@ export default class Coursedetails extends Component {
                 <View className="level">
                   70~85：
                   {TOTAL[0] != 0
-                    ? (parseInt(gradeInfo.section_2) * 100) / TOTAL[0]
-                    : 0}
+                    ? (
+                        (parseInt(gradeInfo.section_2) * 100) /
+                        TOTAL[0]
+                      ).toFixed(1)
+                    : 0.0}
                   %
                 </View>
               </View>
@@ -599,8 +607,11 @@ export default class Coursedetails extends Component {
                 <View className="level">
                   70以下：
                   {TOTAL[0] != 0
-                    ? (parseInt(gradeInfo.section_3) * 100) / TOTAL[0]
-                    : 0}
+                    ? (
+                        (parseInt(gradeInfo.section_3) * 100) /
+                        TOTAL[0]
+                      ).toFixed(1)
+                    : 0.0}
                   %
                 </View>
               </View>
@@ -618,8 +629,8 @@ export default class Coursedetails extends Component {
                 <View className="level">
                   经常点名：
                   {TOTAL[1] != 0
-                    ? (classInfo.attendance.Often * 100) / TOTAL[1]
-                    : 0}
+                    ? ((classInfo.attendance.Often * 100) / TOTAL[1]).toFixed(1)
+                    : 0.0}
                   %
                 </View>
               </View>
@@ -628,8 +639,11 @@ export default class Coursedetails extends Component {
                 <View className="level">
                   偶尔点名：
                   {TOTAL[1] != 0
-                    ? (classInfo.attendance.Occasionally * 100) / TOTAL[1]
-                    : 0}
+                    ? (
+                        (classInfo.attendance.Occasionally * 100) /
+                        TOTAL[1]
+                      ).toFixed(1)
+                    : 0.0}
                   %
                 </View>
               </View>
@@ -638,8 +652,10 @@ export default class Coursedetails extends Component {
                 <View className="level">
                   从不点名：
                   {TOTAL[1] != 0
-                    ? (classInfo.attendance.SignIn * 100) / TOTAL[1]
-                    : 0}
+                    ? ((classInfo.attendance.SignIn * 100) / TOTAL[1]).toFixed(
+                        1
+                      )
+                    : 0.0}
                   %
                 </View>
               </View>
@@ -656,14 +672,19 @@ export default class Coursedetails extends Component {
                 <View className="circle1"></View>
                 <View className="level">
                   闭卷考试：
-                  {TOTAL[2] != 0 ? (classInfo.exam.Close * 100) / TOTAL[2] : 0}%
+                  {TOTAL[2] != 0
+                    ? ((classInfo.exam.Close * 100) / TOTAL[2]).toFixed(1)
+                    : 0.0}
+                  %
                 </View>
               </View>
               <View className="item">
                 <View className="circle2"></View>
                 <View className="level">
                   论文考试：
-                  {TOTAL[2] != 0 ? (classInfo.exam.Eassay * 100) / TOTAL[2] : 0}
+                  {TOTAL[2] != 0
+                    ? ((classInfo.exam.Eassay * 100) / TOTAL[2]).toFixed(1)
+                    : 0.0}
                   %
                 </View>
               </View>
@@ -671,14 +692,20 @@ export default class Coursedetails extends Component {
                 <View className="circle3"></View>
                 <View className="level">
                   无考试：
-                  {TOTAL[2] != 0 ? (classInfo.exam.None * 100) / TOTAL[2] : 0}%
+                  {TOTAL[2] != 0
+                    ? ((classInfo.exam.None * 100) / TOTAL[2]).toFixed(1)
+                    : 0.0}
+                  %
                 </View>
               </View>
               <View className="item">
                 <View className="circle4"></View>
                 <View className="level">
                   开卷考试：
-                  {TOTAL[2] != 0 ? (classInfo.exam.Open * 100) / TOTAL[2] : 0}%
+                  {TOTAL[2] != 0
+                    ? ((classInfo.exam.Open * 100) / TOTAL[2]).toFixed(1)
+                    : 0.0}
+                  %
                 </View>
               </View>
             </View>
@@ -691,11 +718,15 @@ export default class Coursedetails extends Component {
           <View className="averageBox">
             <View className="averageSmallBox1">
               <View className="averageName">总平均分</View>
-              <View className="averageGrade">{gradeInfo.total_score}</View>
+              <View className="averageGrade">
+                {gradeInfo.total_score.toFixed(1)}
+              </View>
             </View>
             <View className="averageSmallBox2">
               <View className="averageName">平时均分</View>
-              <View className="averageGrade">{gradeInfo.usual_score}</View>
+              <View className="averageGrade">
+                {gradeInfo.usual_score.toFixed(1)}
+              </View>
             </View>
           </View>
         )}
@@ -741,8 +772,8 @@ export default class Coursedetails extends Component {
               return <CmtCourseCard item={item} key={item.id}></CmtCourseCard>;
             })}
         </View>
-          {normalList && <Image className="cmtimg" src={newcmt} />}
-          {!normalList && <View className="noMoreCmt">暂无更多评论</View>}
+        {normalList && <Image className="cmtimg" src={newcmt} />}
+        {!normalList && <View className="noMoreCmt">暂无更多评论</View>}
         <View className="cmtBigBox">
           {normalList &&
             normalList.map(item => {
