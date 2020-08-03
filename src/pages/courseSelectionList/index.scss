@@ -76,15 +76,15 @@ Page {
     width: 200px;
 }
 .detailsRight {
-    margin-left: 50rpx;
-    margin-top: 30rpx;
+    margin-left: 46rpx;
+    margin-top: 63rpx;
     width: 410px;
     display: inline-block;
 }
 .detailsRightDown {
     font-size: 0;
     display: inline-block;
-    margin-top:34rpx;
+    margin-top:28rpx;
     .tag2{
         margin-left: 15rpx;
       }
@@ -102,4 +102,24 @@ Page {
 .detailsText{
     width: 165rpx;
     word-break:keep-all;
+}
+
+.InfoText1{
+  font-size: 34rpx;
+}
+.InfoText2{
+  font-size: 30rpx;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+.commentText{
+  font-size: 30rpx;
+  margin-left: 68rpx;
+}
+
+.tags{
+  height: 30rpx;
+  display: block;
 }

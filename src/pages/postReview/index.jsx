@@ -73,7 +73,8 @@ export default class Index extends Component {
       exam_check_type: 0,
       tags: [],
       content: '',
-      is_anonymous: false
+      is_anonymous: false,
+      currentNumber: 0
     };
     this.filterA = ['经常点名', '偶尔点名', '手机签到'];
     this.filterB = ['闭卷考试', '开卷考试', '论文考核', '无考核'];
@@ -131,9 +132,13 @@ export default class Index extends Component {
   }
 
   handleClickContent(event) {
-    this.setState({
-      content: event.detail.value
-    });
+    this.setState(
+      {
+        content: event.detail.value,
+        // eslint-disable-next-line react/no-unused-state
+        currentNumber: parseInt(event.detail.value.length)
+      }
+    );
   }
 
   handleFinishContent(event) {
@@ -251,9 +256,11 @@ export default class Index extends Component {
       });
       Fetch('api/v1/tags/', {}, 'GET').then(data => {
         if (data) {
+          let contentSaved = Taro.getStorageSync('contentSaved')
           this.setState({
             tagsReceive: data.data.list,
-            content: Taro.getStorageSync('contentSaved')
+            content: contentSaved,
+            currentNumber: parseInt(contentSaved.length)
           });
         }
       });
@@ -261,23 +268,49 @@ export default class Index extends Component {
         sid: userid,
         password: upassword
       };
-      Fetch('api/v1/user/courses/?year=0&term=0/', data, 'POST').then(data => {
-        Taro.hideLoading();
-        let datas = data.data.data;
-        let newCourse = [];
-        let newId = [];
-        let newEvaluateState = [];
-        for (let i = 0; i < datas.length; i++) {
-          newCourse = newCourse.concat(datas[i].name);
-          newId = newId.concat(datas[i].course_id);
-          newEvaluateState = newEvaluateState.concat(datas[i].has_evaluated);
-        }
-        this.setState({
-          myCourse: newCourse,
-          myId: newId,
-          myEvaState: newEvaluateState
+      Fetch('api/v1/user/courses/?year=0&term=0/', data, 'POST')
+        .then(data => {
+          console.log(data)
+          if (data.code == 0) {
+            Taro.hideLoading();
+            let datas = data.data.data;
+            if (datas == null) {
+              Taro.showToast({
+                title: '暂时没有课程！',
+                icon: 'none'
+              });
+            } else {
+              let newCourse = [];
+              let newId = [];
+              let newEvaluateState = [];
+              for (let i = 0; i < datas.length; i++) {
+                newCourse = newCourse.concat(datas[i].name);
+                newId = newId.concat(datas[i].course_id);
+                newEvaluateState = newEvaluateState.concat(
+                  datas[i].has_evaluated
+                );
+              }
+              this.setState({
+                myCourse: newCourse,
+                myId: newId,
+                myEvaState: newEvaluateState
+              });
+            }
+          } else {
+            Taro.hideLoading();
+            Taro.showToast({
+              title: '获取失败',
+              icon: 'none'
+            });
+          }
+        })
+        .catch(error => {
+          Taro.hideLoading();
+          Taro.showToast({
+            title: '获取失败',
+            icon: 'none'
+          });
         });
-      });
     }
   }
 
@@ -440,11 +473,14 @@ export default class Index extends Component {
             value={this.state.content}
             maxlength={450}
           />
+          <View>
           <MxCheckbox
             options={this.checkboxOption}
-            selectedList={this.state.checkedList}
-            onChange={this.handleChangeCheck.bind(this)}
+              selectedList={this.state.checkedList}
+              onChange={this.handleChangeCheck.bind(this)}
           />
+          <View className="limitText">字数限制:（{this.state.currentNumber}/450） </View>
+          </View>
         </View>
         <View className="submitBox" onClick={this.ChangeTosquare.bind(this)}>
           <View className="button">发布</View>

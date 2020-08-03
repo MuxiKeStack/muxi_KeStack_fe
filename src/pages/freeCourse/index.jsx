@@ -8,7 +8,7 @@ import {
   Label,
   RadioGroup,
   Radio,
-  Text
+  Text, Image
 } from '@tarojs/components';
 import MxButton from '../../components/common/MxButton';
 import HeaderTab from '../../components/headerTab/header-tab';
@@ -21,6 +21,8 @@ import './index.scss';
 import Modal from '../../components/common/Modal';
 import image1 from '../../assets/png/free1.png';
 import image2 from '../../assets/png/free2.png';
+import upHand from "../../assets/png/upHand.png"
+import downHand from "../../assets/png/downHand.png"
 
 var COURSESData = new Array(),
   conflictCourse = new Array(),
@@ -49,7 +51,8 @@ export default class Index extends Component {
       isclick: true,
       isFir: false,
       to1: true,
-      to2: false
+      to2: false,
+      imageNum: 1
     };
   }
   onShareAppMessage() {
@@ -510,6 +513,45 @@ export default class Index extends Component {
       Taro.setStorageSync('isShow', this.state.isFir);
     })
   }
+  onClickKnow() {
+    console.log(13)
+    let num = this.state.imageNum;
+    if (num == 1) {
+      this.setState({
+        to1: false,
+        to2: true,
+        imageNum: 2
+      });
+    } else if (num == 2) {
+      this.setState({
+        isFir: true
+      });
+    }
+  }
+
+  AttentionText(
+    text = '在这里搜索想要的课程',
+    direction = 0,
+    pos = { top: '9%', left: '7%', bottom: '', right: '' },
+    addition
+  ) {
+    //0左上   1左下    2右上   3右下
+    let style = `position: absolute; display: block; z-index: 3000;top: ${pos.top}; left: ${pos.left}; bottom: ${pos.bottom}; right: ${pos.right}`;
+    let styleHand = `${addition}`
+    return direction <= 1 ? (
+      <View style={style}>
+        <Image className="hand" src={direction == 0 ? upHand : downHand} />
+        <View className="handText1" style={styleHand}>{text}</View>
+      </View>
+    ) : (
+      <View style={style}>
+        <View className="handText1" style={styleHand}>{text}</View>
+        <Image className="hand" src={direction == 2 ? upHand : downHand} />
+      </View>
+    );
+  }
+
+
   render() {
     const isFir = this.state.isFir;
     let to1 = this.state.to1;
@@ -528,14 +570,49 @@ export default class Index extends Component {
     return (
       <View>
         {!isFir && <View className="mask"></View>}
-        {!isFir && to1 &&(
-        <View>
-          <Image className="img1" src={ImageUrl1} onClick={this.onClick1.bind(this)}></Image>
-        </View>)}
-        {!isFir && to2 &&(
-        <View>
-          <Image className="img2" src={ImageUrl2} onClick={this.onClick2.bind(this)}></Image>
-        </View>)}
+        {!isFir && (
+          <View className="handButton" onClick={this.onClickKnow.bind(this)}>
+            我知道啦
+          </View>
+        )}
+        {!isFir &&
+        to1 &&
+        // <View>
+        //   <Image
+        //     className="img2"
+        //     src={ImageUrl2}
+        //     onClick={this.onClick2.bind(this)}
+        //   ></Image>
+        // </View>
+        this.AttentionText('点击展开选课清单', 3, {
+          left: '',
+          top: '',
+          bottom: '300rpx',
+          right: '78rpx'
+        })}
+        {!isFir &&
+        to2 &&
+        // <View>
+        //   <Image
+        //     className="img2"
+        //     src={ImageUrl2}
+        //     onClick={this.onClick2.bind(this)}
+        //   ></Image>
+        // </View>
+        this.AttentionText('点击课表查看更多功能', 0, {
+          left: '75rpx',
+          top: '145rpx'
+        })}
+
+        <View className={this.state.to2 == true ? 'wrapper' : 'wrapper_noFir'}>
+          <View
+            className='active'
+          >课表1</View>
+        </View>
+
+
+
+
         <HeaderTab
           navList={this.state.navList}
           table_num={table_num}
@@ -665,13 +742,13 @@ export default class Index extends Component {
             })}
           </View>
         </ScrollView>
-        <View className="collect">
+        <View className={this.state.to1 == true ? "collect" : "collect_noFir"}>
           <MxButton
             buttonRadius="50%"
             buttonWidth="120rpx"
             buttonHeight="120rpx"
             buttonBackground="#6E66EE"
-            onClick={this.showList.bind(this)}
+            onClick={this.state.to1==true? ()=>{} : this.showList.bind(this)}
           >
             课
           </MxButton>

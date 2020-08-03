@@ -7,7 +7,7 @@ body{
     height:85px;
     border:2px solid rgba(110,102,238,1);
     text-align: center;
-    
+
     border-right: 0px;
 }
 .number{
@@ -20,7 +20,7 @@ body{
     font-weight:400;
     line-height:48px;
     color:rgba(110,102,238,1);
-    
+
 }
 .grayN{
     width:37px;
@@ -30,7 +30,7 @@ body{
     font-weight:400;
     line-height:25px;
     color:rgba(176,179,191,1);
-    
+
     position: relative;
     top:-48px;
 }
@@ -49,7 +49,7 @@ body{
     font-weight:400;
     line-height:48px;
     color:rgba(110,102,238,1);
-    
+
     border-right: 0px;
     border-left: 4px solid rgba(110,102,238,1);
 }
@@ -66,7 +66,7 @@ body{
     color:rgba(110,102,238,1);
     text-align: center;
     line-height: 85px;
-    
+
 }
 .collect{
     font-size:50px;
@@ -77,7 +77,17 @@ body{
     position: fixed;
     right: 48px;
     bottom: 167px;
-    
+    z-index: 5000;
+}
+.collect_noFir{
+  font-size:50px;
+  font-family:PingFang SC;
+  font-weight:400;
+  line-height:70px;
+  color:rgba(255,255,255,1);
+  position: fixed;
+  right: 48px;
+  bottom: 167px;
 }
 .menu{
     width:228px;
@@ -147,7 +157,7 @@ body{
     text-overflow: ellipsis;
     word-break: break-all;
     white-space: normal;
-    
+
 }
 .addtable{
     position: absolute;
@@ -232,3 +242,67 @@ body{
 //     height: 1000px;
 //     margin-top:338px
 // }
+.hand{
+  z-index: 2000;
+  opacity: 1;
+  width: 70rpx;
+  height: 70rpx;
+  display: inline-block;
+}
+.handText1{
+  color: white;
+  font-size: 50rpx;
+  vertical-align:top;
+  margin-left:13rpx;
+  margin-right: 6rpx;
+  font-weight: bold;
+  display: inline-block;
+}
+.handButton{
+  position:absolute;
+  top:83%;
+  left:36%;
+  width:225rpx;
+  height:77rpx;
+  color:white;
+  z-index:3000;
+  border-radius:35rpx;
+  background-color:#6868F8;
+  text-align:center;
+  line-height:85rpx;
+  font-size:38rpx;
+  font-weight:bold;
+}
+
+
+.active{
+  display: inline-block;
+  width:214px;
+  height:125px;
+  margin-left: 0;
+  background:rgba(255,255,255,1);
+  border:2px solid rgba(110,102,238,1);
+  border-bottom: 0px;
+  border-radius:50px 50px 0px 0px;
+  font-size:34px;
+  font-family:PingFang SC;
+  font-weight:600;
+  color:#FFFFFF;
+  text-align: center;
+  line-height: 125px;
+  background:#6E66EE;
+  position: relative;
+}
+.active::after {
+  background:#6E66EE;
+}
+.wrapper{
+  display: inline-block;
+  position: absolute;
+  z-index: 3000;
+}
+
+.wrapper_noFir{
+  display: inline-block;
+  position: absolute;
+}

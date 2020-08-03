@@ -13,6 +13,12 @@ View{
     display: block;
     margin: 0 auto;
 }
+.courseDetails_Fir{
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  position: fixed;
+}
 @mixin one_line_ellipsis($width_ellipsis){
     width: $width_ellipsis;
     overflow: hidden;
@@ -57,7 +63,7 @@ View{
     z-index: 30;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%); 
+    transform: translate(-50%,-50%);
     border-radius: 20px;
 }
 .joinTitle{
@@ -394,6 +400,18 @@ View{
     border-radius:50%;
     opacity:1;
 }
+.starBac_Fir{
+  position: fixed;
+  right: 27px;
+  bottom:124px;
+  width:80px;
+  height:80px;
+  background:rgba(255,255,255,1);
+  box-shadow:0px 3px 6px rgba(0,0,0,0.16);
+  border-radius:50%;
+  opacity:1;
+  z-index: 2000
+}
 
 .classBox{
     width: 356px;
@@ -437,3 +455,38 @@ View{
     height: 25%;
     opacity: 1;
   }
+
+.handButton{
+  position:absolute;
+  top:70%;
+  left:36%;
+  width:225rpx;
+  height:77rpx;
+  color:white;
+  z-index:3000;
+  border-radius:35rpx;
+  background-color:#6868F8;
+  text-align:center;
+  line-height:85rpx;
+  font-size:38rpx;
+  font-weight:bold;
+}
+
+.hand{
+  z-index: 2000;
+  opacity: 1;
+  width: 70rpx;
+  height: 70rpx;
+  display: inline-block;
+}
+.handText1{
+  color: white;
+  font-size: 50rpx;
+  vertical-align:top;
+  margin-left:13rpx;
+  margin-right: 6rpx;
+  font-weight: bold;
+  white-space: normal;
+  overflow: visible;
+  display: inline-block;
+}

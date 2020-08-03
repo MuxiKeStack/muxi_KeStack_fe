@@ -18,6 +18,8 @@ import newcmt from '../../assets/png/newcmt.png';
 import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
 import ClassCard from '../../components/page/ClassCard/ClassCard';
 import image from '../../assets/png/detail.png';
+import upHand from "../../assets/png/upHand.png"
+import downHand from "../../assets/png/downHand.png"
 
 export default class Coursedetails extends Component {
   constructor() {
@@ -329,6 +331,29 @@ export default class Coursedetails extends Component {
     })
   }
 
+
+  AttentionText(
+    text = '在这里搜索想要的课程',
+    direction = 0,
+    pos = { top: '105rpx', left: '35rpx' },
+    addition
+  ) {
+    //0左上   1左下    2右上   3右下
+    let style = `position: absolute; display: block; z-index: 3000;top: ${pos.top}; left: ${pos.left};`;
+    let styleHand = `${addition}`
+    return direction <= 1 ? (
+      <CoverView style={style}>
+        <CoverImage className="hand" src={direction == 0 ? upHand : downHand} />
+        <CoverView className="handText1" style={styleHand}>{text}</CoverView>
+      </CoverView>
+    ) : (
+      <CoverView style={style}>
+        <CoverView className="handText1" style={styleHand}>{text}</CoverView>
+        <CoverImage className="hand" src={direction == 2 ? upHand : downHand} />
+      </CoverView>
+    );
+  }
+
   render() {
     const {
       gradeInfo,
@@ -477,21 +502,22 @@ export default class Coursedetails extends Component {
     const isFir = this.state.isFir;
     const ImgeUrl = image;
     return (
-      <View className="courseDetails">
+      <View className={this.state.isFir ? "courseDetails" :"courseDetails_Fir"}>
         {!isFir && <CoverView className="mask"></CoverView>}
-        {!isFir &&(
-          <CoverView>
-            <CoverImage
-              className="img"
-              src={ImgeUrl}
-              onClick={this.onClick.bind(this)}
-            />
+        {!isFir && (
+          <CoverView className="handButton" onClick={this.onClick.bind(this)}>
+            我知道啦
           </CoverView>
         )}
-        <View className="starBac" onClick={this.favorite}>
-          {!collect && <Image src={star} className="star"></Image>}
-          {collect && <Image src={starFill} className="star"></Image>}
-        </View>
+        {!isFir &&
+        this.AttentionText('看看饼状图更快了解这门课程哟！', 0,{top:"493rpx", left: "55rpx"},"width: 540rpx")}
+        {!isFir &&
+        this.AttentionText('喜欢这门课？把他们加入选课清单吧！', 3,{top:"62%", left: "3.5%"},"width: 600rpx")}
+
+        <CoverView className={this.state.isFir == false ? "starBac_Fir" : "starBac"} onClick={this.state.isFir? this.favorite : ()=>{}}>
+          {!collect && <CoverImage src={star} className="star"></CoverImage>}
+          {collect && <CoverImage src={starFill} className="star"></CoverImage>}
+        </CoverView>
         <CoverView className="cover" style={coverStyle} onClick={this.toHide} />
         <CoverView style={drawerStyle} className="drawer">
           <CoverView className="infobox_drawer">

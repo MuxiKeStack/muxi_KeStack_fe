@@ -230,6 +230,12 @@ export default class Index extends Component {
     });
   }
 
+  ChangeTodetails(value) {
+    Taro.navigateTo({
+      url: `/pages/courseDetails/courseDetails?courseId=${value}`
+    });
+  }
+
   componentWillUnmount() {}
 
   componentDidShow() {}
@@ -285,6 +291,12 @@ export default class Index extends Component {
     return (
       <View className="detailsBoxes">
         {this.state.Lists.map((data, index) => {
+          let tagLen = data.tags == null ? 0 : data.tags.length;
+          let tagFlag = [false, false, false, false];
+          for (let i = 0; i < tagLen; i++) {
+            tagFlag[i] = true;
+          }
+          console.log(data)
           return (
             // eslint-disable-next-line react/jsx-key
             <View className="mx-card">
@@ -297,32 +309,38 @@ export default class Index extends Component {
                   className="card"
                   X={this.state.X}
                 >
-                  <View className="detailsLeft">
-                    <View>{data.course_name}</View>
-                    <View style="display: block">{data.teacher}</View>
+                  <View className="detailsLeft" onClick={this.ChangeTodetails.bind(this, data.course_id)}>
+                    <View class="InfoText1">{data.course_name}</View>
+                    <View class="InfoText2" style="display: block">
+                      {data.teacher}
+                    </View>
                   </View>
                   <View className="detailsRight">
                     <View>
                       <MxRate comment={false} value={data.rate}></MxRate>
-                      <View>评价人数：{data.evaluation_num}</View>
+                      <View className="commentText">
+                        评价人数：{data.evaluation_num}
+                      </View>
                     </View>
                     <View className="detailsRightDown">
                       {data.tags == null && (
-                        <View>
+                        <View className="tags">
                           <View className="tag1">
                             <MxTag
                               check={false}
-                              padding="5rpx 32rpx 5rpx 32rpx"
+                              font="24rpx"
+                              padding="3rpx 24rpx 3rpx 24rpx"
                             >
                               暂无课程评价
                             </MxTag>
                           </View>
                         </View>
                       )}
+
                       {data.tags !== null && (
-                        <View>
-                          <View className="tag1">
-                            {data.tags[0] && (
+                        <View className="tags">
+                          {tagFlag[0] && (
+                            <View className="tag1">
                               <MxTag
                                 check={false}
                                 font="24rpx"
@@ -330,10 +348,10 @@ export default class Index extends Component {
                               >
                                 {data.tags[0]}
                               </MxTag>
-                            )}
-                          </View>
-                          <View className="tag2">
-                            {data.tags[1] && (
+                            </View>
+                          )}
+                          {tagFlag[1] && (
+                            <View className="tag2">
                               <MxTag
                                 check={false}
                                 font="24rpx"
@@ -341,10 +359,10 @@ export default class Index extends Component {
                               >
                                 {data.tags[1]}
                               </MxTag>
-                            )}
-                          </View>
-                          <View className="tag3">
-                            {data.tags[2] && (
+                            </View>
+                          )}
+                          {tagFlag[2] && (
+                            <View className="tag3">
                               <MxTag
                                 check={false}
                                 font="24rpx"
@@ -352,10 +370,10 @@ export default class Index extends Component {
                               >
                                 {data.tags[2]}
                               </MxTag>
-                            )}
-                          </View>
-                          <View className="tag4">
-                            {data.tags[3] && (
+                            </View>
+                          )}
+                          {tagFlag[3] && (
+                            <View className="tag4">
                               <MxTag
                                 check={false}
                                 font="24rpx"
@@ -363,8 +381,8 @@ export default class Index extends Component {
                               >
                                 {data.tags[3]}
                               </MxTag>
-                            )}
-                          </View>
+                            </View>
+                          )}
                         </View>
                       )}
                     </View>

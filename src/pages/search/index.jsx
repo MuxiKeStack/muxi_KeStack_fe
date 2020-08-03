@@ -501,7 +501,7 @@ export default class Index extends Component {
     return (
       <View style="display: block">
         {!isFir && <View className="mask"></View>}
-        {!isFir && 
+        {!isFir &&
         <View>
           <Image className="img" src={ImageUrl} onClick={this.onClick.bind(this)}></Image>
         </View>}

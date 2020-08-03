@@ -136,6 +136,7 @@ export default class Index extends Component {
 
   getSearch() {
     var that = this;
+    console.log(this.state.type)
     Fetch(
       'api/v1/search/course/',
       {
@@ -171,10 +172,11 @@ export default class Index extends Component {
 
   handleChangeKind(e) {
     if (e.detail.value != 0) {
+      let typeNum = e.detail.value == 5 ? 5 : e.detail.value - 1
       this.setState(
         {
           kindChecked: this.state.checkKind[e.detail.value],
-          type: e.detail.value - 1,
+          type: typeNum,
           datas: [],
           page: 1
         },

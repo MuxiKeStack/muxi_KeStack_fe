@@ -1,5 +1,13 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Image, ScrollView, Swiper,SwiperItem, Navigator, Block } from '@tarojs/components';
+import {
+  View,
+  Image,
+  ScrollView,
+  Swiper,
+  SwiperItem,
+  Navigator,
+  Block
+} from '@tarojs/components';
 import './index.scss';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxIcon from '../../components/common/MxIcon';
@@ -10,6 +18,9 @@ import image1 from '../../assets/png/s1.png';
 import image2 from '../../assets/png/s2.png';
 import image3 from '../../assets/png/s3.png';
 import image4 from '../../assets/png/s4.png';
+import upHand from '../../assets/png/upHand.png';
+import downHand from '../../assets/png/downHand.png';
+import MxButton from '../../components/common/MxButton';
 
 export default class Index extends Component {
   // eslint-disable-next-line react/sort-comp
@@ -20,7 +31,6 @@ export default class Index extends Component {
     onReachBottomDistance: 80
   };
 
-
   constructor() {
     super(...arguments);
     this.state = {
@@ -30,9 +40,11 @@ export default class Index extends Component {
       bottomFlag: false,
       isFir: false,
       to1: true,
-      to2:false,
-      to3:false,
-      to4:false
+      to2: false,
+      to3: false,
+      to4: false,
+      imageNum: 1,
+      firstCourse: {}
     };
   }
   onShareAppMessage() {
@@ -71,6 +83,7 @@ export default class Index extends Component {
       'GET'
     )
       .then(data => {
+        console.log(data.data.list)
         if (data.data.list != null) {
           if (this.state.lastId != 0) {
             newComments = newComments.concat(data.data.list);
@@ -79,7 +92,11 @@ export default class Index extends Component {
             that.setState({
               comments: newComments,
               sum: data.data.sum,
-              lastId: data.data.list[data.data.sum - 1].id
+              lastId: data.data.list[data.data.sum - 1].id,
+              firstCourse: {
+                course_name: newComments[0].course_name,
+                teacher: newComments[0].teacher
+              }
             });
           } else {
             Taro.stopPullDownRefresh();
@@ -87,7 +104,11 @@ export default class Index extends Component {
             that.setState({
               comments: data.data.list,
               sum: data.data.sum,
-              lastId: data.data.list[data.data.sum - 1].id
+              lastId: data.data.list[data.data.sum - 1].id,
+              firstCourse: {
+                course_name: data.data.list[0].course_name,
+                teacher: data.data.list[0].teacher
+              }
             });
           }
         } else {
@@ -103,7 +124,6 @@ export default class Index extends Component {
         }
       })
       .catch(error => {
-        console.log(error);
         Taro.showToast({
           title: '刷新失败!',
           icon: 'none'
@@ -140,7 +160,6 @@ export default class Index extends Component {
   }
 
   ChangeToReport(id) {
-    console.log(id);
     Fetch(`api/v1/evaluation/${id}/report/`, {}, 'POST').then(data => {
       if (data.data.fail === true) {
         if (data.data.reason === 'You have been reported this evaluation!') {
@@ -182,30 +201,78 @@ export default class Index extends Component {
     );
   }
 
+
+  onClickKnow() {
+    let num = this.state.imageNum;
+    if (num == 1) {
+      this.setState({
+        to1: false,
+        to2: true,
+        imageNum: 2
+      });
+    } else if (num == 2) {
+      this.setState({
+        to2: false,
+        to3: true,
+        imageNum: 3
+      });
+    } else if (num == 3) {
+      this.setState({
+        to3: false,
+        to4: true,
+        imageNum: 4
+      });
+    } else if (num == 4) {
+      this.setState({
+        isFir: true
+      });
+    }
+  }
   onClick1() {
     this.setState({
       to1: false,
       to2: true
-    })
+    });
   }
   onClick2() {
     this.setState({
-      to2:false,
-      to3:true
-    })
+      to2: false,
+      to3: true
+    });
   }
   onClick3() {
     this.setState({
       to3: false,
       to4: true
-    })
+    });
   }
   onClick4() {
     this.setState({
       isFir: true
-    })
+    });
   }
 
+  AttentionText(
+    text = '在这里搜索想要的课程',
+    direction = 0,
+    pos = { top: '105rpx', left: '35rpx' },
+    addition
+  ) {
+    //0左上   1左下    2右上   3右下
+    let style = `position: absolute; display: block; z-index: 3000;top: ${pos.top}; left: ${pos.left};`;
+    let styleHand = `${addition}`
+    return direction <= 1 ? (
+      <View style={style}>
+        <Image className="hand" src={direction == 0 ? upHand : downHand} />
+        <View className="handText1" style={styleHand}>{text}</View>
+      </View>
+    ) : (
+      <View style={style}>
+        <View className="handText1" style={styleHand}>{text}</View>
+        <Image className="hand" src={direction == 2 ? upHand : downHand} />
+      </View>
+    );
+  }
 
   normalTime(timestamp) {
     var date = new Date(timestamp * 1000); //如果date为13位不需要乘1000
@@ -238,8 +305,8 @@ export default class Index extends Component {
     const avatar = 'http://kestackoss.muxixyz.com/guidance/avatar.png';
     const { bottomFlag } = this.state;
     const content = (
-      <View className="detailsBoxes">
-        {this.state.comments.map(comment => {
+      <View className={this.state.isFir == false? "detailsBoxes_Fir" : "detailsBoxes"}>
+        {this.state.comments.map((comment, index) => {
           return (
             // eslint-disable-next-line react/jsx-key
             <View className="detailsBox">
@@ -303,7 +370,13 @@ export default class Index extends Component {
                         comment.course_id
                       )}
                     >
-                      {'#' + comment.course_name} {'(' + comment.teacher + ')'}{' '}
+                      {this.state.isFir == false && index == 0
+                        ? '　　　　　　'
+                        : '#' +
+                          comment.course_name +
+                          '(' +
+                          comment.teacher +
+                          ')'}
                     </View>
                     <View className="course-rate">
                       <View className="rate-text">评价星级:</View>
@@ -365,41 +438,138 @@ export default class Index extends Component {
       </View>
     );
 
-    return (
-      <View style="display: block">
-        {!isFir && <View className="mask"></View>}
-        {!isFir && to1 &&(
-        <View>
-          <Image className="img1" src={ImageUrl1} onClick={this.onClick1.bind(this)}></Image>
-        </View>)}
-        {!isFir && to2 &&(
-        <View>
-          <Image className="img2" src={ImageUrl2} onClick={this.onClick2.bind(this)}></Image>
-        </View>)}
-        {!isFir && to3 &&(
-        <View>
-          <Image className="img3" src={ImageUrl3} onClick={this.onClick3.bind(this)}></Image>
-        </View>)}
-        {!isFir && to4 &&(
-        <View>
-          <Image className="img4" src={ImageUrl4} onClick={this.onClick4.bind(this)}></Image>
-        </View>)}
-        <View className="chooseBox">
-          <View
-            className="chooseSearchBack"
-            onClick={this.ChangeTosearch.bind(this)}
-          >
-            <MxIcon
-              type="search"
-              className="chooseSearch"
-              width="32px"
-              height="32px"
-            />
-          </View>
-          <View onClick={this.ChangeTopost.bind(this)}>
-            <MxIcon type="add" className="chooseAdd" width="42px" />
-          </View>
+    const head_noFir = (
+      <View className="chooseBox_noFir">
+        <View
+          className="chooseSearchBack"
+          onClick={this.ChangeTosearch.bind(this)}
+        >
+          <MxIcon
+            type="search"
+            className="chooseSearch"
+            width="32px"
+            height="32px"
+          />
         </View>
+        <View onClick={this.ChangeTopost.bind(this)}>
+          <MxIcon type="add" className="chooseAdd" width="42px" />
+        </View>
+      </View>
+    );
+
+    const head_Fir = (
+      <View style="display: block;">
+        <View className="chooseBox"></View>
+        <View
+          className={
+            this.state.to1 == true
+              ? 'chooseSearchBack_Fir'
+              : 'chooseSearchBack_Fir_no'
+          }
+        >
+          <MxIcon
+            type="search"
+            className="chooseSearch"
+            width="32px"
+            height="32px"
+          />
+        </View>
+        <View
+          className={this.state.to2 == true ? 'toPost_Fir' : 'toPost_Fir_no'}
+        >
+          <MxIcon type="add" className="chooseAdd" width="42px" />
+        </View>
+      </View>
+    );
+
+    return (
+      <View style="display: block" >
+        {!isFir && <View className="mask"></View>}
+        {!isFir && (
+          <View className="handButton" onClick={this.onClickKnow.bind(this)}>
+            我知道啦
+          </View>
+        )}
+        {!isFir &&
+          to1 &&
+          // <View style="position: absolute; display: block; z-index: 3000;top: 9%; left: 7%">
+          //   <View className="handText1">在这里搜索想要的课程</View>
+          //   <Image
+          //     className="hand"
+          //     src={upHand}
+          //   ></Image>
+          // </View>
+          this.AttentionText('在这里搜索想要的课程', 0)}
+        {!isFir &&
+          to2 &&
+          // <View>
+          //   <Image
+          //     className="img2"
+          //     src={ImageUrl2}
+          //     onClick={this.onClick2.bind(this)}
+          //   ></Image>
+          // </View>
+          this.AttentionText('发条评课试试吧！', 2, {
+            left: '245rpx',
+            top: '87rpx'
+          })}
+        {!isFir &&
+          to3 &&
+          // <View>
+          //   <Image
+          //     className="img2"
+          //     src={ImageUrl2}
+          //     onClick={this.onClick2.bind(this)}
+          //   ></Image>
+          // </View>
+          this.AttentionText('点击进入课程主页', 0, {
+            left: '50rpx',
+            top: '350rpx'
+          })}
+
+        {!isFir &&
+        to4 &&
+        // <View>
+        //   <Image
+        //     className="img2"
+        //     src={ImageUrl2}
+        //     onClick={this.onClick2.bind(this)}
+        //   ></Image>
+        // </View>
+        this.AttentionText('　恶意评论可以举报哦！一起构建和谐评课环境～', 2, {
+          left: '52rpx',
+          top: '235rpx'
+        },"width: 540rpx;")}
+        {this.state.isFir == false ? head_Fir : head_noFir}
+
+        {this.state.firstCourse.course_name != undefined &&
+          this.state.isFir == false && (
+            <View
+              className={
+                this.state.to3 == true
+                  ? 'course-name_Fir'
+                  : 'course-name_Fir_no'
+              }
+            >
+              {'#' + this.state.firstCourse.course_name}{' '}
+              {'(' + this.state.firstCourse.teacher + ')'}{' '}
+            </View>
+          )}
+
+        {this.state.to4 == true && this.state.isFir == false &&
+        (<View className={
+          this.state.to4 == true
+            ? "at-accordion_Fir"
+            : "at-accordion_Fir_no"
+        }>
+          <View className="at-accordion__header_Fir">
+            <View className="at-accordion__arrow_Fir">
+              <Text className="at-icon_Fir at-icon-chevron-down_Fir"></Text>
+            </View>
+          </View>
+        </View>)}
+
+
         {content}
         {bottomFlag && <View className="bottomBox">到底啦！</View>}
       </View>
