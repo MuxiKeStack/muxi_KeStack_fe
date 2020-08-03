@@ -106,12 +106,12 @@ export default class Index extends Component {
     this.setState({
       to1: false,
       to2: true
-    })
+    });
   }
   onClick2() {
     this.setState({
       isFir: true
-    })
+    });
   }
 
   render() {
@@ -129,14 +129,24 @@ export default class Index extends Component {
     return (
       <View>
         {!isFir && <View className="mask"></View>}
-        {!isFir && to1 &&(
-        <View>
-          <Image className="img1" src={ImageUrl1} onClick={this.onClick1.bind(this)}></Image>
-        </View>)}
-        {!isFir && to2 &&(
-        <View>
-          <Image className="img2" src={ImageUrl2} onClick={this.onClick2.bind(this)}></Image>
-        </View>)}
+        {!isFir && to1 && (
+          <View>
+            <Image
+              className="img1"
+              src={ImageUrl1}
+              onClick={this.onClick1.bind(this)}
+            ></Image>
+          </View>
+        )}
+        {!isFir && to2 && (
+          <View>
+            <Image
+              className="img2"
+              src={ImageUrl2}
+              onClick={this.onClick2.bind(this)}
+            ></Image>
+          </View>
+        )}
         <View className="home-page-user-info">
           <View className="user-avatar">
             <Image
@@ -147,7 +157,7 @@ export default class Index extends Component {
           </View>
           <View className="user-info">
             <View className="nickname" onClick={this.handleLogin.bind(this)}>
-              {user.username}
+              {user.username.slice(0, 7)}
             </View>
             <View className="sid">{user.sid}</View>
           </View>
@@ -204,7 +214,7 @@ export default class Index extends Component {
             <View className="modal-title">反馈</View>
             <Text className="modal-content" selectable="true">
               QQ群：799651462\n
-            {/* </Text>
+              {/* </Text>
             <Text className="modal-content" selectable="true"> */}
               邮箱：i@muxistudio.com
             </Text>

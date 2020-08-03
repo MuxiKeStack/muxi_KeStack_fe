@@ -322,40 +322,48 @@ export default class Index extends Component {
                       {data.tags !== null && (
                         <View>
                           <View className="tag1">
-                            <MxTag
-                              check={false}
-                              font="24rpx"
-                              padding="3rpx 28rpx 3rpx 28rpx"
-                            >
-                              {data.tags[0]}
-                            </MxTag>
+                            {data.tags[0] && (
+                              <MxTag
+                                check={false}
+                                font="24rpx"
+                                padding="3rpx 24rpx 3rpx 24rpx"
+                              >
+                                {data.tags[0]}
+                              </MxTag>
+                            )}
                           </View>
                           <View className="tag2">
-                            <MxTag
-                              check={false}
-                              font="24rpx"
-                              padding="3rpx 28rpx 3rpx 28rpx"
-                            >
-                              {data.tags[1]}
-                            </MxTag>
+                            {data.tags[1] && (
+                              <MxTag
+                                check={false}
+                                font="24rpx"
+                                padding="3rpx 24rpx 3rpx 24rpx"
+                              >
+                                {data.tags[1]}
+                              </MxTag>
+                            )}
                           </View>
                           <View className="tag3">
-                            <MxTag
-                              check={false}
-                              font="24rpx"
-                              padding="3rpx 28rpx 3rpx 28rpx"
-                            >
-                              {data.tags[2]}
-                            </MxTag>
+                            {data.tags[2] && (
+                              <MxTag
+                                check={false}
+                                font="24rpx"
+                                padding="3rpx 24rpx 3rpx 24rpx"
+                              >
+                                {data.tags[2]}
+                              </MxTag>
+                            )}
                           </View>
                           <View className="tag4">
-                            <MxTag
-                              check={false}
-                              font="24rpx"
-                              padding="3rpx 28rpx 3rpx 28rpx"
-                            >
-                              {data.tags[3]}
-                            </MxTag>
+                            {data.tags[3] && (
+                              <MxTag
+                                check={false}
+                                font="24rpx"
+                                padding="3rpx 24rpx 3rpx 24rpx"
+                              >
+                                {data.tags[3]}
+                              </MxTag>
+                            )}
                           </View>
                         </View>
                       )}
