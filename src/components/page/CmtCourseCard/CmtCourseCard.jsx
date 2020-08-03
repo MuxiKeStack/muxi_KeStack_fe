@@ -54,7 +54,7 @@ class CmtCourseCard extends Component {
       height: this.state.reportHeight
     };
     return (
-      <View key={item.id} className="commentCard">
+      <View key={item.id} className="commentCard" onClick={this.commentPage.bind(this, item)}>
         <View className="userInfo">
           {item.user_info.avatar ? (
             <Image
