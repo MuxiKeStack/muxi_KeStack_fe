@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-boolean-value */
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, MovableArea, MovableView, Image } from '@tarojs/components';
+import {View, Text, MovableArea, MovableView, Image, CoverView, CoverImage} from '@tarojs/components';
 import './index.scss';
 import MxTag from '../../components/common/MxTag/index';
 import MxRate from '../../components/common/MxRate/MxRate';
@@ -8,6 +8,8 @@ import MxInput from '../../components/common/MxInput/MxInput';
 import image from '../../assets/png/search.png';
 import MxGuide from '../../components/common/MxGuide/index';
 import Fetch from '../../service/fetch';
+import upHand from "../../assets/png/upHand.png"
+import downHand from "../../assets/png/downHand.png"
 
 export default class Index extends Component {
   constructor() {
@@ -28,7 +30,7 @@ export default class Index extends Component {
       // mask: 'mask',
       // masklist: 'masklist',
       courseCollected: [],
-      isFir: true
+      isFir: false
     };
   }
   // eslint-disable-next-line react/sort-comp
@@ -313,17 +315,17 @@ export default class Index extends Component {
   componentWillUnmount() {}
 
   componentDidShow() {
-    // let isFir = Taro.getStorageSync('isnew');
-    // let isshow2 = Taro.getStorageSync('isShow2');
-    // this.setState({
-    //   isFir: isshow2
-    // })
-    // if (isFir == 0) {
-    //   this.setState({
-    //     isFir: true
-    //   });
-    // }
-    // console.log(this.state.isFir);
+    let isFir = Taro.getStorageSync('isnew');
+    let isshow2 = Taro.getStorageSync('isShow2');
+    this.setState({
+      isFir: isshow2
+    })
+    if (isFir == 0) {
+      this.setState({
+        isFir: true
+      });
+    }
+    console.log(this.state.isFir);
   }
 
   componentDidHide() {}
@@ -335,6 +337,32 @@ export default class Index extends Component {
     ()=>{
       Taro.setStorageSync('isShow2', this.state.isFir);
     })
+  }
+
+  AttentionText(
+    text = '在这里搜索想要的课程',
+    direction = 0,
+    pos = { top: '105rpx', left: '35rpx', right: '', bottom: '' },
+    addition
+  ) {
+    //0左上   1左下    2右上   3右下
+    let style = `position: absolute; display: block; z-index: 3000;top: ${pos.top}; left: ${pos.left}; right: ${pos.right}; bottom: ${pos.bottom}`;
+    let styleHand = `${addition}`;
+    return direction <= 1 ? (
+      <View style={style}>
+        <Image className="hand" src={direction == 0 ? upHand : downHand} />
+        <View className="handText1" style={styleHand}>
+          {text}
+        </View>
+      </View>
+    ) : (
+      <View style={style}>
+        <View className="handText1" style={styleHand}>
+          {text}
+        </View>
+        <Image className="hand" src={direction == 2 ? upHand : downHand} />
+      </View>
+    );
   }
   render() {
     const isFir = this.state.isFir;
@@ -365,11 +393,12 @@ export default class Index extends Component {
       </View>
     );
     const content = (
-      <View className="detailsBoxes">
+      <View className={this.state.isFir == false? "detailsBoxes_Fir" : "detailsBoxes"}>
+        {!isFir && <View className="mask"></View>}
         {this.state.datas.map((data, index) => {
           return (
             // eslint-disable-next-line react/jsx-key
-            <View className="mx-card">
+            <View className={this.state.isFir == false && index==0 ? "mx-card_Fir" : "mx-card"}>
               <MovableArea className="cardm">
                 <MovableView
                   damping="100"
@@ -377,6 +406,7 @@ export default class Index extends Component {
                   outOfBounds
                   direction="horizontal"
                   className="card"
+                  disabled={this.state.isFir == false ? true:false}
                   X={this.state.X}
                   onTouchStart={this.touchstart.bind(this, data.hash)}
                   onTouchEnd={this.touchstart.bind(this, data.hash)}
@@ -392,7 +422,7 @@ export default class Index extends Component {
                     <View className="blue">
                       <View className="star">
                         <MxRate
-                          value={data.rat}
+                          value={data.rate}
                           onChange={this.handleChange.bind(this)}
                           readOnly
                         />
@@ -502,9 +532,12 @@ export default class Index extends Component {
       <View style="display: block">
         {!isFir && <View className="mask"></View>}
         {!isFir &&
-        <View>
-          <Image className="img" src={ImageUrl} onClick={this.onClick.bind(this)}></Image>
-        </View>}
+        this.AttentionText('左滑卡片即可收藏课程~', 0,{top:'606rpx',left:'78rpx'})}
+        {!isFir && (
+          <View className="handButton" onClick={this.onClick.bind(this)}>
+            我知道啦
+          </View>
+        )}
         <View className="chooseBox">
           <View className="search">
             <MxInput

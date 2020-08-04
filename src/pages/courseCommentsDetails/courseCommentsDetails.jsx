@@ -58,7 +58,13 @@ export default class Coursecommentsdetails extends Component {
     });
   }
   componentDidMount() {}
-  componentDidShow() {}
+  componentDidShow() {
+    const pages = Taro.getCurrentPages();
+    const prevPage = pages[pages.length - 2]; // 上一页// 调用上一个页面的setData 方法，将数据存储
+    prevPage.setData({
+      testdata: 123456
+    });
+  }
 
   componentDidHide() {}
 
@@ -470,7 +476,9 @@ export default class Coursecommentsdetails extends Component {
           )}
           <View className="anonWords">匿名</View>
           <View className="replyCard">
-          <View className="toreply">回复{replyUser}已评{valueLen}字(限300字)</View>
+            <View className="toreply">
+              回复{replyUser}已评{valueLen}字(限300字)
+            </View>
             <Textarea
               className="replyFram"
               maxlength={-1}

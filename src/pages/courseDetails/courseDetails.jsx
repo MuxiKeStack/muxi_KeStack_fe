@@ -18,8 +18,8 @@ import newcmt from '../../assets/png/newcmt.png';
 import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
 import ClassCard from '../../components/page/ClassCard/ClassCard';
 import image from '../../assets/png/detail.png';
-import upHand from "../../assets/png/upHand.png"
-import downHand from "../../assets/png/downHand.png"
+import upHand from '../../assets/png/upHand.png';
+import downHand from '../../assets/png/downHand.png';
 
 export default class Coursedetails extends Component {
   constructor() {
@@ -167,6 +167,11 @@ export default class Coursedetails extends Component {
   componentWillUnmount() {}
 
   componentDidShow() {
+    const pages = Taro.getCurrentPages();
+    const prevPage = pages[pages.length - 2]; // 上一页// 调用上一个页面的setData 方法，将数据存储
+    prevPage.setData({
+      testdata: 123456
+    });
     let show = Taro.getStorageSync('isShow3');
     let isFir = Taro.getStorageSync('isnew');
     this.setState({
@@ -333,24 +338,27 @@ export default class Coursedetails extends Component {
     );
   }
 
-
   AttentionText(
     text = '在这里搜索想要的课程',
     direction = 0,
-    pos = { top: '105rpx', left: '35rpx' },
+    pos = { top: '105rpx', left: '35rpx', right: '', bottom: '',position:'absolute' },
     addition
   ) {
     //0左上   1左下    2右上   3右下
-    let style = `position: absolute; display: block; z-index: 3000;top: ${pos.top}; left: ${pos.left};`;
-    let styleHand = `${addition}`
+    let style = `position: ${pos.position}; display: block; z-index: 3000;top: ${pos.top}; left: ${pos.left}; right: ${pos.right}; bottom: ${pos.bottom}`;
+    let styleHand = `${addition}`;
     return direction <= 1 ? (
       <CoverView style={style}>
         <CoverImage className="hand" src={direction == 0 ? upHand : downHand} />
-        <CoverView className="handText1" style={styleHand}>{text}</CoverView>
+        <CoverView className="handText1" style={styleHand}>
+          {text}
+        </CoverView>
       </CoverView>
     ) : (
       <CoverView style={style}>
-        <CoverView className="handText1" style={styleHand}>{text}</CoverView>
+        <CoverView className="handText1" style={styleHand}>
+          {text}
+        </CoverView>
         <CoverImage className="hand" src={direction == 2 ? upHand : downHand} />
       </CoverView>
     );
@@ -504,7 +512,9 @@ export default class Coursedetails extends Component {
     const isFir = this.state.isFir;
     const ImgeUrl = image;
     return (
-      <View className={this.state.isFir ? "courseDetails" :"courseDetails_Fir"}>
+      <View
+        className={this.state.isFir ? 'courseDetails' : 'courseDetails_Fir'}
+      >
         {!isFir && <CoverView className="mask"></CoverView>}
         {!isFir && (
           <CoverView className="handButton" onClick={this.onClick.bind(this)}>
@@ -512,11 +522,19 @@ export default class Coursedetails extends Component {
           </CoverView>
         )}
         {!isFir &&
-        this.AttentionText('看看饼状图更快了解这门课程哟！', 0,{top:"493rpx", left: "55rpx"},"width: 540rpx")}
+          this.AttentionText(
+            '看看饼状图更快了解这门课程哟！',
+            0,
+            { top: '493rpx', left: '55rpx',position:'fixed' },
+            'width: 540rpx'
+          )}
         {!isFir &&
-        this.AttentionText('喜欢这门课？把他们加入选课清单吧！', 3,{top:"923rpx", left: "31rpx"},"width: 600rpx")}
+        this.AttentionText('喜欢这门课？把他们加入选课清单吧！', 3,{bottom:"161rpx", left: "31rpx",position:'fixed'},"width: 600rpx")}
 
-        <CoverView className={this.state.isFir == false ? "starBac_Fir" : "starBac"} onClick={this.state.isFir? this.favorite : ()=>{}}>
+        <CoverView
+          className={this.state.isFir == false ? 'starBac_Fir' : 'starBac'}
+          onClick={this.state.isFir ? this.favorite : () => {}}
+        >
           {!collect && <CoverImage src={star} className="star"></CoverImage>}
           {collect && <CoverImage src={starFill} className="star"></CoverImage>}
         </CoverView>

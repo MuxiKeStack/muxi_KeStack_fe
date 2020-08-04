@@ -21,6 +21,7 @@ import image4 from '../../assets/png/s4.png';
 import upHand from '../../assets/png/upHand.png';
 import downHand from '../../assets/png/downHand.png';
 import MxButton from '../../components/common/MxButton';
+import upTop from '../../assets/png/upTop.png'
 
 export default class Index extends Component {
   // eslint-disable-next-line react/sort-comp
@@ -44,7 +45,8 @@ export default class Index extends Component {
       to3: false,
       to4: false,
       imageNum: 1,
-      firstCourse: {}
+      firstCourse: {},
+      isScroll: '1'
     };
   }
   onShareAppMessage() {
@@ -178,27 +180,32 @@ export default class Index extends Component {
   }
 
   componentDidShow() {
-    let isFir = Taro.getStorageSync('isnew');
-    if (isFir == 0) {
-      this.setState({
-        isFir: true
-      });
-    }
-    this.setState(
-      {
-        bottomFlag: false,
-        sum: 0,
-        lastId: 0
-      },
-      () => {
-        Taro.pageScrollTo({
-          scrollTop: 0 + Math.random(),
-          duration: 0
+    const pages = getCurrentPages()
+    const currPage = pages[pages.length - 1] // 当前页
+    console.log(currPage.data.testdata)
+    if(currPage.data.testdata!=123456){
+      let isFir = Taro.getStorageSync('isnew');
+      if (isFir == 0) {
+        this.setState({
+          isFir: true
         });
-        Taro.showNavigationBarLoading();
-        this.getComments();
       }
-    );
+      this.setState(
+        {
+          bottomFlag: false,
+          sum: 0,
+          lastId: 0
+        },
+        () => {
+          Taro.pageScrollTo({
+            scrollTop: 0 + Math.random(),
+            duration: 0
+          });
+          Taro.showNavigationBarLoading();
+          this.getComments();
+        }
+      );
+    }
   }
 
 
@@ -249,6 +256,12 @@ export default class Index extends Component {
   onClick4() {
     this.setState({
       isFir: true
+    });
+  }
+  scrollToTop() {
+    console.log("你好")
+    Taro.pageScrollTo({
+      scrollTop: 0 + Math.random(),
     });
   }
 
@@ -346,21 +359,6 @@ export default class Index extends Component {
                     </View>
                   </View>
 
-                  {/*<View className="detailsSecond">*/}
-                  {/*  <View*/}
-                  {/*    className="detailsSecondInfo1"*/}
-                  {/*    onClick={this.ChangeTodetails.bind(*/}
-                  {/*      this,*/}
-                  {/*      comment.course_id*/}
-                  {/*    )}*/}
-                  {/*  >*/}
-                  {/*    #{comment.course_name}({comment.teacher})*/}
-                  {/*  </View>*/}
-                  {/*  <View className="detailsSecondInfo2">评价星级：</View>*/}
-                  {/*  <View className="detailsRate">*/}
-                  {/*    <MxRate value={comment.rate} />*/}
-                  {/*  </View>*/}
-                  {/*</View>*/}
                   <View className="course-container">
                     <View
                       className="course-name"
@@ -398,7 +396,7 @@ export default class Index extends Component {
                         {comment.content}
                       </View>
                     )}
-                    {comment.content == '' && (
+                    {comment.content == '' && comment.is_valid == true && (
                       <View
                         className="detailsThirdText"
                         onClick={this.ChangeToCommentsDetails.bind(
@@ -407,6 +405,17 @@ export default class Index extends Component {
                         )}
                       >
                         该用户没有评论
+                      </View>
+                    )}
+                    {comment.is_valid == false && (
+                      <View
+                        className="detailsThirdText"
+                        onClick={this.ChangeToCommentsDetails.bind(
+                          this,
+                          comment.id
+                        )}
+                      >
+                        该评论已删除
                       </View>
                     )}
                   </View>
@@ -484,6 +493,7 @@ export default class Index extends Component {
 
     return (
       <View style="display: block" >
+        <View className="upToTop" onClick={this.scrollToTop.bind(this)}><Image src={upTop} className="upTop"></Image></View>
         {!isFir && <View className="mask"></View>}
         {!isFir && (
           <View className="handButton" onClick={this.onClickKnow.bind(this)}>
@@ -492,50 +502,22 @@ export default class Index extends Component {
         )}
         {!isFir &&
           to1 &&
-          // <View style="position: absolute; display: block; z-index: 3000;top: 9%; left: 7%">
-          //   <View className="handText1">在这里搜索想要的课程</View>
-          //   <Image
-          //     className="hand"
-          //     src={upHand}
-          //   ></Image>
-          // </View>
           this.AttentionText('在这里搜索想要的课程', 0)}
         {!isFir &&
           to2 &&
-          // <View>
-          //   <Image
-          //     className="img2"
-          //     src={ImageUrl2}
-          //     onClick={this.onClick2.bind(this)}
-          //   ></Image>
-          // </View>
           this.AttentionText('发条评课试试吧！', 2, {
             left: '245rpx',
             top: '87rpx'
           })}
         {!isFir &&
           to3 &&
-          // <View>
-          //   <Image
-          //     className="img2"
-          //     src={ImageUrl2}
-          //     onClick={this.onClick2.bind(this)}
-          //   ></Image>
-          // </View>
           this.AttentionText('点击进入课程主页', 0, {
             left: '50rpx',
             top: '350rpx'
           })}
 
         {!isFir &&
-        to4 &&
-        // <View>
-        //   <Image
-        //     className="img2"
-        //     src={ImageUrl2}
-        //     onClick={this.onClick2.bind(this)}
-        //   ></Image>
-        // </View>
+          to4 &&
         this.AttentionText('　恶意评论可以举报哦！一起构建和谐评课环境～', 2, {
           left: '52rpx',
           top: '235rpx'

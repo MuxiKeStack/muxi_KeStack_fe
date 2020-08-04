@@ -22,6 +22,17 @@ View {
   align-items: center;
   overflow: scroll;
 }
+
+.detailsBoxes_Fir {
+  height: 100%;
+  width: 750px;
+  margin-top: 300rpx;
+  background-color: rgba(241,240,245,1);
+  align-items: center;
+  overflow: hidden;
+  z-index: 2000;
+  position: fixed;
+}
 /*
 .detailsBox:last-child {
     display: block;
@@ -41,6 +52,17 @@ View {
   margin-bottom: 37px;
   margin-top: 37px;
   margin-left: 25px;
+}
+.mx-card_Fir{
+  display: flex;
+  flex-direction: row;
+  background:rgba(241,240,245,1);
+  margin-bottom: 37px;
+  margin-top: 37px;
+  margin-left: 25px;
+  z-index: 1500;
+  position:fixed;
+  border-radius:200rpx;
 }
 .cardm{
   width:532px;
@@ -234,3 +256,33 @@ View {
 }
 
 
+.hand{
+  z-index: 2000;
+  opacity: 1;
+  width: 70rpx;
+  height: 70rpx;
+}
+.handText1{
+  color: white;
+  font-size: 50rpx;
+  vertical-align:top;
+  margin-left:13rpx;
+  margin-right: 6rpx;
+  font-weight: bold;
+}
+
+.handButton{
+  position:absolute;
+  top:83%;
+  left:36%;
+  width:225rpx;
+  height:77rpx;
+  color:white;
+  z-index:3000;
+  border-radius:35rpx;
+  background-color:#6868F8;
+  text-align:center;
+  line-height:85rpx;
+  font-size:38rpx;
+  font-weight:bold;
+}

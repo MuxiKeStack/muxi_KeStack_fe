@@ -29,7 +29,6 @@ class MxLike extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps)
     this.setState({
       islike: nextProps.islike,
       likenum: nextProps.likenum

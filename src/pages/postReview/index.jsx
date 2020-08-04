@@ -197,7 +197,7 @@ export default class Index extends Component {
       tags: this.state.tags
     };
     if (this.state.courseCheckedState == false) {
-      if (false) {
+      if (post.rate == 0 || post.course_name == "(只能评价自己上过的课程哦)") {
         Taro.showToast({
           title: '课程名与星级为必选哦！',
           icon: 'none',
