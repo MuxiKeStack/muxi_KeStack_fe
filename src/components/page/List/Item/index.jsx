@@ -13,7 +13,7 @@ export default class Item extends Component {
     this.props.onClick(...args);
   };
   render() {
-    const { title, extraText, hasBgi, iconType, hasNew } = this.props;
+    const { title, extraText, hasBgi, iconType, hasNew, num } = this.props;
     const rootClass = classNames('list-item', this.props.className);
     /*const setIconCenter={
             display: 'flex',
@@ -23,7 +23,7 @@ export default class Item extends Component {
     return (
       <View className={rootClass} onClick={this.handleClick}>
         {hasNew && hasBgi && (
-          <View className="item-container ">
+          <View className={num==true?'item-container':'item-container-Fir'}>
             <View className="icon">
               <MxIcon
                 type={iconType}
@@ -32,13 +32,13 @@ export default class Item extends Component {
                 className="item-icon" /*outerStyle={setIconCenter}*/
               ></MxIcon>
             </View>
-            <Text className="item-title">{title}</Text>
+            <View className='item-title'>{title}</View>
             <MxIcon type="solidC" width="20" height="20"></MxIcon>
             <Text className="item-extra">{extraText}</Text>
           </View>
         )}
         {!hasNew && hasBgi && (
-          <View className="item-container ">
+          <View className={num==true?'item-container':'item-container-Fir'}>
             <View className="icon">
               <MxIcon
                 type={iconType}
@@ -47,12 +47,12 @@ export default class Item extends Component {
                 className="item-icon" /*outerStyle={setIconCenter}*/
               ></MxIcon>
             </View>
-            <Text className="item-title">{title}</Text>
+            <View className='item-title'>{title}</View>
             <Text className="item-extra">{extraText}</Text>
           </View>
         )}
         {!hasBgi && (
-          <View className="item-container ">
+          <View className={num==true?'item-container':'item-container-Fir'}>
             <View className="icon">
               <MxIcon
                 type={iconType}
@@ -61,7 +61,7 @@ export default class Item extends Component {
                 className="item-icon" /*outerStyle={setIconCenter}*/
               ></MxIcon>
             </View>
-            <Text className="item-title">{title}</Text>
+            <View className='item-title'>{title}</View>
             <Text className="item-extra">{extraText}</Text>
           </View>
         )}
@@ -76,7 +76,8 @@ Item.defaultProps = {
   customStyle: '',
   hasBgi: false,
   hasNew: false,
-  iconType: ''
+  iconType: '',
+  num: true
 };
 Item.propTypes = {
   className: PropTypes.string,

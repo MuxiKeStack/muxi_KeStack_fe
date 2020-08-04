@@ -142,8 +142,11 @@ export default class Index extends Component {
             });
             Taro.setStorage({
               key: 'isnew',
-              data: 1
+              data: res.data.is_new
             });
+            if(res.data.is_new===1){
+              Taro.setStorageSync('isShow',[false,false,false,false,false,false])
+            }
             Taro.setStorage({
               key: 'token',
               data: res.data.token,

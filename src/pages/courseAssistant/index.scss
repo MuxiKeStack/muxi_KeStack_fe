@@ -185,6 +185,22 @@ View {
     bottom: 0;
     color:rgba(255,255,255,1);
 }
+.fab_Fir{
+    z-index: 5000;
+    width:120px;
+    height:120px;
+    background:rgba(110,102,238,1);
+    box-shadow:3px 3px 10px rgba(0,0,0,0.16);
+    border-radius:50%;
+    opacity:1;
+    font-size: 40px;
+    text-align: center;
+    line-height: 120px;
+    position: fixed;
+    right: 40px;
+    bottom: 0;
+    color:rgba(255,255,255,1);
+}
 .clear{
     margin-left: 39rpx;
     margin-top: 10rpx;
@@ -232,22 +248,53 @@ View {
     top: 0;
     left: 0;
     opacity: 0.6;
+}
+.handButton{
+    position:absolute;
+    top:50%;
+    left:36%;
+    width:225rpx;
+    height:77rpx;
+    color:white;
+    z-index:3000;
+    border-radius:35rpx;
+    background-color:#6868F8;
+    text-align:center;
+    line-height:85rpx;
+    font-size:38rpx;
+    font-weight:bold;
+}
+  .Search_Fir{
+    width:598rpx;
+    height:72rpx;
+    background:rgba(241,240,245,1);
+    border-radius:36rpx;
+    z-index: 1500;
+    position: fixed;
+    top: 1%;
+    left: 4%;
   }
-.img1{
-    position: absolute;
-    z-index: 2000;
-    background: #FFFFFF;
-    top:1%;
-    height: 43%;
-    opacity: 1;
+  .Search_Fir_no{
+    width:598rpx;
+    height:72rpx;
+    background:rgba(241,240,245,1);
+    border-radius:36rpx;
+    z-index: 100;
+    position: fixed;
+    top: 1%;
+    left: 4%;
   }
-  .img2{
-    position: absolute;
+  .hand{
     z-index: 2000;
-    background: #FFFFFF;
-    top: 75%;
-    width: 70%;
-    left: 27%;
-    height: 25%;
     opacity: 1;
+    width: 70rpx;
+    height: 70rpx;
+  }
+  .handText1{
+    color: white;
+    font-size: 50rpx;
+    vertical-align:top;
+    margin-left:13rpx;
+    margin-right: 6rpx;
+    font-weight: bold;
   }

@@ -19,8 +19,6 @@ import add from '../../assets/svg/add1.svg';
 import Fetch from '../../service/fetch';
 import './index.scss';
 import Modal from '../../components/common/Modal';
-import image1 from '../../assets/png/free1.png';
-import image2 from '../../assets/png/free2.png';
 import upHand from "../../assets/png/upHand.png"
 import downHand from "../../assets/png/downHand.png"
 
@@ -62,15 +60,17 @@ export default class Index extends Component {
   }
   componentDidShow() {
     let isFir = Taro.getStorageSync('isnew');
-    let isshow = Taro.getStorageSync('isShow');
-    this.setState({
-      isFir: isshow
-    })
     if (isFir == 0) {
       this.setState({
         isFir: true
       });
     }
+    let show = Taro.getStorageSync('isShow');
+      if(show[4]== true){
+        this.setState({
+          isFir: true
+        });
+      }
     Fetch('api/v1/table/', {}, 'GET').then(data => {
       if (data) {
         this.setState({
@@ -499,20 +499,6 @@ export default class Index extends Component {
     } //第四位判断
   }
 
-  onClick1() {
-    this.setState({
-      to1: false,
-      to2: true
-    })
-  }
-  onClick2() {
-    this.setState({
-      isFir: true
-    },
-    ()=>{
-      Taro.setStorageSync('isShow', this.state.isFir);
-    })
-  }
   onClickKnow() {
     console.log(13)
     let num = this.state.imageNum;
@@ -526,6 +512,9 @@ export default class Index extends Component {
       this.setState({
         isFir: true
       });
+      let show =Taro.getStorageSync('isShow')
+      show[4]=true;
+      Taro.setStorageSync('isShow',show)
     }
   }
 
@@ -556,8 +545,6 @@ export default class Index extends Component {
     const isFir = this.state.isFir;
     let to1 = this.state.to1;
     let to2 = this.state.to2;
-    const ImageUrl1 = image1;
-    const ImageUrl2 = image2;
     // eslint-disable-next-line no-shadow
     const { WEEKS, COURSES, COURSESData } = this.state;
     const scrollStyle = {
@@ -577,13 +564,6 @@ export default class Index extends Component {
         )}
         {!isFir &&
         to1 &&
-        // <View>
-        //   <Image
-        //     className="img2"
-        //     src={ImageUrl2}
-        //     onClick={this.onClick2.bind(this)}
-        //   ></Image>
-        // </View>
         this.AttentionText('点击展开选课清单', 3, {
           left: '',
           top: '',
@@ -592,13 +572,6 @@ export default class Index extends Component {
         })}
         {!isFir &&
         to2 &&
-        // <View>
-        //   <Image
-        //     className="img2"
-        //     src={ImageUrl2}
-        //     onClick={this.onClick2.bind(this)}
-        //   ></Image>
-        // </View>
         this.AttentionText('点击课表查看更多功能', 0, {
           left: '75rpx',
           top: '145rpx'

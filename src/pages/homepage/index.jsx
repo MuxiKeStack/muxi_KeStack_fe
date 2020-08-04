@@ -6,8 +6,8 @@ import image from '../../assets/svg/avatar-img.svg';
 import './index.scss';
 import Fetch from '../../service/fetch';
 import MxIcon from '../../components/common/MxIcon';
-import image1 from '../../assets/png/home1.png';
-import image2 from '../../assets/png/home2.png';
+import upHand from '../../assets/png/upHand.png';
+import downHand from '../../assets/png/downHand.png';
 // import {isLogined} from 'utils/tools'
 // import { courseList} from 'sevices/course'
 // import { serverUrl } from  'utils/config'
@@ -19,9 +19,10 @@ export default class Index extends Component {
       user: { avatar: image, username: 'null', sid: 'null' },
       readAll: true,
       openModal: false,
-      isFir: true,
+      isFir: false,
       to1: true,
-      to2: false
+      to2: false,
+      imageNum: 1
     };
   }
 
@@ -38,12 +39,18 @@ export default class Index extends Component {
   }
 
   componentDidShow() {
-    // let isFir = Taro.getStorageSync('isnew');
-    // if (isFir == 0) {
-    //   this.setState({
-    //     isFir: true
-    //   });
-    // }
+    let isFir = Taro.getStorageSync('isnew');
+    if (isFir == 0) {
+      this.setState({
+        isFir: true
+      });
+    }
+    let show = Taro.getStorageSync('isShow');
+      if(show[5]== true){
+        this.setState({
+          isFir: true
+        });
+      }
     if (!Taro.getStorageSync('sid')) {
       Taro.navigateTo({
         url: '/pages/login/index'
@@ -102,51 +109,90 @@ export default class Index extends Component {
 
   componentDidHide() {}
 
-  onClick1() {
-    this.setState({
-      to1: false,
-      to2: true
-    });
+  onClickKnow() {
+    let num = this.state.imageNum;
+    if (num == 1) {
+      this.setState({
+        to1: false,
+        to2: true,
+        imageNum: 2
+      });
+    } else if (num == 2) {
+      this.setState({
+        isFir: true
+      });
+      let show =Taro.getStorageSync('isShow')
+      show[5]=true;
+      Taro.setStorageSync('isShow',show)
+    }
   }
-  onClick2() {
-    this.setState({
-      isFir: true
-    });
+
+  AttentionText(
+    text = '在这里搜索想要的课程',
+    direction = 0,
+    pos = { top: '105rpx', left: '35rpx' },
+    addition//文字大小
+  ) {
+    //0左上   1左下    2右上   3右下
+    let style = `position: absolute; display: block; z-index: 3000;top: ${pos.top}; left: ${pos.left};bottom: ${pos.bottom}; right: ${pos.right}`;
+    let styleHand = `${addition}`
+    return direction <= 1 ? (
+      <View style={style}>
+        <Image className="hand" src={direction == 0 ? upHand : downHand} />
+        <View className="handText1" style={styleHand}>{text}</View>
+      </View>
+    ) : (
+      <View style={style}>
+        <View className="handText1" style={styleHand}>{text}</View>
+        <Image className="hand" src={direction == 2 ? upHand : downHand} />
+      </View>
+    );
   }
 
   render() {
     const isFir = this.state.isFir;
     const to1 = this.state.to1;
     const to2 = this.state.to2;
-    const ImageUrl1 = image1;
-    const ImageUrl2 = image2;
     const { user, readAll, openModal } = this.state;
     const rootStyle = {
       // width: `${Taro.pxTransform(164)}`,
       // height: `${Taro.pxTransform(164)}`,
     };
     const modalStyle = openModal ? { display: 'block' } : { display: 'none' };
+    // const head_Fir = (
+    //   <View className="Fir">
+    //     <List className="main-page-list-Fir">
+    //       <Item
+    //         iconType="myCourse"
+    //         title="我的课程"
+    //         extraText="MY COURSE"
+    //         onClick={this.ChangeTomycourse.bind(this)}
+    //       ></Item>
+    //     </List>
+    //   </View>
+    // );
+
     return (
       <View>
         {!isFir && <View className="mask"></View>}
-        {!isFir && to1 && (
-          <View>
-            <Image
-              className="img1"
-              src={ImageUrl1}
-              onClick={this.onClick1.bind(this)}
-            ></Image>
+        {!isFir && (
+          <View className="handButton" onClick={this.onClickKnow.bind(this)}>
+            我知道啦
           </View>
+        )}
+        {!isFir && to1 && (
+          this.AttentionText('这是入学以来上过的全部课程',0,{
+            top:'430rpx',
+            left:'40rpx'
+          })
         )}
         {!isFir && to2 && (
-          <View>
-            <Image
-              className="img2"
-              src={ImageUrl2}
-              onClick={this.onClick2.bind(this)}
-            ></Image>
-          </View>
+           this.AttentionText('这是收藏过的备选课程',0,{
+            top:'690rpx',
+            left:'50rpx'
+           })
         )}
+        {/* {this.state.isFir == false ? head_Fir : head_noFir} */}
         <View className="home-page-user-info">
           <View className="user-avatar">
             <Image
@@ -171,6 +217,19 @@ export default class Index extends Component {
           </View>
         </View>
         {/* <View className="home_page_list-title">MY PROJECT</View> */}
+        {to1 && (
+        <View style="position:absolution;z-index:5000">
+        <List className="main-page-list">
+          <Item
+            num={false}
+            iconType="myCourse"
+            title="我的课程"
+            extraText="MY COURSE"
+            onClick={this.ChangeTomycourse.bind(this)}
+          ></Item>
+        </List>
+        </View>
+        )}
         <List className="main-page-list">
           <Item
             iconType="myCourse"
@@ -184,6 +243,14 @@ export default class Index extends Component {
             extraText="REVIEW HISTORY"
             onClick={this.ChangeTocommentHistory.bind(this)}
           ></Item>
+          {to2 && 
+          <Item
+            num={false}
+            iconType="courseList"
+            title="选课清单"
+            extraText="COURSE LIST"
+            onClick={this.ChangeTocourseSelectionList.bind(this)}
+          ></Item>}
           <Item
             iconType="courseList"
             title="选课清单"

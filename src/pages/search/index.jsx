@@ -5,8 +5,6 @@ import './index.scss';
 import MxTag from '../../components/common/MxTag/index';
 import MxRate from '../../components/common/MxRate/MxRate';
 import MxInput from '../../components/common/MxInput/MxInput';
-import image from '../../assets/png/search.png';
-import MxGuide from '../../components/common/MxGuide/index';
 import Fetch from '../../service/fetch';
 import upHand from "../../assets/png/upHand.png"
 import downHand from "../../assets/png/downHand.png"
@@ -297,6 +295,12 @@ export default class Index extends Component {
       }
     );
   }
+  handleInput(e){
+    this.setState({
+      inputVal: e.detail.value,
+      keyword: e.detail.value
+    })
+  }
   handleCancel() {
     this.setState(
       {
@@ -316,28 +320,20 @@ export default class Index extends Component {
 
   componentDidShow() {
     let isFir = Taro.getStorageSync('isnew');
-    let isshow2 = Taro.getStorageSync('isShow2');
-    this.setState({
-      isFir: isshow2
-    })
     if (isFir == 0) {
       this.setState({
         isFir: true
       });
     }
-    console.log(this.state.isFir);
+    let show = Taro.getStorageSync('isShow');
+      if(show[1]== true){
+        this.setState({
+          isFir: true
+        });
+      }
   }
 
   componentDidHide() {}
-
-  onClick() {
-    this.setState({
-      isFir: true
-    },
-    ()=>{
-      Taro.setStorageSync('isShow2', this.state.isFir);
-    })
-  }
 
   AttentionText(
     text = '在这里搜索想要的课程',
@@ -364,6 +360,14 @@ export default class Index extends Component {
       </View>
     );
   }
+  onClick() {
+      this.setState({
+        isFir: true
+      });
+      let show =Taro.getStorageSync('isShow')
+      show[1]=true;
+      Taro.setStorageSync('isShow',show)
+  }
   render() {
     const isFir = this.state.isFir;
     let inputVal = this.state.inputVal;
@@ -372,7 +376,6 @@ export default class Index extends Component {
     let tagState = this.state.tagsState;
     const hidden = this.state.hidden;
     const { history } = this.state;
-    const ImageUrl = image;
     const list = (
       <View className="index">
         {history.map(h => {
@@ -559,6 +562,7 @@ export default class Index extends Component {
               onChange={this.onChhange.bind(this)}
               onConfirm={this.handleClickContent.bind(this)}
               onFocus={this.handleFocus.bind(this)}
+              onInput={this.handleInput.bind(this)}
             ></MxInput>
           </View>
           {hidden && list}

@@ -14,10 +14,6 @@ import MxIcon from '../../components/common/MxIcon';
 import Fetch from '../../service/fetch';
 import MxReport from '../../components/common/MxReport';
 import MxLike from '../../components/page/MxLike/MxLike';
-import image1 from '../../assets/png/s1.png';
-import image2 from '../../assets/png/s2.png';
-import image3 from '../../assets/png/s3.png';
-import image4 from '../../assets/png/s4.png';
 import upHand from '../../assets/png/upHand.png';
 import downHand from '../../assets/png/downHand.png';
 import MxButton from '../../components/common/MxButton';
@@ -190,6 +186,12 @@ export default class Index extends Component {
           isFir: true
         });
       }
+      let show = Taro.getStorageSync('isShow');
+      if(show[0]== true){
+        this.setState({
+          isFir: true
+        });
+      }
       this.setState(
         {
           bottomFlag: false,
@@ -233,30 +235,10 @@ export default class Index extends Component {
       this.setState({
         isFir: true
       });
+      let show =Taro.getStorageSync('isShow')
+      show[0]=true;
+      Taro.setStorageSync('isShow',show)
     }
-  }
-  onClick1() {
-    this.setState({
-      to1: false,
-      to2: true
-    });
-  }
-  onClick2() {
-    this.setState({
-      to2: false,
-      to3: true
-    });
-  }
-  onClick3() {
-    this.setState({
-      to3: false,
-      to4: true
-    });
-  }
-  onClick4() {
-    this.setState({
-      isFir: true
-    });
   }
   scrollToTop() {
     console.log("你好")
@@ -269,7 +251,7 @@ export default class Index extends Component {
     text = '在这里搜索想要的课程',
     direction = 0,
     pos = { top: '105rpx', left: '35rpx' },
-    addition
+    addition//文字大小
   ) {
     //0左上   1左下    2右上   3右下
     let style = `position: absolute; display: block; z-index: 3000;top: ${pos.top}; left: ${pos.left};`;
@@ -310,11 +292,7 @@ export default class Index extends Component {
     const to1 = this.state.to1;
     const to2 = this.state.to2;
     const to3 = this.state.to3;
-    const to4 = this.state.to4;
-    const ImageUrl1 = image1;
-    const ImageUrl2 = image2;
-    const ImageUrl3 = image3;
-    const ImageUrl4 = image4;
+    const to4 = this.state.to4; 
     const avatar = 'http://kestackoss.muxixyz.com/guidance/avatar.png';
     const { bottomFlag } = this.state;
     const content = (

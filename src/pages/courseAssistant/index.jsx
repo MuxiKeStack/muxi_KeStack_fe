@@ -5,8 +5,8 @@ import MxInput from '../../components/common/MxInput/MxInput';
 import MxPicker from '../../components/common/MxPicker';
 import MxTag from '../../components/common/MxTag/index';
 import MxRate from '../../components/common/MxRate/MxRate';
-import image1 from '../../assets/png/aide1.png';
-import image2 from '../../assets/png/aide2.png';
+import upHand from '../../assets/png/upHand.png';
+import downHand from '../../assets/png/downHand.png';
 import Fetch from '../../service/fetch';
 
 export default class Index extends Component {
@@ -80,9 +80,10 @@ export default class Index extends Component {
       place: '',
       page: 1,
       datas: [],
-      isFir: true,
+      isFir: false,
       to1: true,
-      to2: false
+      to2: false,
+      imageNum: 1,
     };
   }
 
@@ -381,26 +382,59 @@ export default class Index extends Component {
   componentWillUnmount() {}
 
   componentDidShow() {
-    // let isFir = Taro.getStorageSync('isnew');
-    // if (isFir == 0) {
-    //   this.setState({
-    //     isFir: true
-    //   });
-    // }
+    let isFir = Taro.getStorageSync('isnew');
+    if (isFir == 0) {
+      this.setState({
+        isFir: true
+      });
+    }
+    let show = Taro.getStorageSync('isShow');
+      if(show[2]== true){
+        this.setState({
+          isFir: true
+        });
+      }
+  }
+  AttentionText(
+    text = '在这里搜索想要的课程',
+    direction = 0,
+    pos = { top: '105rpx', left: '35rpx' },
+    addition//文字大小
+  ) {
+    //0左上   1左下    2右上   3右下
+    let style = `position: absolute; display: block; z-index: 3000;top: ${pos.top}; left: ${pos.left};bottom: ${pos.bottom}; right: ${pos.right}`;
+    let styleHand = `${addition}`
+    return direction <= 1 ? (
+      <View style={style}>
+        <Image className="hand" src={direction == 0 ? upHand : downHand} />
+        <View className="handText1" style={styleHand}>{text}</View>
+      </View>
+    ) : (
+      <View style={style}>
+        <View className="handText1" style={styleHand}>{text}</View>
+        <Image className="hand" src={direction == 2 ? upHand : downHand} />
+      </View>
+    );
   }
 
   componentDidHide() {}
 
-  onClick1() {
-    this.setState({
-      to1: false,
-      to2: true
-    })
-  }
-  onClick2() {
-    this.setState({
-      isFir: true
-    })
+  onClickKnow() {
+    let num = this.state.imageNum;
+    if (num == 1) {
+      this.setState({
+        to1: false,
+        to2: true,
+        imageNum: 2
+      });
+    } else if (num == 2) {
+      this.setState({
+        isFir: true
+      });
+      let show =Taro.getStorageSync('isShow')
+      show[2]=true;
+      Taro.setStorageSync('isShow',show)
+    }
   }
 
   render() {
@@ -410,8 +444,6 @@ export default class Index extends Component {
     let inputVal = this.state.inputVal;
     const hidden = this.state.hidden;
     const { records } = this.state;
-    const ImageUrl1 = image1;
-    const ImageUrl2 = image2;
     const list = (
       <View className="index">
         {records.map(record => {
@@ -434,7 +466,7 @@ export default class Index extends Component {
     );
     const content = (
       <View className="detailsBoxes">
-        <View onClick={this.ChangeTofree.bind(this)} className="fab">
+        <View onClick={this.ChangeTofree.bind(this)} className={this.state.to2 == true ? "fab_Fir" : "fab"}>
           课
         </View>
         {this.state.datas.map(data => {
@@ -538,17 +570,7 @@ export default class Index extends Component {
       </View>
     );
 
-    return (
-      <View style="display: block">
-        {!isFir && <View className="mask"></View>}
-        {!isFir && to1 &&(
-        <View>
-          <Image className="img1" src={ImageUrl1} onClick={this.onClick1.bind(this)}></Image>
-        </View>)}
-        {!isFir && to2 &&(
-        <View>
-          <Image className="img2" src={ImageUrl2} onClick={this.onClick2.bind(this)}></Image>
-        </View>)}
+    const head_noFir = (
         <View className="chooseBox">
           <View className="search">
             <MxInput
@@ -609,6 +631,55 @@ export default class Index extends Component {
             </View>
           </View>
         </View>
+    );
+
+    const head_Fir = (
+      <View style="display: block;">
+        <View
+          className={
+            this.state.to1 == true
+              ? 'Search_Fir'
+              : 'Search_Fir_no'
+          }
+        >
+            <MxInput
+              confirmType="search"
+              leftSrc="../../../assets/svg/searchicon.svg"
+              rightSrc="../../../assets/svg/cross.svg"
+              leftSize="32rpx"
+              rightSize="48rpx"
+              padding1="20rpx"
+              padding2="10rpx"
+              width="670rpx"
+              height="72rpx"
+              background="rgba(241,240,245,1)"
+              radius="36rpx"
+              placeholder="搜索课程名/老师名/课程序号"
+            ></MxInput>
+          </View>
+      </View>
+    );
+
+    return (
+      <View style="display: block">
+        {!isFir && <View className="mask"></View>}
+        {!isFir && (
+          <View className="handButton" onClick={this.onClickKnow.bind(this)}>
+            我知道啦
+          </View>
+        )}
+        {!isFir && to1 &&
+         this.AttentionText('在这里搜索当前学期[选课手册]中的可选课程',0)
+        }
+        {!isFir && to2 &&
+         this.AttentionText('点击进入个人排课',3, {
+          left: '',
+          top: '',
+          bottom: '120rpx',
+          right: '70rpx'
+        })
+        }
+        {this.state.isFir == false ? head_Fir : head_noFir}
         {content}
       </View>
     );

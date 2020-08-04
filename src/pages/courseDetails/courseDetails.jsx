@@ -17,7 +17,6 @@ import hotcmt from '../../assets/png/hotcmt.png';
 import newcmt from '../../assets/png/newcmt.png';
 import CmtCourseCard from '../../components/page/CmtCourseCard/CmtCourseCard';
 import ClassCard from '../../components/page/ClassCard/ClassCard';
-import image from '../../assets/png/detail.png';
 import upHand from '../../assets/png/upHand.png';
 import downHand from '../../assets/png/downHand.png';
 
@@ -172,16 +171,18 @@ export default class Coursedetails extends Component {
     prevPage.setData({
       testdata: 123456
     });
-    let show = Taro.getStorageSync('isShow3');
     let isFir = Taro.getStorageSync('isnew');
-    this.setState({
-      isFir: show
-    });
     if (isFir == 0) {
       this.setState({
         isFir: true
       });
     }
+    let show = Taro.getStorageSync('isShow');
+      if(show[3]== true){
+        this.setState({
+          isFir: true
+        });
+      }
   }
 
   componentDidHide() {}
@@ -327,17 +328,6 @@ export default class Coursedetails extends Component {
   //   });
   // }
 
-  onClick() {
-    this.setState(
-      {
-        isFir: true
-      },
-      () => {
-        Taro.setStorageSync('isShow3', this.state.isFir);
-      }
-    );
-  }
-
   AttentionText(
     text = '在这里搜索想要的课程',
     direction = 0,
@@ -363,6 +353,14 @@ export default class Coursedetails extends Component {
       </CoverView>
     );
   }
+  onClick() {
+    this.setState({
+      isFir: true
+    });
+    let show =Taro.getStorageSync('isShow')
+    show[3]=true;
+    Taro.setStorageSync('isShow',show)
+}
 
   render() {
     const {
@@ -510,7 +508,6 @@ export default class Coursedetails extends Component {
     const getGradeStyle = { display: this.state.getGradeCover };
     const CARDCOLOR = ['#81CAE2', '#F9C895', '#FBC5D4', '#93D9D1'];
     const isFir = this.state.isFir;
-    const ImgeUrl = image;
     return (
       <View
         className={this.state.isFir ? 'courseDetails' : 'courseDetails_Fir'}
