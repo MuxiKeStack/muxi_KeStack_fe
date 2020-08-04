@@ -19,7 +19,7 @@ export default class Index extends Component {
       user: { avatar: image, username: 'null', sid: 'null' },
       readAll: true,
       openModal: false,
-      isFir: false,
+      isFir: true,
       to1: true,
       to2: false
     };
@@ -38,12 +38,12 @@ export default class Index extends Component {
   }
 
   componentDidShow() {
-    let isFir = Taro.getStorageSync('isnew');
-    if (isFir == 0) {
-      this.setState({
-        isFir: true
-      });
-    }
+    // let isFir = Taro.getStorageSync('isnew');
+    // if (isFir == 0) {
+    //   this.setState({
+    //     isFir: true
+    //   });
+    // }
     if (!Taro.getStorageSync('sid')) {
       Taro.navigateTo({
         url: '/pages/login/index'

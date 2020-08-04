@@ -80,7 +80,7 @@ export default class Index extends Component {
       place: '',
       page: 1,
       datas: [],
-      isFir: false,
+      isFir: true,
       to1: true,
       to2: false
     };
@@ -381,12 +381,12 @@ export default class Index extends Component {
   componentWillUnmount() {}
 
   componentDidShow() {
-    let isFir = Taro.getStorageSync('isnew');
-    if (isFir == 0) {
-      this.setState({
-        isFir: true
-      });
-    }
+    // let isFir = Taro.getStorageSync('isnew');
+    // if (isFir == 0) {
+    //   this.setState({
+    //     isFir: true
+    //   });
+    // }
   }
 
   componentDidHide() {}

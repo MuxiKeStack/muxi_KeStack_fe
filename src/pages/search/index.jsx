@@ -28,7 +28,7 @@ export default class Index extends Component {
       // mask: 'mask',
       // masklist: 'masklist',
       courseCollected: [],
-      isFir: false
+      isFir: true
     };
   }
   // eslint-disable-next-line react/sort-comp
@@ -313,17 +313,17 @@ export default class Index extends Component {
   componentWillUnmount() {}
 
   componentDidShow() {
-    let isFir = Taro.getStorageSync('isnew');
-    let isshow2 = Taro.getStorageSync('isShow2');
-    this.setState({
-      isFir: isshow2
-    })
-    if (isFir == 0) {
-      this.setState({
-        isFir: true
-      });
-    }
-    console.log(this.state.isFir);
+    // let isFir = Taro.getStorageSync('isnew');
+    // let isshow2 = Taro.getStorageSync('isShow2');
+    // this.setState({
+    //   isFir: isshow2
+    // })
+    // if (isFir == 0) {
+    //   this.setState({
+    //     isFir: true
+    //   });
+    // }
+    // console.log(this.state.isFir);
   }
 
   componentDidHide() {}

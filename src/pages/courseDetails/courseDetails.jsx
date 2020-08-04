@@ -514,7 +514,7 @@ export default class Coursedetails extends Component {
         {!isFir &&
         this.AttentionText('看看饼状图更快了解这门课程哟！', 0,{top:"493rpx", left: "55rpx"},"width: 540rpx")}
         {!isFir &&
-        this.AttentionText('喜欢这门课？把他们加入选课清单吧！', 3,{top:"62%", left: "3.5%"},"width: 600rpx")}
+        this.AttentionText('喜欢这门课？把他们加入选课清单吧！', 3,{top:"923rpx", left: "31rpx"},"width: 600rpx")}
 
         <CoverView className={this.state.isFir == false ? "starBac_Fir" : "starBac"} onClick={this.state.isFir? this.favorite : ()=>{}}>
           {!collect && <CoverImage src={star} className="star"></CoverImage>}
