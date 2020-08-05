@@ -119,7 +119,8 @@ export default class Index extends Component {
       });
     } else if (num == 2) {
       this.setState({
-        isFir: true
+        isFir: true,
+        to2: false
       });
       let show =Taro.getStorageSync('isShow')
       show[5]=true;
@@ -159,18 +160,6 @@ export default class Index extends Component {
       // height: `${Taro.pxTransform(164)}`,
     };
     const modalStyle = openModal ? { display: 'block' } : { display: 'none' };
-    // const head_Fir = (
-    //   <View className="Fir">
-    //     <List className="main-page-list-Fir">
-    //       <Item
-    //         iconType="myCourse"
-    //         title="我的课程"
-    //         extraText="MY COURSE"
-    //         onClick={this.ChangeTomycourse.bind(this)}
-    //       ></Item>
-    //     </List>
-    //   </View>
-    // );
 
     return (
       <View>
@@ -192,7 +181,6 @@ export default class Index extends Component {
             left:'50rpx'
            })
         )}
-        {/* {this.state.isFir == false ? head_Fir : head_noFir} */}
         <View className="home-page-user-info">
           <View className="user-avatar">
             <Image
@@ -216,21 +204,14 @@ export default class Index extends Component {
             <MxIcon type="arrowR" width="50" height="50"></MxIcon>
           </View>
         </View>
-        {/* <View className="home_page_list-title">MY PROJECT</View> */}
-        {to1 && (
-        <View style="position:absolution;z-index:5000">
         <List className="main-page-list">
-          <Item
+        {to1 && 
+        <Item
             num={false}
             iconType="myCourse"
             title="我的课程"
             extraText="MY COURSE"
-            onClick={this.ChangeTomycourse.bind(this)}
-          ></Item>
-        </List>
-        </View>
-        )}
-        <List className="main-page-list">
+          ></Item>}
           <Item
             iconType="myCourse"
             title="我的课程"
@@ -249,7 +230,6 @@ export default class Index extends Component {
             iconType="courseList"
             title="选课清单"
             extraText="COURSE LIST"
-            onClick={this.ChangeTocourseSelectionList.bind(this)}
           ></Item>}
           <Item
             iconType="courseList"

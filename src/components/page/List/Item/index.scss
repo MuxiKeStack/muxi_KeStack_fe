@@ -30,17 +30,10 @@ $Background: url(../../../../assets/svg/bgim.svg);
   border-bottom: 2px solid #EBEDF5;
   position:absolute;
   z-index: 5000;
+  background-color: white;
+  border-radius: 30rpx;
 }
 .item-title {
-  font-size: 40px;
-  font-weight:300;
-  color: rgba(0, 0, 0, 1);
-  opacity: 1;
-  padding-left:27px;
-}
-.item-title-Fir {
-  position:absolute;
-  z-index: 5000;
   font-size: 40px;
   font-weight:300;
   color: rgba(0, 0, 0, 1);

@@ -32,7 +32,7 @@ export default class Item extends Component {
                 className="item-icon" /*outerStyle={setIconCenter}*/
               ></MxIcon>
             </View>
-            <View className='item-title'>{title}</View>
+            <Text className='item-title'>{title}</Text>
             <MxIcon type="solidC" width="20" height="20"></MxIcon>
             <Text className="item-extra">{extraText}</Text>
           </View>
@@ -47,7 +47,7 @@ export default class Item extends Component {
                 className="item-icon" /*outerStyle={setIconCenter}*/
               ></MxIcon>
             </View>
-            <View className='item-title'>{title}</View>
+            <Text className='item-title'>{title}</Text>
             <Text className="item-extra">{extraText}</Text>
           </View>
         )}
@@ -61,7 +61,7 @@ export default class Item extends Component {
                 className="item-icon" /*outerStyle={setIconCenter}*/
               ></MxIcon>
             </View>
-            <View className='item-title'>{title}</View>
+            <Text className='item-title'>{title}</Text>
             <Text className="item-extra">{extraText}</Text>
           </View>
         )}
