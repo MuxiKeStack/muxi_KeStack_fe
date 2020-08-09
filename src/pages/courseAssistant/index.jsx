@@ -398,7 +398,7 @@ export default class Index extends Component {
   AttentionText(
     text = '在这里搜索想要的课程',
     direction = 0,
-    pos = { top: '105rpx', left: '35rpx' },
+    pos = { top: '105rpx', left: '35rpx', bottom: '', right: '' },
     addition//文字大小
   ) {
     //0左上   1左下    2右上   3右下
@@ -411,7 +411,7 @@ export default class Index extends Component {
       </View>
     ) : (
       <View style={style}>
-        <View className="handText1" style={styleHand}>{text}</View>
+        <View className="handText2" style={styleHand}>{text}</View>
         <Image className="hand" src={direction == 2 ? upHand : downHand} />
       </View>
     );
@@ -676,7 +676,7 @@ export default class Index extends Component {
           left: '',
           top: '',
           bottom: '120rpx',
-          right: '70rpx'
+          right: '65rpx'
         })
         }
         {this.state.isFir == false ? head_Fir : head_noFir}

@@ -130,6 +130,7 @@ Page {
     opacity: 1;
     width: 70rpx;
     height: 70rpx;
+    display: inline-block;
   }
   .handText1{
     color: white;
@@ -138,4 +139,6 @@ Page {
     margin-left:13rpx;
     margin-right: 6rpx;
     font-weight: bold;
+    display: inline-block;
+    width:600rpx;
   }

@@ -131,7 +131,7 @@ export default class Index extends Component {
   AttentionText(
     text = '在这里搜索想要的课程',
     direction = 0,
-    pos = { top: '105rpx', left: '35rpx' },
+    pos = { top: '105rpx', left: '35rpx'},
     addition//文字大小
   ) {
     //0左上   1左下    2右上   3右下
@@ -205,7 +205,7 @@ export default class Index extends Component {
           </View>
         </View>
         <List className="main-page-list">
-        {to1 && 
+        {!isFir && to1 && 
         <Item
             num={false}
             iconType="myCourse"
@@ -224,7 +224,7 @@ export default class Index extends Component {
             extraText="REVIEW HISTORY"
             onClick={this.ChangeTocommentHistory.bind(this)}
           ></Item>
-          {to2 && 
+          {!isFir && to2 && 
           <Item
             num={false}
             iconType="courseList"
