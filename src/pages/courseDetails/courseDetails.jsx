@@ -166,23 +166,23 @@ export default class Coursedetails extends Component {
   componentWillUnmount() {}
 
   componentDidShow() {
-    const pages = Taro.getCurrentPages();
-    const prevPage = pages[pages.length - 2]; // 上一页// 调用上一个页面的setData 方法，将数据存储
-    prevPage.setData({
-      testdata: 123456
-    });
-    let isFir = Taro.getStorageSync('isnew');
-    if (isFir == 0) {
-      this.setState({
-        isFir: true
-      });
-    }
-    let show = Taro.getStorageSync('isShow');
-      if(show[3]== true){
-        this.setState({
-          isFir: true
-        });
-      }
+    // const pages = Taro.getCurrentPages();
+    // const prevPage = pages[pages.length - 2]; // 上一页// 调用上一个页面的setData 方法，将数据存储
+    // prevPage.setData({
+    //   testdata: 123456
+    // });
+    // let isFir = Taro.getStorageSync('isnew');
+    // if (isFir == 0) {
+    //   this.setState({
+    //     isFir: true
+    //   });
+    // }
+    // let show = Taro.getStorageSync('isShow');
+    //   if(show[3]== true){
+    //     this.setState({
+    //       isFir: true
+    //     });
+    //   }
   }
 
   componentDidHide() {}
@@ -482,9 +482,9 @@ export default class Coursedetails extends Component {
       ctx.fillText(`${type}`, radiusOut, radiusOut);
       ctx.draw();
     }
-    drawRing(Taro.createCanvasContext('ring1'), ANGLE1, '成绩');
-    drawRing(Taro.createCanvasContext('ring2'), ANGLE2, '考勤');
-    drawRing(Taro.createCanvasContext('ring3'), ANGLE3, '考核');
+    // drawRing(Taro.createCanvasContext('ring1'), ANGLE1, '成绩');
+    // drawRing(Taro.createCanvasContext('ring2'), ANGLE2, '考勤');
+    // drawRing(Taro.createCanvasContext('ring3'), ANGLE3, '考核');
 
     let courseCategory = null;
     if (this.state.classInfo.course_category == 0) {
